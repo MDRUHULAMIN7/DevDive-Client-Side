@@ -7,7 +7,7 @@ const Sidebar = ({setOpenMenu, openMenu}) => {
     return (
 
 
-            <aside className={`flex flex-col w-64 lg:translate-x-0 ${openMenu ? "translate-x-0 duration-200 ease-in-out":"translate-x-[-256px] duration-200 ease-in-out"} h-[calc(100vh-69px)]  px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l`}>
+            <aside className={`flex fixed flex-col w-64 lg:translate-x-0 ${openMenu ? "translate-x-0 duration-200 ease-in-out":"translate-x-[-256px] duration-200 ease-in-out"} h-[calc(100vh-69px)]  px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l`}>
 
                 <div className="flex flex-col justify-between flex-1">
                     <nav>

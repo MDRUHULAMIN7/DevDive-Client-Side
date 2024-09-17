@@ -35,20 +35,20 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="relative bg-white border-b border-black border-opacity-15">
+            <nav className="fixed w-full top-0 bg-white border-b border-black border-opacity-15">
                 <div className="sm:px-6 px-3 py-3 flex justify-between items-center">
                     <div className="flex items-center justify-between">
                         <HiOutlineMenuAlt1 onClick={()=>{setOpenMenu(!openMenu)}} className="text-2xl mr-3 lg:hidden" /><Logo></Logo>
                     </div>
 
-                    <div className="relative hover:xl:w-[600px] duration-300 ease-in-out w-[580px] lg:block hidden">
+                    <div className="relative w-[580px] lg:block hidden">
                         <span className="absolute inset-y-0 left-0 flex justify-between items-center pl-3">
                             <svg className="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none">
                                 <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
                             </svg>
                         </span>
 
-                        <input type="text" className="w-full py-2 pl-10 pr-4 text-gray-700 bg-gray-200 border-black border border-transparent rounded-2xl outline-none focus:border-pm-color" placeholder="Search" />
+                        <input type="text" className="w-full py-2 pl-10 pr-4 text-gray-700 bg-gray-200 border-black border border-transparent rounded-2xl outline-none hover:border-pm-color focus:border-pm-color" placeholder="Search" />
                     </div>
                     <div className="flex justify-between items-center">
                         <svg
@@ -84,7 +84,7 @@ const Navbar = () => {
                                 </button>
 
 
-                                <div className={`${clickPp ? "lg:block hidden" : "hidden"} w-[250px] pt-5 shadow-2xl absolute top-14 right-0 rounded-lg`}>
+                                <div className={`${clickPp ? "lg:block hidden" : "hidden"} w-[250px] pt-5 shadow-2xl absolute top-14 right-0 rounded-lg bg-white`}>
 
                                     <div className="flex items-center gap-2 px-5 py-4 hover:bg-gray-100">
                                         <div className="relative">
@@ -119,7 +119,7 @@ const Navbar = () => {
 
                                     <button onClick={() => setOpenSmallMenu(!openSmallMenu)} title="Open Menu" className="text-xl rounded-full p-3 hover:bg-gray-200 duration-200"><CiMenuKebab /></button>
 
-                                    <div className={`${openSmallMenu ? "lg:block hidden" : "hidden"} w-[250px] lg:py-8 py-5 shadow-2xl absolute top-14 right-0 rounded-lg`}>
+                                    <div className={`${openSmallMenu ? "lg:block hidden" : "hidden"} w-[250px] lg:py-8 py-5 shadow-2xl absolute top-14 right-0 rounded-lg bg-white`}>
                                         <span className="flex justify-start lg:px-6 px-5 items-center gap-4 sm:text-sm text-xs"><MdLogin className="text-2xl" /> Sign In / Sign Up</span>
                                     </div>
 
@@ -133,18 +133,18 @@ const Navbar = () => {
             </nav>
 
 
-            <span onClick={() => setOpenSmallMenu(!openSmallMenu)} className={`${openSmallMenu ? "" : "hidden"} w-full h-screen lg:hidden bg-black bg-opacity-20 lg:py-8 py-5 shadow-2xl absolute top-0 right-0 rounded-lg z-10`}>
+            <span onClick={() => setOpenSmallMenu(!openSmallMenu)} className={`${openSmallMenu ? "" : "hidden"} w-full h-screen lg:hidden bg-black bg-opacity-20 lg:py-8 py-5 shadow-2xl fixed top-0 right-0 rounded-lg z-10`}>
             </span>
 
-            <span onClick={() => setClickPp(!clickPp)} className={`${clickPp ? "" : "hidden"} w-full h-screen lg:hidden bg-black bg-opacity-20 lg:py-8 py-5 shadow-2xl absolute top-0 right-0 rounded-lg z-10`}>
+            <span onClick={() => setClickPp(!clickPp)} className={`${clickPp ? "" : "hidden"} w-full h-screen lg:hidden bg-black bg-opacity-20 lg:py-8 py-5 shadow-2xl fixed top-0 right-0 rounded-lg z-10`}>
             </span>
 
 
-            <div className={`absolute z-50 bottom-0 left-0 lg:hidden ${openSmallMenu ? "translate-y-0" : "translate-y-[100%] hidden"} py-5 space-y-4 bg-white w-full`}>
+            <div className={`fixed z-50 bottom-0 left-0 lg:hidden ${openSmallMenu ? "translate-y-0" : "translate-y-[100%] hidden"} py-5 space-y-4 bg-white w-full`}>
                 <span className="flex justify-start lg:px-6 px-5 items-center gap-4 lg:text-base sm:text-sm text-xs"><MdLogin className="text-2xl" /> Sign In / Sign Up</span>
             </div>
 
-            <div className={`absolute z-50 bottom-0 left-0 lg:hidden ${clickPp ? "translate-y-0" : "translate-y-[100%] hidden"} bg-white w-full`}>
+            <div className={`fixed z-50 bottom-0 left-0 lg:hidden ${clickPp ? "translate-y-0" : "translate-y-[100%] hidden"} bg-white w-full`}>
                 <div className="flex items-center gap-2 px-5 py-4 hover:bg-gray-100">
                     <div className="relative">
                         <img className="object-cover w-9 h-9 rounded-full" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=880&h=880&q=100" alt="" />
@@ -175,7 +175,7 @@ const Navbar = () => {
 
             <div
                 className={`${clickSearch
-                    ? "fixed w-full top-0 sm:px-6 px-4 sm:py-3 py-2 lg:hidden"
+                    ? "fixed w-full top-0 sm:px-6 px-4  sm:py-3 py-2 lg:hidden"
                     : "hidden"
                     } bg-white`}
             >
