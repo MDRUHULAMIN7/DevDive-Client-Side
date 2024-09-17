@@ -8,6 +8,7 @@ export default {
     extend: {
       colors: {
         'pm-color': '#54ACDD', // Add your custom color
+        'sec-color': '#279EDA',
       },
     },
   },
