@@ -5,6 +5,7 @@ import Logo from "../Logo/Logo";
 import { IoAdd, IoArrowBackOutline, IoNotificationsOutline, IoSettingsOutline } from "react-icons/io5";
 import Switcher1 from "../Switcher1/Switcher1";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
+import Sidebar from "../Sidebar/Sidebar";
 
 
 
@@ -37,7 +38,7 @@ const Navbar = () => {
             <nav className="relative bg-white border-b border-black border-opacity-15">
                 <div className="sm:px-6 px-3 py-3 flex justify-between items-center">
                     <div className="flex items-center justify-between">
-                        <HiOutlineMenuAlt1 className="text-2xl mr-3 lg:hidden" /><Logo></Logo>
+                        <HiOutlineMenuAlt1 onClick={()=>{setOpenMenu(!openMenu)}} className="text-2xl mr-3 lg:hidden" /><Logo></Logo>
                     </div>
 
                     <div className="relative hover:xl:w-[600px] duration-300 ease-in-out w-[580px] lg:block hidden">
@@ -132,15 +133,18 @@ const Navbar = () => {
             </nav>
 
 
-            {/* <span onClick={() => setOpenSmallMenu(!openSmallMenu)} className={`${openSmallMenu ? "" : "hidden"} w-full h-screen lg:hidden bg-black bg-opacity-15 lg:py-8 py-5 shadow-2xl absolute top-0 right-0 rounded-lg z-10`}>
-            </span> */}
+            <span onClick={() => setOpenSmallMenu(!openSmallMenu)} className={`${openSmallMenu ? "" : "hidden"} w-full h-screen lg:hidden bg-black bg-opacity-20 lg:py-8 py-5 shadow-2xl absolute top-0 right-0 rounded-lg z-10`}>
+            </span>
+
+            <span onClick={() => setClickPp(!clickPp)} className={`${clickPp ? "" : "hidden"} w-full h-screen lg:hidden bg-black bg-opacity-20 lg:py-8 py-5 shadow-2xl absolute top-0 right-0 rounded-lg z-10`}>
+            </span>
 
 
-            <div className={`absolute z-50 bottom-0 left-0 lg:hidden ${openSmallMenu ? "translate-y-0" : "translate-y-[100%] hidden"} py-5 space-y-4 bg-black bg-opacity-20 w-full`}>
+            <div className={`absolute z-50 bottom-0 left-0 lg:hidden ${openSmallMenu ? "translate-y-0" : "translate-y-[100%] hidden"} py-5 space-y-4 bg-white w-full`}>
                 <span className="flex justify-start lg:px-6 px-5 items-center gap-4 lg:text-base sm:text-sm text-xs"><MdLogin className="text-2xl" /> Sign In / Sign Up</span>
             </div>
 
-            <div className={`absolute z-50 bottom-0 left-0 lg:hidden ${clickPp ? "translate-y-0" : "translate-y-[100%] hidden"} bg-black bg-opacity-20 w-full`}>
+            <div className={`absolute z-50 bottom-0 left-0 lg:hidden ${clickPp ? "translate-y-0" : "translate-y-[100%] hidden"} bg-white w-full`}>
                 <div className="flex items-center gap-2 px-5 py-4 hover:bg-gray-100">
                     <div className="relative">
                         <img className="object-cover w-9 h-9 rounded-full" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=880&h=880&q=100" alt="" />
@@ -208,6 +212,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
+            <Sidebar setOpenMenu={setOpenMenu} openMenu={openMenu}></Sidebar>
         </>
     );
 };
