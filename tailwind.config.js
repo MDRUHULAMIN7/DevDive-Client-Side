@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'selector',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -7,8 +8,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        'pm-color': '#54ACDD', // Add your custom color
+        'pm-color': '#54ACDD', 
         'sec-color': '#279EDA',
+        'themeColor' : "#18191A",
+        'themeColor2' : "#242526",
       },
     },
   },

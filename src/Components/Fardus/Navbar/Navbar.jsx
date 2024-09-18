@@ -35,7 +35,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="fixed w-full top-0 bg-white border-b border-black border-opacity-15">
+            <nav className="fixed w-full text-black dark:text-white top-0 bg-white dark:bg-themeColor border-b border-black border-opacity-15">
                 <div className="sm:px-6 px-3 py-3 flex justify-between items-center">
                     <div className="flex items-center justify-between">
                         <HiOutlineMenuAlt1 onClick={()=>{setOpenMenu(!openMenu)}} className="text-2xl mr-3 lg:hidden" /><Logo></Logo>
@@ -84,7 +84,7 @@ const Navbar = () => {
                                 </button>
 
 
-                                <div className={`${clickPp ? "lg:block hidden" : "hidden"} w-[250px] pt-5 shadow-2xl absolute top-14 right-0 rounded-lg bg-white`}>
+                                <div className={`${clickPp ? "lg:block hidden" : "hidden"} w-[250px] pt-5 shadow-2xl absolute top-14 right-0 rounded-lg bg-white dark:bg-themeColor2`}>
 
                                     <div className="flex items-center gap-2 px-5 py-4 hover:bg-gray-100">
                                         <div className="relative">
@@ -144,7 +144,7 @@ const Navbar = () => {
                 <span className="flex justify-start lg:px-6 px-5 items-center gap-4 lg:text-base sm:text-sm text-xs"><MdLogin className="text-2xl" /> Sign In / Sign Up</span>
             </div>
 
-            <div className={`fixed z-50 bottom-0 left-0 lg:hidden ${clickPp ? "translate-y-0" : "translate-y-[100%] hidden"} bg-white w-full`}>
+            <div className={`fixed z-50 bottom-0 left-0 lg:hidden ${clickPp ? "translate-y-0" : "translate-y-[100%] hidden"} bg-white dark:bg-themeColor2 text-black dark:text-white w-full`}>
                 <div className="flex items-center gap-2 px-5 py-4 hover:bg-gray-100">
                     <div className="relative">
                         <img className="object-cover w-9 h-9 rounded-full" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=880&h=880&q=100" alt="" />
