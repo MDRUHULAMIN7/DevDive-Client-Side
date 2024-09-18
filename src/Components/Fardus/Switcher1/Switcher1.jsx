@@ -41,8 +41,8 @@ const Switcher1 = () => {
           />
           <div className={`block h-8 w-14 rounded-full ${isDark ? 'bg-sec-color' : 'bg-[#E5E7EB]'}`}></div>
           <div
-            className={`dot absolute left-1 top-1 h-6 w-6 rounded-full bg-white transition ${
-              isDark ? 'transform translate-x-full bg-black' : ''
+            className={`dot absolute left-1 top-1 h-6 w-6 rounded-full bg-white transition duration-500 ${
+              isDark ? 'transform translate-x-full duration-500 bg-black' : ''
             }`}
           ></div>
         </div>
