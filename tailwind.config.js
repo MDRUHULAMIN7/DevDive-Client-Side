@@ -14,6 +14,9 @@ export default {
         'themeColor2' : "#181C1F",
         'themeColor3' : "#2A3236",
       },
+      fontFamily : {
+        Montserrat : ["Montserrat", "sans-serif"],
+      },
     },
   },
   plugins: [],
