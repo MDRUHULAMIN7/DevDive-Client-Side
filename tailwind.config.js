@@ -10,8 +10,9 @@ export default {
       colors: {
         'pm-color': '#54ACDD', 
         'sec-color': '#279EDA',
-        'themeColor' : "#18191A",
-        'themeColor2' : "#242526",
+        'themeColor' : "#0E1113",
+        'themeColor2' : "#181C1F",
+        'themeColor3' : "#2A3236",
       },
     },
   },

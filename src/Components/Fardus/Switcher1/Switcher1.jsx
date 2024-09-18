@@ -17,7 +17,7 @@ const Switcher1 = () => {
     if (isDark) {
       html.classList.add('dark');
       html.classList.remove('light');
-      body.style.backgroundColor = '#18191A'; // Set dark background color
+      body.style.backgroundColor = '#0E1113'; // Set dark background color
     } else {
       html.classList.add('light');
       html.classList.remove('dark');
@@ -39,7 +39,7 @@ const Switcher1 = () => {
             onChange={handleCheckboxChange}
             className='sr-only'
           />
-          <div className={`block h-8 w-14 rounded-full ${isDark ? 'bg-[#4B5563]' : 'bg-[#E5E7EB]'}`}></div>
+          <div className={`block h-8 w-14 rounded-full ${isDark ? 'bg-sec-color' : 'bg-[#E5E7EB]'}`}></div>
           <div
             className={`dot absolute left-1 top-1 h-6 w-6 rounded-full bg-white transition ${
               isDark ? 'transform translate-x-full bg-black' : ''

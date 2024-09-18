@@ -3,7 +3,7 @@ import Navbar from "../../Components/Fardus/Navbar/Navbar";
 
 const Main = () => {
     return (
-        <section className="">
+        <section className="text-black dark:text-white">
             <div>
                 <Navbar></Navbar>
             </div>

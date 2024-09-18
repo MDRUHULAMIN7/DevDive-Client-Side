@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CiMenuKebab } from "react-icons/ci";
 import { MdLogin, MdOutlineDarkMode, MdOutlineWorkspacePremium } from "react-icons/md";
 import Logo from "../Logo/Logo";
@@ -16,18 +16,15 @@ const Navbar = () => {
     const [clickPp, setClickPp] = useState(false)
     const [clickSearch, setClickSearch] = useState(false)
     const [user, setUser] = useState(true)
+    const [focusInput, setFocusInput] = useState(false)
     const inputRef = useRef(null);
 
-    const handleFocus = () => {
-        inputRef.current.focus();
-    };
-
-    const removeFocus = () => {
-        inputRef.current.blur();
-    };
+    useEffect(() => {
+        focusInput && inputRef.current.focus();
+    }, [focusInput]);
 
 
-    const notification = <IoNotificationsOutline className="text-[22px]" />
+    const notification = <IoNotificationsOutline className="text-[22px] " />
     const add = <IoAdd className="text-[22px]" />
 
 
@@ -35,7 +32,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="fixed w-full text-black dark:text-white top-0 bg-white dark:bg-themeColor border-b border-black border-opacity-15">
+            <nav className="fixed w-full text-black dark:text-white top-0 bg-white dark:bg-themeColor border-b border-black dark:border-gray-700 border-opacity-15">
                 <div className="sm:px-6 px-3 py-3 flex justify-between items-center">
                     <div className="flex items-center justify-between">
                         <HiOutlineMenuAlt1 onClick={()=>{setOpenMenu(!openMenu)}} className="text-2xl mr-3 lg:hidden" /><Logo></Logo>
@@ -48,13 +45,13 @@ const Navbar = () => {
                             </svg>
                         </span>
 
-                        <input type="text" className="w-full py-2 pl-10 pr-4 text-gray-700 bg-gray-200 border-black border border-transparent rounded-2xl outline-none hover:border-pm-color focus:border-pm-color" placeholder="Search" />
+                        <input type="text" className="w-full py-2 pl-10 pr-4 text-gray-700 dark:text-gray-200 bg-gray-200 dark:bg-themeColor3 dark:hover:bg-[#333D42] hover:bg-gray-300 hover:bg-opacity-70 border-black border border-transparent rounded-2xl outline-none" placeholder="Search" />
                     </div>
                     <div className="flex justify-between items-center">
                         <svg
                             onClick={() => {
                                 setClickSearch(true);
-                                handleFocus(); // Focus on input when search icon is clicked
+                                setFocusInput(!focusInput)// Focus on input when search icon is clicked
                             }}
                             className="w-5 h-5 lg:hidden"
                             viewBox="0 0 24 24"
@@ -72,10 +69,10 @@ const Navbar = () => {
                             user ? <div className="flex justify-between items-center mb-1">
 
 
-                                <button className="p-2 rounded-full  hover:bg-gray-200 duration-200 ml-3">{notification}
+                                <button className="p-2 rounded-full  dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100  duration-200 ml-3">{notification}
                                 </button>
 
-                                <button className="flex  items-center gap-1 hover:bg-gray-200 sm:px-3 px-2 py-2 sm:rounded-2xl rounded-full duration-200 mr-3">{add} <span className="sm:block hidden">Create</span>
+                                <button className="flex  items-center gap-1 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100  sm:px-3 px-2 py-2 sm:rounded-2xl rounded-full duration-200 mr-3">{add} <span className="sm:block hidden">Create</span>
                                 </button>
 
                                 <button onClick={() => setClickPp(!clickPp)} className="relative">
@@ -84,9 +81,9 @@ const Navbar = () => {
                                 </button>
 
 
-                                <div className={`${clickPp ? "lg:block hidden" : "hidden"} w-[250px] pt-5 shadow-2xl absolute top-14 right-0 rounded-lg bg-white dark:bg-themeColor2`}>
+                                <div className={`${clickPp ? "lg:block hidden" : "hidden"} w-[250px] pt-5 shadow-2xl absolute top-[70px] right-1 rounded-lg bg-white dark:bg-themeColor2`}>
 
-                                    <div className="flex items-center gap-2 px-5 py-4 hover:bg-gray-100">
+                                    <div className="flex items-center gap-2 px-5 py-4 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 ">
                                         <div className="relative">
                                             <img className="object-cover w-9 h-9 rounded-full" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=880&h=880&q=100" alt="" />
                                             <span className="absolute bottom-0 left-6 w-2 h-2 rounded-full bg-emerald-500 ring-1 ring-white"></span>
@@ -97,19 +94,18 @@ const Navbar = () => {
                                         </div>
                                     </div>
 
-                                    <div className="flex justify-between lg:px-6 px-5 py-3 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs"><span className="flex items-center gap-3"><MdOutlineDarkMode className="text-2xl" />Dark Mode</span>
+                                    <div className="flex justify-between lg:px-6 px-5 py-3 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs"><span className="flex items-center gap-3"><MdOutlineDarkMode className="text-2xl" />Dark Mode</span>
                                         <Switcher1></Switcher1>
                                     </div>
 
-                                    <span className="flex justify-start lg:px-6 px-5 py-3 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs"><MdLogin className="text-2xl" />Log Out</span>
+                                    <span className="flex justify-start lg:px-6 px-5 py-3 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs"><MdLogin className="text-2xl" />Log Out</span>
 
-                                    <hr />
+                                    <hr className="mt-1 border-gray-200 dark:border-gray-700" />
+                                    <span className="flex justify-start lg:px-6 px-5 py-4 my-1 dark:hover:text-gray-50 dark:hover:bg-opacity-30 dark:hover:bg-gray-700 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs"><IoSettingsOutline className="text-2xl" />Setting</span>
 
-                                    <span className="flex justify-start lg:px-6 px-5 py-4 my-1 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs"><IoSettingsOutline className="text-2xl" />Setting</span>
+                                    <hr className="border-gray-200 dark:border-gray-700" />
 
-                                    <hr />
-
-                                    <span className="flex justify-start lg:px-6 px-5 py-4 my-1 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs"><MdOutlineWorkspacePremium className="text-2xl" />Premium</span>
+                                    <span className="flex justify-start lg:px-6 px-5 py-4 my-1 dark:hover:text-gray-50 dark:hover:bg-opacity-30 dark:hover:bg-gray-700 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs"><MdOutlineWorkspacePremium className="text-2xl" />Premium</span>
 
                                 </div>
 
@@ -117,9 +113,9 @@ const Navbar = () => {
                                 <button className="text-nowrap bg-pm-color hover:bg-sec-color duration-200 rounded-2xl text-white px-4 py-2 mr-2 sm:text-base text-sm lg:block hidden">Sign In</button>
                                 <div className="relative">
 
-                                    <button onClick={() => setOpenSmallMenu(!openSmallMenu)} title="Open Menu" className="text-xl rounded-full p-3 hover:bg-gray-200 duration-200"><CiMenuKebab /></button>
+                                    <button onClick={() => setOpenSmallMenu(!openSmallMenu)} title="Open Menu" className="text-xl rounded-full p-3 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 duration-200"><CiMenuKebab /></button>
 
-                                    <div className={`${openSmallMenu ? "lg:block hidden" : "hidden"} w-[250px] lg:py-8 py-5 shadow-2xl absolute top-14 right-0 rounded-lg bg-white`}>
+                                    <div className={`${openSmallMenu ? "lg:block hidden" : "hidden"} w-[250px] lg:py-8 py-5 shadow-2xl absolute top-14 right-0 rounded-lg dark:hover:text-gray-50 dark:hover:bg-opacity-30 dark:hover:bg-gray-700 hover:bg-gray-100 bg-white dark:bg-themeColor2`}>
                                         <span className="flex justify-start lg:px-6 px-5 items-center gap-4 sm:text-sm text-xs"><MdLogin className="text-2xl" /> Sign In / Sign Up</span>
                                     </div>
 
@@ -140,7 +136,7 @@ const Navbar = () => {
             </span>
 
 
-            <div className={`fixed z-50 bottom-0 left-0 lg:hidden ${openSmallMenu ? "translate-y-0" : "translate-y-[100%] hidden"} py-5 space-y-4 bg-white w-full`}>
+            <div className={`fixed z-50 bottom-0 left-0 lg:hidden ${openSmallMenu ? "translate-y-0" : "translate-y-[100%] hidden"} py-5 space-y-4 bg-white dark:bg-themeColor2 dark:hover:text-gray-50 dark:hover:bg-opacity-30 dark:hover:bg-gray-700 hover:bg-gray-100 w-full`}>
                 <span className="flex justify-start lg:px-6 px-5 items-center gap-4 lg:text-base sm:text-sm text-xs"><MdLogin className="text-2xl" /> Sign In / Sign Up</span>
             </div>
 
@@ -156,19 +152,19 @@ const Navbar = () => {
                     </div>
                 </div>
 
-                <div className="flex justify-between lg:px-6 px-5 py-3 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs"><span className="flex items-center gap-3"><MdOutlineDarkMode className="text-2xl" />Dark Mode</span>
+                <div className="flex justify-between lg:px-6 px-5 py-3 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs"><span className="flex items-center gap-3"><MdOutlineDarkMode className="text-2xl" />Dark Mode</span>
                     <Switcher1></Switcher1>
                 </div>
 
-                <span className="flex justify-start lg:px-6 px-5 py-3 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs"><MdLogin className="text-2xl" />Log Out</span>
+                <span className="flex justify-start lg:px-6 px-5 py-3 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs"><MdLogin className="text-2xl" />Log Out</span>
 
-                <hr />
+                <hr className="mt-1 border-gray-200 dark:border-gray-700" />
 
-                <span className="flex justify-start lg:px-6 px-5 py-4 my-1 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs"><IoSettingsOutline className="text-2xl" />Setting</span>
+                <span className="flex justify-start lg:px-6 px-5 py-4 my-1 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs"><IoSettingsOutline className="text-2xl" />Setting</span>
 
-                <hr />
+                <hr className="mt-1 border-gray-200 dark:border-gray-700" />
 
-                <span className="flex justify-start lg:px-6 px-5 py-4 my-1 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs"><MdOutlineWorkspacePremium className="text-2xl" />Premium</span>
+                <span className="flex justify-start lg:px-6 px-5 py-4 my-1 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs"><MdOutlineWorkspacePremium className="text-2xl" />Premium</span>
 
             </div>
 
@@ -177,19 +173,19 @@ const Navbar = () => {
                 className={`${clickSearch
                     ? "fixed w-full top-0 sm:px-6 px-4  sm:py-3 py-2 lg:hidden"
                     : "hidden"
-                    } bg-white`}
+                    } bg-white dark:bg-themeColor`}
             >
                 <div className="flex justify-start items-center gap-3 sm:pt-0 pt-2">
                     {/* Back Arrow Icon */}
                     <IoArrowBackOutline
                         onClick={() => {
                             setClickSearch(false); // Hide search bar
-                            removeFocus(); // Remove focus from input when back arrow is clicked
+                            setFocusInput(!focusInput); // Remove focus from input when back arrow is clicked
                         }}
                         className="text-2xl text-gray-500"
                     />
 
-                    <div className="relative">
+                    <div className="relative w-full">
                         <span className="absolute inset-y-0 left-0 flex justify-between items-center pl-3">
                             <svg className="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none">
                                 <path
@@ -206,7 +202,7 @@ const Navbar = () => {
                         <input
                             ref={inputRef}
                             type="text"
-                            className="w-full py-2 pl-10 pr-4 text-gray-700 border-black border border-transparent rounded-2xl outline-none"
+                            className="py-2 pl-10 pr-4 bg-transparent outline-none w-full"
                             placeholder="Search"
                         />
                     </div>
