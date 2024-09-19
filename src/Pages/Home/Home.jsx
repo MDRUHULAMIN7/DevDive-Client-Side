@@ -1,9 +1,12 @@
+import { Helmet } from "react-helmet";
 
 
 const Home = () => {
     return (
         <div>
-            homepage
+            <Helmet>
+                <title>DevDive | Home</title>
+            </Helmet>
         </div>
     );
 };

@@ -1,3 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.active{
+    background: #54ACDD;
+    color: white;
+}
+
+/* Hide Scrollbar by default */
+aside::-webkit-scrollbar {
+    width: 0px;
+    transition: width 0.3s ease;
+}
+
+/* Show Scrollbar on hover */
+aside:hover::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Scrollbar Track */
+/* aside::-webkit-scrollbar-track {
+    background: #f1f1f1;
+} */
+
+/* Scrollbar Thumb */
+aside::-webkit-scrollbar-thumb {
+    background-color: #54ACDD;  /* Primary scrollbar color */
+    border-radius: 10px;
+}
+
+/* Scrollbar Thumb on hover */
+aside::-webkit-scrollbar-thumb:hover {
+    background-color: #279EDA;  /* Darker color on hover */
+}
+
+  
+  
