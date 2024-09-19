@@ -34,18 +34,18 @@ const Navbar = () => {
         <>
             <nav className="fixed w-full text-black dark:text-white top-0 bg-white dark:bg-themeColor border-b border-black dark:border-gray-700 border-opacity-15">
                 <div className="sm:px-6 px-3 py-2 flex h-[56px] justify-between items-center">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between lg:w-[189px]">
                         <HiOutlineMenuAlt1 onClick={()=>{setOpenMenu(!openMenu)}} className="text-2xl mr-3 lg:hidden" /><Logo></Logo>
                     </div>
 
-                    <div className="relative w-[580px] lg:block hidden">
+                    <div className="relative w-[550px] lg:block hidden">
                         <span className="absolute inset-y-0 left-0 flex justify-between items-center pl-3">
                             <svg className="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none">
                                 <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
                             </svg>
                         </span>
 
-                        <input type="text" className="w-full text-sm py-2 pl-10 pr-4 text-gray-700 dark:text-gray-200 bg-gray-200 dark:bg-themeColor3 dark:hover:bg-[#333D42] hover:bg-gray-300 hover:bg-opacity-70 border-black border border-transparent rounded-2xl outline-none" placeholder="Search" />
+                        <input type="text" className="text-sm w-full py-2 pl-10 pr-4 text-gray-700 dark:text-gray-200 bg-gray-200 dark:bg-themeColor3 dark:hover:bg-[#333D42] hover:bg-gray-300 hover:bg-opacity-70 border-black rounded-2xl outline-none" placeholder="Search" />
                     </div>
                     <div className="flex justify-between items-center">
                         <svg
@@ -66,13 +66,14 @@ const Navbar = () => {
                             />
                         </svg>
                         {
-                            user ? <div className="flex justify-between items-center">
+                            user ? 
+                            <div className="flex justify-between items-center">
 
 
-                                <button className="p-2 rounded-full  dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100  duration-200 ml-3">{notification}
+                                <button className="p-2 rounded-full  dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100  duration-200 lg:ml-0 ml-3">{notification}
                                 </button>
 
-                                <button className="flex  items-center gap-1 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 sm:px-3 px-2 py-2 sm:rounded-2xl rounded-full duration-200 mr-3">{add} <span className="sm:block hidden">Create</span>
+                                <button className="flex items-center gap-1 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 sm:px-3 px-2 py-2 sm:rounded-2xl rounded-full duration-200 mr-3">{add} <span className="sm:block text-sm hidden">Create</span>
                                 </button>
 
                                 <button onClick={() => setClickPp(!clickPp)} className="relative">
