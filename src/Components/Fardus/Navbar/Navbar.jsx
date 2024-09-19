@@ -16,7 +16,7 @@ import Switcher1 from "../Switcher1/Switcher1";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import Sidebar from "../Sidebar/Sidebar";
 import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
 
 const Navbar = () => {
   const [openSmallMenu, setOpenSmallMenu] = useState(false);
@@ -45,6 +45,13 @@ const Navbar = () => {
     window.addEventListener("click", handleClickOutside);
     return () => window.removeEventListener("click", handleClickOutside);
   }, []);
+
+  const [isSignUpMode, setIsSignUpMode] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleSignUpMode = () => {
+    setIsSignUpMode(!isSignUpMode);
+  };
 
   const handleFocus = () => {
     inputRef.current.focus();
@@ -209,61 +216,154 @@ const Navbar = () => {
                         .
                       </p>
 
-                      <div className="my-4 gap-2 flex flex-col">
-                        <button className="border-2 p-2 rounded-full flex items-center">
-                          <FcGoogle className="size-6" />
-                          <span className="flex flex-grow  justify-center">
-                            Continue With Google
-                          </span>
-                        </button>
-                        <button className="border-2 p-2 rounded-full flex items-center">
-                          <FaGithub className="size-6" />
-                          <span className="flex flex-grow  justify-center">
-                            Continue With GitHub
-                          </span>
-                        </button>
-                      </div>
+                      {!isSignUpMode && (
+                        <>
+                          <div className="my-4 gap-2 flex flex-col">
+                            <button className="border-2 p-2 rounded-full flex items-center">
+                              <FcGoogle className="size-6" />
+                              <span className="flex flex-grow  justify-center">
+                                Continue With Google
+                              </span>
+                            </button>
+                            <button className="border-2 p-2 rounded-full flex items-center">
+                              <FaGithub className="size-6" />
+                              <span className="flex flex-grow  justify-center">
+                                Continue With GitHub
+                              </span>
+                            </button>
+                          </div>
 
-                      <div className="flex items-center">
-                        <hr className="flex-grow" />
-                        <span className="mx-5">OR</span>{" "}
-                        <hr className="flex-grow" />
-                      </div>
+                          <div className="flex items-center">
+                            <hr className="flex-grow" />
+                            <span className="mx-5">OR</span>{" "}
+                            <hr className="flex-grow" />
+                          </div>
 
-                      <form>
-                        <div className="mb-4">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Email
-                          </label>
-                          <input
-                            type="email"
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
-                            placeholder="Enter your email"
-                          />
-                        </div>
+                          <form>
+                            <div className="mb-4">
+                              <label className="block text-sm font-medium text-gray-700">
+                                Email
+                              </label>
+                              <input
+                                type="email"
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                                placeholder="Enter your email"
+                              />
+                            </div>
 
-                        <div className="mb-4">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Password
-                          </label>
-                          <input
-                            type="password"
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
-                            placeholder="Enter your password"
-                          />
-                        </div>
-                        <p className="text-blue-500">Forgot Password?</p>
-                        <p className="my-2">
-                          New to DevDive?{" "}
-                          <span className="text-blue-500">Sign Up</span>
-                        </p>
+                            <div className="mb-4">
+                              <label className="block text-sm font-medium text-gray-700">
+                                Password
+                              </label>
+                              <input
+                                type="password"
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                                placeholder="Enter your password"
+                              />
+                            </div>
+                            <p className="text-blue-500">Forgot Password?</p>
+                            <p className="my-2">
+                              New to DevDive?{" "}
+                              <button
+                                className="text-blue-500"
+                                onClick={toggleSignUpMode}>
+                                Sign Up
+                              </button>
+                            </p>
 
-                        <button
-                          type="submit"
-                          className="bg-pm-color hover:bg-sec-color text-white px-4 py-2 rounded-xl">
-                          Sign In
-                        </button>
-                      </form>
+                            <button
+                              type="submit"
+                              className="bg-pm-color hover:bg-sec-color text-white px-4 py-2 rounded-xl w-full mt-4 text-lg">
+                              Sign In
+                            </button>
+                          </form>
+                        </>
+                      )}
+
+                      {isSignUpMode && (
+                        <>
+                          <div className="animate-fade-in mt-4">
+                            <form>
+                              <div className="mb-4">
+                                <label className="block text-sm font-medium text-gray-700">
+                                  Name
+                                </label>
+                                <input
+                                  type="text"
+                                  name="name"
+                                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                                  placeholder="Enter your name"
+                                  required
+                                />
+                              </div>
+
+                              <div className="mb-4">
+                                <label className="block text-sm font-medium text-gray-700">
+                                  Upload Your Photo
+                                </label>
+                                <input
+                                  type="file"
+                                  name="photo"
+                                  className="mt-1 block w-full"
+                                  accept="image/*"
+                                  required
+                                />
+                              </div>
+
+                              <div className="mb-4">
+                                <label className="block text-sm font-medium text-gray-700">
+                                  Email
+                                </label>
+                                <input
+                                  type="email"
+                                  name="email"
+                                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                                  placeholder="Enter your email"
+                                  required
+                                />
+                              </div>
+
+                              <div className="mb-4">
+                                <label className="block text-sm font-medium text-gray-700">
+                                  Password
+                                </label>
+                                <div className="relative">
+                                  <input
+                                    type={showPassword ? "text" : "password"}
+                                    name="password"
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                                    placeholder="Enter your password"
+                                    required
+                                  />
+                                  <button
+                                    className="absolute right-2 top-4 ml-2 text-pm-color hover:text-sec-color"
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      setShowPassword(!showPassword);
+                                    }}>
+                                    {!showPassword ? <FaEye /> : <FaEyeSlash />}
+                                  </button>
+                                </div>
+                              </div>
+
+                              <p className="my-2">
+                                Already Have An Account?{" "}
+                                <button
+                                  className="text-blue-500"
+                                  onClick={toggleSignUpMode}>
+                                  Sign In
+                                </button>
+                              </p>
+
+                              <button
+                                type="submit"
+                                className="bg-pm-color hover:bg-sec-color text-white px-4 py-2 rounded-xl w-full mt-4 text-lg">
+                                Sign Up
+                              </button>
+                            </form>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
                 )}
