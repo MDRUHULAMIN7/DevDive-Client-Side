@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { CiMenuKebab } from "react-icons/ci";
 import {
   MdLogin,
@@ -17,6 +17,12 @@ import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import Sidebar from "../Sidebar/Sidebar";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { uploadImage } from "../../../Hooks/imageUpload";
+import { AuthContext } from "../../../Providers/AuthProvider";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { Navigate } from "react-router-dom";
 
 const Navbar = () => {
   const [openSmallMenu, setOpenSmallMenu] = useState(false);
@@ -51,6 +57,74 @@ const Navbar = () => {
 
   const toggleSignUpMode = () => {
     setIsSignUpMode(!isSignUpMode);
+  };
+
+  const { createUser, updateuserprofile } = useContext(AuthContext);
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const photo = e.target.photo.files[0];
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters");
+      return;
+    } else if (!/[A-Z]/.test(password)) {
+      toast.error("Password must contain at least one uppercase letter");
+      return;
+    } else if (!/[a-z]/.test(password)) {
+      toast.error("Password must contain at least one lowercase letter");
+      return;
+    }
+
+    try {
+      const photoUrl = photo ? await uploadImage(photo) : "";
+      const newUser = {
+        name,
+        photoUrl,
+        email,
+        password,
+        role: "member",
+      };
+
+      console.log(newUser);
+
+      const result = await createUser(email, password);
+      const userLastLoginTime = {
+        lastSignInTime: result.user?.metadata?.lastSignInTime,
+        lastLoginAt: result.user?.metadata?.lastLoginAt,
+      };
+
+      const response = await fetch(`${import.meta.env.VITE_SERVER}/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save user to database");
+      }
+
+      await updateuserprofile(name, photoUrl);
+      await useAxiosPublic.put(
+        `/users/${result.user?.email}`,
+        userLastLoginTime
+      );
+
+      toast.success("Registration successful. Redirecting to home page...", {
+        autoClose: 1500,
+      });
+
+      setTimeout(() => {
+        Navigate(location?.state ? location.state : "/");
+      }, 1500);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   const handleFocus = () => {
@@ -283,7 +357,7 @@ const Navbar = () => {
                       {isSignUpMode && (
                         <>
                           <div className="animate-fade-in mt-4">
-                            <form>
+                            <form onSubmit={handleRegister}>
                               <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700">
                                   Name
@@ -502,6 +576,7 @@ const Navbar = () => {
         </div>
       </div>
       <Sidebar setOpenMenu={setOpenMenu} openMenu={openMenu}></Sidebar>
+      <ToastContainer></ToastContainer>
     </>
   );
 };
