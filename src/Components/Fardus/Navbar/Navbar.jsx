@@ -33,7 +33,7 @@ const Navbar = () => {
     return (
         <>
             <nav className="fixed w-full text-black dark:text-white top-0 bg-white dark:bg-themeColor border-b border-black dark:border-gray-700 border-opacity-15">
-                <div className="sm:px-6 px-3 py-2 flex justify-between items-center">
+                <div className="sm:px-6 px-3 py-2 flex h-[56px] justify-between items-center">
                     <div className="flex items-center justify-between">
                         <HiOutlineMenuAlt1 onClick={()=>{setOpenMenu(!openMenu)}} className="text-2xl mr-3 lg:hidden" /><Logo></Logo>
                     </div>
@@ -171,11 +171,11 @@ const Navbar = () => {
 
             <div
                 className={`${clickSearch
-                    ? "fixed w-full top-0 sm:px-6 px-4  sm:py-3 py-2 lg:hidden"
+                    ? "fixed w-full top-0 sm:px-6 px-4 py-2 lg:hidden"
                     : "hidden"
                     } bg-white dark:bg-themeColor`}
             >
-                <div className="flex justify-start items-center gap-3 sm:pt-0 pt-2">
+                <div className="flex justify-start items-center gap-3">
                     {/* Back Arrow Icon */}
                     <IoArrowBackOutline
                         onClick={() => {
