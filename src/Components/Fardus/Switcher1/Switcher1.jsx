@@ -3,13 +3,13 @@ import React, { useState, useEffect } from 'react';
 const Switcher1 = () => {
   const [isDark, setIsDark] = useState(() => {
     // Retrieve theme preference from local storage or default to false (light theme)
-    const savedTheme = localStorage.getItem('theme');
+    const savedTheme = localStorage.getItem('devTheme');
     return savedTheme ? JSON.parse(savedTheme) : false;
   });
 
   useEffect(() => {
     // Save theme preference to local storage whenever it changes
-    localStorage.setItem('theme', JSON.stringify(isDark));
+    localStorage.setItem('devTheme', JSON.stringify(isDark));
 
     // Update HTML and body class based on the theme
     const html = document.documentElement;
