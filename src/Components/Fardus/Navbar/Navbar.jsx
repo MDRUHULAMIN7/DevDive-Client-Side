@@ -29,7 +29,7 @@ const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [clickPp, setClickPp] = useState(false);
   const [clickSearch, setClickSearch] = useState(false);
-  const [user, setUser] = useState(true);
+
   const inputRef = useRef(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -59,7 +59,52 @@ const Navbar = () => {
     setIsSignUpMode(!isSignUpMode);
   };
 
-  const { createUser, updateuserprofile, logout } = useContext(AuthContext);
+  const {
+    createUser,
+    updateuserprofile,
+    logout,
+    signInUser,
+    setUser,
+    user,
+    googleSigin,
+  } = useContext(AuthContext);
+
+  const handleGoogleSignIn = () => {
+    googleSigin().then(async (result) => {
+      const userInfo = {
+        name: result.user?.displayName,
+        email: result.user?.email,
+        photoUrl: result.user?.photoURL,
+        role: "member",
+      };
+      await axiosPublic.post("/users", userInfo).then(() => {});
+
+      const userLastLoinTime = {
+        lastSignInTime: result.user?.metadata?.lastSignInTime,
+        lastLoginAt: result.user?.metadata?.lastLoginAt,
+      };
+
+      await axiosPublic
+        .put(`/users/${result.user?.email}`, userLastLoinTime)
+        .then(() => {});
+      toast.success("Login successful. Please Wait for Redirect");
+    });
+  };
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password);
+    signInUser(email, password)
+      .then(() => {
+        toast.success("Sign In successful.");
+        closeModal();
+      })
+      .catch(() => {
+        toast.error("Sign In failed. Please check your Email and Password.");
+      });
+  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -117,20 +162,18 @@ const Navbar = () => {
       });
 
       closeModal();
-
     } catch (error) {
       toast.error(error.message);
     }
   };
 
-
-    const signOut = () => {
-      logout()
-        .then(() => {
-          setUser(null);
-        })
-        .catch(() => {});
-    };
+  const signOut = () => {
+    logout()
+      .then(() => {
+        setUser(null);
+      })
+      .catch(() => {});
+  };
 
   const handleFocus = () => {
     inputRef.current.focus();
@@ -210,7 +253,7 @@ const Navbar = () => {
                   className="relative">
                   <img
                     className="object-cover w-10 h-10 rounded-full"
-                    src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=880&h=880&q=100"
+                    src={user.photoURL}
                     alt=""
                   />
                   <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 absolute right-0 ring-1 ring-white bottom-0"></span>
@@ -243,10 +286,12 @@ const Navbar = () => {
                     <Switcher1></Switcher1>
                   </div>
 
-                  <span className="flex justify-start lg:px-6 px-5 py-3 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
+                  <button
+                    onClick={signOut}
+                    className="flex justify-start lg:px-6 px-5 py-3 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
                     <MdLogin className="text-2xl" />
                     Log Out
-                  </span>
+                  </button>
 
                   <hr />
 
@@ -277,7 +322,7 @@ const Navbar = () => {
                     className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-10
                     ">
                     <div className="bg-white p-10 rounded-2xl relative">
-                      <h2 className="text-3xl font-semibold mb-4">Sign In</h2>
+                      <h2 className="text-3xl font-semibold mb-4">{isSignUpMode? "Sign Up":"Sign In"}</h2>
 
                       <p className="text-wrap max-w-md">
                         By continuing, you agree to our{" "}
@@ -298,15 +343,17 @@ const Navbar = () => {
                       {!isSignUpMode && (
                         <>
                           <div className="my-4 gap-2 flex flex-col">
-                            <button className="border-2 p-2 rounded-full flex items-center">
+                            <button
+                              onClick={handleGoogleSignIn}
+                              className="border-2 p-2 rounded-full flex items-center">
                               <FcGoogle className="size-6" />
                               <span className="flex flex-grow  justify-center">
                                 Continue With Google
                               </span>
                             </button>
-                            <button className="border-2 p-2 rounded-full flex items-center">
+                            <button className="border-2 p-2 rounded-full flex items-center cursor-not-allowed">
                               <FaGithub className="size-6" />
-                              <span className="flex flex-grow  justify-center">
+                              <span className="flex flex-grow  justify-center ">
                                 Continue With GitHub
                               </span>
                             </button>
@@ -318,15 +365,17 @@ const Navbar = () => {
                             <hr className="flex-grow" />
                           </div>
 
-                          <form>
+                          <form onSubmit={handleSignIn}>
                             <div className="mb-4">
                               <label className="block text-sm font-medium text-gray-700">
                                 Email
                               </label>
                               <input
                                 type="email"
+                                name="email"
                                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
                                 placeholder="Enter your email"
+                                required
                               />
                             </div>
 
@@ -336,8 +385,10 @@ const Navbar = () => {
                               </label>
                               <input
                                 type="password"
+                                name="password"
                                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
                                 placeholder="Enter your password"
+                                required
                               />
                             </div>
                             <p className="text-blue-500">Forgot Password?</p>
@@ -519,7 +570,7 @@ const Navbar = () => {
         </div>
 
         <button
-          onClick={signOut()}
+          onClick={signOut}
           className="flex justify-start lg:px-6 px-5 py-3 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
           <MdLogin className="text-2xl" />
           Log Out
