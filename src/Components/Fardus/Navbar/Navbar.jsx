@@ -33,7 +33,7 @@ const Navbar = () => {
     return (
         <>
             <nav className="fixed w-full text-black dark:text-white top-0 bg-white dark:bg-themeColor border-b border-black dark:border-gray-700 border-opacity-15">
-                <div className="sm:px-6 px-3 py-3 flex justify-between items-center">
+                <div className="sm:px-6 px-3 py-2 flex justify-between items-center">
                     <div className="flex items-center justify-between">
                         <HiOutlineMenuAlt1 onClick={()=>{setOpenMenu(!openMenu)}} className="text-2xl mr-3 lg:hidden" /><Logo></Logo>
                     </div>
@@ -45,7 +45,7 @@ const Navbar = () => {
                             </svg>
                         </span>
 
-                        <input type="text" className="w-full py-2 pl-10 pr-4 text-gray-700 dark:text-gray-200 bg-gray-200 dark:bg-themeColor3 dark:hover:bg-[#333D42] hover:bg-gray-300 hover:bg-opacity-70 border-black border border-transparent rounded-2xl outline-none" placeholder="Search" />
+                        <input type="text" className="w-full text-sm py-2 pl-10 pr-4 text-gray-700 dark:text-gray-200 bg-gray-200 dark:bg-themeColor3 dark:hover:bg-[#333D42] hover:bg-gray-300 hover:bg-opacity-70 border-black border border-transparent rounded-2xl outline-none" placeholder="Search" />
                     </div>
                     <div className="flex justify-between items-center">
                         <svg
@@ -66,13 +66,13 @@ const Navbar = () => {
                             />
                         </svg>
                         {
-                            user ? <div className="flex justify-between items-center mb-1">
+                            user ? <div className="flex justify-between items-center">
 
 
                                 <button className="p-2 rounded-full  dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100  duration-200 ml-3">{notification}
                                 </button>
 
-                                <button className="flex  items-center gap-1 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100  sm:px-3 px-2 py-2 sm:rounded-2xl rounded-full duration-200 mr-3">{add} <span className="sm:block hidden">Create</span>
+                                <button className="flex  items-center gap-1 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 sm:px-3 px-2 py-2 sm:rounded-2xl rounded-full duration-200 mr-3">{add} <span className="sm:block hidden">Create</span>
                                 </button>
 
                                 <button onClick={() => setClickPp(!clickPp)} className="relative">
@@ -81,7 +81,7 @@ const Navbar = () => {
                                 </button>
 
 
-                                <div className={`${clickPp ? "lg:block hidden" : "hidden"} w-[250px] pt-5 shadow-2xl absolute top-[70px] right-1 rounded-lg bg-white dark:bg-themeColor2`}>
+                                <div className={`${clickPp ? "lg:block hidden" : "hidden"} w-[250px] pt-5 shadow-2xl absolute top-14 right-1 rounded-lg bg-white dark:bg-themeColor2`}>
 
                                     <div className="flex items-center gap-2 px-5 py-4 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 ">
                                         <div className="relative">
@@ -110,12 +110,12 @@ const Navbar = () => {
                                 </div>
 
                             </div> : <div className="flex justify-between items-center">
-                                <button className="text-nowrap bg-pm-color hover:bg-sec-color duration-200 rounded-2xl text-white px-4 py-2 mr-2 sm:text-base text-sm lg:block hidden">Sign In</button>
+                                <button className="text-nowrap bg-pm-color hover:bg-sec-color duration-200 rounded-2xl text-white px-4 py-2 text-sm lg:block hidden">Sign In</button>
                                 <div className="relative">
 
-                                    <button onClick={() => setOpenSmallMenu(!openSmallMenu)} title="Open Menu" className="text-xl rounded-full p-3 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 duration-200"><CiMenuKebab /></button>
+                                    <button onClick={() => setOpenSmallMenu(!openSmallMenu)} title="Open Menu" className="text-lg rounded-full p-2 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 duration-200 ml-2 rotate-90"><CiMenuKebab /></button>
 
-                                    <div className={`${openSmallMenu ? "lg:block hidden" : "hidden"} w-[250px] lg:py-8 py-5 shadow-2xl absolute top-14 right-0 rounded-lg dark:hover:text-gray-50 dark:hover:bg-opacity-30 dark:hover:bg-gray-700 hover:bg-gray-100 bg-white dark:bg-themeColor2`}>
+                                    <div className={`${openSmallMenu ? "lg:block hidden" : "hidden"} w-[250px] lg:py-8 py-5 shadow-2xl absolute top-12 right-[-22px] rounded-lg dark:hover:text-gray-50 dark:hover:bg-themeColor3 hover:bg-gray-100 bg-white dark:bg-themeColor2`}>
                                         <span className="flex justify-start lg:px-6 px-5 items-center gap-4 sm:text-sm text-xs"><MdLogin className="text-2xl" /> Sign In / Sign Up</span>
                                     </div>
 
@@ -136,7 +136,7 @@ const Navbar = () => {
             </span>
 
 
-            <div className={`fixed z-50 bottom-0 left-0 lg:hidden ${openSmallMenu ? "translate-y-0" : "translate-y-[100%] hidden"} py-5 space-y-4 bg-white dark:bg-themeColor2 dark:hover:text-gray-50 dark:hover:bg-opacity-30 dark:hover:bg-gray-700 hover:bg-gray-100 w-full`}>
+            <div className={`fixed z-50 bottom-0 left-0 lg:hidden ${openSmallMenu ? "translate-y-0" : "translate-y-[100%] hidden"} py-5 space-y-4 bg-white dark:bg-themeColor2 dark:hover:text-gray-50 dark:hover:bg-themeColor3 hover:bg-gray-100 w-full`}>
                 <span className="flex justify-start lg:px-6 px-5 items-center gap-4 lg:text-base sm:text-sm text-xs"><MdLogin className="text-2xl" /> Sign In / Sign Up</span>
             </div>
 
