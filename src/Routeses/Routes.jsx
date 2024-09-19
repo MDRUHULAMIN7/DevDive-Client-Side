@@ -3,6 +3,7 @@ import Main from "../Layouts/Main/Main";
 import Home from "../Pages/Home/Home";
 import Card from "../Components/Card/Card";
 import ErrorPage from "../Pages/ErrorPage";
+import PrivateRoute from "../Providers/PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -17,7 +18,7 @@ export const router = createBrowserRouter([
 
             {
                 path:'/card',
-                element:<Card></Card>
+                element:<PrivateRoute><Card></Card></PrivateRoute>
             }
         ]
     }
