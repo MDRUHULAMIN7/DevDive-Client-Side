@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
             },
             {
                 path:"/all",
-                element:<All></All>
+                element:<All></All>,
             },
 
             {
