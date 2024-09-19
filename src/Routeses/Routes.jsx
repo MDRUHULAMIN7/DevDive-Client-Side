@@ -6,6 +6,7 @@ import ErrorPage from "../Pages/ErrorPage";
 import Popular from "../Pages/Popular/Popular";
 import Following from "../Pages/Following/Following";
 import All from "../Pages/All/All";
+import CreatePost from "../components/adnan/CreatePost";
 
 export const router = createBrowserRouter([
     {
@@ -33,7 +34,11 @@ export const router = createBrowserRouter([
             {
                 path:'/card',
                 element:<Card></Card>
-            }
+            },
+            {
+                path:'/create-post',
+                element:<CreatePost></CreatePost>
+            },
         ]
     }
 ])
