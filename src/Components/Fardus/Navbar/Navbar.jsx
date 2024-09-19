@@ -15,6 +15,8 @@ import {
 import Switcher1 from "../Switcher1/Switcher1";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import Sidebar from "../Sidebar/Sidebar";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
 
 const Navbar = () => {
   const [openSmallMenu, setOpenSmallMenu] = useState(false);
@@ -186,9 +188,47 @@ const Navbar = () => {
                 {isModalOpen && (
                   <div
                     id="modal-overlay"
-                    className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-                    <div className="bg-white p-6 rounded-2xl relative">
-                      <h2 className="text-lg font-semibold mb-4">Sign In</h2>
+                    className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-10
+                    ">
+                    <div className="bg-white p-10 rounded-2xl relative">
+                      <h2 className="text-3xl font-semibold mb-4">Sign In</h2>
+
+                      <p className="text-wrap max-w-md">
+                        By continuing, you agree to our{" "}
+                        <a
+                          href="/userAgreement"
+                          className="text-blue-500 font-semibold">
+                          User Agreement
+                        </a>{" "}
+                        and acknowledge that you understand the{" "}
+                        <a
+                          href="/userAgreement"
+                          className="text-blue-500 font-semibold">
+                          Privacy Policy
+                        </a>
+                        .
+                      </p>
+
+                      <div className="my-4 gap-2 flex flex-col">
+                        <button className="border-2 p-2 rounded-full flex items-center">
+                          <FcGoogle className="size-6" />
+                          <span className="flex flex-grow  justify-center">
+                            Continue With Google
+                          </span>
+                        </button>
+                        <button className="border-2 p-2 rounded-full flex items-center">
+                          <FaGithub className="size-6" />
+                          <span className="flex flex-grow  justify-center">
+                            Continue With GitHub
+                          </span>
+                        </button>
+                      </div>
+
+                      <div className="flex items-center">
+                        <hr className="flex-grow" />
+                        <span className="mx-5">OR</span>{" "}
+                        <hr className="flex-grow" />
+                      </div>
 
                       <form>
                         <div className="mb-4">
@@ -212,6 +252,11 @@ const Navbar = () => {
                             placeholder="Enter your password"
                           />
                         </div>
+                        <p className="text-blue-500">Forgot Password?</p>
+                        <p className="my-2">
+                          New to DevDive?{" "}
+                          <span className="text-blue-500">Sign Up</span>
+                        </p>
 
                         <button
                           type="submit"
@@ -219,13 +264,6 @@ const Navbar = () => {
                           Sign In
                         </button>
                       </form>
-
-                      {/* Close button */}
-                      <button
-                        className="absolute top-2 right-2 text-gray-500"
-                        onClick={closeModal}>
-                        &times;
-                      </button>
                     </div>
                   </div>
                 )}
