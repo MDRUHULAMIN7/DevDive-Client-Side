@@ -322,7 +322,9 @@ const Navbar = () => {
                     className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-10
                     ">
                     <div className="bg-white p-10 rounded-2xl relative">
-                      <h2 className="text-3xl font-semibold mb-4">{isSignUpMode? "Sign Up":"Sign In"}</h2>
+                      <h2 className="text-3xl font-semibold mb-4">
+                        {isSignUpMode ? "Sign Up" : "Sign In"}
+                      </h2>
 
                       <p className="text-wrap max-w-md">
                         By continuing, you agree to our{" "}
@@ -510,9 +512,11 @@ const Navbar = () => {
                     className={`${
                       openSmallMenu ? "lg:block hidden" : "hidden"
                     } w-[250px] lg:py-8 py-5 shadow-2xl absolute top-14 right-0 rounded-lg bg-white`}>
-                    <span className="flex justify-start lg:px-6 px-5 items-center gap-4 sm:text-sm text-xs">
+                    <button
+                      onClick={openModal}
+                      className="flex justify-start lg:px-6 px-5 items-center gap-4 sm:text-sm text-xs">
                       <MdLogin className="text-2xl" /> Sign In / Sign Up
-                    </span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -537,9 +541,11 @@ const Navbar = () => {
         className={`fixed z-50 bottom-0 left-0 lg:hidden ${
           openSmallMenu ? "translate-y-0" : "translate-y-[100%] hidden"
         } py-5 space-y-4 bg-white w-full`}>
-        <span className="flex justify-start lg:px-6 px-5 items-center gap-4 lg:text-base sm:text-sm text-xs">
+        <button
+          onClick={openModal}
+          className="flex justify-start lg:px-6 px-5 items-center gap-4 lg:text-base sm:text-sm text-xs">
           <MdLogin className="text-2xl" /> Sign In / Sign Up
-        </span>
+        </button>
       </div>
 
       <div
