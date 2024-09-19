@@ -1,6 +1,6 @@
-import { useContext } from "react";
+// import { useContext } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { AuthContext } from "./AuthProvider";
+// import { AuthContext } from "./AuthProvider";
 import loadingDots from "../../public/loadingDots.json"
 import Lottie from "lottie-react";
 

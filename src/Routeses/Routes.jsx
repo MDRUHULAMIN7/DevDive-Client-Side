@@ -3,6 +3,10 @@ import Main from "../Layouts/Main/Main";
 import Home from "../Pages/Home/Home";
 import Card from "../Components/Card/Card";
 import ErrorPage from "../Pages/ErrorPage";
+import Popular from "../Pages/Popular/Popular";
+import Following from "../Pages/Following/Following";
+import All from "../Pages/All/All";
+import CreatePost from "../components/adnan/CreatePost";
 import PrivateRoute from "../Providers/PrivateRoute";
 
 export const router = createBrowserRouter([
@@ -15,10 +19,26 @@ export const router = createBrowserRouter([
                 path:"/",
                 element:<Home></Home>
             },
+            {
+                path:"/popular",
+                element:<Popular></Popular>
+            },
+            {
+                path:"/following",
+                element:<PrivateRoute><Following></Following></PrivateRoute>
+            },
+            {
+                path:"/all",
+                element:<All></All>
+            },
 
             {
                 path:'/card',
-                element:<PrivateRoute><Card></Card></PrivateRoute>
+                element:<Card></Card>
+            },
+            {
+                path:'/create-post',
+                element:<CreatePost></CreatePost>
             }
         ]
     }
