@@ -22,9 +22,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { uploadImage } from "../../../Hooks/imageUpload";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
-import { Navigate } from "react-router-dom";
 
 const Navbar = () => {
+  const axiosPublic = useAxiosPublic();
   const [openSmallMenu, setOpenSmallMenu] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const [clickPp, setClickPp] = useState(false);
@@ -59,7 +59,7 @@ const Navbar = () => {
     setIsSignUpMode(!isSignUpMode);
   };
 
-  const { createUser, updateuserprofile } = useContext(AuthContext);
+  const { createUser, updateuserprofile, logout } = useContext(AuthContext);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -97,7 +97,7 @@ const Navbar = () => {
         lastLoginAt: result.user?.metadata?.lastLoginAt,
       };
 
-      const response = await fetch(`${import.meta.env.VITE_SERVER}/users`, {
+      const response = await fetch(`${import.meta.env.VITE_URL}users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -110,22 +110,27 @@ const Navbar = () => {
       }
 
       await updateuserprofile(name, photoUrl);
-      await useAxiosPublic.put(
-        `/users/${result.user?.email}`,
-        userLastLoginTime
-      );
+      await axiosPublic.put(`/users/${result.user?.email}`, userLastLoginTime);
 
-      toast.success("Registration successful. Redirecting to home page...", {
+      toast.success("Registration successful.", {
         autoClose: 1500,
       });
 
-      setTimeout(() => {
-        Navigate(location?.state ? location.state : "/");
-      }, 1500);
+      closeModal();
+
     } catch (error) {
       toast.error(error.message);
     }
   };
+
+
+    const signOut = () => {
+      logout()
+        .then(() => {
+          setUser(null);
+        })
+        .catch(() => {});
+    };
 
   const handleFocus = () => {
     inputRef.current.focus();
@@ -190,7 +195,7 @@ const Navbar = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            {!user ? (
+            {user ? (
               <div className="flex justify-between items-center mb-1">
                 <button className="p-2 rounded-full  hover:bg-gray-200 duration-200 ml-3">
                   {notification}
@@ -513,10 +518,12 @@ const Navbar = () => {
           <Switcher1></Switcher1>
         </div>
 
-        <span className="flex justify-start lg:px-6 px-5 py-3 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
+        <button
+          onClick={signOut()}
+          className="flex justify-start lg:px-6 px-5 py-3 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
           <MdLogin className="text-2xl" />
           Log Out
-        </span>
+        </button>
 
         <hr />
 
