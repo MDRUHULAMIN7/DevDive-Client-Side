@@ -23,6 +23,15 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // const openModal = () => {
+  //   setIsModalOpen(true);
+  // };
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  // };
+
+  // console.log(isModalOpen);
+
   const googleSigin = () => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);

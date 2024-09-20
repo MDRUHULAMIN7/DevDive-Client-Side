@@ -45,10 +45,6 @@ export const router = createBrowserRouter([
         path: "/create-post",
         element: <CreatePost></CreatePost>,
       },
-      {
-        path: "/signModal",
-        element: <SignModal></SignModal>,
-      },
 
       // for admin
       {

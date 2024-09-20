@@ -134,7 +134,7 @@ const Navbar = () => {
                   </div>
 
                   <span
-                    onClick={logout}
+                    onClick={()=>{logout(); setClickPp(false)}}
                     className="flex justify-start lg:px-6 px-5 py-3 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
                     <MdLogin className="text-2xl" />
                     Log Out
@@ -157,7 +157,7 @@ const Navbar = () => {
             ) : (
               <div className="flex justify-between items-center">
                 <button
-                  onClick={setIsModalOpen}
+                  onClick={()=>setIsModalOpen(true)}
                   className="text-nowrap bg-pm-color hover:bg-sec-color duration-200 rounded-2xl text-white px-4 py-2 text-sm lg:block hidden">
                   Sign In
                 </button>
@@ -174,7 +174,9 @@ const Navbar = () => {
                       openSmallMenu ? "lg:block hidden" : "hidden"
                     } w-[250px] lg:py-8 py-5 shadow-2xl absolute top-12 right-[-22px] rounded-lg dark:hover:text-gray-50 dark:hover:bg-themeColor3 hover:bg-gray-100 bg-white dark:bg-themeColor2`}>
                     <span
-                      onClick={setIsModalOpen}
+                      onClick={()=>{setIsModalOpen(true)
+                        setOpenSmallMenu(!openSmallMenu)
+                      }}
                       className="flex justify-start lg:px-6 px-5 items-center gap-4 sm:text-sm text-xs">
                       <MdLogin className="text-2xl" /> Sign In / Sign Up
                     </span>
@@ -203,7 +205,9 @@ const Navbar = () => {
           openSmallMenu ? "translate-y-0" : "translate-y-[100%] hidden"
         } py-5 space-y-4 bg-white dark:bg-themeColor2 dark:hover:text-gray-50 dark:hover:bg-themeColor3 hover:bg-gray-100 w-full`}>
         <span
-          onClick={setIsModalOpen}
+          onClick={()=>{setIsModalOpen(true)
+            setOpenSmallMenu(!openSmallMenu)
+          }}
           className="flex justify-start lg:px-6 px-5 items-center gap-4 lg:text-base sm:text-sm text-xs">
           <MdLogin className="text-2xl" /> Sign In / Sign Up
         </span>

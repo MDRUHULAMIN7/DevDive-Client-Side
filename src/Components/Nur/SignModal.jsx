@@ -23,12 +23,12 @@ const SignModal = () => {
     setIsModalOpen,
   } = useContext(AuthContext);
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  // const openModal = () => {
+  //   setIsModalOpen(true);
+  // };
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  // };
 
   const toggleSignUpMode = () => {
     setIsSignUpMode(!isSignUpMode);
@@ -38,6 +38,7 @@ const SignModal = () => {
     logout()
       .then(() => {
         setUser(null);
+        setIsModalOpen(false)
       })
       .catch(() => {});
   };
@@ -61,7 +62,7 @@ const SignModal = () => {
         .put(`/users/${result.user?.email}`, userLastLoinTime)
         .then(() => {
           toast.success("Login successful. Please Wait for Redirect");
-          closeModal();
+          setIsModalOpen(false);
         });
     });
   };
@@ -74,7 +75,7 @@ const SignModal = () => {
     signInUser(email, password)
       .then(() => {
         toast.success("Sign In successful.");
-        closeModal();
+        setIsModalOpen(false);
       })
       .catch(() => {
         toast.error("Sign In failed. Please check your Email and Password.");
@@ -135,7 +136,7 @@ const SignModal = () => {
 
       toast.success("Registration successful.");
 
-      closeModal();
+      setIsModalOpen(false);
     } catch (error) {
       toast.error(error.message);
     }
@@ -144,7 +145,7 @@ const SignModal = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (event.target.id === "modal-overlay") {
-        closeModal();
+        setIsModalOpen(false);
       }
     };
     window.addEventListener("click", handleClickOutside);
@@ -162,7 +163,7 @@ const SignModal = () => {
       ) : (
         <button
           className="text-nowrap bg-pm-color hover:bg-sec-color duration-200 rounded-2xl text-white px-4 py-2 sm:text-base text-sm "
-          onClick={openModal}>
+          onClick={()=>setIsModalOpen(true)}>
           Sign In
         </button>
       )}
