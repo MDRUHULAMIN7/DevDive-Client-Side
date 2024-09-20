@@ -15,6 +15,7 @@ import {
 import Switcher1 from "../Switcher1/Switcher1";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import Sidebar from "../Sidebar/Sidebar";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [openSmallMenu, setOpenSmallMenu] = useState(false);
@@ -90,9 +91,9 @@ const Navbar = () => {
                   {notification}
                 </button>
 
-                <button className="flex items-center gap-1 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 sm:px-3 px-2 py-2 sm:rounded-2xl rounded-full duration-200 mr-3">
+                <Link to="/create-post" className="flex items-center gap-1 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 sm:px-3 px-2 py-2 sm:rounded-2xl rounded-full duration-200 mr-3">
                   {add} <span className="sm:block text-sm hidden">Create</span>
-                </button>
+                </Link>
 
                 <button
                   onClick={() => setClickPp(!clickPp)}
