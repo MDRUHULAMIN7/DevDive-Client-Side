@@ -83,9 +83,9 @@ const Card = () => {
               {dropdownOpen && (
                 <div className="absolute right-0 mt-36 w-32 bg-white rounded-md shadow-lg z-10">
                   <ul>
-                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-1"><MdSaveAlt></MdSaveAlt>Save</li>
-                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-1"><BiHide></BiHide>Hide</li>
-                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-1"><FaRegFlag></FaRegFlag>Report</li>
+                    <li className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 cursor-pointer flex items-center gap-1"><MdSaveAlt></MdSaveAlt>Save</li>
+                    <li className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 cursor-pointer flex items-center gap-1"><BiHide></BiHide>Hide</li>
+                    <li className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 cursor-pointer flex items-center gap-1"><FaRegFlag></FaRegFlag>Report</li>
                   </ul>
                 </div>
               )}
@@ -108,28 +108,28 @@ const Card = () => {
             <div className='bg-gray-300 w-36 rounded-2xl h-8 flex gap-3 p-3'>
               <div className="flex items-center">
                 <AiTwotoneLike
-                  className={`lg:w-8 lg:h-8 w-6 h-6 cursor-pointer ${hasLiked ? 'text-blue-600' : ''}`}
+                  className={`lg:w-8 lg:h-8 w-6 h-6 dark:text-black cursor-pointer ${hasLiked ? 'text-blue-600' : ''}`}
                   onClick={handleLike}
                 />
-                <span className="ml-2">{likeCount}</span>
+                <span className="ml-2 dark:text-black">{likeCount}</span>
               </div>
               <div className="flex items-center">
                 <AiTwotoneDislike
-                  className={`lg:w-8 lg:h-8 w-6 h-6 cursor-pointer ${hasDisliked ? 'text-red-600' : ''}`}
+                  className={`lg:w-8 lg:h-8 w-6 h-6 dark:text-black cursor-pointer ${hasDisliked ? 'text-red-600' : ''}`}
                   onClick={handleDislike}
                 />
-                <span className="ml-2">{dislikeCount}</span>
+                <span className="ml-2 dark:text-black">{dislikeCount}</span>
               </div>
             </div>
 
             <button className='bg-gray-300 w-16  rounded-3xl p-2 items-center'>
-              <FaRegMessage className='lg:h-6 lg:w-6 h-4 w-4 lg:ml-3 ml-2' />
+              <FaRegMessage className='lg:h-6 lg:w-6 h-4 w-4 lg:ml-3 ml-2 dark:text-black' />
             </button>
             <button className='bg-gray-300 w-16 rounded-3xl p-2 items-center'>
-              <SlBadge className='lg:h-6 lg:w-6 w-4 lg:ml-3 ml-2' />
+              <SlBadge className='lg:h-6 lg:w-6 w-4 lg:ml-3 ml-2 dark:text-black' />
             </button>
-            <button className='bg-gray-300 w-24 h-8 rounded-3xl p-2 items-center flex font-semibold'>
-              <RiShareForwardLine className='lg:h-6 lg:w-6 h-4 w-4 lg:ml-3 ml-2' />
+            <button className='bg-gray-300 w-24 h-8 rounded-3xl p-2 items-center flex font-semibold dark:text-black'>
+              <RiShareForwardLine className='lg:h-6 lg:w-6 h-4 w-4 lg:ml-3 ml-2 dark:text-black' />
               Share
             </button>
           </div>
