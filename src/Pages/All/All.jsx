@@ -8,7 +8,6 @@ const All = () => {
             <Helmet>
                 <title>DevDive | All</title>
             </Helmet>
-           <SignModal></SignModal>
         </div>
     );
 };

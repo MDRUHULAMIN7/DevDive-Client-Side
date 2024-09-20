@@ -153,24 +153,11 @@ const SignModal = () => {
   }, []);
 
   return (
-    <div className="w-full items-center justify-center  flex h-[90vh]">
-      {user ? (
-        <button
-          className="text-nowrap bg-pm-color hover:bg-sec-color duration-200 rounded-2xl text-white px-4 py-2 sm:text-base text-sm "
-          onClick={signOut}>
-          Sign Out
-        </button>
-      ) : (
-        <button
-          className="text-nowrap bg-pm-color hover:bg-sec-color duration-200 rounded-2xl text-white px-4 py-2 sm:text-base text-sm "
-          onClick={()=>setIsModalOpen(true)}>
-          Sign In
-        </button>
-      )}
+    <div className="w-full items-center justify-center flex">
       {isModalOpen && (
         <div
           id="modal-overlay"
-          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-10
+          className="fixed inset-0 z-[9999] bg-black bg-opacity-50 flex justify-center items-center p-10
                     ">
           <div className="bg-white p-10 rounded-2xl relative">
             <h2 className="text-3xl font-semibold mb-4">
