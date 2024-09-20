@@ -21,7 +21,7 @@ const Navbar = () => {
 
     useEffect(() => {
         focusInput && inputRef.current.focus();
-    }, [focusInput]);
+    }, [focusInput])
 
 
     const notification = <IoNotificationsOutline className="text-[22px] " />
