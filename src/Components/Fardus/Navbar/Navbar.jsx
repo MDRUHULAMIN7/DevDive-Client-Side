@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { CiMenuKebab } from "react-icons/ci";
 import {
   MdLogin,
@@ -15,13 +15,14 @@ import {
 import Switcher1 from "../Switcher1/Switcher1";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import Sidebar from "../Sidebar/Sidebar";
+import { AuthContext } from "../../../Providers/AuthProvider";
 
 const Navbar = () => {
+  const { logout, user, setIsModalOpen } = useContext(AuthContext);
   const [openSmallMenu, setOpenSmallMenu] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const [clickPp, setClickPp] = useState(false);
   const [clickSearch, setClickSearch] = useState(false);
-  const [user, setUser] = useState(true);
   const [focusInput, setFocusInput] = useState(false);
   const inputRef = useRef(null);
 
@@ -132,7 +133,9 @@ const Navbar = () => {
                     <Switcher1></Switcher1>
                   </div>
 
-                  <span className="flex justify-start lg:px-6 px-5 py-3 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
+                  <span
+                    onClick={logout}
+                    className="flex justify-start lg:px-6 px-5 py-3 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
                     <MdLogin className="text-2xl" />
                     Log Out
                   </span>
@@ -153,7 +156,9 @@ const Navbar = () => {
               </div>
             ) : (
               <div className="flex justify-between items-center">
-                <button className="text-nowrap bg-pm-color hover:bg-sec-color duration-200 rounded-2xl text-white px-4 py-2 text-sm lg:block hidden">
+                <button
+                  onClick={setIsModalOpen}
+                  className="text-nowrap bg-pm-color hover:bg-sec-color duration-200 rounded-2xl text-white px-4 py-2 text-sm lg:block hidden">
                   Sign In
                 </button>
                 <div className="relative">
@@ -168,7 +173,9 @@ const Navbar = () => {
                     className={`${
                       openSmallMenu ? "lg:block hidden" : "hidden"
                     } w-[250px] lg:py-8 py-5 shadow-2xl absolute top-12 right-[-22px] rounded-lg dark:hover:text-gray-50 dark:hover:bg-themeColor3 hover:bg-gray-100 bg-white dark:bg-themeColor2`}>
-                    <span className="flex justify-start lg:px-6 px-5 items-center gap-4 sm:text-sm text-xs">
+                    <span
+                      onClick={setIsModalOpen}
+                      className="flex justify-start lg:px-6 px-5 items-center gap-4 sm:text-sm text-xs">
                       <MdLogin className="text-2xl" /> Sign In / Sign Up
                     </span>
                   </div>
@@ -195,7 +202,9 @@ const Navbar = () => {
         className={`fixed z-50 bottom-0 left-0 lg:hidden ${
           openSmallMenu ? "translate-y-0" : "translate-y-[100%] hidden"
         } py-5 space-y-4 bg-white dark:bg-themeColor2 dark:hover:text-gray-50 dark:hover:bg-themeColor3 hover:bg-gray-100 w-full`}>
-        <span className="flex justify-start lg:px-6 px-5 items-center gap-4 lg:text-base sm:text-sm text-xs">
+        <span
+          onClick={setIsModalOpen}
+          className="flex justify-start lg:px-6 px-5 items-center gap-4 lg:text-base sm:text-sm text-xs">
           <MdLogin className="text-2xl" /> Sign In / Sign Up
         </span>
       </div>
@@ -227,7 +236,9 @@ const Navbar = () => {
           <Switcher1></Switcher1>
         </div>
 
-        <span className="flex justify-start lg:px-6 px-5 py-3 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
+        <span
+          onClick={logout}
+          className="flex justify-start lg:px-6 px-5 py-3 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
           <MdLogin className="text-2xl" />
           Log Out
         </span>

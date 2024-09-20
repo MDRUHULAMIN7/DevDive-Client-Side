@@ -2,15 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
-// import { toast, ToastContainer } from "react-toastify";
 import { toast} from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { uploadImage } from "../../Hooks/imageUpload";
 
 const SignModal = () => {
   const axiosPublic = useAxiosPublic();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSignUpMode, setIsSignUpMode] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -22,6 +19,8 @@ const SignModal = () => {
     setUser,
     user,
     googleSigin,
+    isModalOpen,
+    setIsModalOpen,
   } = useContext(AuthContext);
 
   const openModal = () => {
