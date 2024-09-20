@@ -48,15 +48,15 @@ const CreatePost = () => {
 
       <div className="rounded-lg">
         <Editor
-        height="200px"
-        width="100%"
-        theme="vs-dark"
-        onMount={handleEditorDidMount}
-        defaultLanguage="javascript"
+          height="200px"
+          width="100%"
+          theme="vs-dark"
+          onMount={handleEditorDidMount}
+          defaultLanguage="javascript"
         ></Editor>
         <button
-        className="bg-[#54ACDD] rounded px-5 py-2 mt-2" 
-        onClick={() => getEditorValue()}>
+          className="bg-[#54ACDD] rounded px-5 py-2 mt-2"
+          onClick={() => getEditorValue()}>
           Get Value
         </button>
       </div>
