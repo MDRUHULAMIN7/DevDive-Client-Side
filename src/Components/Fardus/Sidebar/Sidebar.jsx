@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 
 const Sidebar = ({ setOpenMenu, openMenu }) => {
     return (
-        <aside className={`fixed flex-col w-64 lg:translate-x-0 ${openMenu ? "translate-x-0 duration-200 ease-in-out" : "translate-x-[-256px] duration-200 ease-in-out"} h-[calc(100vh-68px)] px-4 py-8 overflow-y-auto bg-white dark:bg-themeColor border-r dark:border-gray-700 rtl:border-r-0 rtl:border-l mt-[1px]`}>
+        <aside className={`fixed flex flex-col w-64 lg:translate-x-0 ${openMenu ? "translate-x-0 duration-200 ease-in-out" : "translate-x-[-256px] duration-200 ease-in-out"} h-[calc(100vh-56px)] px-4 py-8 overflow-y-auto bg-white dark:bg-themeColor border-r dark:border-gray-700 rtl:border-r-0 rtl:border-l mt-[1px]`}>
             <div className="flex flex-col justify-between w-[calc(220px-5px)]">
                 <nav>
                     <NavLink to='/' className="flex items-center px-4 py-2 rounded-md duration-200 hover:bg-pm-color hover:text-white" href="#">
