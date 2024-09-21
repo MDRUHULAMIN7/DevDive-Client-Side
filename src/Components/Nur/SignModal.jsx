@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
-import { toast} from "react-toastify";
+import { toast } from "react-toastify";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { uploadImage } from "../../Hooks/imageUpload";
 
@@ -14,33 +14,14 @@ const SignModal = () => {
   const {
     createUser,
     updateuserprofile,
-    logout,
     signInUser,
-    setUser,
-    user,
     googleSigin,
     isModalOpen,
     setIsModalOpen,
   } = useContext(AuthContext);
 
-  // const openModal = () => {
-  //   setIsModalOpen(true);
-  // };
-  // const closeModal = () => {
-  //   setIsModalOpen(false);
-  // };
-
   const toggleSignUpMode = () => {
     setIsSignUpMode(!isSignUpMode);
-  };
-
-  const signOut = () => {
-    logout()
-      .then(() => {
-        setUser(null);
-        setIsModalOpen(false)
-      })
-      .catch(() => {});
   };
 
   const handleGoogleSignIn = () => {
@@ -50,6 +31,7 @@ const SignModal = () => {
         email: result.user?.email,
         photoUrl: result.user?.photoURL,
         role: "member",
+        userType: "normal",
       };
       await axiosPublic.post("/users", userInfo).then(() => {});
 
@@ -61,7 +43,7 @@ const SignModal = () => {
       await axiosPublic
         .put(`/users/${result.user?.email}`, userLastLoinTime)
         .then(() => {
-          toast.success("Login successful. Please Wait for Redirect");
+          toast.success("Google Sign In successful.");
           setIsModalOpen(false);
         });
     });
@@ -108,7 +90,7 @@ const SignModal = () => {
         email,
         password,
         role: "member",
-        userType: "normal"
+        userType: "normal",
       };
 
       console.log(newUser);
@@ -159,8 +141,8 @@ const SignModal = () => {
           id="modal-overlay"
           className="fixed inset-0 z-[9999] bg-black bg-opacity-50 flex justify-center items-center p-10
                     ">
-          <div className="bg-white p-10 rounded-2xl relative">
-            <h2 className="text-3xl font-semibold mb-4">
+          <div className="bg-white p-10 rounded-2xl relative dark:bg-themeColor dark:border-white dark:border-2">
+            <h2 className="text-3xl font-semibold mb-4 dark:text-white">
               {isSignUpMode ? "Sign Up" : "Sign In"}
             </h2>
 
@@ -202,26 +184,26 @@ const SignModal = () => {
 
                 <form onSubmit={handleSignIn}>
                   <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-white">
                       Email
                     </label>
                     <input
                       type="email"
                       name="email"
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-black dark:text-white dark:placeholder:text-white"
                       placeholder="Enter your email"
                       required
                     />
                   </div>
 
                   <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-white">
                       Password
                     </label>
                     <input
                       type="password"
                       name="password"
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-black dark:text-white dark:placeholder:text-white"
                       placeholder="Enter your password"
                       required
                     />
@@ -331,8 +313,7 @@ const SignModal = () => {
             )}
           </div>
         </div>
-      )}{" "}
-      {/* <ToastContainer></ToastContainer> */}
+      )}
     </div>
   );
 };
