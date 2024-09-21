@@ -23,12 +23,12 @@ const SignModal = () => {
     setIsModalOpen,
   } = useContext(AuthContext);
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  // const openModal = () => {
+  //   setIsModalOpen(true);
+  // };
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  // };
 
   const toggleSignUpMode = () => {
     setIsSignUpMode(!isSignUpMode);
@@ -38,6 +38,7 @@ const SignModal = () => {
     logout()
       .then(() => {
         setUser(null);
+        setIsModalOpen(false)
       })
       .catch(() => {});
   };
@@ -61,7 +62,7 @@ const SignModal = () => {
         .put(`/users/${result.user?.email}`, userLastLoinTime)
         .then(() => {
           toast.success("Login successful. Please Wait for Redirect");
-          closeModal();
+          setIsModalOpen(false);
         });
     });
   };
@@ -74,7 +75,7 @@ const SignModal = () => {
     signInUser(email, password)
       .then(() => {
         toast.success("Sign In successful.");
-        closeModal();
+        setIsModalOpen(false);
       })
       .catch(() => {
         toast.error("Sign In failed. Please check your Email and Password.");
@@ -135,7 +136,7 @@ const SignModal = () => {
 
       toast.success("Registration successful.");
 
-      closeModal();
+      setIsModalOpen(false);
     } catch (error) {
       toast.error(error.message);
     }
@@ -144,7 +145,7 @@ const SignModal = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (event.target.id === "modal-overlay") {
-        closeModal();
+        setIsModalOpen(false);
       }
     };
     window.addEventListener("click", handleClickOutside);
@@ -152,24 +153,11 @@ const SignModal = () => {
   }, []);
 
   return (
-    <div className="w-full items-center justify-center  flex h-[90vh]">
-      {user ? (
-        <button
-          className="text-nowrap bg-pm-color hover:bg-sec-color duration-200 rounded-2xl text-white px-4 py-2 sm:text-base text-sm "
-          onClick={signOut}>
-          Sign Out
-        </button>
-      ) : (
-        <button
-          className="text-nowrap bg-pm-color hover:bg-sec-color duration-200 rounded-2xl text-white px-4 py-2 sm:text-base text-sm "
-          onClick={openModal}>
-          Sign In
-        </button>
-      )}
+    <div className="w-full items-center justify-center flex">
       {isModalOpen && (
         <div
           id="modal-overlay"
-          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-10
+          className="fixed inset-0 z-[9999] bg-black bg-opacity-50 flex justify-center items-center p-10
                     ">
           <div className="bg-white p-10 rounded-2xl relative">
             <h2 className="text-3xl font-semibold mb-4">
