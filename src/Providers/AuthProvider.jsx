@@ -11,9 +11,9 @@ import {
   signInWithPopup,
   signOut,
   updateProfile,
+  GoogleAuthProvider
   
 } from "firebase/auth";
-import { GoogleAuthProvider, gitHubAuthProvider } from "firebase/auth";
 
 export const AuthContext = createContext(null);
 

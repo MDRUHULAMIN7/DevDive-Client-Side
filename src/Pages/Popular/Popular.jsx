@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import Card from '../../Components/Card/Card';
 import Slider from '../../Components/Fardus/Slider/Slider';
+import CardRuhul from '../../Components/Ruhul/Card-Ruhul/CardRuhul';
 
 const Popular = () => {
 
@@ -14,13 +15,6 @@ const Popular = () => {
         { image: 'https://pursuit.unimelb.edu.au/__data/assets/image/0028/78805/Sport-and-that-sense-of-belonging_51b3e794-7427-402d-84c3-810f654adc40.jpg', title: 'Slide 6', description: 'This is a short description for slide 6.' },
         { image: 'https://static.ffx.io/images/$zoom_0.189%2C$multiply_0.7725%2C$ratio_1.5%2C$width_756%2C$x_0%2C$y_0/t_crop_custom/q_86%2Cf_auto/2ee480f429c64f56126005a5cd366b2e894d8be5', title: 'Slide 1', description: 'This is a short description for slide 1.' },
         { image: 'https://images.squarespace-cdn.com/content/v1/5e6eca70898be713ac794808/1672855228121-PPWYQDHDX0R8U8ZVMXZ6/GettyImages-862317986.jpg', title: 'Slide 2', description: 'This is a short description for slide 2.' },
-        { image: 'link_to_image_3.jpg', title: 'Slide 3', description: 'This is a short description for slide 3.' },
-        { image: 'link_to_image_4.jpg', title: 'Slide 4', description: 'This is a short description for slide 4.' },
-        { image: 'link_to_image_5.jpg', title: 'Slide 5', description: 'This is a short description for slide 5.' },
-        { image: 'link_to_image_6.jpg', title: 'Slide 6', description: 'This is a short description for slide 6.' },
-        { image: 'link_to_image_1.jpg', title: 'Slide 1', description: 'This is a short description for slide 1.' },
-        { image: 'link_to_image_2.jpg', title: 'Slide 2', description: 'This is a short description for slide 2.' },
-        // Add more slides as needed
       ];
 
     return (
@@ -32,11 +26,11 @@ const Popular = () => {
            
             <div className="flex justify-center gap-10 mx-auto mt-10">
                 <div className="flex-1 space-y-5">
-                    <Card></Card>
-                    <Card></Card>
-                    <Card></Card>
-                    <Card></Card>
-                    <Card></Card>
+                    <CardRuhul></CardRuhul>
+                    <CardRuhul></CardRuhul>
+                    <CardRuhul></CardRuhul>
+                    <CardRuhul></CardRuhul>
+                    <CardRuhul></CardRuhul>
                 </div>
                 <div className="sticky top-[80px] scrollBar h-[calc(100vh-100px)] overflow-y-auto w-[300px] bg-gray-600 rounded-2xl p-5">
                     <h2 className="text-2xl font-extrabold text-white mb-5 text-center">Recent Posts</h2>
