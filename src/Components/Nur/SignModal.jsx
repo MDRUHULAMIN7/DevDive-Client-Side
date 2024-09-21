@@ -232,20 +232,20 @@ const SignModal = () => {
                 <div className="animate-fade-in mt-4">
                   <form onSubmit={handleRegister}>
                     <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-white">
                         Name
                       </label>
                       <input
                         type="text"
                         name="name"
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-black dark:text-white dark:placeholder:text-white"
                         placeholder="Enter your name"
                         required
                       />
                     </div>
 
                     <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-white">
                         Upload Your Photo
                       </label>
                       <input
@@ -258,27 +258,27 @@ const SignModal = () => {
                     </div>
 
                     <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-white">
                         Email
                       </label>
                       <input
                         type="email"
                         name="email"
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-black dark:text-white dark:placeholder:text-white"
                         placeholder="Enter your email"
                         required
                       />
                     </div>
 
                     <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-white">
                         Password
                       </label>
                       <div className="relative">
                         <input
                           type={showPassword ? "text" : "password"}
                           name="password"
-                          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-black dark:text-white dark:placeholder:text-white"
                           placeholder="Enter your password"
                           required
                         />
