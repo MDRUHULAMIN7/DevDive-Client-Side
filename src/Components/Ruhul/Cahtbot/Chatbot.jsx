@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import axios from 'axios';
 
 // Suggested questions for initial guidance
 const suggestedQuestions = [
@@ -8,6 +7,14 @@ const suggestedQuestions = [
     "What services do you offer?",
     "How do I reset my password?"
 ];
+
+// Simulated bot responses for demo purposes
+const mockBotResponses = {
+    "What is the purpose of this chatbot?": "The purpose of this chatbot is to assist users with common questions and tasks.",
+    "How can I contact support?": "You can contact support by emailing support@example.com.",
+    "What services do you offer?": "We offer a range of services including product support, troubleshooting, and more.",
+    "How do I reset my password?": "To reset your password, go to the login page and click on 'Forgot Password'."
+};
 
 const Chatbot = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +26,7 @@ const Chatbot = () => {
         setUserInput(e.target.value);
     };
 
-    const handleSendMessage = async () => {
+    const handleSendMessage = () => {
         if (!userInput.trim()) return;
 
         // Add user message to chat
@@ -28,36 +35,15 @@ const Chatbot = () => {
         // Set loading state
         setLoading(true);
 
-        try {
-            // Call the OpenAI API
-            const response = await axios.post(
-                'https://api.openai.com/v1/engines/davinci-codex/completions', // Endpoint for GPT-3
-                {
-                    prompt: userInput,
-                    max_tokens: 150,
-                    temperature: 0.7,
-                },
-                {
-                    headers: {
-                        'Authorization': `Bearer sk-7gDKEDRYRMyPjcQMCxAGRqrSF3aiouOt3kVOgVQvfIT3BlbkFJeC8g2zxBMdYJ4qpj_H99fRk_rgXv8BImbyDT--fEYA`, // Replace with your API key
-                        'Content-Type': 'application/json'
-                    }
-                }
-            );
-
-            // Get the bot response from the API
-            const botReply = response.data.choices[0].text.trim() || 'Sorry, I didn’t understand that. Please try rephrasing.';
-
+        setTimeout(() => {
+            // Mocking a bot response
+            const botReply = mockBotResponses[userInput] || "Sorry, I didn’t understand that. Please try rephrasing.";
             // Add bot response to chat
             setMessages(prev => [...prev, { sender: 'user', text: userInput }, { sender: 'bot', text: botReply }]);
-        } catch (error) {
-            console.error("Error fetching response:", error.response ? error.response.data : error.message);
-            setMessages(prev => [...prev, { sender: 'user', text: userInput }, { sender: 'bot', text: 'Sorry, something went wrong. Please try again later.' }]);
-        } finally {
             // Clear the input field and stop loading
             setUserInput('');
             setLoading(false);
-        }
+        }, 1000); // Simulating a delay to mock API response time
     };
 
     const handleSuggestionClick = (suggestion) => {
