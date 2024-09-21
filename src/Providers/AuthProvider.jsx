@@ -6,24 +6,24 @@ import app from "../Firebase/Firebase.config";
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  GithubAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   updateProfile,
-  
 } from "firebase/auth";
-import { GoogleAuthProvider, gitHubAuthProvider } from "firebase/auth";
+import { GoogleAuthProvider } from "firebase/auth";
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const auth = getAuth(app);
   const googleProvider = new GoogleAuthProvider();
+  const gitHubAuthProvider = new GithubAuthProvider();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
 
   const googleSigin = () => {
     setLoading(true);
@@ -32,14 +32,15 @@ const AuthProvider = ({ children }) => {
 
   const createUser = (email, password) => {
     setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password )
-    .then((userCredential) => {
-      // send verification mail.
-      userCredential.user.sendEmailVerification();
-      auth.signOut();
-      alert("Email sent");
-  })
+    return createUserWithEmailAndPassword(auth, email, password).then(
+      (userCredential) => {
+        userCredential.user.sendEmailVerification();
+        auth.signOut();
+        alert("Email sent");
+      }
+    );
   };
+
   const gitHubLogin = () => {
     setLoading(true);
     return signInWithPopup(auth, gitHubAuthProvider);
@@ -107,7 +108,7 @@ const AuthProvider = ({ children }) => {
     updateUser,
     isModalOpen,
     setIsModalOpen,
-    gitHubLogin ,
+    gitHubLogin,
   };
 
   return (
