@@ -200,13 +200,23 @@ const SignModal = () => {
                     <label className="block text-sm font-medium text-gray-700 dark:text-white">
                       Password
                     </label>
-                    <input
-                      type="password"
-                      name="password"
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-black dark:text-white dark:placeholder:text-white"
-                      placeholder="Enter your password"
-                      required
-                    />
+                    <div className="relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        name="password"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-black dark:text-white dark:placeholder:text-white"
+                        placeholder="Enter your password"
+                        required
+                      />
+                      <button
+                        className="absolute right-3 top-3 ml-2 text-pm-color hover:text-sec-color"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setShowPassword(!showPassword);
+                        }}>
+                        {!showPassword ? <FaEye /> : <FaEyeSlash />}
+                      </button>
+                    </div>
                   </div>
                   <p className="text-blue-500">Forgot Password?</p>
                   <p className="my-2">
@@ -283,7 +293,7 @@ const SignModal = () => {
                           required
                         />
                         <button
-                          className="absolute right-2 top-4 ml-2 text-pm-color hover:text-sec-color"
+                          className="absolute right-3 top-3 ml-2 text-pm-color hover:text-sec-color"
                           onClick={(e) => {
                             e.preventDefault();
                             setShowPassword(!showPassword);
