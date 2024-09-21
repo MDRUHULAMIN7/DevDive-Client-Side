@@ -140,7 +140,7 @@ const SignModal = () => {
         <div
           id="modal-overlay"
           className="fixed inset-0 z-[9999] bg-black bg-opacity-50 flex justify-center items-center p-10
-                    ">
+                      backdrop-blur-sm">
           <div className="bg-white p-10 rounded-2xl relative dark:bg-themeColor dark:border-white dark:border-2">
             <h2 className="text-3xl font-semibold mb-4 dark:text-white">
               {isSignUpMode ? "Sign Up" : "Sign In"}
@@ -241,7 +241,7 @@ const SignModal = () => {
               <>
                 <div className="animate-fade-in mt-4">
                   <form onSubmit={handleRegister}>
-                    <div className="mb-4">
+                    <div className="mb-4 pt-1">
                       <label className="block text-sm font-medium text-gray-700 dark:text-white">
                         Name
                       </label>
@@ -254,7 +254,7 @@ const SignModal = () => {
                       />
                     </div>
 
-                    <div className="mb-4">
+                    <div className="mb-4 pt-1">
                       <label className="block text-sm font-medium text-gray-700 dark:text-white">
                         Upload Your Photo
                       </label>
@@ -267,7 +267,7 @@ const SignModal = () => {
                       />
                     </div>
 
-                    <div className="mb-4">
+                    <div className="mb-4 pt-1">
                       <label className="block text-sm font-medium text-gray-700 dark:text-white">
                         Email
                       </label>
@@ -280,7 +280,7 @@ const SignModal = () => {
                       />
                     </div>
 
-                    <div className="mb-4">
+                    <div className="mb-4 pt-1">
                       <label className="block text-sm font-medium text-gray-700 dark:text-white">
                         Password
                       </label>
@@ -304,7 +304,7 @@ const SignModal = () => {
                     </div>
 
                     <p className="my-2">
-                      Already Have An Account?{" "}
+                      Have An Account?{" "}
                       <button
                         className="text-blue-500"
                         onClick={toggleSignUpMode}>
