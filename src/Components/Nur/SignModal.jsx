@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { FcGoogle } from "react-icons/fc";
-import {  FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
 import { toast } from "react-toastify";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { uploadImage } from "../../Hooks/imageUpload";
@@ -19,6 +19,7 @@ const SignModal = () => {
     googleSigin,
     isModalOpen,
     setIsModalOpen,
+    gitHubLogin,
   } = useContext(AuthContext);
 
   const toggleSignUpMode = () => {
@@ -47,6 +48,12 @@ const SignModal = () => {
           toast.success("Google Sign In successful.");
           setIsModalOpen(false);
         });
+    });
+  };
+
+  const HandleGitHub = () => {
+    gitHubLogin().then(() => {
+      toast.success("Continue With GitHub successful.");
     });
   };
 
@@ -140,11 +147,10 @@ const SignModal = () => {
       {isModalOpen && (
         <div
           id="modal-overlay"
-          className="fixed inset-0 z-[9999] bg-black bg-opacity-50 flex justify-center items-center p-2 md:p-10
-                      backdrop-blur-sm ">
-          <div className="bg-white  p-4 md:p-10 rounded-2xl dark:bg-themeColor dark:border-white dark:border-2 relative">
+          className="fixed inset-0 z-[9999] bg-black bg-opacity-50 flex justify-center items-center p-2 md:p-10 backdrop-blur-sm ">
+          <div className="bg-white  p-4 md:p-10 rounded-2xl dark:bg-themeColor3 dark:border-white  relative">
             <button
-              onClick={()=>setIsModalOpen(false)}
+              onClick={() => setIsModalOpen(false)}
               className="absolute top-5 right-5 text-red-600 cursor-pointer md:hidden">
               <ImCross></ImCross>
             </button>
@@ -176,7 +182,9 @@ const SignModal = () => {
                       Continue With Google
                     </span>
                   </button>
-                  <button className="border-2 p-2 rounded-full flex items-center cursor-not-allowed">
+                  <button
+                    onClick={HandleGitHub}
+                    className="border-2 p-2 rounded-full flex items-center">
                     <FaGithub className="size-6" />
                     <span className="flex flex-grow  justify-center ">
                       Continue With GitHub
@@ -197,7 +205,7 @@ const SignModal = () => {
                     <input
                       type="email"
                       name="email"
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-black dark:text-white dark:placeholder:text-white"
+                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-themeColor3 dark:text-white dark:placeholder:text-white"
                       placeholder="Enter your email"
                       required
                     />
@@ -211,7 +219,7 @@ const SignModal = () => {
                       <input
                         type={showPassword ? "text" : "password"}
                         name="password"
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-black dark:text-white dark:placeholder:text-white"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-themeColor3 dark:text-white dark:placeholder:text-white"
                         placeholder="Enter your password"
                         required
                       />
@@ -255,7 +263,7 @@ const SignModal = () => {
                       <input
                         type="text"
                         name="name"
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-black dark:text-white dark:placeholder:text-white"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-themeColor3 dark:text-white dark:placeholder:text-white"
                         placeholder="Enter your name"
                         required
                       />
@@ -281,7 +289,7 @@ const SignModal = () => {
                       <input
                         type="email"
                         name="email"
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-black dark:text-white dark:placeholder:text-white"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-themeColor3 dark:text-white dark:placeholder:text-white"
                         placeholder="Enter your email"
                         required
                       />
@@ -295,7 +303,7 @@ const SignModal = () => {
                         <input
                           type={showPassword ? "text" : "password"}
                           name="password"
-                          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-black dark:text-white dark:placeholder:text-white"
+                          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-themeColor3 dark:text-white dark:placeholder:text-white"
                           placeholder="Enter your password"
                           required
                         />
