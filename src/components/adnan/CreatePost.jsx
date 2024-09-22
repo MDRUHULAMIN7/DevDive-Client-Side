@@ -1,10 +1,12 @@
 import React, { useRef } from "react";
 import Editor from "@monaco-editor/react"
 import { useState } from "react";
+import BodyInput from "../Fardus/BodyInput/BodyInput";
 
 const CreatePost = () => {
   const editorRef = useRef(null);
   const [inputValue, setInputValue] = useState('');
+  const [value, setValue] = useState('');
   const maxCharacters = 300;
 
   console.log(inputValue);
@@ -61,8 +63,10 @@ const CreatePost = () => {
           </div>
         </div>
 
+                <BodyInput setValue={setValue} value={value}></BodyInput>
+               
 
-        <div className="rounded-lg">
+        {/* <div className="rounded-lg">
           <Editor
             height="200px"
             width="100%"
@@ -75,7 +79,7 @@ const CreatePost = () => {
             onClick={() => getEditorValue()}>
             Get Value
           </button>
-        </div>
+        </div> */}
 
         <div className="flex justify-end">
           <button className="bg-pm-color px-8 py-3 rounded-lg text-white mt-3 mb-2">
@@ -84,7 +88,7 @@ const CreatePost = () => {
         </div>
       </div>
       <div className="w-[320px] border h-[500px] rounded-xl">
-
+      <div className="" dangerouslySetInnerHTML={{ __html: value }} />
       </div>
     </div>
   );
