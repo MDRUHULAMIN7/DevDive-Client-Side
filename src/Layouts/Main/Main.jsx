@@ -1,8 +1,10 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../../Components/Fardus/Navbar/Navbar";
-import SignModal from "../../Components/Nur/SignModal";
+// import SignModal from "../../Components/Nur/SignModal";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+// import RuhulSignIn from "../../Components/Ruhul/Card-Ruhul/RuhulSignIn";
+import SignModal from "../../Components/Nur/SignModal";
 
 const Main = () => {
 

@@ -1,146 +1,138 @@
-import { useState } from "react";
-import { FaThumbsUp, FaThumbsDown, FaCommentAlt, FaShare, FaHeart, FaTag } from "react-icons/fa";
-import Chatbot from "../Cahtbot/Chatbot";
+import { FaUsers, FaGlobe, FaCode, FaRegClipboard, FaRegStar, FaRegEdit, FaTools, FaHandsHelping } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
-const CardRuhul = () => {
-  // State for like and dislike counts
-  const [likes, setLikes] = useState(0);
-  const [dislikes, setDislikes] = useState(0);
-
-  // State for controlling the display of the full post content
-  const [showMore, setShowMore] = useState(false);
-
-  // Functions to handle like and dislike actions
-  const handleLike = () => {
-    setLikes(likes + 1);
-  };
-
-  const handleDislike = () => {
-    setDislikes(dislikes + 1);
-  };
-
-  // Function to toggle the full post content
-  const toggleShowMore = () => {
-    setShowMore(!showMore);
-  };
-
+const AboutSection = () => {
   return (
-    <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4 my-4 max-w-2xl mx-auto border border-gray-200 dark:border-gray-700 sm:max-w-full lg:max-w-3xl">
-      {/* User Info */}
-      <div className="flex justify-between items-center mb-3">
-        <div className="flex items-center">
-          <img
-            src="https://randomuser.me/api/portraits/men/32.jpg" // User image URL
-            alt="User"
-            className="rounded-full h-10 w-10 object-cover"
-          />
-          <div className="ml-3">
-            <h3 className="font-semibold text-gray-800 dark:text-gray-200">John Doe</h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Posted 2 hours ago</p>
+    <section className="relative bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 py-20 px-6">
+      {/* Background Shapes */}
+      <div className="absolute top-5 left-0 w-full h-full overflow-hidden">
+        <div className="absolute bg-blue-300 dark:bg-blue-700 opacity-30 rounded-full h-72 w-72 top-1/4 left-1/3 transform -translate-x-1/2" />
+        <div className="absolute bg-blue-200 dark:bg-blue-600 opacity-30 rounded-full h-96 w-96 top-3/4 right-1/4 transform -translate-x-1/2" />
+      </div>
+
+      {/* Container */}
+      <div className="relative container mx-auto max-w-7xl z-10">
+        {/* Heading */}
+        <motion.h1
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-6xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-500 mb-10"
+        >
+          About DevDive
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-xl text-center max-w-4xl mx-auto mb-12"
+        >
+          At DevDive, we are committed to fostering a collaborative environment where developers of all levels can grow, share knowledge, and build projects together. Our platform serves as a central hub for problem-solving, professional growth, and community-building for developers across the globe.
+        </motion.p>
+
+        {/* Vision & Mission Section */}
+        <motion.div className="mb-24" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.8 }}>
+          <h2 className="text-4xl font-bold text-center mb-12">Vision & Mission</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            {[
+              { icon: FaHandsHelping, title: "Our Vision", desc: "To create a vibrant, supportive community where developers collaborate, learn, and thrive." },
+              { icon: FaRegClipboard, title: "Our Mission", desc: "Provide a space where people from different backgrounds can connect and create innovative solutions." }
+            ].map(({ icon: Icon, title, desc }, idx) => (
+              <motion.div
+                key={idx}
+                whileHover={{ scale: 1.05 }}
+                className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-lg text-center relative z-10"
+              >
+                <Icon className="text-5xl text-blue-400 mx-auto mb-4" />
+                <h3 className="text-2xl font-semibold mb-2">{title}</h3>
+                <p className="text-gray-800 dark:text-gray-400">{desc}</p>
+              </motion.div>
+            ))}
           </div>
-        </div>
-        {/* Tag Button */}
-        <button className="flex items-center space-x-1 text-sm bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-md">
-          <FaTag className="h-4 w-4" />
-          <span>Tag</span>
-        </button>
+        </motion.div>
+
+        {/* How It Works Section */}
+        <motion.div className="mb-24" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.8 }}>
+          <h2 className="text-4xl font-bold text-center mb-12">How It Works</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            {[
+              { icon: FaRegClipboard, title: "Create Projects", desc: "Start new projects and invite collaborators." },
+              { icon: FaCode, title: "Collaborate", desc: "Work together on code in real-time." },
+              { icon: FaRegStar, title: "Achieve Success", desc: "Celebrate milestones with the community." },
+            ].map(({ icon: Icon, title, desc }, idx) => (
+              <motion.div key={idx} whileHover={{ scale: 1.05 }} className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-lg text-center relative z-10">
+                <Icon className="text-5xl text-blue-400 mx-auto mb-4" />
+                <h3 className="text-2xl font-semibold mb-2">{title}</h3>
+                <p className="text-gray-800 dark:text-gray-400">{desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Our Success Section */}
+        <motion.div className="relative py-20 mb-20 bg-white dark:bg-gray-800 rounded-xl shadow-2xl">
+          <div className="absolute -top-14 left-0 w-full h-20 bg-gradient-to-r from-indigo-600 to-pink-500" />
+          <motion.h2 initial={{ opacity: 0, y: -30 }} whileInView={{ opacity: 1, y: 0 }} className="text-5xl font-bold text-center text-gray-800 dark:text-white mb-10">
+            Our Success
+          </motion.h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 px-6">
+            {[
+              { icon: FaUsers, title: "5000+ Members", desc: "Our growing community of developers." },
+              { icon: FaRegStar, title: "1000+ Projects", desc: "Collaborations across the globe." },
+              { icon: FaGlobe, title: "50+ Countries", desc: "Impacting developers worldwide." },
+            ].map(({ icon: Icon, title, desc }, idx) => (
+              <motion.div key={idx} initial={{ y: 50, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ delay: idx * 0.2 }} className="p-8 bg-white dark:bg-gray-700 rounded-lg shadow-lg text-center">
+                <Icon className="text-5xl text-indigo-500 mx-auto mb-4" />
+                <h3 className="text-3xl font-semibold text-gray-800 dark:text-gray-300 mb-2">{title}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Why DevDive Section */}
+        <motion.div className="mb-24" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.8 }}>
+          <h2 className="text-4xl font-bold text-center mb-12">Why DevDive?</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            {[
+              { icon: FaCode, title: "Real-Time Collaboration", desc: "Work on projects with developers in real-time, share code, and provide instant feedback." },
+              { icon: FaTools, title: "Developer-Centric Design", desc: "Our platform is built with developers in mind, providing intuitive tools like integrated code editors, forums, and collaborative features." },
+              { icon: FaRegStar, title: "Community Support", desc: "Get help from the community on any coding challenges, share your knowledge, and help others succeed." },
+            ].map(({ icon: Icon, title, desc }, idx) => (
+              <motion.div
+                key={idx}
+                whileHover={{ scale: 1.05 }}
+                className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-lg text-center relative z-10"
+              >
+                <Icon className="text-5xl text-blue-400 mx-auto mb-4" />
+                <h3 className="text-2xl font-semibold mb-2">{title}</h3>
+                <p className="text-gray-800 dark:text-gray-400">{desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Our Values Section */}
+        <motion.div className="mb-24" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.8 }}>
+          <h2 className="text-4xl font-bold text-center mb-12">Our Values</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            {[
+              { icon: FaHandsHelping, title: "Collaboration", desc: "DevDive encourages developers to work together, share ideas, and contribute to a growing knowledge base." },
+              { icon: FaUsers, title: "Inclusivity", desc: "No matter your skill level or background, DevDive welcomes all developers, making it a safe and accessible space for learning." },
+              { icon: FaRegEdit, title: "Continuous Learning", desc: "We believe in lifelong learning and provide resources to help developers keep their skills sharp and up-to-date." },
+            ].map(({ icon: Icon, title, desc }, idx) => (
+              <motion.div key={idx} whileHover={{ scale: 1.05 }} className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-lg text-center relative z-10">
+                <Icon className="text-5xl text-blue-400 mx-auto mb-4" />
+                <h3 className="text-2xl font-semibold mb-2">{title}</h3>
+                <p className="text-gray-800 dark:text-gray-400">{desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
-
-      {/* Post Title */}
-      <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-2">
-        A Comprehensive Guide to React and State Management
-      </h2>
-
-      {/* Post Text with Summary and Show More */}
-      <p className="text-gray-700 dark:text-gray-300 mb-4">
-        React is a popular JavaScript library for building user interfaces,
-        especially single-page applications. It allows developers to create
-        reusable UI components, manage the state of their applications, and
-        render the components efficiently when the data changes.{" "}
-        {!showMore && (
-          <>
-            {/* Shortened text with "Show more" link */}
-            ...{" "}
-            <button
-              onClick={toggleShowMore}
-              className="text-blue-500 hover:underline"
-            >
-              Show more
-            </button>
-          </>
-        )}
-      </p>
-
-      {/* Full Post Content (hidden until "Show more" is clicked) */}
-      {showMore && (
-        <p className="text-gray-700 dark:text-gray-300">
-          In this guide, we will explore the core concepts of React, including
-          components, props, state, and hooks, and see how they fit together to
-          build dynamic and interactive web applications. Additionally, we'll
-          discuss how React's component lifecycle and hooks can help you manage
-          side effects and state changes more effectively.{" "}
-          <button
-            onClick={toggleShowMore}
-            className="text-blue-500 hover:underline"
-          >
-            Show less
-          </button>
-        </p>
-      )}
-
-      {/* Post Image */}
-      <div className="mb-4">
-        <img
-          src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?crop=entropy&fit=crop&w=600&h=300" // Post image URL
-          alt="Post"
-          className="w-full rounded-lg object-cover"
-        />
-      </div>
-
-      {/* Post Actions */}
-      <div className="flex flex-wrap justify-between items-center text-gray-500 dark:text-gray-400 text-sm">
-        <div className="flex items-center space-x-4">
-          {/* Like */}
-          <button
-            onClick={handleLike}
-            className="flex items-center space-x-1 hover:text-blue-500"
-          >
-            <FaThumbsUp className="h-5 w-5" />
-            <span>{likes} Like</span>
-          </button>
-
-          {/* Dislike */}
-          <button
-            onClick={handleDislike}
-            className="flex items-center space-x-1 hover:text-red-500"
-          >
-            <FaThumbsDown className="h-5 w-5" />
-            <span>{dislikes} Dislike</span>
-          </button>
-        </div>
-
-        {/* Comment */}
-        <button className="flex items-center space-x-1 hover:text-blue-500">
-          <FaCommentAlt className="h-5 w-5" />
-          <span>Comment</span>
-        </button>
-
-        {/* Share */}
-        <button className="flex items-center space-x-1 hover:text-blue-500">
-          <FaShare className="h-5 w-5" />
-          <span>Share</span>
-        </button>
-
-        {/* Wishlist */}
-        <button className="flex items-center space-x-1 hover:text-yellow-500">
-          <FaHeart className="h-5 w-5" />
-          <span>Wishlist</span>
-        </button>
-      </div>
-
-      <Chatbot></Chatbot>
-    </div>
+    </section>
   );
 };
 
-export default CardRuhul;
+export default AboutSection;
