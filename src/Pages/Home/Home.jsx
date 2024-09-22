@@ -1,9 +1,9 @@
 import { Helmet } from "react-helmet";
-import Card from "../../Components/Card/Card";
+import Card from "../../Components/Sanjida/Card";
 
 const Home = () => {
     return (
-        <div className="container mx-auto py-5">
+        <div className="mt-20">
             <Helmet>
                 <title>DevDive | Home</title>
             </Helmet>

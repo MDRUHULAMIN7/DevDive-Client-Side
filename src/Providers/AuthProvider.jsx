@@ -32,13 +32,7 @@ const AuthProvider = ({ children }) => {
 
   const createUser = (email, password) => {
     setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password).then(
-      (userCredential) => {
-        userCredential.user.sendEmailVerification();
-        auth.signOut();
-        alert("Email sent");
-      }
-    );
+    return createUserWithEmailAndPassword(auth, email, password);
   };
 
   const gitHubLogin = () => {

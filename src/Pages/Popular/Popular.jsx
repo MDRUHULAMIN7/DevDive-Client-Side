@@ -1,8 +1,6 @@
-import React from 'react';
+
 import { Helmet } from 'react-helmet';
-import Card from '../../Components/Card/Card';
 import Slider from '../../Components/Fardus/Slider/Slider';
-import CardRuhul from '../../Components/Ruhul/Card-Ruhul/CardRuhul';
 
 const Popular = () => {
 
@@ -26,11 +24,7 @@ const Popular = () => {
            
             <div className="flex justify-center gap-10 mx-auto mt-10">
                 <div className="flex-1 space-y-5">
-                    <CardRuhul></CardRuhul>
-                    <CardRuhul></CardRuhul>
-                    <CardRuhul></CardRuhul>
-                    <CardRuhul></CardRuhul>
-                    <CardRuhul></CardRuhul>
+                    
                 </div>
                 <div className="sticky top-[80px] scrollBar h-[calc(100vh-100px)] overflow-y-auto w-[300px] border dark:bg-gray-800 rounded-2xl p-5 md:block hidden">
     <h2 className="font-semibold text-black dark:text-white mb-5">Recent Posts</h2>
