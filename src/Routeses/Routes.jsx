@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layouts/Main/Main";
 import Home from "../Pages/Home/Home";
-import Card from "../Components/Card/Card";
+import Card from "../Components/Sanjida/Card";
 import ErrorPage from "../Pages/ErrorPage";
 import Popular from "../Pages/Popular/Popular";
 import Following from "../Pages/Following/Following";
