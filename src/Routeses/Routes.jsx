@@ -9,6 +9,7 @@ import All from "../Pages/All/All";
 import CreatePost from "../components/adnan/CreatePost";
 import AdminSetting from "../Pages/Ruhul/Admin/AdminSetting.jsx/AdminSetting";
 import SignModal from "../Components/Nur/SignModal";
+import CardRuhul from "../Components/Ruhul/Card-Ruhul/CardRuhul";
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
       {
         path: "/signModal",
         element: <SignModal></SignModal>,
+      },
+      {
+        path: "/ruhulcard",
+        element: <CardRuhul></CardRuhul>
       },
 
       // for admin
