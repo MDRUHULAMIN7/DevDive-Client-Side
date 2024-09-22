@@ -2,9 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
-import { toast} from "react-toastify";
+import { toast } from "react-toastify";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { uploadImage } from "../../Hooks/imageUpload";
+import { ImCross } from "react-icons/im";
 
 const SignModal = () => {
   const axiosPublic = useAxiosPublic();
@@ -14,33 +15,15 @@ const SignModal = () => {
   const {
     createUser,
     updateuserprofile,
-    logout,
     signInUser,
-    setUser,
-    user,
     googleSigin,
     isModalOpen,
     setIsModalOpen,
+    gitHubLogin,
   } = useContext(AuthContext);
-
-  // const openModal = () => {
-  //   setIsModalOpen(true);
-  // };
-  // const closeModal = () => {
-  //   setIsModalOpen(false);
-  // };
 
   const toggleSignUpMode = () => {
     setIsSignUpMode(!isSignUpMode);
-  };
-
-  const signOut = () => {
-    logout()
-      .then(() => {
-        setUser(null);
-        setIsModalOpen(false)
-      })
-      .catch(() => {});
   };
 
   const handleGoogleSignIn = () => {
@@ -50,6 +33,7 @@ const SignModal = () => {
         email: result.user?.email,
         photoUrl: result.user?.photoURL,
         role: "member",
+        userType: "normal",
       };
       await axiosPublic.post("/users", userInfo).then(() => {});
 
@@ -61,9 +45,15 @@ const SignModal = () => {
       await axiosPublic
         .put(`/users/${result.user?.email}`, userLastLoinTime)
         .then(() => {
-          toast.success("Login successful. Please Wait for Redirect");
+          toast.success("Google Sign In successful.");
           setIsModalOpen(false);
         });
+    });
+  };
+
+  const HandleGitHub = () => {
+    gitHubLogin().then(() => {
+      toast.success("Continue With GitHub successful.");
     });
   };
 
@@ -108,7 +98,7 @@ const SignModal = () => {
         email,
         password,
         role: "member",
-        userType: "normal"
+        userType: "normal",
       };
 
       console.log(newUser);
@@ -157,10 +147,15 @@ const SignModal = () => {
       {isModalOpen && (
         <div
           id="modal-overlay"
-          className="fixed inset-0 z-[9999] bg-black bg-opacity-50 flex justify-center items-center p-10
-                    ">
-          <div className="bg-white p-10 rounded-2xl relative">
-            <h2 className="text-3xl font-semibold mb-4">
+          className="fixed inset-0 z-[9999] bg-black bg-opacity-50 flex justify-center items-center p-2 md:p-10 backdrop-blur-sm ">
+          <div className="bg-white  p-4 md:p-10 rounded-2xl dark:bg-themeColor3 dark:border-white  relative">
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-5 right-5 text-red-600 cursor-pointer md:hidden">
+              <ImCross></ImCross>
+            </button>
+
+            <h2 className="text-3xl font-semibold mb-4 dark:text-white">
               {isSignUpMode ? "Sign Up" : "Sign In"}
             </h2>
 
@@ -187,7 +182,9 @@ const SignModal = () => {
                       Continue With Google
                     </span>
                   </button>
-                  <button className="border-2 p-2 rounded-full flex items-center cursor-not-allowed">
+                  <button
+                    onClick={HandleGitHub}
+                    className="border-2 p-2 rounded-full flex items-center">
                     <FaGithub className="size-6" />
                     <span className="flex flex-grow  justify-center ">
                       Continue With GitHub
@@ -202,29 +199,39 @@ const SignModal = () => {
 
                 <form onSubmit={handleSignIn}>
                   <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-white">
                       Email
                     </label>
                     <input
                       type="email"
                       name="email"
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-themeColor3 dark:text-white dark:placeholder:text-white"
                       placeholder="Enter your email"
                       required
                     />
                   </div>
 
                   <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-white">
                       Password
                     </label>
-                    <input
-                      type="password"
-                      name="password"
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
-                      placeholder="Enter your password"
-                      required
-                    />
+                    <div className="relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        name="password"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-themeColor3 dark:text-white dark:placeholder:text-white"
+                        placeholder="Enter your password"
+                        required
+                      />
+                      <button
+                        className="absolute right-3 top-3 ml-2 text-pm-color hover:text-sec-color"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setShowPassword(!showPassword);
+                        }}>
+                        {!showPassword ? <FaEye /> : <FaEyeSlash />}
+                      </button>
+                    </div>
                   </div>
                   <p className="text-blue-500">Forgot Password?</p>
                   <p className="my-2">
@@ -249,21 +256,21 @@ const SignModal = () => {
               <>
                 <div className="animate-fade-in mt-4">
                   <form onSubmit={handleRegister}>
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700">
+                    <div className="mb-4 pt-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-white">
                         Name
                       </label>
                       <input
                         type="text"
                         name="name"
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-themeColor3 dark:text-white dark:placeholder:text-white"
                         placeholder="Enter your name"
                         required
                       />
                     </div>
 
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700">
+                    <div className="mb-4 pt-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-white">
                         Upload Your Photo
                       </label>
                       <input
@@ -275,33 +282,33 @@ const SignModal = () => {
                       />
                     </div>
 
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700">
+                    <div className="mb-4 pt-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-white">
                         Email
                       </label>
                       <input
                         type="email"
                         name="email"
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-themeColor3 dark:text-white dark:placeholder:text-white"
                         placeholder="Enter your email"
                         required
                       />
                     </div>
 
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700">
+                    <div className="mb-4 pt-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-white">
                         Password
                       </label>
                       <div className="relative">
                         <input
                           type={showPassword ? "text" : "password"}
                           name="password"
-                          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-themeColor3 dark:text-white dark:placeholder:text-white"
                           placeholder="Enter your password"
                           required
                         />
                         <button
-                          className="absolute right-2 top-4 ml-2 text-pm-color hover:text-sec-color"
+                          className="absolute right-3 top-3 ml-2 text-pm-color hover:text-sec-color"
                           onClick={(e) => {
                             e.preventDefault();
                             setShowPassword(!showPassword);
@@ -312,7 +319,7 @@ const SignModal = () => {
                     </div>
 
                     <p className="my-2">
-                      Already Have An Account?{" "}
+                      Have An Account?{" "}
                       <button
                         className="text-blue-500"
                         onClick={toggleSignUpMode}>
@@ -331,8 +338,7 @@ const SignModal = () => {
             )}
           </div>
         </div>
-      )}{" "}
-      {/* <ToastContainer></ToastContainer> */}
+      )}
     </div>
   );
 };
