@@ -1,8 +1,29 @@
 import React, { useRef } from "react";
 import Editor from "@monaco-editor/react"
+import { useState } from "react";
 
 const CreatePost = () => {
   const editorRef = useRef(null);
+  const [inputValue, setInputValue] = useState('');
+  const maxCharacters = 300;
+
+  console.log(inputValue);
+
+  // Function to handle input changes and limit input length
+  const handleInputChange = (e) => {
+    const newValue = e.target.value;
+
+    // Only allow input if it's within the character limit
+    if (newValue.length <= maxCharacters) {
+      setInputValue(newValue);
+    }
+  };
+
+  // Calculate remaining characters
+  const remainingCharacters = maxCharacters - inputValue.length;
+
+
+
 
   function handleEditorDidMount(editor, monaco) {
     editorRef.current = editor;
@@ -12,59 +33,58 @@ const CreatePost = () => {
     alert(editorRef.current.getValue());
   }
 
+
   return (
-    <div className="w-11/12 mx-auto">
-      <h2 className="text-3xl font-bold mb-5">Create Post</h2>
+    <div className="mx-auto flex justify-center gap-12 pt-7">
+      <div className="w-[690px]">
+        <h2 className="text-xl font-bold mb-5">Create Post</h2>
 
-      <input
-        type="text"
-        placeholder="Title"
-        className="block bg-white mt-2 w-full placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-      />
+        <div className="relative w-full border border-gray-300 rounded-2xl mb-10">
+          <div className="relative">
+            <input
+              id="title"
+              value={inputValue}
+              onChange={handleInputChange}
+              className={`w-full text-sm h-[58px] bg-transparent placeholder:text-slate-400 text-slate-700 rounded-md px-4 transition duration-300 ease outline-none
+                        ${inputValue ? 'pt-2' : ''}`}
+            />
+            <label
+              htmlFor="title"
+              className={`absolute cursor-text px-1 left-2.5 bg-transparent text-slate-400 transition-all transform origin-left peer-focus:left-2.5
+        ${inputValue ? 'top-[5px] left-2.5 scale-90 text-xs' : 'top-[50%] translate-y-[-50%] text-sm'}`}
+            >
+              Title <span className="text-red-500 text-lg absolute top-[-3px]">*</span>
+            </label>
+          </div>
+          <div className="text-right text-xs text-slate-500 absolute right-1 bottom-[-25px]">
+            {remainingCharacters}/300
+          </div>
+        </div>
 
-      <label
-        for="Description"
-        className="block text-sm font-semibold text-gray-500 mt-10 "
-      >
-        Upload Image
-      </label>
-      <input
-        type="file"
-        placeholder="Choose Image"
-        className="block bg-white mt-2 w-full placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-      />
 
-      <label
-        for="Description"
-        className="block text-sm font-semibold text-gray-500 mt-10 "
-      >
-        Description
-      </label>
+        <div className="rounded-lg">
+          <Editor
+            height="200px"
+            width="100%"
+            theme="vs-dark"
+            onMount={handleEditorDidMount}
+            defaultLanguage="javascript"
+          ></Editor>
+          <button
+            className="bg-[#54ACDD] rounded px-5 py-2 mt-2"
+            onClick={() => getEditorValue()}>
+            Get Value
+          </button>
+        </div>
 
-      <input
-        placeholder="Write Here..."
-        className="block mt-2 w-full mb-5 placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 bg-white px-4 h-32 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-      ></input>
-
-      <div className="rounded-lg">
-        <Editor
-          height="200px"
-          width="100%"
-          theme="vs-dark"
-          onMount={handleEditorDidMount}
-          defaultLanguage="javascript"
-        ></Editor>
-        <button
-          className="bg-[#54ACDD] rounded px-5 py-2 mt-2"
-          onClick={() => getEditorValue()}>
-          Get Value
-        </button>
+        <div className="flex justify-end">
+          <button className="bg-pm-color px-8 py-3 rounded-lg text-white mt-3 mb-2">
+            Post
+          </button>
+        </div>
       </div>
+      <div className="w-[320px] border h-[500px] rounded-xl">
 
-      <div className="flex justify-end">
-        <button className="bg-pm-color px-8 py-3 rounded-lg text-white mt-3 mb-2">
-          Post
-        </button>
       </div>
     </div>
   );

@@ -8,8 +8,6 @@ const Main = () => {
 
     const { logout, user, isModalOpen } = useContext(AuthContext);
 
-    console.log(isModalOpen, user);
-
 
     return (
         <section className="text-black dark:text-white font-Montserrat">
