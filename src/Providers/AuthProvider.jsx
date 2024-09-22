@@ -6,14 +6,14 @@ import app from "../Firebase/Firebase.config";
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  GithubAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   updateProfile,
-  
 } from "firebase/auth";
-import { GoogleAuthProvider, GithubAuthProvider  } from "firebase/auth";
+import { GoogleAuthProvider } from "firebase/auth";
 
 export const AuthContext = createContext(null);
 
@@ -25,7 +25,6 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-
   const googleSigin = () => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
@@ -33,14 +32,9 @@ const AuthProvider = ({ children }) => {
 
   const createUser = (email, password) => {
     setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password )
-    .then((userCredential) => {
-      // send verification mail.
-      userCredential.user.sendEmailVerification();
-      auth.signOut();
-      alert("Email sent");
-  })
+    return createUserWithEmailAndPassword(auth, email, password);
   };
+
   const gitHubLogin = () => {
     setLoading(true);
     return signInWithPopup(auth, gitHubAuthProvider);
@@ -108,7 +102,7 @@ const AuthProvider = ({ children }) => {
     updateUser,
     isModalOpen,
     setIsModalOpen,
-    gitHubLogin ,
+    gitHubLogin,
   };
 
   return (
