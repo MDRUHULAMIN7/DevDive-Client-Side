@@ -30,6 +30,11 @@ const CreatePost = () => {
 
     setLinkValue(newValue);
   };
+  // const handleTagChange = (e) => {
+  //   const newValue = e.target.value;
+
+  //   setTagValue(newValue);
+  // };
 
   const remainingCharacters = maxCharacters - inputValue.length;
 
