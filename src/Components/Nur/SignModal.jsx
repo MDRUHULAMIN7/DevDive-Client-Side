@@ -6,10 +6,12 @@ import { toast } from "react-toastify";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { uploadImage } from "../../Hooks/imageUpload";
 import { ImCross } from "react-icons/im";
+import { IoMdArrowBack } from "react-icons/io";
 
 const SignModal = () => {
   const axiosPublic = useAxiosPublic();
   const [isSignUpMode, setIsSignUpMode] = useState(false);
+  const [isResetPasswordMode, setIsResetPasswordMode] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -20,10 +22,16 @@ const SignModal = () => {
     isModalOpen,
     setIsModalOpen,
     gitHubLogin,
+    passwordResetEmail,
   } = useContext(AuthContext);
 
   const toggleSignUpMode = () => {
     setIsSignUpMode(!isSignUpMode);
+  };
+
+  const handleResetPassword = () => {
+    console.log("reset password hit ");
+    setIsResetPasswordMode(!isResetPasswordMode);
   };
 
   const handleGoogleSignIn = () => {
@@ -132,6 +140,20 @@ const SignModal = () => {
     }
   };
 
+  const handleResetPasswordFunction = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    console.log(email);
+    passwordResetEmail(email)
+      .then(() => {
+        toast.success("Reset Password Email sent successfully.");
+        setIsResetPasswordMode(false);
+      })
+      .catch((error) => {
+        toast.error("Failed to send password reset email : " + error.message);
+      });
+  };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (event.target.id === "modal-overlay") {
@@ -154,24 +176,48 @@ const SignModal = () => {
               className="absolute top-5 right-5 text-red-600 cursor-pointer md:hidden">
               <ImCross></ImCross>
             </button>
-
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-5 right-16 cursor-pointer  md:hidden bg-slate-200 rounded-full flex items-center justify-center">
+              <IoMdArrowBack className="flex items-center justify-center size-5"></IoMdArrowBack>
+            </button>
             <h2 className="text-3xl font-semibold mb-4 dark:text-white">
-              {isSignUpMode ? "Sign Up" : "Sign In"}
+              {!isSignUpMode && !isResetPasswordMode && <div> Sign In</div>}
+              {isSignUpMode && !isResetPasswordMode && <div> Sign Up</div>}
+              {isModalOpen && isResetPasswordMode && (
+                <div>
+                  <button
+                    onClick={() => setIsResetPasswordMode(!isResetPasswordMode)}
+                    className="absolute top-2 left-2 cursor-pointer size-10 hover:bg-slate-200 flex items-center justify-center hover:rounded-full">
+                    <IoMdArrowBack className="flex items-center justify-center"></IoMdArrowBack>
+                  </button>
+                  Reset Your Password
+                </div>
+              )}
             </h2>
-
-            <p className="text-wrap max-w-md">
-              By continuing, you agree to our{" "}
-              <a href="/userAgreement" className="text-blue-500 font-semibold">
-                User Agreement
-              </a>{" "}
-              and acknowledge that you understand the{" "}
-              <a href="/userAgreement" className="text-blue-500 font-semibold">
-                Privacy Policy
-              </a>
-              .
-            </p>
-
-            {!isSignUpMode && (
+            {!isResetPasswordMode ? (
+              <p className="text-wrap max-w-md">
+                By continuing, you agree to our{" "}
+                <a
+                  href="/userAgreement"
+                  className="text-blue-500 font-semibold">
+                  User Agreement
+                </a>{" "}
+                and acknowledge that you understand the{" "}
+                <a
+                  href="/userAgreement"
+                  className="text-blue-500 font-semibold">
+                  Privacy Policy
+                </a>
+                .
+              </p>
+            ) : (
+              <div className="text-wrap max-w-md">
+                Enter your email address and we’ll send you a link to reset your
+                password
+              </div>
+            )}
+            {!isSignUpMode && !isResetPasswordMode && (
               <>
                 <div className="my-4 gap-2 flex flex-col">
                   <button
@@ -233,14 +279,20 @@ const SignModal = () => {
                       </button>
                     </div>
                   </div>
-                  <p className="text-blue-500">Forgot Password?</p>
+                  <p className="text-blue-500">
+                    <span
+                      className="cursor-pointer"
+                      onClick={handleResetPassword}>
+                      Forgot Password?
+                    </span>
+                  </p>
                   <p className="my-2">
                     New to DevDive?{" "}
-                    <button
-                      className="text-blue-500"
+                    <span
+                      className="text-blue-500 cursor-pointer"
                       onClick={toggleSignUpMode}>
                       Sign Up
-                    </button>
+                    </span>
                   </p>
 
                   <button
@@ -251,8 +303,7 @@ const SignModal = () => {
                 </form>
               </>
             )}
-
-            {isSignUpMode && (
+            {isSignUpMode && !isResetPasswordMode && (
               <>
                 <div className="animate-fade-in mt-4">
                   <form onSubmit={handleRegister}>
@@ -320,11 +371,11 @@ const SignModal = () => {
 
                     <p className="my-2">
                       Have An Account?{" "}
-                      <button
+                      <span
                         className="text-blue-500"
                         onClick={toggleSignUpMode}>
                         Sign In
-                      </button>
+                      </span>
                     </p>
 
                     <button
@@ -335,6 +386,34 @@ const SignModal = () => {
                   </form>
                 </div>
               </>
+            )}
+            {isModalOpen && isResetPasswordMode && (
+              <form
+                onSubmit={handleResetPasswordFunction}
+                className="pt-4 h-[440px] flex flex-col justify-between">
+                <div className="mb-4 flex-shrink-0">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-white">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-themeColor3 dark:text-white dark:placeholder:text-white"
+                    placeholder="Enter your email"
+                    required
+                  />
+                  <div className="mt-6">
+                    <span className="text-blue-500 cursor-pointer h-full flex">
+                      Need Help?
+                    </span>
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  className="bg-pm-color hover:bg-sec-color text-white px-4 py-2 rounded-xl w-full mt-4 text-lg">
+                  Reset Password
+                </button>
+              </form>
             )}
           </div>
         </div>
