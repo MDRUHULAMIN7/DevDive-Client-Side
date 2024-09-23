@@ -9,6 +9,8 @@ import All from "../Pages/All/All";
 import CreatePost from "../components/adnan/CreatePost";
 import PrivateRoute from "../Providers/PrivateRoute";
 
+import AdminSetting from "../Pages/Ruhul/Admin/AdminSetting.jsx/AdminSetting";
+
 export const router = createBrowserRouter([
     {
         path:'/',
@@ -39,7 +41,17 @@ export const router = createBrowserRouter([
             {
                 path:'/create-post',
                 element:<CreatePost></CreatePost>
-            }
+            },
+
+
+            // for admin
+            {
+                path:'/admin-settings',
+                element:<AdminSetting></AdminSetting>
+            },
+            
+       
+            
         ]
     }
 ])
