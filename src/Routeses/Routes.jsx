@@ -39,7 +39,15 @@ export const router = createBrowserRouter([
         element: <Card></Card>,
       },
       {
-        path: "/create-post",
+        path: "/create-post/text-post",
+        element: <CreatePost></CreatePost>,
+      },
+      {
+        path: "/create-post/image-post",
+        element: <CreatePost></CreatePost>,
+      },
+      {
+        path: "/create-post/link-post",
         element: <CreatePost></CreatePost>,
       },
       {
