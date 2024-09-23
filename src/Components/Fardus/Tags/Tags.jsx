@@ -65,7 +65,7 @@ const Tags = ({ onTagsUpdate }) => {
     <div className="relative">
       <label
         htmlFor="tags-input"
-        className="block mb-2 text-sm font-medium text-slate-400 ml-3"
+        className="block mb-2 text-sm text-slate-400 ml-3"
       >
         Tags
       </label>

@@ -7,7 +7,7 @@ import { RouterProvider } from 'react-router-dom'
 import { router } from './Routeses/Routes.jsx'
 import { ToastContainer } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
-
+import 'react-quill/dist/quill.snow.css'; 
 
 
 const queryClient = new QueryClient()

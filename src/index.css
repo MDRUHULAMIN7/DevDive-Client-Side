@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 
-.active {
-    background: #54ACDD;
-    color: white;
-}
 
 /* Hide Scrollbar by default */
 .scrollBar::-webkit-scrollbar {
