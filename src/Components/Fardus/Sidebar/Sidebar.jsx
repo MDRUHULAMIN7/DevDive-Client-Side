@@ -11,22 +11,22 @@ const Sidebar = ({ setOpenMenu, openMenu }) => {
                 <nav>
                     <NavLink to='/' className="flex items-center px-4 py-2 rounded-md duration-200 hover:bg-pm-color hover:text-white" href="#">
                         <IoMdHome className='text-lg' />
-                        <span className="mx-3 font-medium text-sm">Home</span>
+                        <span className="mx-3 font-medium text-xs">Home</span>
                     </NavLink>
 
                     <NavLink to='/popular' className="flex items-center px-4 py-2 mt-5 rounded-md duration-200 hover:bg-pm-color hover:text-white" href="#">
                         <FaArrowTrendUp className='text-lg' />
-                        <span className="mx-4 font-medium text-sm">Popular</span>
+                        <span className="mx-4 font-medium text-xs">Popular</span>
                     </NavLink>
 
                     <NavLink to='/following' className="flex items-center px-4 py-2 mt-5 duration-200 hover:bg-pm-color hover:text-white rounded-md" href="#">
                         <RiUserFollowFill className='text-lg' />
-                        <span className="mx-4 font-medium text-sm">Following</span>
+                        <span className="mx-4 font-medium text-xs">Following</span>
                     </NavLink>
 
                     <NavLink to='/all' className="flex items-center px-4 py-2 mt-5 duration-200 hover:bg-pm-color hover:text-white rounded-md" href="#">
                         <MdBarChart className='text-lg' />
-                        <span className="mx-4 font-medium text-sm">All</span>
+                        <span className="mx-4 font-medium text-xs">All</span>
                     </NavLink>
 
                     <hr className="my-6 border-gray-200 dark:border-gray-700" />

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // React Quill এর CSS
 
-const BodyInput = ({setValue, value}) => {
+const BodyInput = ({ setValue, value }) => {
 
     // const [value, setValue] = useState('');
     const toolbarOptions = [
@@ -18,23 +18,21 @@ const BodyInput = ({setValue, value}) => {
         ['blockquote', 'code-block'], // Blockquote and code block
     ];
 
-    console.log(value);
 
-    
 
     return (
-        <div className="my-6">
-            <ReactQuill
-                theme="snow"
-                value={value}
-                onChange={setValue}
-                modules={{ toolbar: toolbarOptions }}
-                className="border-none rounded-xl shadow-md outline-none"
-                
-            />
-            
+        <div className="my-6 relative">
+    {/* Moved the label above the editor */}
+    <label className='text-sm mb-3 block px-3 pt-3 text-slate-400'>Body</label>
+    <ReactQuill
+        theme="snow"
+        value={value}
+        onChange={setValue}
+        modules={{ toolbar: toolbarOptions }}
+        className="shadow-md"
+    />
+</div>
 
-        </div>
     );
 };
 
