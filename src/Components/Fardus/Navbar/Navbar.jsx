@@ -39,7 +39,7 @@ const Navbar = () => {
         <>
             <nav className="fixed w-full z-50 text-black dark:text-white top-0 bg-white dark:bg-themeColor border-b border-black dark:border-gray-700 border-opacity-15">
                 <div className="sm:px-6 px-3 py-2 flex h-[56px] justify-between items-center">
-                    <div className="flex items-center justify-start lg:w-[189px]">
+                    <div className="flex items-center justify-start">
                         <HiOutlineMenuAlt1
                             onClick={() => {
                                 setOpenMenu(!openMenu);
