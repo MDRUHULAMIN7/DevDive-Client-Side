@@ -1,14 +1,15 @@
 
 import  { useState } from 'react';
 import ManagUsers from '../Component/ManageUsers/ManagUsers';
+import PostBlog from '../Component/PostBlog/PostBlog';
 
 const AdminSetting = () => {
   const [activeTab, setActiveTab] = useState('General');
 
-  const tabs = ['General', 'User Management', 'Permissions', 'System Settings'];
+  const tabs = ['General', 'User Management', 'Post Blog', 'System Settings'];
 
   return (
-    <div className="p-4 max-w-4xl mx-auto">
+    <div className="p-4 max-w-5xl mx-auto">
       {/* Tab Header */}
       <div className="flex flex-col sm:flex-row justify-center sm:justify-start items-center space-y-2 space-x-0 sm:space-x-4 mb-6">
         {tabs.map((tab) => (
@@ -47,12 +48,9 @@ const AdminSetting = () => {
             </section>
           </div>
         )}
-        {activeTab === 'Permissions' && (
+        {activeTab === 'Post Blog' && (
           <div>
-            <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Permissions</h2>
-            <p className="text-gray-700 dark:text-gray-300">
-              Set and modify permissions for different user roles.
-            </p>
+           <PostBlog></PostBlog>
           </div>
         )}
         {activeTab === 'System Settings' && (
