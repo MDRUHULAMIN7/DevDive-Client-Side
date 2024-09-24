@@ -52,7 +52,7 @@ const CardRuhul = () => {
       </h2>
 
       {/* Post Text with Summary and Show More */}
-      <p className="text-gray-700 dark:text-gray-300 mb-4">
+      <p className="text-gray-700 dark:text-gray-300">
         React is a popular JavaScript library for building user interfaces,
         especially single-page applications. It allows developers to create
         reusable UI components, manage the state of their applications, and
@@ -89,7 +89,7 @@ const CardRuhul = () => {
       )}
 
       {/* Post Image */}
-      <div className="mb-4">
+      <div className="mb-4 mt-4">
         <img
           src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?crop=entropy&fit=crop&w=600&h=300" // Post image URL
           alt="Post"
