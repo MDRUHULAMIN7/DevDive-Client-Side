@@ -13,6 +13,7 @@ const SignModal = () => {
   const [isSignUpMode, setIsSignUpMode] = useState(false);
   const [isResetPasswordMode, setIsResetPasswordMode] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const {
     createUser,
@@ -67,6 +68,7 @@ const SignModal = () => {
 
   const handleSignIn = (e) => {
     e.preventDefault();
+    setLoading(true);
     const email = e.target.email.value;
     const password = e.target.password.value;
     console.log(email, password);
@@ -82,6 +84,7 @@ const SignModal = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const name = e.target.name.value;
     const photo = e.target.photo.files[0];
     const email = e.target.email.value;
@@ -137,21 +140,35 @@ const SignModal = () => {
       setIsModalOpen(false);
     } catch (error) {
       toast.error(error.message);
+      setIsModalOpen(false);
     }
   };
 
-  const handleResetPasswordFunction = (e) => {
+  const handleResetPasswordFunction = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const email = e.target.email.value;
     console.log(email);
-    passwordResetEmail(email)
-      .then(() => {
-        toast.success("Reset Password Email sent successfully.");
-        setIsResetPasswordMode(false);
-      })
-      .catch((error) => {
-        toast.error("Failed to send password reset email : " + error.message);
-      });
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_URL}user?email=${email}`
+      );
+      const user = await response.json();
+
+      if (!user || user.length === 0) {
+        toast.error(
+          "User Not Found. Please register first or input the correct email"
+        );
+        return;
+      }
+
+      await passwordResetEmail(email);
+      toast.success("Reset Password Email sent successfully.");
+      setIsResetPasswordMode(false);
+    } catch (error) {
+      toast.error("Failed to send password reset email: " + error.message);
+    }
   };
 
   useEffect(() => {
@@ -171,30 +188,30 @@ const SignModal = () => {
           id="modal-overlay"
           className="fixed inset-0 z-[9999] bg-black bg-opacity-50 flex justify-center items-center p-2 md:p-10 backdrop-blur-sm ">
           <div className="bg-white  p-4 md:p-10 rounded-2xl dark:bg-themeColor3 dark:border-white  relative">
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-5 right-5 text-red-600 cursor-pointer md:hidden">
-              <ImCross></ImCross>
-            </button>
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-5 right-16 cursor-pointer  md:hidden bg-slate-200 rounded-full flex items-center justify-center">
-              <IoMdArrowBack className="flex items-center justify-center size-5"></IoMdArrowBack>
-            </button>
-            <h2 className="text-3xl font-semibold mb-4 dark:text-white">
+            {/* Back And Cross Button */}
+            <div className="flex justify-between  ">
+              {isModalOpen && isResetPasswordMode && (
+                <button
+                  onClick={() => setIsResetPasswordMode(!isResetPasswordMode)}
+                  className="absolute top-5 left-5 size-10 cursor-pointer bg-slate-200 rounded-full flex items-center justify-center dark:bg-themeColor2">
+                  <IoMdArrowBack className="flex items-center justify-center text-3xl"></IoMdArrowBack>
+                </button>
+              )}
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="absolute top-5 right-5 size-10  text-red-600 cursor-pointer bg-slate-200 rounded-full flex items-center justify-center dark:bg-themeColor2">
+                <ImCross></ImCross>
+              </button>
+            </div>
+            {/* Modal Heading */}
+            <h2 className="text-3xl font-semibold mb-4 dark:text-white pt-5">
               {!isSignUpMode && !isResetPasswordMode && <div> Sign In</div>}
               {isSignUpMode && !isResetPasswordMode && <div> Sign Up</div>}
               {isModalOpen && isResetPasswordMode && (
-                <div>
-                  <button
-                    onClick={() => setIsResetPasswordMode(!isResetPasswordMode)}
-                    className="absolute top-2 left-2 cursor-pointer size-10 hover:bg-slate-200 flex items-center justify-center hover:rounded-full">
-                    <IoMdArrowBack className="flex items-center justify-center"></IoMdArrowBack>
-                  </button>
-                  Reset Your Password
-                </div>
+                <div>Reset Your Password</div>
               )}
             </h2>
+            {/* Modal Description */}
             {!isResetPasswordMode ? (
               <p className="text-wrap max-w-md">
                 By continuing, you agree to our{" "}
@@ -217,6 +234,7 @@ const SignModal = () => {
                 password
               </div>
             )}
+            {/* Sign In */}
             {!isSignUpMode && !isResetPasswordMode && (
               <>
                 <div className="my-4 gap-2 flex flex-col">
@@ -269,14 +287,14 @@ const SignModal = () => {
                         placeholder="Enter your password"
                         required
                       />
-                      <button
-                        className="absolute right-3 top-3 ml-2 text-pm-color hover:text-sec-color"
+                      <span
+                        className="absolute right-3 top-3 ml-2 text-pm-color hover:text-sec-color cursor-pointer"
                         onClick={(e) => {
                           e.preventDefault();
                           setShowPassword(!showPassword);
                         }}>
                         {!showPassword ? <FaEye /> : <FaEyeSlash />}
-                      </button>
+                      </span>
                     </div>
                   </div>
                   <p className="text-blue-500">
@@ -294,15 +312,20 @@ const SignModal = () => {
                       Sign Up
                     </span>
                   </p>
-
                   <button
                     type="submit"
-                    className="bg-pm-color hover:bg-sec-color text-white px-4 py-2 rounded-xl w-full mt-4 text-lg">
-                    Sign In
+                    disabled={loading}
+                    className={`px-4 py-2 rounded-xl w-full mt-4 text-lg text-white ${
+                      loading
+                        ? "bg-gray-400 cursor-not-allowed"
+                        : "bg-pm-color hover:bg-sec-color"
+                    }`}>
+                    {loading ? "Loading..." : "Sign In"}
                   </button>
                 </form>
               </>
             )}
+            {/* Sign Up */}
             {isSignUpMode && !isResetPasswordMode && (
               <>
                 <div className="animate-fade-in mt-4">
@@ -358,14 +381,14 @@ const SignModal = () => {
                           placeholder="Enter your password"
                           required
                         />
-                        <button
-                          className="absolute right-3 top-3 ml-2 text-pm-color hover:text-sec-color"
+                        <span
+                          className="absolute right-3 top-3 ml-2 text-pm-color hover:text-sec-color cursor-pointer"
                           onClick={(e) => {
                             e.preventDefault();
                             setShowPassword(!showPassword);
                           }}>
                           {!showPassword ? <FaEye /> : <FaEyeSlash />}
-                        </button>
+                        </span>
                       </div>
                     </div>
 
@@ -377,16 +400,21 @@ const SignModal = () => {
                         Sign In
                       </span>
                     </p>
-
                     <button
                       type="submit"
-                      className="bg-pm-color hover:bg-sec-color text-white px-4 py-2 rounded-xl w-full mt-4 text-lg">
-                      Sign Up
+                      disabled={loading}
+                      className={`px-4 py-2 rounded-xl w-full mt-4 text-lg text-white ${
+                        loading
+                          ? "bg-gray-400 cursor-not-allowed"
+                          : "bg-pm-color hover:bg-sec-color"
+                      }`}>
+                      {loading ? "Loading..." : "Sign Up"}
                     </button>
                   </form>
                 </div>
               </>
             )}
+            {/* Reset Password */}
             {isModalOpen && isResetPasswordMode && (
               <form
                 onSubmit={handleResetPasswordFunction}
@@ -410,8 +438,13 @@ const SignModal = () => {
                 </div>
                 <button
                   type="submit"
-                  className="bg-pm-color hover:bg-sec-color text-white px-4 py-2 rounded-xl w-full mt-4 text-lg">
-                  Reset Password
+                  disabled={loading}
+                  className={`px-4 py-2 rounded-xl w-full mt-4 text-lg text-white ${
+                    loading
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-pm-color hover:bg-sec-color"
+                  }`}>
+                  {loading ? "Loading..." : "Reset Password"}
                 </button>
               </form>
             )}
