@@ -10,6 +10,8 @@ import CreatePost from "../components/adnan/CreatePost";
 import AdminSetting from "../Pages/Ruhul/Admin/AdminSetting.jsx/AdminSetting";
 import SignModal from "../Components/Nur/SignModal";
 import CardRuhul from "../Components/Ruhul/Card-Ruhul/CardRuhul";
+import BlogCard from "../Components/Sanjida/BlogCard";
+import ReadMore from "../Components/Sanjida/ReadMore";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +40,16 @@ export const router = createBrowserRouter([
         path: "/card",
         element: <Card></Card>,
       },
+      // .......for testing......../
+      {
+        path: '/blogCard',
+        element: <BlogCard></BlogCard>
+      },
+      {
+        path:'/readMore',
+        element:<ReadMore></ReadMore>
+      },
+
       {
         path: "/create-post/text-post",
         element: <CreatePost></CreatePost>,

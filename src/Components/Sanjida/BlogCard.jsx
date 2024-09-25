@@ -3,15 +3,16 @@ import { PiFacebookLogoBold } from "react-icons/pi";
 import { TiSocialTwitterCircular } from "react-icons/ti";
 import { TiSocialTumblerCircular } from "react-icons/ti";
 import { AiOutlinePinterest } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 
 const BlogCard = () => {
     return (
 
-        <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl overflow-hidden bg-white dark:bg-gray-800 rounded-xl shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105">
+        <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl overflow-hidden bg-white dark:bg-gray-800 rounded-xl shadow-xl transition-all duration-300 ease-in-out transform">
             <div className="flex flex-col lg:flex-row gap-4 items-center p-4 lg:mb-8 lg:mt-8 mb-4 mt-4 justify-start w-full">
                 <span className="font-bold text-2xl text-red-600">ANNOUNCEMENTS</span>
-                <h1 className="font-semibold text-xl lg:text-2xl text-gray-800 dark:text-white">Staff August 13, 2024</h1>
+                <h1 className="font-medium text-xl lg:text-2xl text-gray-800 dark:text-white">Staff August 13, 2024</h1>
             </div>
 
             <img
@@ -19,13 +20,13 @@ const BlogCard = () => {
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqvbUfUqCkWaYbdldQP_iaXUGFBwtDC08NLQ&s"
                 alt="NIKE AIR"
             />
-            <p className="p-3 mt-4 mb-4 text-lg sm:text-xl md:text-2xl text-gray-500 justify-start">Deepening our Agency Partnerships with Reddit’s New Partner Badging Program with Reddit</p>
+            <p className="p-3 mt-4 mb-4 text-lg sm:text-xl md:text-2xl text-gray-700 dark:text-white justify-start">Deepening our Agency Partnerships with Reddit’s New Partner Badging Program</p>
 
             <div className="flex flex-col lg:flex-row justify-between p-4 items-start lg:items-center">
-                <button className="font-semibold flex gap-2 items-center text-blue-500 hover:text-blue-600 transition-colors duration-200">
+                <Link to='/readMore'> <button className="font-semibold flex gap-2 items-center text-blue-500 hover:text-blue-600 transition-colors duration-200">
                     READ MORE <IoIosArrowForward className="h-5 w-5"></IoIosArrowForward>
                 </button>
-
+                </Link>
                 <div className="flex gap-4 items-center mt-4 lg:mt-0">
                     <p className="text-gray-400">SHARE</p>
                     <a href="https://www.facebook.com/"><PiFacebookLogoBold className="h-8 w-8 text-blue-500 hover:text-blue-600"></PiFacebookLogoBold></a>
@@ -42,3 +43,7 @@ const BlogCard = () => {
 };
 
 export default BlogCard;
+
+
+
+
