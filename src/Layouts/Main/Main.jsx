@@ -14,7 +14,8 @@ const Main = () => {
     return (
         <section className="text-black dark:text-white font-Montserrat">
                 <Navbar></Navbar>
-            <div className="mt-[56px] xl:ml-[256px]">
+                <div className="h-[56px]"></div>
+            <div className="xl:ml-[256px]">
                 {(isModalOpen && user === null) && <SignModal></SignModal>}
                 <Outlet></Outlet>
             </div>
