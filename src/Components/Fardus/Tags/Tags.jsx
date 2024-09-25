@@ -366,7 +366,7 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
           ))}
         </div>
       )}
-      <div id="tags-container" className={`${emptyTags ? "mt-8" : "mt-2"} flex flex-wrap gap-2 ${emptyTags && inputValue.length > 0 ? "-mt-[-10px]" : ""}`}>
+      <div id="tags-container" className={`${emptyTags ? "mt-8" : "mt-2"} flex flex-wrap gap-2`}>
         {tags.map((tag) => (
           <div
             key={tag}

@@ -15,7 +15,7 @@ const CreatePost = () => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [tags, setTags] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [image, setImage] = useState(null);
+  const [files, setFiles] = useState([]);
   const [emptyTitle, setEmptyTitle] = useState(false);
   const [emptyTags, setEmptyTags] = useState(false);
   const maxCharacters = 300;
@@ -95,8 +95,9 @@ const CreatePost = () => {
   }
   // console.log(emptyTitle, emptyTags);
 
-  console.log(emptyTitle, emptyTags);
-  console.log(inputValue, tags);
+  // console.log(emptyTitle, emptyTags);
+  // console.log(inputValue, tags);
+  console.log(files);
 
   return (
     <div className="w-[95%] mx-auto">
@@ -152,7 +153,7 @@ const CreatePost = () => {
 
           <div className="mt-10 mb-5">
             {location.pathname == "/create-post/text-post" && <BodyInput setValue={setValue} value={value}></BodyInput>}
-            {location.pathname == "/create-post/image-post" && <ImagePost></ImagePost>}
+            {location.pathname == "/create-post/image-post" && <ImagePost files={files} setFiles={setFiles}></ImagePost>}
             {location.pathname == "/create-post/link-post" && <LinkPost linkValue={linkValue} handleLinkChange={handleLinkChange}></LinkPost>}
           </div>
 
