@@ -6,8 +6,8 @@
 
 /* Hide Scrollbar by default */
 .scrollBar::-webkit-scrollbar {
-    width: 5px;
-    /* Invisible scrollbar by default */
+    width: 3px;    /* Invisible scrollbar by default */
+    height: 3px;
     transition: width 0.3s ease;
     background-color: transparent;
     /* Transparent by default */
@@ -15,7 +15,7 @@
 
 /* Show Scrollbar on hover */
 .scrollBar:hover::-webkit-scrollbar {
-    width: 5px;
+    width: 3px;
     /* Visible scrollbar on hover */
 }
 
@@ -41,77 +41,46 @@
 
 
 
-/* Swiper container styling */
-.swiper-container {
+#app {
+    height: 100%;
+  }
+  html,
+  body {
+    position: relative;
+    height: 100%;
+  }
+  
+  body {
+    background: #eee;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #000;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .swiper {
     width: 100%;
     height: 100%;
-}
-
-/* Slide styling */
-.swiper-slide {
+  }
+  
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+  
+    /* Center slide text vertically */
     display: flex;
-    align-items: center;
     justify-content: center;
-    position: relative;
-}
-
-/* Image styling */
-.swiper-slide img {
+    align-items: center;
+  }
+  
+  .swiper-slide img {
+    display: block;
     width: 100%;
-    height: auto;
-    /* Maintain aspect ratio */
+    height: 100%;
     object-fit: cover;
-    /* Cover the slide area */
-    border-radius: 12px;
-    /* Rounded corners */
-}
-
-/* Overlay styling */
-.overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.5);
-    /* Semi-transparent black */
-    color: white;
-    padding: 1rem;
-    border-radius: 0 0 12px 12px;
-    /* Rounded corners at the bottom */
-}
-
-/* Title styling */
-.overlay h2 {
-    font-size: 1.25rem;
-    /* Adjust font size */
-    font-weight: bold;
-}
-
-/* Description styling */
-.overlay p {
-    font-size: 1rem;
-    /* Adjust font size */
-    margin-top: 0.5rem;
-    /* Space between title and description */
-}
-
-/* Navigation buttons */
-.swiper-button-next,
-.swiper-button-prev {
-    color: white;
-    /* Button color */
-}
-
-/* Pagination styling */
-.swiper-pagination-bullet {
-    background: white;
-    /* Pagination bullet color */
-}
-
-.swiper-pagination-bullet-active {
-    background: #88CE02;
-    /* Active bullet color */
-}
+  }
 
 ul {
     list-style-type: disc;

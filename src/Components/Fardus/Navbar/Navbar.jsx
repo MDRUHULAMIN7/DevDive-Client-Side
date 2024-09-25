@@ -37,9 +37,9 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="fixed w-full text-black dark:text-white top-0 bg-white dark:bg-themeColor border-b border-black dark:border-gray-700 border-opacity-15">
+            <nav className="fixed w-full z-[100] text-black dark:text-white top-0 bg-white dark:bg-themeColor border-b border-black dark:border-gray-700 border-opacity-15">
                 <div className="sm:px-6 px-3 py-2 flex h-[56px] justify-between items-center">
-                    <div className="flex items-center justify-start lg:w-[189px]">
+                    <div className="flex items-center justify-start">
                         <HiOutlineMenuAlt1
                             onClick={() => {
                                 setOpenMenu(!openMenu);
@@ -118,7 +118,7 @@ const Navbar = () => {
                                                 src={user?.photoURL || User}
                                                 alt="user"
                                             />
-                                            <span className="absolute bottom-0 left-6 w-2 h-2 rounded-full bg-emerald-500 ring-1 ring-white"></span>
+                                            <span className="absolute bg-green-500 bottom-0 left-6 w-2 h-2 rounded-full bg-emerald-500 ring-1 ring-white"></span>
                                         </div>
                                         <div>
                                             <h2 className="text-sm">{user?.displayName}</h2>
@@ -200,7 +200,7 @@ const Navbar = () => {
                     } w-full h-screen lg:hidden bg-black bg-opacity-20 lg:py-8 py-5 shadow-2xl fixed top-0 right-0 rounded-lg z-10`}></span>
 
             <div
-                className={`fixed z-50 bottom-0 left-0 lg:hidden ${openSmallMenu ? "translate-y-0" : "translate-y-[100%] hidden"
+                className={`fixed z-[100] bottom-0 left-0 lg:hidden ${openSmallMenu ? "translate-y-0" : "translate-y-[100%] hidden"
                     } py-5 space-y-4 bg-white dark:bg-themeColor2 dark:hover:text-gray-50 dark:hover:bg-themeColor3 hover:bg-gray-100 w-full`}>
                 <span
                     onClick={() => {
@@ -213,7 +213,7 @@ const Navbar = () => {
             </div>
 
             <div
-                className={`fixed z-50 bottom-0 left-0 lg:hidden ${clickPp ? "translate-y-0" : "translate-y-[100%] hidden"
+                className={`fixed z-[100] bottom-0 left-0 lg:hidden ${clickPp ? "translate-y-0" : "translate-y-[100%] hidden"
                     } bg-white dark:bg-themeColor2 text-black dark:text-white w-full`}>
                 <div className="flex items-center gap-2 px-5 py-4 hover:bg-gray-100">
                     <div className="relative">
@@ -263,7 +263,7 @@ const Navbar = () => {
 
             <div
                 className={`${clickSearch
-                    ? "fixed w-full top-0 sm:px-6 px-4 py-2 lg:hidden"
+                    ? "fixed w-full top-0 sm:px-6 px-4 py-2 lg:hidden z-[101]"
                     : "hidden"
                     } bg-white dark:bg-themeColor`}>
                 <div className="flex justify-start items-center gap-3">
