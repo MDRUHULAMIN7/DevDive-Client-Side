@@ -37,14 +37,14 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="fixed z-50 w-full text-black dark:text-white top-0 bg-white dark:bg-themeColor border-b border-black dark:border-gray-700 border-opacity-15">
+            <nav className="fixed w-full text-black dark:text-white top-0 bg-white dark:bg-themeColor border-b border-black dark:border-gray-700 border-opacity-15">
                 <div className="sm:px-6 px-3 py-2 flex h-[56px] justify-between items-center">
-                    <div className="flex items-center justify-between lg:w-[189px]">
+                    <div className="flex items-center justify-start lg:w-[189px]">
                         <HiOutlineMenuAlt1
                             onClick={() => {
                                 setOpenMenu(!openMenu);
                             }}
-                            className="text-2xl mr-3 lg:hidden"
+                            className="text-2xl mr-3 xl:hidden"
                         />
                         <Logo></Logo>
                     </div>
@@ -93,7 +93,7 @@ const Navbar = () => {
                                 <button className="p-2 rounded-full  dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100  duration-200 lg:ml-0 ml-3">
                                     {notification}
                                 </button>
-                                <Link to="/create-post" className="flex items-center gap-1 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 sm:px-3 px-2 py-2 sm:rounded-2xl rounded-full duration-200 mr-3">
+                                <Link to="/create-post/text-post" className="flex items-center gap-1 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 sm:px-3 px-2 py-2 sm:rounded-2xl rounded-full duration-200 mr-3">
                                     {add} <span className="sm:block text-sm hidden">Create</span>
                                 </Link>
 
@@ -105,7 +105,7 @@ const Navbar = () => {
                                         src={user?.photoURL || User}
                                         alt="user"
                                     />
-                                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 absolute right-0 ring-1 ring-white bottom-0"></span>
+                                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 absolute right-0 ring-1 ring-white bg-green-400 bottom-0"></span>
                                 </button>
 
                                 <div
@@ -222,7 +222,7 @@ const Navbar = () => {
                             src={user?.photoURL || User}
                             alt="user"
                         />
-                        <span className="absolute bottom-0 left-6 w-2 h-2 rounded-full bg-emerald-500 ring-1 ring-white"></span>
+                        <span className="absolute bottom-0 left-6 w-2 h-2 rounded-full bg-emerald-500 ring-1 ring-white bg-green-400"></span>
                     </div>
                     <div>
                         <h2 className="text-sm">{user?.displayName

@@ -1,7 +1,7 @@
 
 import  { useState } from 'react';
 import ManagUsers from '../Component/ManageUsers/ManagUsers';
-import PostBlog from '../Component/PostBlog/PostBlog';
+import PostBlogPage from '../PostBlogPage/PostBlogpage';
 
 const AdminSetting = () => {
   const [activeTab, setActiveTab] = useState('General');
@@ -9,7 +9,7 @@ const AdminSetting = () => {
   const tabs = ['General', 'User Management', 'Post Blog', 'System Settings'];
 
   return (
-    <div className="p-4 max-w-5xl mx-auto">
+    <div className="md:p-4 p-1 w-full mx-auto">
       {/* Tab Header */}
       <div className="flex flex-col sm:flex-row justify-center sm:justify-start items-center space-y-2 space-x-0 sm:space-x-4 mb-6">
         {tabs.map((tab) => (
@@ -29,7 +29,7 @@ const AdminSetting = () => {
       </div>
 
       {/* Tab Content */}
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+      <div className="bg-transparent p-6 rounded-lg shadow-md">
         {activeTab === 'General' && (
           <div>
             <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">General Settings</h2>
@@ -50,7 +50,7 @@ const AdminSetting = () => {
         )}
         {activeTab === 'Post Blog' && (
           <div>
-           <PostBlog></PostBlog>
+           <PostBlogPage></PostBlogPage>
           </div>
         )}
         {activeTab === 'System Settings' && (

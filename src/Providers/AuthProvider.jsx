@@ -8,6 +8,7 @@ import {
   getAuth,
   GithubAuthProvider,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -72,6 +73,11 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  const passwordResetEmail = (email) => {
+    setLoading(true);
+    return sendPasswordResetEmail(auth, email);
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -103,6 +109,7 @@ const AuthProvider = ({ children }) => {
     isModalOpen,
     setIsModalOpen,
     gitHubLogin,
+    passwordResetEmail,
   };
 
   return (

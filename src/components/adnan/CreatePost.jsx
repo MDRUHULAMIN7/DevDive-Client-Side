@@ -1,71 +1,145 @@
-import React, { useRef } from "react";
-import Editor from "@monaco-editor/react"
+import React, { useEffect, useRef } from "react";
+import { useState } from "react";
+import BodyInput from "../Fardus/BodyInput/BodyInput";
+import Tags from "../Fardus/Tags/Tags";
+import { NavLink, useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import ImagePost from "../Fardus/ImagePost/ImagePost";
+import LinkPost from "../Fardus/LinkPost/Linkpost";
 
 const CreatePost = () => {
-  const editorRef = useRef(null);
+  const location = useLocation();
+  const [inputValue, setInputValue] = useState('');
+  const [linkValue, setLinkValue] = useState('');
+  const [value, setValue] = useState('');
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const maxCharacters = 300;
 
-  function handleEditorDidMount(editor, monaco) {
-    editorRef.current = editor;
-  }
 
-  function getEditorValue() {
-    alert(editorRef.current.getValue());
-  }
+  const handleInputChange = (e) => {
+    const newValue = e.target.value;
+
+    if (newValue.length <= maxCharacters) {
+      setInputValue(newValue);
+    }
+  };
+
+  const handleLinkChange = (e) => {
+    const newValue = e.target.value;
+
+    setLinkValue(newValue);
+  };
+  // const handleTagChange = (e) => {
+  //   const newValue = e.target.value;
+
+  //   setTagValue(newValue);
+  // };
+
+  const remainingCharacters = maxCharacters - inputValue.length;
+
+
+
+  const handleTagsUpdate = (tags) => {
+    setSelectedTags(tags);
+    console.log('Selected tags:', tags);
+  };
+
+  useEffect(() => {
+  }, [location]);
+  console.log("URL changed to:", location.pathname);
+
+
+
+  const toggleText = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const textToShow = isExpanded ? value : value.slice(0, 250) + (value.length > 250 ? "..." : "");
 
   return (
-    <div className="w-11/12 mx-auto">
-      <h2 className="text-3xl font-bold mb-5">Create Post</h2>
+    <div className="w-[95%] mx-auto">
+      <Helmet>
+        <title>DevDive | Create-Post</title>
+      </Helmet>
+      <div className="mx-auto flex justify-center gap-12 py-7">
+        <div className="w-[690px]">
+          <div className="w-full flex justify-end">
+            <button className="text-xs font-bold bg-pm-color text-white px-2 rounded-2xl py-1">Draft</button>
+          </div>
+          <h2 className="text-xl font-bold mb-5">Create Post</h2>
 
-      <input
-        type="text"
-        placeholder="Title"
-        className="block bg-white mt-2 w-full placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-      />
+          <div className="flex justify-start items-center gap-14 text-sm font-bold mt-14 mb-7 ml-4">
+            <NavLink className={({ isActive }) =>
+              ` pb-2 px-2 border-b-2 text-gray-700 dark:text-gray-500 ${isActive ? 'border-sec-color' : 'border-transparent'}`
+            } to="/create-post/text-post">Text</NavLink>
+            <NavLink className={({ isActive }) =>
+              ` pb-2 px-2 border-b-2 text-gray-700 dark:text-gray-500 ${isActive ? 'border-sec-color' : 'border-transparent'}`
+            } to="/create-post/image-post">Image</NavLink>
+            <NavLink className={({ isActive }) =>
+              ` pb-2 px-2 border-b-2 text-gray-700 dark:text-gray-500 ${isActive ? 'border-sec-color' : 'border-transparent'}`
+            } to="/create-post/link-post">Link</NavLink>
+          </div>
 
-      <label
-        for="Description"
-        className="block text-sm font-semibold text-gray-500 mt-10 "
-      >
-        Upload Image
-      </label>
-      <input
-        type="file"
-        placeholder="Choose Image"
-        className="block bg-white mt-2 w-full placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-      />
+          <div className="relative w-full border border-gray-300 dark:border-gray-500 rounded-2xl mb-10">
+            <div className="relative">
+              <input
+                id="title"
+                value={inputValue}
+                onChange={handleInputChange}
+                className={`w-full text-sm h-[58px] bg-transparent placeholder:text-slate-400 dark:text-gray-100 text-slate-700 rounded-md px-4 transition duration-300 ease outline-none
+                        ${inputValue ? 'pt-2' : ''}`}
+              />
+              <label
+                htmlFor="title"
+                className={`absolute cursor-text px-1 left-2.5 bg-transparent text-slate-400 transition-all transform origin-left peer-focus:left-2.5
+        ${inputValue ? 'top-[5px] left-2.5 scale-90 text-xs' : 'top-[50%] translate-y-[-50%] text-sm'}`}
+              >
+                Title <span className="text-red-500 text-lg absolute top-[-3px]">*</span>
+              </label>
+            </div>
+            <div className="text-right text-xs text-slate-500 absolute right-1 bottom-[-25px]">
+              {remainingCharacters}/300
+            </div>
+          </div>
 
-      <label
-        for="Description"
-        className="block text-sm font-semibold text-gray-500 mt-10 "
-      >
-        Description
-      </label>
+          <Tags onTagsUpdate={handleTagsUpdate}></Tags>
 
-      <input
-        placeholder="Write Here..."
-        className="block mt-2 w-full mb-5 placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 bg-white px-4 h-32 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-      ></input>
+          <div className="mt-10 mb-5">
+            {location.pathname == "/create-post/text-post" && <BodyInput setValue={setValue} value={value}></BodyInput>}
+            {location.pathname == "/create-post/image-post" && <ImagePost></ImagePost>}
+            {location.pathname == "/create-post/link-post" && <LinkPost linkValue={linkValue} handleLinkChange={handleLinkChange}></LinkPost>}
+          </div>
 
-      <div className="rounded-lg">
-        <Editor
-          height="200px"
-          width="100%"
-          theme="vs-dark"
-          onMount={handleEditorDidMount}
-          defaultLanguage="javascript"
-        ></Editor>
-        <button
-          className="bg-[#54ACDD] rounded px-5 py-2 mt-2"
-          onClick={() => getEditorValue()}>
-          Get Value
-        </button>
+          <div className="w-full">
+            <div className="flex justify-end gap-5">
+              <button className="bg-pm-color text-white px-3 py-2 rounded-3xl text-xs font-semibold">Save Draft</button>
+              <button className="bg-pm-color text-white px-3 py-2 rounded-3xl text-xs font-semibold">Post</button>
+            </div>
+          </div>
+        </div>
+        {/* Draft */}
+        <div className="w-[320px] border-gray-300 p-3 dark:border-gray-500 min-h-[500px] rounded-xl md:block hidden mb-10">
+          <h1 className="text-sm font-semibold mb-5">{inputValue}</h1>
+          <div className="text-xs mb-5">
+            <div dangerouslySetInnerHTML={{ __html: textToShow }} />
+            {value.length > 250 && (
+              <button
+                onClick={toggleText}
+                className="text-blue-700 mt-2"
+              >
+                {isExpanded ? "See Less" : "See More"}
+              </button>
+            )}
+          </div>
+          <div className="flex justify-start flex-wrap items-center">
+            {selectedTags.map((tag) => (
+              <span key={tag} className="text-xs text-sec-color font-semibold mr-3 mb-1">#{tag}</span>
+            ))}
+          </div>
+        </div>
       </div>
 
-      <div className="flex justify-end">
-        <button className="bg-pm-color px-8 py-3 rounded-lg text-white mt-3 mb-2">
-          Post
-        </button>
-      </div>
     </div>
   );
 };

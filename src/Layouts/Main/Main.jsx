@@ -10,13 +10,11 @@ const Main = () => {
 
     const { logout, user, isModalOpen } = useContext(AuthContext);
 
-    console.log(isModalOpen, user);
-
 
     return (
         <section className="text-black dark:text-white font-Montserrat">
                 <Navbar></Navbar>
-            <div className="mt-[56px] lg:ml-[256px]">
+            <div className="mt-[56px] xl:ml-[256px]">
                 {(isModalOpen && user === null) && <SignModal></SignModal>}
                 <Outlet></Outlet>
             </div>
