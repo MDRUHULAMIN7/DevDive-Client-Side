@@ -21,6 +21,22 @@ const Popular = () => {
             <Helmet>
                 <title>DevDive | Popular</title>
             </Helmet>
+            
+   <form className='pt-20'>
+
+    <input type="text" />
+
+    <textarea  
+    type="email"
+    required>
+
+    </textarea>
+
+    <input type='submit'/>
+   </form>
+            <div className="h-[500px] bg-green-200"></div>
+            <div className="h-[500px] bg-blue-200"></div>
+            <div className="h-[500px] bg-gray-200"></div>
             <Slider slides={slides} />
            
             <div className="flex justify-center gap-10 mx-auto mt-10">
