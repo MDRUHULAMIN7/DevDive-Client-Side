@@ -118,7 +118,7 @@ const Navbar = () => {
                                                 src={user?.photoURL || User}
                                                 alt="user"
                                             />
-                                            <span className="absolute bottom-0 left-6 w-2 h-2 rounded-full bg-emerald-500 ring-1 ring-white"></span>
+                                            <span className="absolute bg-green-500 bottom-0 left-6 w-2 h-2 rounded-full bg-emerald-500 ring-1 ring-white"></span>
                                         </div>
                                         <div>
                                             <h2 className="text-sm">{user?.displayName}</h2>
