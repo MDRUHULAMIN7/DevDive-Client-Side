@@ -1,0 +1,44 @@
+import { IoIosArrowForward } from "react-icons/io";
+import { PiFacebookLogoBold } from "react-icons/pi";
+import { TiSocialTwitterCircular } from "react-icons/ti";
+import { TiSocialTumblerCircular } from "react-icons/ti";
+import { AiOutlinePinterest } from "react-icons/ai";
+
+
+const BlogCard = () => {
+    return (
+
+        <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl overflow-hidden bg-white dark:bg-gray-800 rounded-xl shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105">
+            <div className="flex flex-col lg:flex-row gap-4 items-center p-4 lg:mb-8 lg:mt-8 mb-4 mt-4 justify-start w-full">
+                <span className="font-bold text-2xl text-red-600">ANNOUNCEMENTS</span>
+                <h1 className="font-semibold text-xl lg:text-2xl text-gray-800 dark:text-white">Staff August 13, 2024</h1>
+            </div>
+
+            <img
+                className="object-cover w-full h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80 mt-2"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqvbUfUqCkWaYbdldQP_iaXUGFBwtDC08NLQ&s"
+                alt="NIKE AIR"
+            />
+            <p className="p-3 mt-4 mb-4 text-lg sm:text-xl md:text-2xl text-gray-500 justify-start">Deepening our Agency Partnerships with Reddit’s New Partner Badging Program with Reddit</p>
+
+            <div className="flex flex-col lg:flex-row justify-between p-4 items-start lg:items-center">
+                <button className="font-semibold flex gap-2 items-center text-blue-500 hover:text-blue-600 transition-colors duration-200">
+                    READ MORE <IoIosArrowForward className="h-5 w-5"></IoIosArrowForward>
+                </button>
+
+                <div className="flex gap-4 items-center mt-4 lg:mt-0">
+                    <p className="text-gray-400">SHARE</p>
+                    <a href="https://www.facebook.com/"><PiFacebookLogoBold className="h-8 w-8 text-blue-500 hover:text-blue-600"></PiFacebookLogoBold></a>
+                    <a href="https://twitter.com/i/flow/single_sign_on"><TiSocialTwitterCircular className="h-10 w-10 text-blue-500 hover:text-blue-600"></TiSocialTwitterCircular></a>
+                    <a href="https://www.pinterest.com/"><AiOutlinePinterest className="h-8 w-8 font-bold text-blue-500 hover:text-blue-600"></AiOutlinePinterest></a>
+                    <a href="https://www.tumblr.com/"><TiSocialTumblerCircular className="h-10 w-10 text-blue-500 hover:text-blue-600"></TiSocialTumblerCircular></a>
+                    <a href="https://www.redditinc.com/"><img className="w-8 h-8" src="https://static-00.iconduck.com/assets.00/reddit-icon-icon-256x256-3itsn4fq.png" alt="Reddit" /></a>
+                </div>
+            </div>
+        </div>
+
+
+    );
+};
+
+export default BlogCard;
