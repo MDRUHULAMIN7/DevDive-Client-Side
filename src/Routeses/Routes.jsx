@@ -49,7 +49,7 @@ export const router = createBrowserRouter([
         element: <BlogCard></BlogCard>
       },
       {
-        path:'/readMore',
+        path:'/readMore/:id',
         element:<ReadMore></ReadMore>
       },
 
