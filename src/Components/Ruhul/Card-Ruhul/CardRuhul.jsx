@@ -25,7 +25,6 @@ const CardRuhul = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [joined, setJoined] = useState(false);
  const axiosPublic= useAxiosPublic()
-
 console.log(userLikes);
 console.log(userDislikes);
 console.log(postLikesCount);
