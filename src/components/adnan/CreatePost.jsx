@@ -10,6 +10,7 @@ import { LuLoader } from "react-icons/lu";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../Providers/AuthProvider";
+import { useProgress } from "./ProgressBar";
 
 const CreatePost = () => {
   const location = useLocation();
@@ -27,6 +28,7 @@ const CreatePost = () => {
   const [emptyTags, setEmptyTags] = useState(false);
   const [imageLoader, setImageLoader] = useState(false)
   const [getImageUrl, setGetImageUrl] = useState([])
+  const { startProgressBar, completeProgressBar } = useProgress();
   const maxCharacters = 300;
 
   const handleInputChange = (e) => {
@@ -71,6 +73,7 @@ const CreatePost = () => {
 
   useEffect(() => {
     const uploadImages = async () => {
+      // startProgressBar()
       setImageLoader(true)
       try {
         const uploadedImageUrls = await Promise.all(
@@ -96,6 +99,7 @@ const CreatePost = () => {
 
         setGetImageUrl(uploadedImageUrls); // Set the uploaded image URLs in state
         setImageLoader(false)
+        // completeProgressBar()
       } catch (error) {
         console.error("Error uploading image:", error);
         alert("Error uploading image");
@@ -122,6 +126,7 @@ const CreatePost = () => {
     }
 
     if (inputValue.length > 2 && tags.length > 0) {
+      startProgressBar()
       try {
         // Send POST request to backend
         const response = await axiosPublic.post("/main-posts", {
@@ -154,10 +159,9 @@ const CreatePost = () => {
         console.error("Error posting data:", error);
         toast.error("Error posting data:", error);
       }
+      completeProgressBar()
     }
   };
-console.log(user?.email,user?.displayName,user?.photoURL);
-
 
 
 

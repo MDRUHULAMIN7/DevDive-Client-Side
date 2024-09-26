@@ -9,7 +9,6 @@ const All = () => {
             <Helmet>
                 <title>DevDive | All</title>
             </Helmet>
-            <ProgressBar/>
         </div>
     );
 };
