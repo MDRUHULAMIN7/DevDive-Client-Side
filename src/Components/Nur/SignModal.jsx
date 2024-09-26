@@ -14,6 +14,8 @@ const SignModal = () => {
   const [isResetPasswordMode, setIsResetPasswordMode] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loadingGoogle, setLoadingGoogle] = useState(false);
+  const [loadingGitHub, setLoadingGitHub] = useState(false);
 
   const {
     createUser,
@@ -36,6 +38,7 @@ const SignModal = () => {
   };
 
   const handleGoogleSignIn = () => {
+    setLoadingGoogle(true);
     googleSigin().then(async (result) => {
       const userInfo = {
         name: result.user?.displayName,
@@ -61,7 +64,32 @@ const SignModal = () => {
   };
 
   const HandleGitHub = () => {
-    gitHubLogin().then(() => {
+    setLoadingGitHub(true);
+    gitHubLogin().then(async (result) => {
+      const userInfo = {
+        name: result.user?.reloadUserInfo?.screenName,
+        githubProfile: `https://github.com/${result.user?.reloadUserInfo?.screenName}`,
+        photoUrl: result.user?.photoURL,
+        role: "member",
+        userType: "normal",
+      };
+
+      await axiosPublic.post("/gitHubUsers", userInfo).then(() => {});
+      const userLastLoinTime = {
+        lastSignInTime: result.user?.metadata?.lastSignInTime,
+        lastLoginAt: result.user?.metadata?.lastLoginAt,
+      };
+
+      await axiosPublic
+        .put(
+          `/gitHubUsers/${result.user?.reloadUserInfo?.screenName}`,
+          userLastLoinTime
+        )
+        .then(() => {
+          toast.success("GitHub Sign In successful.");
+          setIsModalOpen(false);
+        });
+
       toast.success("Continue With GitHub successful.");
     });
   };
@@ -120,7 +148,7 @@ const SignModal = () => {
         lastLoginAt: result.user?.metadata?.lastLoginAt,
       };
 
-      const response = await fetch(`${import.meta.env.VITE_URL}/users`, {
+      const response = await fetch(`${import.meta.env.VITE_URL}users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -135,7 +163,7 @@ const SignModal = () => {
       await updateuserprofile(name, photoUrl);
       await axiosPublic.put(`/users/${result.user?.email}`, userLastLoginTime);
 
-      toast.success('Registered Successfully');
+      toast.success("Registered Successfully");
 
       setIsModalOpen(false);
     } catch (error) {
@@ -152,7 +180,7 @@ const SignModal = () => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_URL}user?email=${email}`
+        `${import.meta.env.VITE_URL}user/${email}`
       );
       const user = await response.json();
 
@@ -240,18 +268,24 @@ const SignModal = () => {
                 <div className="my-4 gap-2 flex flex-col">
                   <button
                     onClick={handleGoogleSignIn}
-                    className="border-2 p-2 rounded-full flex items-center">
+                    disabled={loadingGoogle}
+                    className={`border-2 p-2 rounded-full flex items-center ${
+                      loadingGoogle ? "bg-gray-400 cursor-not-allowed" : ""
+                    }`}>
                     <FcGoogle className="size-6" />
-                    <span className="flex flex-grow  justify-center">
-                      Continue With Google
+                    <span className="flex flex-grow justify-center">
+                      {loadingGoogle ? "Loading..." : "Continue With Google"}
                     </span>
                   </button>
                   <button
                     onClick={HandleGitHub}
-                    className="border-2 p-2 rounded-full flex items-center">
+                    disabled={loadingGitHub}
+                    className={`border-2 p-2 rounded-full flex items-center ${
+                      loadingGitHub ? "bg-gray-400 cursor-not-allowed" : ""
+                    }`}>
                     <FaGithub className="size-6" />
-                    <span className="flex flex-grow  justify-center ">
-                      Continue With GitHub
+                    <span className="flex flex-grow justify-center">
+                      {loadingGitHub ? "Loading..." : "Continue With GitHub"}
                     </span>
                   </button>
                 </div>
