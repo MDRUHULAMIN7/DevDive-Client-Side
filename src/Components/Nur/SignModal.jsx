@@ -2,11 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
-import { toast } from "react-toastify";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { uploadImage } from "../../Hooks/imageUpload";
 import { ImCross } from "react-icons/im";
 import { IoMdArrowBack } from "react-icons/io";
+import toast from "react-hot-toast";
 
 const SignModal = () => {
   const axiosPublic = useAxiosPublic();
@@ -135,7 +135,7 @@ const SignModal = () => {
       await updateuserprofile(name, photoUrl);
       await axiosPublic.put(`/users/${result.user?.email}`, userLastLoginTime);
 
-      toast.success("Registration successful.");
+      toast.success('Registered Successfully');
 
       setIsModalOpen(false);
     } catch (error) {

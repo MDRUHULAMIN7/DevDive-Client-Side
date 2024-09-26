@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 
-const ImagePost = () => {
-    const [files, setFiles] = useState([]);
+const ImagePost = ({files, setFiles}) => {
+
     const [fileDragging, setFileDragging] = useState(null);
     const [fileDropping, setFileDropping] = useState(null);
+
+
 
     const humanFileSize = (size) => {
         const i = Math.floor(Math.log(size) / Math.log(1024));
@@ -40,9 +42,10 @@ const ImagePost = () => {
         setFileDropping(null);
     };
 
+
     return (
         <div className="border border-dashed border-gray-400 dark:border-gray-500 p-7 rounded-2xl mx-auto">
-            <div className="relative flex flex-col p-4 text-gray-400 rounded">
+            <div className="relative flex flex-col-reverse p-4 text-gray-400 rounded">
                 <div
                     className="relative flex flex-col text-gray-400 border-dashed rounded cursor-pointer"
                     onDragOver={(e) => {
@@ -69,7 +72,7 @@ const ImagePost = () => {
                         {files.map((file, index) => (
                             <div
                                 key={index}
-                                className={`relative flex flex-col items-center overflow-hidden text-center bg-gray-100 border rounded cursor-move select-none ${
+                                className={`relative flex flex-col items-center overflow-hidden text-center  rounded cursor-move select-none ${
                                     fileDragging === index ? 'border-blue-600' : ''
                                 }`}
                                 style={{ paddingTop: '100%' }}
@@ -86,7 +89,7 @@ const ImagePost = () => {
                                     </svg>
                                 </button>
                                 {file.type.includes('image/') && (
-                                    <img className="absolute inset-0 object-cover w-full h-full border-4 border-white preview" src={loadFile(file)} alt="Preview" />
+                                    <img className="absolute inset-0 object-cover w-full h-full  preview" src={loadFile(file)} alt="Preview" />
                                 )}
                                 <div className="absolute bottom-0 left-0 right-0 flex flex-col p-2 text-xs bg-white bg-opacity-50">
                                     <span className="w-full font-bold text-gray-900 truncate">{file.name}</span>

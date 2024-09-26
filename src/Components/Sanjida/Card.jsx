@@ -61,7 +61,7 @@ const Card = () => {
 
   return (
 
-    <div className="mt-4 bg-white dark:bg-gray-800 shadow-md rounded-lg p-4 my-4 max-w-2xl mx-auto border border-gray-200 dark:border-gray-700 sm:max-w-full lg:max-w-3xl">
+    <div className="mt-4 bg-white dark:bg-gray-900 shadow-md rounded-lg p-4 my-4 max-w-2xl mx-auto border border-gray-200 dark:border-gray-800 sm:max-w-full lg:max-w-3xl">
 
       <div className="flex justify-between items-center mb-3">
         <div className="flex items-center">
