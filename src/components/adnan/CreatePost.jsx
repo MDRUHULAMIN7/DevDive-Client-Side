@@ -124,7 +124,7 @@ const CreatePost = () => {
     if (inputValue.length > 2 && tags.length > 0) {
       try {
         // Send POST request to backend
-        const response = await axiosPublic.post("/posts", {
+        const response = await axiosPublic.post("/main-posts", {
           title: inputValue,
           tags: tags,
           body: value,
