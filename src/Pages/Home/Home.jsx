@@ -36,7 +36,7 @@ const Home = () => {
                     <Card />
                     <Card />
                 </div>
-                <div className="sticky top-[70px] scrollBar h-[calc(100vh-80px)] overflow-y-auto w-[300px] border dark:border-gray-800 rounded-2xl p-5 md:block hidden">
+                <div className="sticky top-[68px] scrollBar h-[calc(100vh-80px)] overflow-y-auto w-[300px] border dark:border-gray-800 rounded-2xl p-5 md:block hidden">
                     <h2 className="font-semibold text-black dark:text-white mb-5">Recent Posts</h2>
 
                     <div className="space-y-5">

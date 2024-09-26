@@ -48,7 +48,7 @@ const Slider = ({ slides }) => {
                                 <div className="absolute rounded-xl inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
 
                                 {/* Text Content */}
-                                <div className="absolute bottom-4 rounded-xl left-4 z-10 text-white space-y-2 p-4">
+                                <div className="absolute bottom-4 rounded-xl text-left z-10 text-white space-y-2 p-4">
                                     <h3 className="text-lg font-bold">{slide.title}</h3>
                                     <p className="text-sm">{slide.description}</p>
                                 </div>
