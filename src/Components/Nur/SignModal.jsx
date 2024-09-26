@@ -65,7 +65,31 @@ const SignModal = () => {
 
   const HandleGitHub = () => {
     setLoadingGitHub(true);
-    gitHubLogin().then(() => {
+    gitHubLogin().then(async (result) => {
+      const userInfo = {
+        name: result.user?.reloadUserInfo?.screenName,
+        githubProfile: `https://github.com/${result.user?.reloadUserInfo?.screenName}`,
+        photoUrl: result.user?.photoURL,
+        role: "member",
+        userType: "normal",
+      };
+
+      await axiosPublic.post("/gitHubUsers", userInfo).then(() => {});
+      const userLastLoinTime = {
+        lastSignInTime: result.user?.metadata?.lastSignInTime,
+        lastLoginAt: result.user?.metadata?.lastLoginAt,
+      };
+
+      await axiosPublic
+        .put(
+          `/gitHubUsers/${result.user?.reloadUserInfo?.screenName}`,
+          userLastLoinTime
+        )
+        .then(() => {
+          toast.success("GitHub Sign In successful.");
+          setIsModalOpen(false);
+        });
+
       toast.success("Continue With GitHub successful.");
     });
   };
@@ -156,7 +180,7 @@ const SignModal = () => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_URL}user?email=${email}`
+        `${import.meta.env.VITE_URL}user/${email}`
       );
       const user = await response.json();
 
