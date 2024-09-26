@@ -41,14 +41,14 @@ const Slider = ({ slides }) => {
             >
                 {
                     slides.map((slide, index) => (
-                        <SwiperSlide key={index} className="relative rounded-xl">
-                            <div className="w-full h-[225px] relative rounded-xl">
+                        <SwiperSlide key={index} className="relative rounded-2xl">
+                            <div className="w-full h-[225px] relative rounded-2xl">
                                 {/* Image with consistent size */}
-                                <img className="w-full h-full object-cover rounded-xl" src={slide.image} alt={slide.title} />
+                                <img className="w-full h-full object-cover rounded-2xl" src={slide.image} alt={slide.title} />
                                 <div className="absolute rounded-xl inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
 
                                 {/* Text Content */}
-                                <div className="absolute bottom-4 rounded-xl text-left z-10 text-white space-y-2 p-4">
+                                <div className="absolute bottom-4 rounded-2xl text-left z-10 text-white space-y-2 p-4">
                                     <h3 className="text-lg font-bold">{slide.title}</h3>
                                     <p className="text-sm">{slide.description}</p>
                                 </div>

@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet';
 import Slider from '../../Components/Fardus/Slider/Slider';
 import Card from '../../Components/Sanjida/Card';
+import RecentPostCard from '../../Components/Fardus/RecentPostCard/RecentPostCard';
 
 const Home = () => {
 
@@ -23,7 +24,7 @@ const Home = () => {
                 <title>DevDive | Home</title>
             </Helmet>
             <Slider slides={slides} />
-            <div className="flex justify-center gap-10 mx-auto mt-5">
+            <div className="flex justify-center gap-5 mx-auto mt-5">
                 <div className="flex-1 space-y-5">
                     <Card />
                     <Card />
@@ -36,37 +37,19 @@ const Home = () => {
                     <Card />
                     <Card />
                 </div>
-                <div className="sticky top-[68px] scrollBar h-[calc(100vh-80px)] overflow-y-auto w-[300px] border dark:border-gray-800 rounded-2xl p-5 md:block hidden">
+                <div className="sticky top-[68px] scrollBar h-[calc(100vh-80px)] overflow-y-auto lg:w-[27%] w-[250px] border dark:border-gray-800 rounded-2xl py-5 px-3 md:block hidden">
                     <h2 className="font-semibold text-black dark:text-white mb-5">Recent Posts</h2>
 
                     <div className="space-y-5">
-                        <div className="bg-white dark:bg-gray-900 p-5 rounded-lg shadow-md dark:shadow-lg hover:shadow-xl dark:hover:shadow-2xl transition-shadow duration-300">
-                            <img className="w-full h-32 object-cover rounded-md mb-4" src="https://media.istockphoto.com/id/904172104/photo/weve-made-it-all-this-way-i-am-proud.jpg?s=612x612&w=0&k=20&c=MewnsAhbeGRcMBN9_ZKhThmqPK6c8nCT8XYk5ZM_hdg=" alt="Post 1" />
-                            <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-2">Understanding React Hooks</h3>
-                            <p className="text-gray-600 dark:text-gray-300 text-sm mb-3">Learn the power of React Hooks to manage state and side effects efficiently.</p>
-                            <span className="block text-gray-500 dark:text-gray-400 text-xs">September 20, 2024</span>
-                        </div>
-
-                        <div className="bg-white dark:bg-gray-900 p-5 rounded-lg shadow-md dark:shadow-lg hover:shadow-xl dark:hover:shadow-2xl transition-shadow duration-300">
-                            <img className="w-full h-32 object-cover rounded-md mb-4" src="https://t3.ftcdn.net/jpg/02/45/68/40/360_F_245684006_e55tOria5okQtKmiLLbY30NgEHTIB0Og.jpg" alt="Post 2" />
-                            <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-2">Styling with Tailwind CSS</h3>
-                            <p className="text-gray-600 dark:text-gray-300 text-sm mb-3">Discover how to style your website effortlessly with Tailwind CSS.</p>
-                            <span className="block text-gray-500 dark:text-gray-400 text-xs">September 18, 2024</span>
-                        </div>
-
-                        <div className="bg-white dark:bg-gray-900 p-5 rounded-lg shadow-md dark:shadow-lg hover:shadow-xl dark:hover:shadow-2xl transition-shadow duration-300">
-                            <img className="w-full h-32 object-cover rounded-md mb-4" src="https://youmatter.world/app/uploads/2019/11/travel-world.jpg" alt="Post 3" />
-                            <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-2">Getting Started with Redux</h3>
-                            <p className="text-gray-600 dark:text-gray-300 text-sm mb-3">A beginner's guide to managing state efficiently with Redux.</p>
-                            <span className="block text-gray-500 dark:text-gray-400 text-xs">September 15, 2024</span>
-                        </div>
-
-                        <div className="bg-white dark:bg-gray-900 p-5 rounded-lg shadow-md dark:shadow-lg hover:shadow-xl dark:hover:shadow-2xl transition-shadow duration-300">
-                            <img className="w-full h-32 object-cover rounded-md mb-4" src="https://www.forbes.com/advisor/wp-content/uploads/2023/07/travel-insurance-woman-on-boat.jpeg.jpg" alt="Post 4" />
-                            <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-2">Next.js 13 Features</h3>
-                            <p className="text-gray-600 dark:text-gray-300 text-sm mb-3">Explore the exciting new features and improvements in Next.js 13.</p>
-                            <span className="block text-gray-500 dark:text-gray-400 text-xs">September 10, 2024</span>
-                        </div>
+                        <RecentPostCard></RecentPostCard>
+                        <RecentPostCard></RecentPostCard>
+                        <RecentPostCard></RecentPostCard>
+                        <RecentPostCard></RecentPostCard>
+                        <RecentPostCard></RecentPostCard>
+                        <RecentPostCard></RecentPostCard>
+                        <RecentPostCard></RecentPostCard>
+                        <RecentPostCard></RecentPostCard>
+                        <RecentPostCard></RecentPostCard>
                     </div>
                 </div>
 

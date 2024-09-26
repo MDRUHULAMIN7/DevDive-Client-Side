@@ -242,9 +242,6 @@ console.log(user?.email,user?.displayName,user?.photoURL);
               </button>
             )}
           </div>
-          <a href={linkValue} target="_blank" className="text-xs text-blue-400 block mb-5">
-            {truncateText(linkValue, 50)}
-          </a>
           {
             getImageUrl.map((imageUrl) => {
               return (
@@ -257,6 +254,9 @@ console.log(user?.email,user?.displayName,user?.photoURL);
               );
             })
           }
+          <a href={linkValue} target="_blank" className="text-xs text-blue-400 block mb-5">
+            {truncateText(linkValue, 50)}
+          </a>
           <div className="flex justify-start flex-wrap items-center">
             {selectedTags.map((tag) => (
               <span key={tag} className="text-xs text-sec-color font-semibold mr-3 mb-1">#{tag}</span>
