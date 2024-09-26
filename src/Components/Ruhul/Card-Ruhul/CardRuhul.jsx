@@ -2,7 +2,7 @@ import { BsThreeDots } from "react-icons/bs";
 import { MdSaveAlt } from "react-icons/md";
 import { BiHide } from "react-icons/bi";
 import { FaRegFlag } from "react-icons/fa6";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaThumbsUp, FaThumbsDown, FaCommentAlt, FaShare } from "react-icons/fa";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import UseAuth from "../../../Hooks/UseAuth";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 const CardRuhul = () => {
   const { user } = UseAuth(); // Get user info from auth hook
@@ -25,10 +26,34 @@ const CardRuhul = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [joined, setJoined] = useState(false);
  const axiosPublic= useAxiosPublic()
-console.log(userLikes);
-console.log(userDislikes);
-console.log(postLikesCount);
-console.log(postLikesCount);
+// console.log(userLikes);
+// console.log(userDislikes);
+// console.log(postLikesCount);
+
+
+// console.log(postLikesCount);
+
+const [posts2, setPosts] = useState([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState(null);
+
+useEffect(() => {
+  // Define async function to fetch posts
+  const fetchPosts = async () => {
+    try {
+      setLoading(true); // Start loading
+      const response = await axios.get('http://localhost:5000/get-posts');
+      setPosts(response.data); // Store posts data in state
+      setLoading(false); // Set loading to false after successful fetch
+    } catch (err) {
+      setError(err.message); // Capture error
+      setLoading(false); // Stop loading
+    }
+  };
+
+  fetchPosts(); // Invoke the async function
+
+}, []); 
  const handleLike = async(postId) => {
   if (!user) {
     toast("You need to log in to like a post.");
@@ -98,10 +123,11 @@ const handleDislike = (postId) => {
   const toggleJoin = () => {
     setJoined(!joined);
   };
+  console.log(posts);
 
   return (
     <section>
-      {posts && posts?.map((data, index) => (
+      {posts2?.length && posts2?.map((data, index) => (
         <div key={index} className="mt-4 bg-white dark:bg-gray-800 shadow-md mx-1 rounded-lg p-4 my-4 max-w-2xl md:mx-auto border border-gray-200 dark:border-gray-700 sm:max-w-full lg:max-w-3xl">
           <div className="flex justify-between items-center mb-3">
             <div className="flex items-center">
