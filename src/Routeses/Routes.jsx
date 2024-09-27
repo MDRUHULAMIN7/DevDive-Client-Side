@@ -13,6 +13,7 @@ import CardRuhul from "../Components/Ruhul/Card-Ruhul/CardRuhul";
 import AboutSection from "../Pages/Ruhul/Admin/AboutSection/AboutSection";
 import BlogCard from "../Components/Sanjida/BlogCard";
 import ReadMore from "../Components/Sanjida/ReadMore";
+import PrivateRoute from "../Providers/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -53,15 +54,15 @@ export const router = createBrowserRouter([
 
       {
         path: "/create-post/text-post",
-        element: <CreatePost></CreatePost>,
+        element: <PrivateRoute><CreatePost></CreatePost></PrivateRoute>
       },
       {
         path: "/create-post/image-post",
-        element: <CreatePost></CreatePost>,
+        element: <PrivateRoute><CreatePost></CreatePost></PrivateRoute>,
       },
       {
         path: "/create-post/link-post",
-        element: <CreatePost></CreatePost>,
+        element: <PrivateRoute><CreatePost></CreatePost></PrivateRoute>,
       },
       {
         path: "/signModal",
