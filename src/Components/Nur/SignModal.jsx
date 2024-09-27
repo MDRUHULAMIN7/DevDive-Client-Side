@@ -92,20 +92,26 @@ const SignModal = () => {
     });
   };
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
     setLoading(true);
     const email = e.target.email.value;
     const password = e.target.password.value;
     console.log(email, password);
-    signInUser(email, password)
-      .then(() => {
-        toast.success("Sign In successful.");
-        setIsModalOpen(false);
-      })
-      .catch(() => {
-        toast.error("Sign In failed. Please check your Email and Password.");
-      });
+    try {
+      const result = await signInUser(email, password);
+      const userLastLoginTime = {
+        lastSignInTime: result.user?.metadata?.lastSignInTime,
+        lastLoginAt: result.user?.metadata?.lastLoginAt,
+      };
+      await axiosPublic.put(`/users/${result.user?.email}`, userLastLoginTime);
+      toast.success("Sign In successful.");
+      setIsModalOpen(false);
+    } catch {
+      toast.error("Sign In failed. Please check your Email and Password.");
+      setLoading(false);
+      setShowPassword(true);
+    }
   };
 
   const handleRegister = async (e) => {
