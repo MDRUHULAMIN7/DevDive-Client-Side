@@ -24,6 +24,7 @@
     "localforage": "^1.10.0",
     "lottie-react": "^2.4.0",
     "match-sorter": "^6.3.4",
+    "moment": "^2.30.1",
     "motion": "^10.18.0",
     "quill": "^2.0.2",
     "react": "^18.3.1",
