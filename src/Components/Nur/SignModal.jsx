@@ -26,6 +26,8 @@ const SignModal = () => {
     setIsModalOpen,
     gitHubLogin,
     passwordResetEmail,
+    sendEmailVerification,
+    logout,
   } = useContext(AuthContext);
 
   const toggleSignUpMode = () => {
@@ -105,6 +107,16 @@ const SignModal = () => {
         lastLoginAt: result.user?.metadata?.lastLoginAt,
       };
       await axiosPublic.put(`/users/${result.user?.email}`, userLastLoginTime);
+
+      if (!result.user.emailVerified) {
+        console.log("Email is not verified.");
+        toast.error("Please verify your email before signing in.");
+        setLoading(false);
+        logout();
+        setIsModalOpen(false);
+        return;
+      }
+
       toast.success("Sign In successful.");
       setIsModalOpen(false);
     } catch {
@@ -152,6 +164,8 @@ const SignModal = () => {
         lastLoginAt: result.user?.metadata?.lastLoginAt,
       };
 
+      console.log("userLastLoginTime", userLastLoginTime);
+
       const response = await fetch(`${import.meta.env.VITE_URL}users`, {
         method: "POST",
         headers: {
@@ -167,7 +181,15 @@ const SignModal = () => {
       await updateuserprofile(name, photoUrl);
       await axiosPublic.put(`/users/${result.user?.email}`, userLastLoginTime);
 
-      toast.success("Registered Successfully");
+      await sendEmailVerification(result.user).then(() =>
+        toast.success(
+          "Verified email sent successfully, Please check your email"
+        )
+      );
+
+      await logout();
+
+      // toast.success("Registered Successfully");
 
       setIsModalOpen(false);
     } catch (error) {
