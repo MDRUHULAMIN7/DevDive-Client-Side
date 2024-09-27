@@ -21,7 +21,7 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const auth = getAuth(app);
   const googleProvider = new GoogleAuthProvider();
-  const gitHubAuthProvider = new GithubAuthProvider();
+  const gitHubAuthProvider = new GithubAuthProvider()
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -111,6 +111,8 @@ const AuthProvider = ({ children }) => {
     gitHubLogin,
     passwordResetEmail,
   };
+
+  console.log(user);
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

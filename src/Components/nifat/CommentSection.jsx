@@ -1,7 +1,8 @@
 import moment from 'moment';
 import { useState } from 'react';
-import { FaCommentAlt } from 'react-icons/fa';
+// import { FaCommentAlt } from 'react-icons/fa';
 import { FaThumbsDown, FaThumbsUp } from 'react-icons/fa6';
+import { MdOutlineReply } from 'react-icons/md';
 
 const Comment = ({ comment, comments }) => {
   const [isReplying, setIsReplying] = useState(false);
@@ -49,7 +50,7 @@ const Comment = ({ comment, comments }) => {
   };
 
   return (
-    <div className="border-l-2 border-gray-300 pl-4 mb-4 dark:border-gray-700">
+    <div className="border-l-2 rounded-bl-xl border-gray-300 pl-4 mb-4 dark:border-gray-700">
       {/* Comment display */}
       <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-lg shadow-sm mb-2">
       <div className="flex items-center">
@@ -59,11 +60,11 @@ const Comment = ({ comment, comments }) => {
             className="rounded-full h-10 w-10 object-cover"
           />
           <div className="ml-3">
-            <h3 className="font-semibold text-gray-800 dark:text-gray-200">{comment.user}</h3>
+            <h3 className="font-medium text-black dark:text-gray-200">{comment.user}</h3>
             <p className="text-xs text-gray-500 dark:text-gray-400">{moment(comment.created_at).fromNow()}</p>
           </div>
         </div>
-        <p className="text-md text-gray-800 dark:text-gray-400">{comment.content}</p>
+        <p className="text-md text-black dark:text-gray-400">{comment.content}</p>
         {/*like/dislike section  */}
         <div className="flex flex-wrap justify-between items-center text-gray-500 dark:text-gray-400 text-sm">
         <div className="flex items-center space-x-4">
@@ -73,7 +74,7 @@ const Comment = ({ comment, comments }) => {
             className="flex items-center space-x-1 hover:text-blue-500"
           >
             <FaThumbsUp className="h-5 w-5" />
-            <span>{likeCount} Like</span>
+            <span className='text-black'>{likeCount}</span>
           </button>
 
           {/* Dislike */}
@@ -82,16 +83,21 @@ const Comment = ({ comment, comments }) => {
             className="flex items-center space-x-1 hover:text-red-500"
           >
             <FaThumbsDown className="h-5 w-5" />
-            <span>{dislikeCount} Dislike</span>
+            <span className='text-black'>{dislikeCount}</span>
           </button>
         </div>
 
 
-        <button className="flex items-center space-x-1 hover:text-blue-500">
+        {/* <button className="flex items-center space-x-1 hover:text-blue-500">
           <FaCommentAlt className="h-5 w-5" />
           <span className="text-sm">Show replies</span>
+        </button> */}
+        <button 
+            onClick={() => setIsReplying(!isReplying)} 
+            className="text-blue-500 text-sm hover:underline"
+          >
+            <span className='flex items-center '><MdOutlineReply /> Reply</span>
         </button>
-
 
         {/* <button className="flex items-center space-x-1 hover:text-blue-500">
           <FaShare className="h-5 w-5" />
@@ -102,12 +108,12 @@ const Comment = ({ comment, comments }) => {
       </div>
 
       {/* Reply button */}
-      <button 
+      {/* <button 
         onClick={() => setIsReplying(!isReplying)} 
         className="text-blue-500 text-sm hover:underline"
       >
-        Reply
-      </button>
+        <MdOutlineReply /> Reply
+      </button> */}
 
       {/* Reply form */}
       {isReplying && (
