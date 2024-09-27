@@ -49,8 +49,27 @@ const Sidebar = ({ setOpenMenu, openMenu }) => {
                         <span className="mx-4 font-medium text-xs">All</span>
                     </NavLink>
 
-
+                       
                     <hr className="my-6 border-gray-200 dark:border-gray-700" />
+
+                    <NavLink
+                        to='/blogCard'
+                        className={({ isActive }) =>
+                            `flex items-center px-4 py-2 rounded-md duration-200 hover:bg-pm-color hover:text-white ${isActive ? 'bg-pm-color text-white' : ''}`
+                        }
+                    >
+                        <IoMdHome className='text-lg' />
+                        <span className="mx-3 font-medium text-xs">Blogs</span>
+                    </NavLink>
+                    <NavLink
+                        to='/about'
+                        className={({ isActive }) =>
+                            `flex items-center px-4 py-2 rounded-md duration-200 hover:bg-pm-color hover:text-white ${isActive ? 'bg-pm-color text-white' : ''}`
+                        }
+                    >
+                        <IoMdHome className='text-lg' />
+                        <span className="mx-3 font-medium text-xs">About</span>
+                    </NavLink>
                 </nav>
             </div>
         </aside>

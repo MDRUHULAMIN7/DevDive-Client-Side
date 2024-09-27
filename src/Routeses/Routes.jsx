@@ -9,10 +9,12 @@ import All from "../Pages/All/All";
 import CreatePost from "../components/adnan/CreatePost";
 import AdminSetting from "../Pages/Ruhul/Admin/AdminSetting.jsx/AdminSetting";
 import SignModal from "../Components/Nur/SignModal";
-import CardRuhul from "../Components/Ruhul/Card-Ruhul/CardRuhul";
+
 import AboutSection from "../Pages/Ruhul/Admin/AboutSection/AboutSection";
 import BlogCard from "../Components/Sanjida/BlogCard";
 import ReadMore from "../Components/Sanjida/ReadMore";
+import CardRuhul from "../Components/Ruhul/Card-Ruhul/CardRuhul";
+import PostDetails from "../Pages/PostDetails/PostDetails";
 import PrivateRoute from "../Providers/PrivateRoute";
 
 export const router = createBrowserRouter([
@@ -75,6 +77,10 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         element: <AboutSection></AboutSection>
+      },
+      {
+        path:'/post-details/:id',
+        element:<PostDetails></PostDetails>
       },
 
       // for admin

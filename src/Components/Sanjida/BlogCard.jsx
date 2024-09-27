@@ -16,7 +16,7 @@ const BlogCard = () => {
         <section className="border border-green-700">
             <div className="space-y-4 flex flex-col justify-center mx-auto mt-14">
                 {
-                    blogs && blogs?.map((data, index) => <div key={index} className=" w-full lg:w-8/12 mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-xl transition-all duration-300 ease-in-out transform">
+                    blogs && blogs?.map((data, index) => <div key={index} className=" w-full lg:w-8/12 mx-auto bg-white dark:bg-gray-900 rounded-xl shadow-xl transition-all duration-300 ease-in-out transform">
                             <div className="flex flex-col lg:flex-row gap-4 items-center p-2 lg:p-4 lg:mb-8 lg:mt-8 mb-4 mt-4 justify-start w-full">
                                 <span className="font-bold lg:text-2xl text-xl text-red-600">ANNOUNCEMENTS</span>
                                 <h1 className="lg:font-medium text-lg lg:text-xl text-gray-800 dark:text-white">{data.dateTime}</h1>

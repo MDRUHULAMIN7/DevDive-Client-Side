@@ -1,5 +1,7 @@
 import { Helmet } from 'react-helmet';
 import Slider from '../../Components/Fardus/Slider/Slider';
+import CardRuhul from '../../Components/Ruhul/Card-Ruhul/CardRuhul';
+
 import Card from '../../Components/Sanjida/Card';
 import RecentPostCard from '../../Components/Fardus/RecentPostCard/RecentPostCard';
 
@@ -24,20 +26,11 @@ const Home = () => {
                 <title>DevDive | Home</title>
             </Helmet>
             <Slider slides={slides} />
-            <div className="flex justify-center gap-5 mx-auto mt-5">
-                <div className="flex-1 space-y-5">
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
+            <div className="flex justify-between mx-auto mt-5">
+                <div className="lg:w-[68%] max-w-full space-y-5">
+                  <CardRuhul></CardRuhul>
                 </div>
-                <div className="sticky top-[68px] scrollBar h-[calc(100vh-80px)] overflow-y-auto lg:w-[27%] w-[250px] border dark:border-gray-800 rounded-2xl py-5 px-3 md:block hidden">
+                <div className="sticky top-[68px] scrollBar h-[calc(100vh-80px)] overflow-y-auto lg:w-[28%] w-[32%] border dark:border-gray-800 rounded-2xl p-5 lg:block hidden">
                     <h2 className="font-semibold text-black dark:text-white mb-5">Recent Posts</h2>
 
                     <div className="space-y-5">
