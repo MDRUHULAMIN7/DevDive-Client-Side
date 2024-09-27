@@ -18,7 +18,7 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 import UseLikes from "../../../Hooks/UseLikes";
 import UseDisLikes from "../../../Hooks/UseDisLike";
-import { useProgress } from "../../adnan/ProgressBar";
+
 import CommentsSection from "../../nifat/CommentSection";
 
 const CardRuhul = () => {
@@ -207,7 +207,7 @@ const newuser={
                 className={`flex items-center space-x-1 hover:text-blue-500 `}
               >
          
-                {likes && likes.find(like=> like.postId === data._id && like?.email === user?.email) ? <p className="flex text-blue-500 justify-center items-center gap-x-1"> <FaThumbsUp className="h-5 w-5"/> <span>liked</span></p> : <p className="flex  justify-center items-center gap-x-1"> <FaThumbsUp className="h-5 w-5"/> <span>like</span></p>}
+                {likes && likes.find(like=> like.postId === data._id && like?.email === user?.email) ? <p className="flex text-blue-500 justify-center items-center gap-x-1"> <FaThumbsUp className="h-5 w-5"/> </p> : <p className="flex  justify-center items-center gap-x-1"> <FaThumbsUp className="h-5 w-5"/> </p>}
                
              
                 <span className="ml-1 text-sm text-gray-600">{data?.likes}</span> {/* Total likes count */}
@@ -221,7 +221,7 @@ const newuser={
                 }}
                 className={`flex items-center space-x-1 hover:text-red-500 `}
               >
-                {dislikes && dislikes?.find(like=> like.postId === data._id && like?.email === user?.email) ? <p className="flex text-red-500 justify-center items-center gap-x-1"> <FaThumbsDown className="h-5 w-5"/> <span>Disliked</span></p> : <p className="flex  justify-center items-center gap-x-1"> <FaThumbsDown className="h-5 w-5"/> <span>Dislike</span></p>}
+                {dislikes && dislikes?.find(like=> like.postId === data._id && like?.email === user?.email) ? <p className="flex text-red-500 justify-center items-center gap-x-1"> <FaThumbsDown className="h-5 w-5"/> </p> : <p className="flex  justify-center items-center gap-x-1"> <FaThumbsDown className="h-5 w-5"/></p>}
                 <span className="ml-1 text-sm text-gray-600">{data?.dislikes}</span> {/* Total dislikes count */}
               </button>
             </div>
@@ -237,12 +237,13 @@ const newuser={
               </button>
             </div>
           </div>
+          {
+          showComments &&  <CommentsSection comments={comments}></CommentsSection>
+        }
         </div>
        
       ))}
-        {
-          showComments &&  <CommentsSection comments={comments}></CommentsSection>
-        }
+      
     </section>
   );
 };
