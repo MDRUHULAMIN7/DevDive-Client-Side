@@ -13,6 +13,7 @@ import {
   signInWithPopup,
   signOut,
   updateProfile,
+  sendEmailVerification,
 } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 
@@ -110,6 +111,7 @@ const AuthProvider = ({ children }) => {
     setIsModalOpen,
     gitHubLogin,
     passwordResetEmail,
+    sendEmailVerification,
   };
 
   console.log(user);
