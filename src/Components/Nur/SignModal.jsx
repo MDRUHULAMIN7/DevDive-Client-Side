@@ -86,11 +86,9 @@ const SignModal = () => {
           userLastLoinTime
         )
         .then(() => {
-          toast.success("GitHub Sign In successful.");
+          toast.success("Continue With GitHub successful.");
           setIsModalOpen(false);
         });
-
-      toast.success("Continue With GitHub successful.");
     });
   };
 
@@ -179,9 +177,7 @@ const SignModal = () => {
     console.log(email);
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_URL}user/${email}`
-      );
+      const response = await fetch(`${import.meta.env.VITE_URL}user/${email}`);
       const user = await response.json();
 
       if (!user || user.length === 0) {
