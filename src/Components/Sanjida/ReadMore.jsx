@@ -21,8 +21,8 @@ useEffect(()=>{
         <>
         {
             blogData?.image && <div>
-                <div>
-                  <img className="w-full lg:h-96 h-64" src={blogData?.image} alt="" />
+                <div className="md:p-4">
+                  <img className="w-full object-cover rounded-xl lg:h-96 h-64" src={blogData?.image} alt="" />
                 </div>
                 <div className="p-4 lg:mt-16 mt-12">
                   <h1 className="text-2xl lg:text-4xl font-bold text-gray-800 dark:text-white">

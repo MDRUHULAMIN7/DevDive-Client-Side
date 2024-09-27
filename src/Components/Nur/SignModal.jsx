@@ -86,28 +86,32 @@ const SignModal = () => {
           userLastLoinTime
         )
         .then(() => {
-          toast.success("GitHub Sign In successful.");
+          toast.success("Continue With GitHub successful.");
           setIsModalOpen(false);
         });
-
-      toast.success("Continue With GitHub successful.");
     });
   };
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
     setLoading(true);
     const email = e.target.email.value;
     const password = e.target.password.value;
     console.log(email, password);
-    signInUser(email, password)
-      .then(() => {
-        toast.success("Sign In successful.");
-        setIsModalOpen(false);
-      })
-      .catch(() => {
-        toast.error("Sign In failed. Please check your Email and Password.");
-      });
+    try {
+      const result = await signInUser(email, password);
+      const userLastLoginTime = {
+        lastSignInTime: result.user?.metadata?.lastSignInTime,
+        lastLoginAt: result.user?.metadata?.lastLoginAt,
+      };
+      await axiosPublic.put(`/users/${result.user?.email}`, userLastLoginTime);
+      toast.success("Sign In successful.");
+      setIsModalOpen(false);
+    } catch {
+      toast.error("Sign In failed. Please check your Email and Password.");
+      setLoading(false);
+      setShowPassword(true);
+    }
   };
 
   const handleRegister = async (e) => {
@@ -179,9 +183,7 @@ const SignModal = () => {
     console.log(email);
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_URL}user/${email}`
-      );
+      const response = await fetch(`${import.meta.env.VITE_URL}user/${email}`);
       const user = await response.json();
 
       if (!user || user.length === 0) {

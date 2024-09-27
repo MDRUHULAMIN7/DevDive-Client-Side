@@ -5,8 +5,9 @@ import { MdSaveAlt } from "react-icons/md";
 import { BiHide } from "react-icons/bi";
 import { FaRegFlag } from "react-icons/fa6";
 
-import { useState } from "react";
-import { FaThumbsUp, FaThumbsDown, FaCommentAlt, FaShare, FaHeart, FaTag } from "react-icons/fa";
+import {  useState } from "react";
+import { FaThumbsUp, FaThumbsDown, FaCommentAlt, FaShare} from "react-icons/fa";
+import CommentsSection from "../nifat/CommentSection";
 
 
 
@@ -21,6 +22,18 @@ const Card = () => {
   const [joined, setJoined] = useState(false);
   // ...........
   const [showMore, setShowMore] = useState(false);
+  //Nifat
+  const [showComments, setShowComments]=useState(false)
+  const [comments, setComments] = useState([]);
+  const handleComment=()=>{
+    setShowComments(!showComments)
+    console.log('showing comments')
+    fetch('../../../public/comments.json')
+    .then((response) => response.json())
+    .then((data) => setComments(data))
+    .catch((error) => console.error('Error fetching the comments:', error));
+    
+  }
 
   const toggleShowMore = () => {
     setShowMore(!showMore);
@@ -131,7 +144,7 @@ const Card = () => {
         <p className="text-gray-700 dark:text-gray-300">
           In this guide, we will explore the core concepts of React, including
           components, props, state, and hooks, and see how they fit together to
-          build dynamic and interactive web applications. Additionally, we'll
+          build dynamic and interactive web applications. Additionally, we&apos;ll
           discuss how Reacts component lifecycle and hooks can help you manage
           side effects and state changes more effectively.{" "}
           <button
@@ -174,9 +187,9 @@ const Card = () => {
         </div>
 
 
-        <button className="flex items-center space-x-1 hover:text-blue-500">
+        <button onClick={handleComment} className="flex items-center space-x-1 hover:text-blue-500">
           <FaCommentAlt className="h-5 w-5" />
-          <span>Comment</span>
+          <span className="text-sm">Comments</span>
         </button>
 
 
@@ -191,6 +204,10 @@ const Card = () => {
           <span>Wishlist</span>
         </button> */}
       </div>
+      {
+        showComments &&  <CommentsSection comments={comments}></CommentsSection>
+      }
+      
 
     </div>
 

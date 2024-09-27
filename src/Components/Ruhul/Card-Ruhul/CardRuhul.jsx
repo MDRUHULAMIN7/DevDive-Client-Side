@@ -18,6 +18,8 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 import UseLikes from "../../../Hooks/UseLikes";
 import UseDisLikes from "../../../Hooks/UseDisLike";
+import { useProgress } from "../../adnan/ProgressBar";
+import CommentsSection from "../../nifat/CommentSection";
 
 const CardRuhul = () => {
   const { user } = UseAuth(); // Get user info from auth hook
@@ -27,27 +29,42 @@ const CardRuhul = () => {
  const axiosPublic= useAxiosPublic()
  const [likes]=UseLikes()
   const [dislikes]=UseDisLikes()
-
+  
+  const [showComments, setShowComments]=useState(false)
+  const [comments, setComments] = useState([]);
+  const handleComment=()=>{
+    setShowComments(!showComments)
+    console.log('showing comments')
+    fetch('../../../../public/comments.json')
+    .then((response) => response.json())
+    .then((data) => setComments(data))
+    .catch((error) => console.error('Error fetching the comments:', error));
+    
+  }
 
 
 
 
 
  const handleLike = async(postId) => {
+ 
   if (!user) {
     toast("You need to log in to like a post.");
     return;
   }
+
 const newuser={
    name:user?.displayName,
    email:user?.email,
    photo:user?.photoURL
  }
  if(newuser?.email && newuser?.photo){
+  
   await axiosPublic.post(`/like/${postId}`,{newuser})
   .then(res=>{
     refetch()
     console.log(res.data);
+
   })
   .catch(err=>{
     refetch()
@@ -210,10 +227,10 @@ const newuser={
             </div>
 
             <div className="flex items-center space-x-4">
-              <button className="flex items-center space-x-1 hover:text-gray-800">
-                <FaCommentAlt className="h-5 w-5" />
-                <span>Comment</span>
-              </button>
+            <button onClick={handleComment} className="flex items-center space-x-1 hover:text-blue-500">
+          <FaCommentAlt className="h-5 w-5" />
+          <span className="text-sm">Comments</span>
+        </button>
               <button className="flex items-center space-x-1 hover:text-gray-800">
                 <FaShare className="h-5 w-5" />
                 <span>Share</span>
@@ -221,7 +238,11 @@ const newuser={
             </div>
           </div>
         </div>
+       
       ))}
+        {
+          showComments &&  <CommentsSection comments={comments}></CommentsSection>
+        }
     </section>
   );
 };
