@@ -2,9 +2,11 @@ import { BsThreeDots } from "react-icons/bs";
 import { MdSaveAlt } from "react-icons/md";
 import { BiHide } from "react-icons/bi";
 import { FaRegFlag } from "react-icons/fa6";
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import { FaThumbsUp, FaThumbsDown, FaCommentAlt, FaShare } from "react-icons/fa";
 import { Swiper, SwiperSlide } from 'swiper/react';
+ 
+// import './swiper.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -14,46 +16,23 @@ import { Link } from "react-router-dom";
 import UseAuth from "../../../Hooks/UseAuth";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
-import axios from "axios";
+import UseLikes from "../../../Hooks/UseLikes";
+import UseDisLikes from "../../../Hooks/UseDisLike";
 
 const CardRuhul = () => {
   const { user } = UseAuth(); // Get user info from auth hook
-  const [posts] = UsePosts(); // Fetch posts
-  const [userLikes, setUserLikes] = useState({}); // Track likes per user
-  const [userDislikes, setUserDislikes] = useState({}); // Track dislikes per user
-  const [postLikesCount, setPostLikesCount] = useState({}); // Track total likes count
-  const [postDislikesCount, setPostDislikesCount] = useState({}); // Track total dislikes count
+  const [posts,,refetch] = UsePosts(); // Fetch posts
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [joined, setJoined] = useState(false);
  const axiosPublic= useAxiosPublic()
-// console.log(userLikes);
-// console.log(userDislikes);
-// console.log(postLikesCount);
+ const [likes]=UseLikes()
+  const [dislikes]=UseDisLikes()
 
 
-// console.log(postLikesCount);
 
-const [posts2, setPosts] = useState([]);
-const [loading, setLoading] = useState(true);
-const [error, setError] = useState(null);
 
-useEffect(() => {
-  // Define async function to fetch posts
-  const fetchPosts = async () => {
-    try {
-      setLoading(true); // Start loading
-      const response = await axios.get('http://localhost:5000/get-posts');
-      setPosts(response.data); // Store posts data in state
-      setLoading(false); // Set loading to false after successful fetch
-    } catch (err) {
-      setError(err.message); // Capture error
-      setLoading(false); // Stop loading
-    }
-  };
 
-  fetchPosts(); // Invoke the async function
 
-}, []); 
  const handleLike = async(postId) => {
   if (!user) {
     toast("You need to log in to like a post.");
@@ -67,54 +46,43 @@ const newuser={
  if(newuser?.email && newuser?.photo){
   await axiosPublic.post(`/like/${postId}`,{newuser})
   .then(res=>{
+    refetch()
     console.log(res.data);
   })
   .catch(err=>{
+    refetch()
     console.log(err);
   })
  }
    
 
-  if (userLikes[postId]) {
-    // User already liked, so remove the like
-    setUserLikes(prev => ({ ...prev, [postId]: undefined }));
-    setPostLikesCount(prev => ({ ...prev, [postId]: prev[postId] - 1 }));
-  } else {
-    // Add the like
-    setUserLikes(prev => ({ ...prev, [postId]: true }));
-    setPostLikesCount(prev => ({ ...prev, [postId]: (prev[postId] || 0) + 1 }));
-
-    // If the user has disliked the post, remove the dislike
-    if (userDislikes[postId]) {
-      setUserDislikes(prev => ({ ...prev, [postId]: undefined }));
-      setPostDislikesCount(prev => ({ ...prev, [postId]: prev[postId] - 1 }));
-    }
-  }
+ 
 };
-
-const handleDislike = (postId) => {
+ const handleDislike= async(postId) => {
   if (!user) {
-    alert("You need to log in to dislike a post.");
+    toast("You need to log in to like a post.");
     return;
   }
+const newuser={
+   name:user?.displayName,
+   email:user?.email,
+   photo:user?.photoURL
+ }
+ if(newuser?.email && newuser?.photo){
+  await axiosPublic.post(`/dislike/${postId}`,{newuser})
+  .then(res=>{
+    refetch()
+    console.log(res.data);
+  })
+  .catch(err=>{
+    refetch()
+    console.log(err);
+  })
+ }
+   
 
-  if (userDislikes[postId]) {
-    // User already disliked, so remove the dislike
-    setUserDislikes(prev => ({ ...prev, [postId]: undefined }));
-    setPostDislikesCount(prev => ({ ...prev, [postId]: prev[postId] - 1 }));
-  } else {
-    // Add the dislike
-    setUserDislikes(prev => ({ ...prev, [postId]: true }));
-    setPostDislikesCount(prev => ({ ...prev, [postId]: (prev[postId] || 0) + 1 }));
-
-    // If the user has liked the post, remove the like
-    if (userLikes[postId]) {
-      setUserLikes(prev => ({ ...prev, [postId]: undefined }));
-      setPostLikesCount(prev => ({ ...prev, [postId]: prev[postId] - 1 }));
-    }
-  }
+ 
 };
-
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -127,8 +95,8 @@ const handleDislike = (postId) => {
 
   return (
     <section>
-      {posts2?.length && posts2?.map((data, index) => (
-        <div key={index} className="mt-4 bg-white dark:bg-gray-800 shadow-md mx-1 rounded-lg p-4 my-4 max-w-2xl md:mx-auto border border-gray-200 dark:border-gray-700 sm:max-w-full lg:max-w-3xl">
+      {posts?.length && posts?.map((data, index) => (
+        <div key={index} className="mt-4 bg-white dark:bg-gray-900 shadow-md mx-1 rounded-lg p-4 my-4  md:mx-auto border border-gray-200 dark:border-gray-700 ">
           <div className="flex justify-between items-center mb-3">
             <div className="flex items-center">
               <img
@@ -179,46 +147,65 @@ const handleDislike = (postId) => {
           </div>
 
           <div className="my-4">
-            <Swiper
-              spaceBetween={30}
-              pagination={{ clickable: true }}
-              modules={[Pagination]}
-              className="mySwiper h-[300px] md:h-[450px] rounded-lg"
-            >
-              {data.images && data.images.map((image, imgIndex) => (
-                <SwiperSlide key={imgIndex}>
-                  <div className="h-[300px] md:h-[450px] w-full flex justify-center items-center overflow-hidden rounded-lg">
-                    <img
-                      src={image}
-                      alt="Post"
-                      className="max-w-none h-full object-cover"
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+          <Swiper
+          spaceBetween={30}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Pagination]}
+          className="mySwiper h-[300px] md:h-[400px]  rounded-lg"
+        >
+  
+          {
+            data && data?.images?.map((image,index)=><SwiperSlide key={index}>
+  <div className="h-[300px] md:h-[400px]  w-full flex justify-center items-center overflow-hidden rounded-lg">
+  <img
+    src={image} // Ensure this is a valid URL
+    alt="Post"
+    className="w-full h-full object-cover" // Use object-cover to maintain aspect ratio
+  />
+</div>
+
+
+
+
+
+            </SwiperSlide>)
+          }
+     
+        
+       
+        </Swiper>
+
           </div>
 
           <div className="flex flex-wrap justify-between items-center text-gray-500 dark:text-gray-400 text-sm">
             <div className="flex items-center space-x-4">
               {/* Like */}
               <button
-                onClick={() => handleLike(data._id)}
-                className={`flex items-center space-x-1 hover:text-blue-500 ${userLikes[data._id] ? 'text-blue-500' : ''}`}
+                onClick={() => {
+                  handleLike(data._id);
+                  
+                }}
+                className={`flex items-center space-x-1 hover:text-blue-500 `}
               >
-                <FaThumbsUp className="h-5 w-5" />
-                <span>{userLikes[data._id] ? 'Liked' : 'Like'}</span>
-                <span className="ml-1 text-xs text-gray-600">{postLikesCount[data._id] || 0}</span> {/* Total likes count */}
+         
+                {likes && likes.find(like=> like.postId === data._id && like?.email === user?.email) ? <p className="flex text-blue-500 justify-center items-center gap-x-1"> <FaThumbsUp className="h-5 w-5"/> <span>liked</span></p> : <p className="flex  justify-center items-center gap-x-1"> <FaThumbsUp className="h-5 w-5"/> <span>like</span></p>}
+               
+             
+                <span className="ml-1 text-sm text-gray-600">{data?.likes}</span> {/* Total likes count */}
               </button>
 
               {/* Dislike */}
               <button
-                onClick={() => handleDislike(data._id)}
-                className={`flex items-center space-x-1 hover:text-red-500 ${userDislikes[data._id] ? 'text-red-500' : ''}`}
+                onClick={() => {
+                  handleDislike(data._id);
+                 
+                }}
+                className={`flex items-center space-x-1 hover:text-red-500 `}
               >
-                <FaThumbsDown className="h-5 w-5" />
-                <span>{userDislikes[data._id] ? 'Disliked' : 'Dislike'}</span>
-                <span className="ml-1 text-xs text-gray-600">{postDislikesCount[data._id] || 0}</span> {/* Total dislikes count */}
+                {dislikes && dislikes?.find(like=> like.postId === data._id && like?.email === user?.email) ? <p className="flex text-red-500 justify-center items-center gap-x-1"> <FaThumbsDown className="h-5 w-5"/> <span>Disliked</span></p> : <p className="flex  justify-center items-center gap-x-1"> <FaThumbsDown className="h-5 w-5"/> <span>Dislike</span></p>}
+                <span className="ml-1 text-sm text-gray-600">{data?.dislikes}</span> {/* Total dislikes count */}
               </button>
             </div>
 
