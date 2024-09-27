@@ -153,7 +153,7 @@ const newuser={
           </div>
 
           <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-2">
-            {data.title}
+            {data?.title}
           </h2>
 
           <div className="text-gray-700 dark:text-gray-300">
