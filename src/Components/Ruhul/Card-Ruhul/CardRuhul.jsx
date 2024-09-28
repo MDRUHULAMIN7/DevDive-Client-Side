@@ -18,20 +18,22 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 import UseLikes from "../../../Hooks/UseLikes";
 import UseDisLikes from "../../../Hooks/UseDisLike";
-
 import CommentsSection from "../../nifat/CommentSection";
+import PostComponent from "./PostComponent";
+import UseFollowers from "../../../Hooks/UseFollowers";
 
 const CardRuhul = () => {
   const { user } = UseAuth(); // Get user info from auth hook
-  const [posts,,refetch] = UsePosts(); // Fetch posts
+  let [posts,,refetch] = UsePosts(); // Fetch posts
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [joined, setJoined] = useState(false);
  const axiosPublic= useAxiosPublic()
  const [likes]=UseLikes()
   const [dislikes]=UseDisLikes()
-  
   const [showComments, setShowComments]=useState(false)
   const [comments, setComments] = useState([]);
+  let [follwers,]=UseFollowers()
+  console.log(follwers);
+
   const handleComment=()=>{
     setShowComments(!showComments)
     console.log('showing comments')
@@ -42,9 +44,47 @@ const CardRuhul = () => {
     
   }
 
+  const handleFollow = async (postId,e) => {
+    if (!user) {
+      toast("You need to log in to Follow / Unfollow.");
+      return;
+    }
+  
+    const newuser = {
+      name: user?.displayName,
+      email: user?.email,
+      photo: user?.photoURL,
+    };
+  
 
-
-
+    if (newuser?.email && newuser?.photo) {
+      try {
+        // Make POST request to follow/unfollow the user
+        const res = await axiosPublic.post(`/follow/${postId}`, { newuser });
+        
+        const { message } = res.data;
+        
+        
+        await refetch();
+  
+        if (message === "Unfollowed successfully") {
+          toast(`Unfollowing ${e}`);
+        } else if (message === "Followed successfully") {
+          toast(`Following ${e}`);
+        } else {
+          toast(`No changes made for ${e}`);
+        }
+      } catch (err) {
+        console.error("Error:", err);
+        toast.error("An error occurred while processing your request.");
+      }
+    } else {
+      toast("Invalid user data. Please log in again.");
+    }
+  };
+  
+  
+  
 
  const handleLike = async(postId) => {
  
@@ -77,7 +117,7 @@ const newuser={
 };
  const handleDislike= async(postId) => {
   if (!user) {
-    toast("You need to log in to like a post.");
+    toast("You need to log in to dislike a post.");
     return;
   }
 const newuser={
@@ -105,13 +145,11 @@ const newuser={
     setDropdownOpen(!dropdownOpen);
   };
 
-  const toggleJoin = () => {
-    setJoined(!joined);
-  };
-  console.log(posts);
+ 
+
 
   return (
-    <section>
+    <section className="">
       {posts?.length && posts?.map((data, index) => (
         <div key={index} className="mt-4 bg-white dark:bg-gray-900 shadow-md mx-1 rounded-lg p-4 my-4  md:mx-auto border border-gray-200 dark:border-gray-700 ">
           <div className="flex justify-between items-center mb-3">
@@ -123,16 +161,24 @@ const newuser={
               />
               <div className="ml-3">
                 <h3 className="font-semibold text-gray-800 dark:text-gray-200">{data.username}</h3>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Posted: {data.createdAt}</p>
+               
+                <PostComponent data={data}></PostComponent>
+              </div>
+              <div className="ml-5">
+              <button
+                onClick={()=>handleFollow(data._id,data.username)}
+                className={`p-1 font-semibold text-sm text-white rounded-xl w-full h-8 bg-blue-700`}
+              >
+           { follwers && follwers.find((a) => a.email === user?.email && a.postBy === data?.userEmail) 
+  ? 'Unfollow' 
+  : 'Follow' 
+}
+
+              </button>
               </div>
             </div>
             <div className="relative flex items-center gap-2">
-              <button
-                onClick={toggleJoin}
-                className={`p-1 font-semibold text-sm text-white rounded-xl w-full h-8 ${joined ? 'bg-green-600' : 'bg-blue-700'}`}
-              >
-                {joined ? 'Unfollow' : 'Follow'}
-              </button>
+            
               <BsThreeDots onClick={toggleDropdown} className="cursor-pointer" />
               {dropdownOpen && (
                 <div className="absolute right-0 mt-36 w-32 bg-white rounded-xl shadow-lg z-10">

@@ -4,6 +4,7 @@ import CardRuhul from '../../Components/Ruhul/Card-Ruhul/CardRuhul';
 
 import Card from '../../Components/Sanjida/Card';
 import RecentPostCard from '../../Components/Fardus/RecentPostCard/RecentPostCard';
+import Chatbot from '../../Components/Ruhul/Cahtbot/Chatbot';
 
 const Home = () => {
 
@@ -45,7 +46,7 @@ const Home = () => {
                         <RecentPostCard></RecentPostCard>
                     </div>
                 </div>
-
+          <Chatbot></Chatbot>
             </div>
         </div>
     );
