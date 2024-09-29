@@ -16,6 +16,7 @@ import ReadMore from "../Components/Sanjida/ReadMore";
 import CardRuhul from "../Components/Ruhul/Card-Ruhul/CardRuhul";
 import PostDetails from "../Pages/PostDetails/PostDetails";
 import PrivateRoute from "../Providers/PrivateRoute";
+import LeaderBoard from "../Components/Nur/Leaderboard";
 
 export const router = createBrowserRouter([
   {
@@ -81,6 +82,10 @@ export const router = createBrowserRouter([
       {
         path:'/post-details/:id',
         element:<PostDetails></PostDetails>
+      },
+      {
+        path:'/leaderBoard',
+        element:<LeaderBoard></LeaderBoard>
       },
 
       // for admin
