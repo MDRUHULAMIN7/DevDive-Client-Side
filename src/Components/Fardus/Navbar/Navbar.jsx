@@ -26,11 +26,17 @@ const Navbar = () => {
     const [clickPp, setClickPp] = useState(false);
     const [clickSearch, setClickSearch] = useState(false);
     const [focusInput, setFocusInput] = useState(false);
+    const [searchValue, setSearchValue] = useState("");
     const inputRef = useRef(null);
 
     useEffect(() => {
         focusInput && inputRef.current.focus();
     }, [focusInput]);
+
+    const handleSearch = (e) => {
+        setSearchValue(e.target.value);
+        console.log(e.target.value);
+    }
 
     const notification = <IoNotificationsOutline className="text-[22px] " />;
     const add = <IoAdd className="text-[22px]" />;
@@ -66,10 +72,33 @@ const Navbar = () => {
                         </span>
 
                         <input
+                            // value={searchValue}
+                            onChange={handleSearch}
+                            onFocus={() => setFocusInput(true)} // Set focus state on input focus
+                            onBlur={() => setFocusInput(false)} // Optional: reset focus state when input loses focus
                             type="text"
-                            className="text-sm w-full py-2 pl-10 pr-4 text-gray-700 dark:text-gray-200 bg-gray-200 dark:bg-themeColor3 dark:hover:bg-[#333D42] hover:bg-gray-300 hover:bg-opacity-70 border-black rounded-2xl outline-none"
+                            className={`text-sm w-full py-2 pl-10 pr-4 text-gray-700 dark:text-gray-200 bg-gray-200 dark:bg-themeColor3 dark:hover:bg-[#333D42] dark:focus:bg-[#333D42] hover:bg-gray-300 focus:bg-gray-300 hover:bg-opacity-70 border-black focus:rounded-b-none rounded-2xl outline-none`}
                             placeholder="Search"
                         />
+                        <div className={`${focusInput ? "block":"hidden"} absolute w-full h-[85vh] bg-gray-300 dark:bg-[#333D42] rounded-b-2xl border-t dark:border-gray-700 border-gray-400 p-4 overflow-y-auto scrollBar pb-0`}>
+                            <div className="flex justify-between items-center gap-5">
+                                <div className="space-y-4">
+                                    <h4 className="font-semibold text-sm">Why You Should Learn JavaScript in 2024</h4>
+                                    <p className="text-[10px]">JavaScript remains one of the most popular and versatile programming languages in the world. Whether you're developing front-end interfaces, back-e</p>
+                                    <div className="flex justify-start items-center gap-2">
+                                        <div className="w-8 h-8 rounded-full">
+                                            <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/219/219986.png" alt="" />
+                                        </div>
+                                        <h5 className="text-xs font-medium">Fardus Hassan</h5>
+                                    </div>
+                                </div>
+                                
+                                <div className="rounded-xl w-[200px] min-w-[200px] object-cover h-[150px]">
+                                    <img className="rounded-xl w-[200px] object-cover h-[150px]" src="https://www.finoit.com/wp-content/uploads/2022/10/top-java-use-cases.jpg" alt="" />
+                                </div>
+                            </div>
+                            <hr className="my-3 border-gray-400 dark:border-gray-700" />
+                        </div>
                     </div>
                     <div className="flex justify-between items-center">
                         <svg
@@ -142,7 +171,7 @@ const Navbar = () => {
                                     </span>
 
                                     <hr className="mt-1 border-gray-200 dark:border-gray-700" />
-                                    <Link to={ '/admin-settings'} className="flex justify-start lg:px-6 px-5 py-4 my-1 dark:hover:text-gray-50 dark:hover:bg-opacity-30 dark:hover:bg-gray-700 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
+                                    <Link to={'/admin-settings'} className="flex justify-start lg:px-6 px-5 py-4 my-1 dark:hover:text-gray-50 dark:hover:bg-opacity-30 dark:hover:bg-gray-700 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
                                         <IoSettingsOutline className="text-2xl" />
                                         Setting
                                     </Link>

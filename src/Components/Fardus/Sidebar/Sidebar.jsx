@@ -70,6 +70,7 @@ const Sidebar = ({ setOpenMenu, openMenu }) => {
                         <IoMdHome className='text-lg' />
                         <span className="mx-3 font-medium text-xs">About</span>
                     </NavLink>
+                    <hr className="my-6 border-gray-200 dark:border-gray-700" />
                 </nav>
             </div>
         </aside>

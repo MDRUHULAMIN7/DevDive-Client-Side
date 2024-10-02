@@ -93,12 +93,14 @@ ol {
 }
 
 pre {
-  background-color: #279eda3c;
+  background-color: #2e2e2e;
   padding: 10px 20px;
   margin: 20px 0;
   border-radius: 10px;
   overflow: auto;
+  color: white
 }
+
 
 blockquote {
   margin: 20px;
