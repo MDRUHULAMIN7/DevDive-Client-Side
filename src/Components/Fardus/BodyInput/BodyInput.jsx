@@ -6,7 +6,6 @@ const BodyInput = ({ setValue, value }) => {
 
     // const [value, setValue] = useState('');
     const toolbarOptions = [
-        [{ 'header': [1, 2, false] }], // Headers
         ['bold', 'italic', 'underline', 'strike'], // Formatting options
         [{ 'color': [] }, { 'background': [] }], // Text color and background color
         [{ 'list': 'ordered' }, { 'list': 'bullet' }], // Lists
