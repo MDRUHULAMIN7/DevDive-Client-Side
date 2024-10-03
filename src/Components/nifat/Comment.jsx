@@ -11,10 +11,10 @@ import useReplies from '../../Hooks/useReplies';
 const Comment = ({comment}) => {
   const { user } = UseAuth();
   const axiosPublic= useAxiosPublic()
-  const [replies,refetch]=useReplies(comment._id)
+  const [replies, refetch] = useReplies(comment._id);
   const [isReplying, setIsReplying] = useState(false);
   const [replyContent, setReplyContent] = useState('');
-  console.log(comment)
+  console.log(comment);
   console.log(replies)
     // Handle reply submission
   const handleReply = (e) => {
@@ -94,15 +94,15 @@ const Comment = ({comment}) => {
 
         <button className="flex items-center space-x-1 hover:text-blue-500">
           <FaCommentAlt className="h-5 w-5" />
-          <span className="text-sm">Show replies  {comment.comment}</span>
+          <span className="text-sm">Show replies  {replies.length}</span>
         </button>
-        <button 
-            onClick={() => setIsReplying(!isReplying)} 
+        <button
+            onClick={() => setIsReplying(!isReplying)}
             className="text-blue-500 text-sm hover:underline"
           >
             <span className='flex items-center '><MdOutlineReply /> Reply</span>
         </button>
-        
+
 
         {/* <h1>here</h1> */}
 
@@ -130,8 +130,8 @@ const Comment = ({comment}) => {
               value={replyContent}
               onChange={(e) => setReplyContent(e.target.value)}
             />
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className="mt-2 bg-blue-500 text-white py-1 px-3 rounded-lg"
             >
               Post Reply
