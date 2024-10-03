@@ -18,30 +18,31 @@ import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import Sidebar from "../Sidebar/Sidebar";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import { Link } from "react-router-dom";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import PostComponent from "../../Ruhul/Card-Ruhul/PostComponent";
 
-const Navbar = ({setClickPp, clickPp}) => {
+const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
+    const axiosPublic = useAxiosPublic();
     const { logout, user, setIsModalOpen } = useContext(AuthContext);
     const [openSmallMenu, setOpenSmallMenu] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
     // const [clickPp, setClickPp] = useState(false);
     const [clickSearch, setClickSearch] = useState(false);
-    const [focusInput, setFocusInput] = useState(false);
-    const [searchValue, setSearchValue] = useState("");
+    // const [focusInput, setFocusInput] = useState(false);
+    const [searchData, setSearchData] = useState([]);
     const inputRef = useRef(null);
 
     useEffect(() => {
         focusInput && inputRef.current.focus();
     }, [focusInput]);
 
-    const handleSearch = (e) => {
-        setSearchValue(e.target.value);
-        console.log(e.target.value);
+    const handleSearch = async (e) => {
+        const { data } = await axiosPublic.get(`/posts/search/post?search=${e.target.value}`)
+        setSearchData(data);
     }
 
     const notification = <IoNotificationsOutline className="text-[22px] " />;
     const add = <IoAdd className="text-[22px]" />;
-
-
 
     return (
         <>
@@ -76,30 +77,55 @@ const Navbar = ({setClickPp, clickPp}) => {
                         <input
                             // value={searchValue}
                             onChange={handleSearch}
-                            onFocus={() => setFocusInput(true)} // Set focus state on input focus
-                            onBlur={() => setFocusInput(false)} // Optional: reset focus state when input loses focus
+                            onClick={() => setFocusInput(true)}
+                            // onFocus={() => setFocusInput(true)} // Set focus state on input focus
+                            // onBlur={() => setFocusInput(false)} // Optional: reset focus state when input loses focus
                             type="text"
-                            className={`text-sm w-full py-2 pl-10 pr-4 text-gray-700 dark:text-gray-200 bg-gray-200 dark:bg-themeColor3 dark:hover:bg-[#333D42] dark:focus:bg-[#333D42] hover:bg-gray-300 focus:bg-gray-200 hover:bg-opacity-70 border-black focus:rounded-b-none rounded-2xl outline-none`}
+                            className={`text-sm w-full py-2 pl-10 pr-4 text-gray-700 dark:text-gray-200 bg-gray-200 dark:bg-themeColor3 dark:hover:bg-[#333D42] dark:focus:bg-[#333D42] hover:bg-gray-300 focus:bg-gray-200 hover:bg-opacity-70 border-black ${searchData.length > 0 && focusInput ? "rounded-b-none" : ""} rounded-2xl outline-none`}
                             placeholder="Search"
                         />
-                        <div className={`${focusInput ? "block" : "hidden"} absolute w-full h-[85vh] bg-gray-200 dark:bg-[#333D42] rounded-b-2xl border-t dark:border-gray-700 border-gray-400 p-4 overflow-y-auto scrollBar pb-0`}>
-                            <div className="flex justify-between items-center gap-5">
-                                <div className="space-y-4">
-                                    <h4 className="font-semibold text-sm">Why You Should Learn JavaScript in 2024</h4>
-                                    <p className="text-[10px]">JavaScript remains one of the most popular and versatile programming languages in the world. Whether you're developing front-end interfaces, back-e</p>
-                                    <div className="flex justify-start items-center gap-2">
-                                        <div className="w-8 h-8 rounded-full">
-                                            <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/219/219986.png" alt="" />
-                                        </div>
-                                        <h5 className="text-xs font-medium">Fardus Hassan</h5>
-                                    </div>
-                                </div>
+                        <div className={`${searchData.length > 0 && focusInput ? "block" : "hidden"} absolute w-full h-[85vh] bg-gray-200 dark:bg-[#333D42] rounded-b-2xl border-t dark:border-gray-700 border-gray-400 p-4 overflow-y-auto scrollBar pb-0`}>
+                            {
+                                searchData.map((item, index) => (
+                                    <Link to={`/post-details/${item._id}`} key={index}>
+                                        <div className="flex justify-between items-center gap-5">
+                                            <div className="">
+                                                
+                                                <h4 className="font-semibold text-sm mb-2">{item.title}</h4>
+                                                <PostComponent data={item}></PostComponent>
+                                                <p
+                                                    className="text-[10px] mb-4 mt-2"
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: item.body && item.body.slice(0, 150),
+                                                    }}
+                                                />
+                                                <div className="flex justify-start items-center gap-2">
+                                                    <div className="w-8 h-8 rounded-full">
+                                                        <img
+                                                            className="w-8 h-8 rounded-full object-cover"
+                                                            src={item.profilePicture}
+                                                            alt="User profile"
+                                                        />
+                                                    </div>
+                                                    <h5 className="text-xs font-medium text-nowrap">{item.username}</h5>
+                                                </div>
+                                            </div>
 
-                                <div className="rounded-xl w-[200px] min-w-[200px] object-cover h-[150px]">
-                                    <img className="rounded-xl w-[200px] object-cover h-[150px]" src="https://www.finoit.com/wp-content/uploads/2022/10/top-java-use-cases.jpg" alt="" />
-                                </div>
-                            </div>
-                            <hr className="my-3 border-gray-400 dark:border-gray-700" />
+                                            {
+                                                item.images.length >0 && <div className="rounded-xl w-[200px] min-w-[200px] object-cover h-[150px]">
+                                                <img
+                                                    className="rounded-xl w-[200px] object-cover h-[150px]"
+                                                    src={item.images[0]}
+                                                    alt="Post thumbnail"
+                                                />
+                                            </div>
+                                            }
+                                        </div>
+                                        <hr className="my-3 border-gray-400 dark:border-gray-700" />
+                                    </Link>
+                                ))
+                            }
+
                         </div>
                     </div>
                     <div className="flex justify-between items-center">
@@ -147,14 +173,14 @@ const Navbar = ({setClickPp, clickPp}) => {
                                         className={`${clickPp ? "lg:block hidden" : "hidden"
                                             } w-[250px] pt-5 shadow-2xl absolute top-14 right-1 rounded-lg bg-white dark:bg-themeColor2`}>
                                         <div className="flex items-center gap-2 px-5 py-4 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 ">
-                                            <div className="relative">
+                                            <Link to={`/users/${user?.email}`} className="relative">
                                                 <img
                                                     className="object-cover w-9 h-9 rounded-full"
                                                     src={user?.photoURL || User}
                                                     alt="user"
                                                 />
                                                 <span className="absolute bg-green-500 bottom-0 left-6 w-2 h-2 rounded-full bg-emerald-500 ring-1 ring-white"></span>
-                                            </div>
+                                            </Link>
                                             <div>
                                                 <h2 className="text-sm">{user?.displayName}</h2>
                                                 <h3 className="text-xs">{user?.email}</h3>
@@ -299,7 +325,7 @@ const Navbar = ({setClickPp, clickPp}) => {
 
             <div
                 className={`${clickSearch
-                    ? "fixed w-full top-0 sm:px-6 px-4 py-2 lg:hidden z-[101]"
+                    ? "fixed w-full top-0 py-2 lg:hidden z-[101]"
                     : "hidden"
                     } bg-white dark:bg-themeColor`}>
                 <div className="flex justify-start items-center gap-3">
@@ -307,9 +333,9 @@ const Navbar = ({setClickPp, clickPp}) => {
                     <IoArrowBackOutline
                         onClick={() => {
                             setClickSearch(false); // Hide search bar
-                            setFocusInput(!focusInput); // Remove focus from input when back arrow is clicked
+                            setFocusInput(false); // Remove focus from input when back arrow is clicked
                         }}
-                        className="text-2xl text-gray-500"
+                        className="text-2xl text-gray-500 ml-4"
                     />
 
                     <div className="relative w-full">
@@ -331,10 +357,54 @@ const Navbar = ({setClickPp, clickPp}) => {
                         {/* Input Element */}
                         <input
                             ref={inputRef}
+                            onChange={handleSearch}
+                            onClick={() => setFocusInput(true)}
                             type="text"
                             className="py-2 pl-10 pr-4 bg-transparent outline-none w-full"
                             placeholder="Search"
                         />
+                        <div className={`${searchData.length > 0 && focusInput ? "block" : "hidden"} absolute w-screen h-[calc(100vh-56px)] dark:bg-themeColor2 p-4 top-[49px] right-0 overflow-y-auto scrollBar pb-0`}>
+                            {
+                                searchData.map((item, index) => (
+                                    <Link to={`/post-details/${item._id}`} key={index}>
+                                        <div className="flex justify-between items-center gap-5">
+                                            <div className="">
+                                            <h4 className="font-semibold text-sm mb-2">{item.title}</h4>
+                                                <PostComponent data={item}></PostComponent>
+                                                <p
+                                                    className="text-[10px] mb-4 mt-2"
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: item.body && item.body.slice(0, 150),
+                                                    }}
+                                                />
+                                                <div className="flex justify-start items-center gap-2">
+                                                    <div className="w-8 h-8 rounded-full">
+                                                        <img
+                                                            className="w-8 h-8 rounded-full object-cover"
+                                                            src={item.profilePicture}
+                                                            alt="User profile"
+                                                        />
+                                                    </div>
+                                                    <h5 className="text-xs font-medium">{item.username}</h5>
+                                                </div>
+                                            </div>
+
+                                            {
+                                                item.images.length >0 && <div className="rounded-xl min-w-[100px] w-[100px] h-[75px] sm:w-[200px] sm:min-w-[200px] object-cover  sm:h-[150px]">
+                                                <img
+                                                    className="rounded-xl min-w-[100px] w-[100px] h-[75px] sm:w-[200px] object-cover sm:h-[150px]"
+                                                    src={item.images[0]}
+                                                    alt="Post thumbnail"
+                                                />
+                                            </div>
+                                            }
+                                        </div>
+                                        <hr className="my-3 border-gray-400 dark:border-gray-700" />
+                                    </Link>
+                                ))
+                            }
+
+                        </div>
                     </div>
                 </div>
             </div>

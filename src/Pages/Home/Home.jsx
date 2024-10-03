@@ -4,6 +4,7 @@ import CardRuhul from '../../Components/Ruhul/Card-Ruhul/CardRuhul';
 
 import Card from '../../Components/Sanjida/Card';
 import RecentPostCard from '../../Components/Fardus/RecentPostCard/RecentPostCard';
+import Chatbot from '../../Components/Ruhul/Cahtbot/Chatbot';
 
 const Home = () => {
 
@@ -26,6 +27,7 @@ const Home = () => {
                 <title>DevDive | Home</title>
             </Helmet>
             <Slider slides={slides} />
+            
             <div className="flex justify-between mx-auto mt-5">
                 <div className="lg:w-[68%] max-w-full space-y-5">
                   <CardRuhul></CardRuhul>
@@ -45,7 +47,7 @@ const Home = () => {
                         <RecentPostCard></RecentPostCard>
                     </div>
                 </div>
-
+          <Chatbot></Chatbot>
             </div>
         </div>
     );
