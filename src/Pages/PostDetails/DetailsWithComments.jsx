@@ -19,7 +19,6 @@ import { FaShare, FaThumbsDown, FaThumbsUp } from "react-icons/fa6";
 import { IoMdAdd } from "react-icons/io";
 import { FaCommentAlt } from "react-icons/fa";
 import UseComments from "../../Hooks/UseComments";
-import Swal from "sweetalert2";
 import Comment from "../../Components/nifat/Comment";
 
 const DetailsWithComments = () => {
@@ -55,23 +54,11 @@ const DetailsWithComments = () => {
     .then((result)=>{
             if(result.data.insertedId){
               refetch()
-              Swal.fire({
-                  position: "top-end",
-                  icon: "success",
-                  title: "Successfully commented",
-                  showConfirmButton: false,
-                  timer: 1500
-              });
+              toast.success('successfully commented')
             }
     })
     .catch((error)=>{
-      Swal.fire({
-        position: "top-end",
-        icon: "error",
-        title: error,
-        showConfirmButton: false,
-        timer: 1500
-    });
+    toast.error(error)
     })
     setNewComment('')
     setShowCommentBox(false)

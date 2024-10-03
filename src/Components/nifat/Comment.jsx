@@ -4,9 +4,9 @@ import { FaCommentAlt } from 'react-icons/fa';
 import { FaThumbsDown, FaThumbsUp } from 'react-icons/fa6';
 import { MdOutlineReply } from 'react-icons/md';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
-import Swal from 'sweetalert2';
 import UseAuth from '../../Hooks/UseAuth';
 import useReplies from '../../Hooks/useReplies';
+import toast from 'react-hot-toast';
 
 const Comment = ({comment}) => {
   const { user } = UseAuth();
@@ -33,23 +33,12 @@ const Comment = ({comment}) => {
     .then((result)=>{
             if(result.data.insertedId){
               refetch()
-              Swal.fire({
-                  position: "top-end",
-                  icon: "success",
-                  title: "Successfully commented",
-                  showConfirmButton: false,
-                  timer: 1500
-              });
+              toast.success('replied')
+
             }
     })
     .catch((error)=>{
-      Swal.fire({
-        position: "top-end",
-        icon: "error",
-        title: error,
-        showConfirmButton: false,
-        timer: 1500,
-    });
+      toast.error(error)
     })
     setIsReplying(false);
     setReplyContent('');
