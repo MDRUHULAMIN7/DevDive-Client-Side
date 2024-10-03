@@ -26,8 +26,7 @@ export default function LikeDislikeFilter({ setPosts }) {
   return (
     <div>
       <select
-        className="w-32 border-2 p-1 rounded-md bg-white text-black dark:bg-gray-800 dark:text-white"
-        style={{ borderColor: "#54ACDD" }}
+        className="w-32 p-1 border dark:border-themeColor3 rounded-md outline-none bg-white text-black dark:bg-themeColor dark:text-white"
         onChange={handleChange}
         defaultValue=""
       >
@@ -38,7 +37,7 @@ export default function LikeDislikeFilter({ setPosts }) {
         <option value="most-disliked">Most Disliked</option>
       </select>
 
-      <div className="mt-5">
+      <div className="">
         {/* {posts.map((post) => (
           <div key={post._id} className="flex gap-4">
             <p>Like: {post.likes}</p>

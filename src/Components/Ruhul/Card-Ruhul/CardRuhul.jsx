@@ -36,7 +36,7 @@ const CardRuhul = () => {
   const [dislikes] = UseDisLikes();
   const [newPosts, setNewPosts] = useState([]);
   const [follwers] = UseFollowers();
-  console.log(follwers);
+  // console.log(follwers);
 
   
 
