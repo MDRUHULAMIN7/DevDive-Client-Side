@@ -22,7 +22,7 @@ const PostDetails = () => {
     useEffect(()=>{
          if(id){
             const newData = posts && posts?.filter((d)=> d._id === id)
-            setData(newData[0])
+            setData(newData[0]);
          }
     },[id,posts])
     console.log(data);
