@@ -22,7 +22,7 @@ const PostDetails = () => {
     useEffect(()=>{
          if(id){
             const newData = posts && posts?.filter((d)=> d._id === id)
-            setData(newData[0])
+            setData(newData[0]);
          }
     },[id,posts])
     console.log(data);
@@ -34,35 +34,37 @@ const PostDetails = () => {
                        <p className="text-lg my-4">Posted : {data.createdAt}</p>
                   
                         <div className="my-4">
-        <Swiper
-          spaceBetween={30}
-          pagination={{
-            clickable: true,
-          }}
-          modules={[Pagination]}
-          className="mySwiper h-[300px] md:h-[400px]  rounded-lg"
-        >
-  
-          {
-            data && data?.images?.map((image,index)=><SwiperSlide key={index}>
-  <div className="h-[300px] md:h-[400px]  w-full flex justify-center items-center overflow-hidden rounded-lg">
-  <img
-    src={image} // Ensure this is a valid URL
-    alt="Post"
-    className="w-full h-full object-cover" // Use object-cover to maintain aspect ratio
-  />
+       {
+        data.images[0] &&  <Swiper
+        spaceBetween={30}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[Pagination]}
+        className="mySwiper h-[300px] md:h-[400px]  rounded-lg"
+      >
+
+        {
+          data && data?.images?.map((image,index)=><SwiperSlide key={index}>
+<div className="h-[300px] md:h-[400px]  w-full flex justify-center items-center overflow-hidden rounded-lg">
+<img
+  src={image} // Ensure this is a valid URL
+  alt="Post"
+  className="w-full h-full object-cover" // Use object-cover to maintain aspect ratio
+/>
 </div>
 
 
 
 
 
-            </SwiperSlide>)
-          }
+          </SwiperSlide>)
+        }
+   
+      
      
-        
-       
-        </Swiper>
+      </Swiper>
+       }
         </div>
         <h1 className="text-2xl font-semibold my-4">{data?.title}</h1>
 

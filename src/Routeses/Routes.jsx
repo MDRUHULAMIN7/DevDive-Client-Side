@@ -17,6 +17,8 @@ import CardRuhul from "../Components/Ruhul/Card-Ruhul/CardRuhul";
 import PostDetails from "../Pages/PostDetails/PostDetails";
 import PrivateRoute from "../Providers/PrivateRoute";
 import DetailsWithComments from "../Pages/PostDetails/DetailsWithComments";
+import UserProfile from "../Pages/Ruhul/UserProfile/UserProfile";
+import EditProfile from "../Pages/Ruhul/UserProfile/EditProfile";
 import LeaderBoard from "../Components/Nur/Leaderboard";
 
 export const router = createBrowserRouter([
@@ -82,13 +84,21 @@ export const router = createBrowserRouter([
       },
       {
         path:'/post-details/:id',
-        element:<PostDetails></PostDetails>
+        element:<DetailsWithComments></DetailsWithComments>
       },
       {
         path:'/detailsWithComments/:id',
         element:<DetailsWithComments></DetailsWithComments>
       },
       {
+        path:'/users/:email',
+        element:<UserProfile></UserProfile>
+      },
+      {
+        path:'/edit-profile/:email',
+        element:<EditProfile></EditProfile>,
+      }
+      ,{
         path:'/leaderBoard',
         element:<LeaderBoard></LeaderBoard>
       },
