@@ -26,6 +26,7 @@ import UseDisLikes from "../../../Hooks/UseDisLike";
 import CommentsSection from "../../nifat/CommentSection";
 import PostComponent from "./PostComponent";
 import UseFollowers from "../../../Hooks/UseFollowers";
+import LikeDislikeFilter from "../../adnan/LikeDislikeFilter";
 
 const CardRuhul = () => {
   const { user } = UseAuth(); // Get user info from auth hook
@@ -34,6 +35,7 @@ const CardRuhul = () => {
   const axiosPublic = useAxiosPublic();
   const [likes] = UseLikes();
   const [dislikes] = UseDisLikes();
+  const [newPosts, setNewPosts] = useState([]);
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState([]);
   const [follwers] = UseFollowers();
@@ -145,8 +147,12 @@ const CardRuhul = () => {
 
   return (
     <section className="">
-      {posts?.length > 0 ? (
-        posts?.map((data, index) => (
+      {/* Filter component by adnan-shiragee */}
+      <div className="flex justify-end">
+        <LikeDislikeFilter setPosts={setNewPosts} />
+      </div>
+      {newPosts?.length > 0 ? (
+        newPosts?.map((data, index) => (
           <div
             key={index}
             className="mt-4 bg-white dark:bg-gray-900 shadow-md mx-1 rounded-lg p-4 my-4  md:mx-auto border border-gray-200 dark:border-gray-700 ">
