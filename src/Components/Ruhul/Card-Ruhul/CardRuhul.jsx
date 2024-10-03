@@ -25,27 +25,28 @@ import UseLikes from "../../../Hooks/UseLikes";
 import UseDisLikes from "../../../Hooks/UseDisLike";
 
 // import CommentsSection from "../../nifat/CommentSection";
+// import CommentsSection from "../../nifat/CommentSection";
+import LikeDislikeFilter from "../../adnan/LikeDislikeFilter";
 
 const CardRuhul = () => {
   const { user } = UseAuth(); // Get user info from auth hook
-  const [posts, , refetch] = UsePosts(); // Fetch posts
+  const [, , refetch] = UsePosts(); // Fetch posts
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [joined, setJoined] = useState(false);
   const axiosPublic = useAxiosPublic();
   const [likes] = UseLikes();
   const [dislikes] = UseDisLikes();
-  //nifat
-  // const [showComments, setShowComments]=useState(false)
+  const [newPosts, setNewPosts] = useState([]);
+  // const [showComments, setShowComments] = useState(false);
   // const [comments, setComments] = useState([]);
-  // const handleComment=()=>{
-  //   setShowComments(!showComments)
-  //   console.log('showing comments')
-  //   fetch('../../../../public/comments.json')
-  //   .then((response) => response.json())
-  //   .then((data) => setComments(data))
-  //   .catch((error) => console.error('Error fetching the comments:', error));
-
-  // }
+  // const handleComment = () => {
+  //   setShowComments(!showComments);
+  //   console.log("showing comments");
+  //   fetch("../../../../public/comments.json")
+  //     .then((response) => response.json())
+  //     .then((data) => setComments(data))
+  //     .catch((error) => console.error("Error fetching the comments:", error));
+  // };
 
   const handleLike = async (postId) => {
     if (!user) {
@@ -102,12 +103,20 @@ const CardRuhul = () => {
   const toggleJoin = () => {
     setJoined(!joined);
   };
-  console.log(posts);
+  // console.log(posts);
+
+  if (newPosts?.length) {
+    console.log(newPosts);
+  }
 
   return (
     <section>
-      {posts?.length &&
-        posts?.map((data, index) => (
+      {/* Filter component by adnan-shiragee */}
+      <div className="flex justify-end">
+        <LikeDislikeFilter setPosts={setNewPosts} />
+      </div>
+      {newPosts?.length &&
+        newPosts?.map((data, index) => (
           <div
             key={index}
             className="mt-4 bg-white dark:bg-gray-900 shadow-md mx-1 rounded-lg p-4 my-4  md:mx-auto border border-gray-200 dark:border-gray-700 "
