@@ -202,7 +202,7 @@ const CardRuhul = () => {
               {data?.title}
             </h2>
 
-            <div className="text-gray-700 dark:text-gray-300">
+            <div className="text-gray-700 dark:text-gray-300 ">
               <p>
                 <span
                   dangerouslySetInnerHTML={{
@@ -210,9 +210,9 @@ const CardRuhul = () => {
                   }}
                 />
                 <Link
-                  className="text-blue-600"
+                  className="text-blue-600 mt-1 block"
                   to={`/post-details/${data._id}`}>
-                  more...
+                  See more...
                 </Link>
               </p>
             </div>
