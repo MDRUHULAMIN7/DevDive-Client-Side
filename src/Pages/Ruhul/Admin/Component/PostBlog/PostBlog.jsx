@@ -15,9 +15,8 @@ const PostBlog = () => {
   const [description, setDescription] = useState('');
   const axiosPublic=useAxiosPublic()
   const now = new Date();
-  const formattedDateTime = format(now, 'EEEE, MMMM dd, yyyy, hh:mm a'); // Date + Time
+  const formattedDateTime = format(now, 'EEEE, MMMM dd, yyyy, hh:mm a'); 
 
-  // Handle image change
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -26,16 +25,16 @@ const PostBlog = () => {
     }
   };
 
-  // Handle adding lists (unordered or ordered)
+
   const handleList = (type) => {
     const listText = type === 'ordered'
       ? '1. Item 1\n'
-      : '• Item 1\n'; // Ordered or unordered list with dotted icon
+      : '• Item 1\n'; 
 
     setDescription(prev => `${prev}${prev.endsWith('\n') ? '' : '\n'}${listText}`);
   };
 
-  // Handle form submission
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
      setLoading(true)
@@ -47,20 +46,20 @@ const PostBlog = () => {
     try {
       const res = await axiosPublic.post(`${import.meta.env.VITE_Cloudinary_API_KEY}`, data);
   
-      // Get the secure URL from Cloudinary's response
+
       const imageUrl = res.data.secure_url;
       console.log("Image URL:", imageUrl);
       
   
-      // If the upload to Cloudinary is successful, submit the blog
+
       const BlogInfo = {
-        image: imageUrl, // Use the correct image URL from Cloudinary
+        image: imageUrl, 
         headline,
         description,
         dateTime: formattedDateTime,
       };
   
-      // Proceed to save the blog in your backend
+  
       const response = await axiosPublic.post('/post-blog', BlogInfo);
          console.log(response);
       if (response.data.insertedId) {
@@ -94,7 +93,7 @@ const PostBlog = () => {
     accept="image/*"
     id="bannerImageInput"
     onChange={handleImageChange}
-    className="hidden" // Hide the native file input
+    className="hidden"
   />
   
   <label
@@ -105,7 +104,7 @@ const PostBlog = () => {
   
   </label>
 
-  {/* Floating Label like headline input */}
+
   <label
     className={`absolute left-4 top-0 transform transition-all duration-300
       ${bannerImage ? 'translate-y-[-3px] text-blue-500 text-xs' : 'top-1/2 -translate-y-1/2 text-gray-500 text-sm'}`}
@@ -115,7 +114,7 @@ const PostBlog = () => {
 </div>
 
 
-        {/* Headline Input */}
+
         <div className="mb-6 relative">
           <input
             type="text"

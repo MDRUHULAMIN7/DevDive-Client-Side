@@ -23,21 +23,22 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 import UseLikes from "../../../Hooks/UseLikes";
 import UseDisLikes from "../../../Hooks/UseDisLike";
-
 import CommentsSection from "../../nifat/CommentSection";
-import LikeDislikeFilter from "../../adnan/LikeDislikeFilter";
+import PostComponent from "./PostComponent";
+import UseFollowers from "../../../Hooks/UseFollowers";
 
 const CardRuhul = () => {
   const { user } = UseAuth(); // Get user info from auth hook
-  const [posts, , refetch] = UsePosts(); // Fetch posts
+  let [posts, isLoading, refetch] = UsePosts(); // Fetch posts
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [joined, setJoined] = useState(false);
   const axiosPublic = useAxiosPublic();
   const [likes] = UseLikes();
   const [dislikes] = UseDisLikes();
-  const [newPosts, setNewPosts] = useState([]);
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState([]);
+  const [follwers] = UseFollowers();
+  console.log(follwers);
+
   const handleComment = () => {
     setShowComments(!showComments);
     console.log("showing comments");
@@ -45,6 +46,43 @@ const CardRuhul = () => {
       .then((response) => response.json())
       .then((data) => setComments(data))
       .catch((error) => console.error("Error fetching the comments:", error));
+  };
+
+  const handleFollow = async (postId, postUsername) => {
+    if (!user) {
+      toast("You need to log in to Follow / Unfollow.");
+      return;
+    }
+
+    const newuser = {
+      name: user?.displayName,
+      email: user?.email,
+      photo: user?.photoURL,
+    };
+
+    if (newuser?.email && newuser?.photo) {
+      try {
+        // Make POST request to follow/unfollow the user
+        const res = await axiosPublic.post(`/follow/${postId}`, { newuser });
+
+        const { message } = res.data;
+
+        await refetch(); // Refresh the data
+
+        if (message === "Unfollowed successfully") {
+          toast(`Unfollowed ${postUsername}`);
+        } else if (message === "Followed successfully") {
+          toast(`Following ${postUsername}`);
+        } else {
+          toast(`No changes made for ${postUsername}`);
+        }
+      } catch (err) {
+        console.error("Error:", err);
+        toast.error("An error occurred while processing your request.");
+      }
+    } else {
+      toast("Invalid user data. Please log in again.");
+    }
   };
 
   const handleLike = async (postId) => {
@@ -73,7 +111,7 @@ const CardRuhul = () => {
   };
   const handleDislike = async (postId) => {
     if (!user) {
-      toast("You need to log in to like a post.");
+      toast("You need to log in to dislike a post.");
       return;
     }
     const newuser = {
@@ -99,27 +137,19 @@ const CardRuhul = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
-  const toggleJoin = () => {
-    setJoined(!joined);
-  };
-  // console.log(posts);
-
-  if (newPosts?.length) {
-    console.log(newPosts);
+  if (isLoading) {
+    return (
+      <div className=" text-2xl text-center my-10 ">Post is loading ....</div>
+    );
   }
 
   return (
-    <section>
-      {/* Filter component by adnan-shiragee */}
-      <div className="flex justify-end">
-        <LikeDislikeFilter setPosts={setNewPosts} />
-      </div>
-      {newPosts?.length &&
-        newPosts?.map((data, index) => (
+    <section className="">
+      {posts?.length > 0 ? (
+        posts?.map((data, index) => (
           <div
             key={index}
-            className="mt-4 bg-white dark:bg-gray-900 shadow-md mx-1 rounded-lg p-4 my-4  md:mx-auto border border-gray-200 dark:border-gray-700 "
-          >
+            className="mt-4 bg-white dark:bg-gray-900 shadow-md mx-1 rounded-lg p-4 my-4  md:mx-auto border border-gray-200 dark:border-gray-700 ">
             <div className="flex justify-between items-center mb-3">
               <div className="flex items-center">
                 <img
@@ -131,20 +161,25 @@ const CardRuhul = () => {
                   <h3 className="font-semibold text-gray-800 dark:text-gray-200">
                     {data.username}
                   </h3>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                    Posted: {data.createdAt}
-                  </p>
+
+                  <PostComponent data={data}></PostComponent>
+                </div>
+                <div className="ml-5">
+                  <button
+                    onClick={() => handleFollow(data._id, data.username)}
+                    className={`p-1 font-semibold text-sm text-white rounded-xl w-full h-8 bg-blue-700`}>
+                    {follwers &&
+                    follwers.find(
+                      (a) =>
+                        a.followerEmail === user?.email &&
+                        a.followingEmail === data?.userEmail
+                    )
+                      ? "Unfollow"
+                      : "Follow"}
+                  </button>
                 </div>
               </div>
               <div className="relative flex items-center gap-2">
-                <button
-                  onClick={toggleJoin}
-                  className={`p-1 font-semibold text-sm text-white rounded-xl w-full h-8 ${
-                    joined ? "bg-green-600" : "bg-blue-700"
-                  }`}
-                >
-                  {joined ? "Unfollow" : "Follow"}
-                </button>
                 <BsThreeDots
                   onClick={toggleDropdown}
                   className="cursor-pointer"
@@ -168,38 +203,47 @@ const CardRuhul = () => {
             </div>
 
             <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-2">
-              {data.title}
+              {data?.title}
             </h2>
 
             <div className="text-gray-700 dark:text-gray-300">
               <p>
-              <span dangerouslySetInnerHTML={{ __html: data.body?.slice(0, 200) }} />
-              <Link className="text-blue-600" to={`/post-details/${data._id}`}>more...</Link>
-             </p> 
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: data.body && data?.body?.slice(0, 200),
+                  }}
+                />
+                <Link
+                  className="text-blue-600"
+                  to={`/post-details/${data._id}`}>
+                  more...
+                </Link>
+              </p>
             </div>
 
             <div className="my-4">
-              <Swiper
-                spaceBetween={30}
-                pagination={{
-                  clickable: true,
-                }}
-                modules={[Pagination]}
-                className="mySwiper h-[300px] md:h-[400px]  rounded-lg"
-              >
-                {data &&
-                  data?.images?.map((image, index) => (
-                    <SwiperSlide key={index}>
-                      <div className="h-[300px] md:h-[400px]  w-full flex justify-center items-center overflow-hidden rounded-lg">
-                        <img
-                          src={image} // Ensure this is a valid URL
-                          alt="Post"
-                          className="w-full h-full object-cover" // Use object-cover to maintain aspect ratio
-                        />
-                      </div>
-                    </SwiperSlide>
-                  ))}
-              </Swiper>
+              {data.images[0] && (
+                <Swiper
+                  spaceBetween={30}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  modules={[Pagination]}
+                  className="mySwiper h-[300px] md:h-[400px]  rounded-lg">
+                  {data &&
+                    data?.images?.map((image, index) => (
+                      <SwiperSlide key={index}>
+                        <div className="h-[300px] md:h-[400px]  w-full flex justify-center items-center overflow-hidden rounded-lg">
+                          <img
+                            src={image} // Ensure this is a valid URL
+                            alt="Post"
+                            className="w-full h-full object-cover" // Use object-cover to maintain aspect ratio
+                          />
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                </Swiper>
+              )}
             </div>
 
             <div className="flex flex-wrap justify-between items-center text-gray-500 dark:text-gray-400 text-sm">
@@ -209,8 +253,7 @@ const CardRuhul = () => {
                   onClick={() => {
                     handleLike(data._id);
                   }}
-                  className={`flex items-center space-x-1 hover:text-blue-500 `}
-                >
+                  className={`flex items-center space-x-1 hover:text-blue-500 `}>
                   {likes &&
                   likes.find(
                     (like) =>
@@ -237,8 +280,7 @@ const CardRuhul = () => {
                   onClick={() => {
                     handleDislike(data._id);
                   }}
-                  className={`flex items-center space-x-1 hover:text-red-500 `}
-                >
+                  className={`flex items-center space-x-1 hover:text-red-500 `}>
                   {dislikes &&
                   dislikes?.find(
                     (like) =>
@@ -264,8 +306,7 @@ const CardRuhul = () => {
               <div className="flex items-center space-x-4">
                 <button
                   onClick={handleComment}
-                  className="flex items-center space-x-1 hover:text-blue-500"
-                >
+                  className="flex items-center space-x-1 hover:text-blue-500">
                   <FaCommentAlt className="h-5 w-5" />
                   <span className="text-sm">Comments</span>
                 </button>
@@ -279,7 +320,10 @@ const CardRuhul = () => {
               <CommentsSection comments={comments}></CommentsSection>
             )}
           </div>
-        ))}
+        ))
+      ) : (
+        <p className=" text-2xl text-center my-10 "> No Post Found </p>
+      )}
     </section>
   );
 };
