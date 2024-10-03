@@ -210,7 +210,7 @@ if(isLoading){
 
           <div className="text-gray-700 dark:text-gray-300">
             <p>
-              <span className="text-gray-700 dark:text-gray-300" dangerouslySetInnerHTML={{ __html: data.body && data?.body?.slice(0, 200) }} />
+              <span dangerouslySetInnerHTML={{ __html: data.body && data?.body?.slice(0, 200) }} />
               <Link className="text-blue-600" to={`/post-details/${data._id}`}>more...</Link>
             </p>
           </div>

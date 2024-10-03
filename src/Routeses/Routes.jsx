@@ -16,8 +16,12 @@ import ReadMore from "../Components/Sanjida/ReadMore";
 import CardRuhul from "../Components/Ruhul/Card-Ruhul/CardRuhul";
 import PostDetails from "../Pages/PostDetails/PostDetails";
 import PrivateRoute from "../Providers/PrivateRoute";
+<<<<<<< HEAD
 import UserProfile from "../Pages/Ruhul/UserProfile/UserProfile";
 import EditProfile from "../Pages/Ruhul/UserProfile/EditProfile";
+=======
+import LeaderBoard from "../Components/Nur/Leaderboard";
+>>>>>>> 3594632e26a908aa63c07feaa49dd83ddb409288
 
 export const router = createBrowserRouter([
   {
@@ -85,12 +89,17 @@ export const router = createBrowserRouter([
         element:<PostDetails></PostDetails>
       },
       {
+<<<<<<< HEAD
         path:'/users/:email',
         element:<UserProfile></UserProfile>
       },
       {
         path:'/edit-profile/:email',
         element:<EditProfile></EditProfile>
+=======
+        path:'/leaderBoard',
+        element:<LeaderBoard></LeaderBoard>
+>>>>>>> 3594632e26a908aa63c07feaa49dd83ddb409288
       },
 
       // for admin
