@@ -32,7 +32,7 @@ const Comment = ({comment}) => {
     axiosPublic.post('/postReply',data)
     .then((result)=>{
             if(result.data.insertedId){
-              // refetch()
+              refetch()
               Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -48,7 +48,7 @@ const Comment = ({comment}) => {
         icon: "error",
         title: error,
         showConfirmButton: false,
-        timer: 1500
+        timer: 1500,
     });
     })
     setIsReplying(false);
@@ -68,7 +68,7 @@ const Comment = ({comment}) => {
             <p className="text-xs text-gray-500 dark:text-gray-400">{moment(comment.createdAt).fromNow()}</p>
           </div>
         </div>
-        <p className="text-md text-black dark:text-gray-400">{comment.comment}</p>
+        <p className="text-md text-black dark:text-gray-400">{comment.comment || comment.reply}</p>
         {/*like/dislike section  */}
         <div className="flex flex-wrap justify-between items-center text-gray-500 dark:text-gray-400 text-sm">
         <div className="flex items-center space-x-4">
@@ -114,13 +114,13 @@ const Comment = ({comment}) => {
       </div>
       </div>
       {/* Display nested replies */}
-      {/* {replies.length > 0 && (
-          <div className="ml-4 mt-4">
+      {replies.length > 0 && (
+          <div className="ml-8 mt-4 border-l-2 pl-4 rounded-b-2xl">
             {replies?.map(reply => (
               <Comment key={reply._id} comment={reply} />
             ))}
           </div>
-        )} */}
+        )}
       {/* Reply form */}
       {isReplying && (
           <form onSubmit={handleReply} className="mt-2">
