@@ -166,7 +166,7 @@ const CardRuhul = () => {
             <div className="text-gray-700 dark:text-gray-300">
               <p>
                 <span
-                  dangerouslySetInnerHTML={{ __html: data.body.slice(0, 200) }}
+                  dangerouslySetInnerHTML={{ __html: data.body?.slice(0, 200) }}
                 />
                 <Link
                   className="text-blue-600"

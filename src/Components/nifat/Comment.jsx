@@ -1,8 +1,59 @@
 import moment from 'moment';
+import {  useState } from 'react';
+import { FaCommentAlt } from 'react-icons/fa';
 import { FaThumbsDown, FaThumbsUp } from 'react-icons/fa6';
 import { MdOutlineReply } from 'react-icons/md';
+import useAxiosPublic from '../../Hooks/useAxiosPublic';
+import Swal from 'sweetalert2';
+import UseAuth from '../../Hooks/UseAuth';
+import useReplies from '../../Hooks/useReplies';
 
 const Comment = ({comment}) => {
+  const { user } = UseAuth();
+  const axiosPublic= useAxiosPublic()
+  const [replies,refetch]=useReplies(comment._id)
+  const [isReplying, setIsReplying] = useState(false);
+  const [replyContent, setReplyContent] = useState('');
+  console.log(comment)
+  console.log(replies)
+    // Handle reply submission
+  const handleReply = (e) => {
+    e.preventDefault();
+    const contentId= comment.contentId;
+    const reply= replyContent;
+    const userName= user.displayName;
+    const userImage= user.photoURL;
+    const likeCount=0;
+    const disLikeCount=0;
+    const replyCount=0;
+    const parentId= comment._id;
+    const data= {contentId,reply,userName,userImage,likeCount,disLikeCount,replyCount,parentId}
+    console.log(data)
+    axiosPublic.post('/postReply',data)
+    .then((result)=>{
+            if(result.data.insertedId){
+              // refetch()
+              Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Successfully commented",
+                  showConfirmButton: false,
+                  timer: 1500
+              });
+            }
+    })
+    .catch((error)=>{
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: error,
+        showConfirmButton: false,
+        timer: 1500
+    });
+    })
+    setIsReplying(false);
+    setReplyContent('');
+  };
     return (
         <div className='mt-4'>
             <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-lg shadow-sm mb-2">
@@ -41,16 +92,19 @@ const Comment = ({comment}) => {
         </div>
 
 
-        {/* <button className="flex items-center space-x-1 hover:text-blue-500">
+        <button className="flex items-center space-x-1 hover:text-blue-500">
           <FaCommentAlt className="h-5 w-5" />
-          <span className="text-sm">Show replies</span>
-        </button> */}
+          <span className="text-sm">Show replies  {comment.comment}</span>
+        </button>
         <button 
-            // onClick={() => setIsReplying(!isReplying)} 
+            onClick={() => setIsReplying(!isReplying)} 
             className="text-blue-500 text-sm hover:underline"
           >
             <span className='flex items-center '><MdOutlineReply /> Reply</span>
         </button>
+        
+
+        {/* <h1>here</h1> */}
 
         {/* <button className="flex items-center space-x-1 hover:text-blue-500">
           <FaShare className="h-5 w-5" />
@@ -59,6 +113,31 @@ const Comment = ({comment}) => {
 
       </div>
       </div>
+      {/* Display nested replies */}
+      {/* {replies.length > 0 && (
+          <div className="ml-4 mt-4">
+            {replies?.map(reply => (
+              <Comment key={reply._id} comment={reply} />
+            ))}
+          </div>
+        )} */}
+      {/* Reply form */}
+      {isReplying && (
+          <form onSubmit={handleReply} className="mt-2">
+            <textarea
+              className="w-full p-2 border rounded-lg"
+              placeholder="Write a reply..."
+              value={replyContent}
+              onChange={(e) => setReplyContent(e.target.value)}
+            />
+            <button 
+              type="submit" 
+              className="mt-2 bg-blue-500 text-white py-1 px-3 rounded-lg"
+            >
+              Post Reply
+            </button>
+          </form>
+        )}
         </div>
     );
 };
