@@ -305,7 +305,7 @@ const CardRuhul = () => {
                   <span className="ml-1 text-sm text-gray-600">
                     {data?.dislikes}
                   </span>{" "}
-                  {/* Total dislikes count */}
+                  
                 </button>
               </div>
 
