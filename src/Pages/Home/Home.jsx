@@ -26,6 +26,7 @@ const Home = () => {
                 <title>DevDive | Home</title>
             </Helmet>
             <Slider slides={slides} />
+            
             <div className="flex justify-between mx-auto mt-5">
                 <div className="lg:w-[68%] max-w-full space-y-5">
                   <CardRuhul></CardRuhul>
