@@ -112,14 +112,14 @@ const Navbar = () => {
                                     className={`${clickPp ? "lg:block hidden" : "hidden"
                                         } w-[250px] pt-5 shadow-2xl absolute top-14 right-1 rounded-lg bg-white dark:bg-themeColor2`}>
                                     <div className="flex items-center gap-2 px-5 py-4 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 ">
-                                        <div className="relative">
+                                        <Link to={`/users/${user?.email}`} className="relative">
                                             <img
                                                 className="object-cover w-9 h-9 rounded-full"
                                                 src={user?.photoURL || User}
                                                 alt="user"
                                             />
                                             <span className="absolute bg-green-500 bottom-0 left-6 w-2 h-2 rounded-full bg-emerald-500 ring-1 ring-white"></span>
-                                        </div>
+                                        </Link>
                                         <div>
                                             <h2 className="text-sm">{user?.displayName}</h2>
                                             <h3 className="text-xs">{user?.email}</h3>

@@ -7,12 +7,15 @@ import { RouterProvider } from 'react-router-dom'
 import { router } from './Routeses/Routes.jsx'
 import { Toaster } from 'react-hot-toast'
 import ProgressProvider from './Components/adnan/ProgressBar.jsx'
+import { Provider } from 'react-redux'
+import store from './Redux/state.js'
 
 
 
 const queryClient = new QueryClient()
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <Provider store={store}>
     <QueryClientProvider client={queryClient}>
       <ProgressProvider>
         <AuthProvider>
@@ -22,5 +25,6 @@ createRoot(document.getElementById('root')).render(
       </ProgressProvider>
       <Toaster position="top-center" reverseOrder={false} />
     </QueryClientProvider>
+    </Provider>
   </StrictMode>,
 )

@@ -35,13 +35,13 @@ const Followers = () => {
                         {user.followers
     .filter((follower, idx, self) =>
         idx === self.findIndex((t) => (
-            t.email === follower.email // Change this to a property that uniquely identifies followers
+            t.email === follower.followersEmail // Change this to a property that uniquely identifies followers
         ))
     )
     .map((follower, idx) => (
         <li key={idx} className="mt-2 flex items-center">
     <img 
-        src={follower.photo} 
+        src={follower.followerPhoto} 
         alt={follower.name} 
         className="w-10 h-10 rounded-full mr-4" 
     />

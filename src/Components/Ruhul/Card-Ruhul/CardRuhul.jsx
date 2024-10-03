@@ -24,14 +24,14 @@ import UseFollowers from "../../../Hooks/UseFollowers";
 
 const CardRuhul = () => {
   const { user } = UseAuth(); // Get user info from auth hook
-  let [posts,,refetch] = UsePosts(); // Fetch posts
+  let [posts,isLoading,refetch] = UsePosts(); // Fetch posts
   const [dropdownOpen, setDropdownOpen] = useState(false);
  const axiosPublic= useAxiosPublic()
  const [likes]=UseLikes()
   const [dislikes]=UseDisLikes()
   const [showComments, setShowComments]=useState(false)
   const [comments, setComments] = useState([]);
-  let [follwers,]=UseFollowers()
+  const [follwers]=UseFollowers()
   console.log(follwers);
 
   const handleComment=()=>{
@@ -44,7 +44,7 @@ const CardRuhul = () => {
     
   }
 
-  const handleFollow = async (postId,e) => {
+  const handleFollow = async (postId, postUsername) => {
     if (!user) {
       toast("You need to log in to Follow / Unfollow.");
       return;
@@ -56,23 +56,21 @@ const CardRuhul = () => {
       photo: user?.photoURL,
     };
   
-
     if (newuser?.email && newuser?.photo) {
       try {
         // Make POST request to follow/unfollow the user
         const res = await axiosPublic.post(`/follow/${postId}`, { newuser });
-        
+  
         const { message } = res.data;
-        
-        
-        await refetch();
+  
+        await refetch(); // Refresh the data
   
         if (message === "Unfollowed successfully") {
-          toast(`Unfollowing ${e}`);
+          toast(`Unfollowed ${postUsername}`);
         } else if (message === "Followed successfully") {
-          toast(`Following ${e}`);
+          toast(`Following ${postUsername}`);
         } else {
-          toast(`No changes made for ${e}`);
+          toast(`No changes made for ${postUsername}`);
         }
       } catch (err) {
         console.error("Error:", err);
@@ -82,6 +80,7 @@ const CardRuhul = () => {
       toast("Invalid user data. Please log in again.");
     }
   };
+  
   
   
   
@@ -146,11 +145,18 @@ const newuser={
   };
 
  
+if(isLoading){
 
+  return (
+    <div className=" text-2xl text-center my-10 ">
+      Post is loading ....
+    </div>
+  )
+}
 
   return (
     <section className="">
-      {posts?.length && posts?.map((data, index) => (
+      {posts?.length > 0  ? posts?.map((data, index) => (
         <div key={index} className="mt-4 bg-white dark:bg-gray-900 shadow-md mx-1 rounded-lg p-4 my-4  md:mx-auto border border-gray-200 dark:border-gray-700 ">
           <div className="flex justify-between items-center mb-3">
             <div className="flex items-center">
@@ -169,7 +175,7 @@ const newuser={
                 onClick={()=>handleFollow(data._id,data.username)}
                 className={`p-1 font-semibold text-sm text-white rounded-xl w-full h-8 bg-blue-700`}
               >
-           { follwers && follwers.find((a) => a.email === user?.email && a.postBy === data?.userEmail) 
+           { follwers && follwers.find((a) => a.followerEmail === user?.email && a.followingEmail === data?.userEmail) 
   ? 'Unfollow' 
   : 'Follow' 
 }
@@ -204,13 +210,15 @@ const newuser={
 
           <div className="text-gray-700 dark:text-gray-300">
             <p>
-              <span dangerouslySetInnerHTML={{ __html: data.body.slice(0, 200) }} />
+              <span className="text-gray-700 dark:text-gray-300" dangerouslySetInnerHTML={{ __html: data.body && data?.body?.slice(0, 200) }} />
               <Link className="text-blue-600" to={`/post-details/${data._id}`}>more...</Link>
             </p>
           </div>
 
           <div className="my-4">
-          <Swiper
+          {
+            data.images[0] &&
+            <Swiper
           spaceBetween={30}
           pagination={{
             clickable: true,
@@ -239,6 +247,7 @@ const newuser={
         
        
         </Swiper>
+          }
 
           </div>
 
@@ -288,7 +297,9 @@ const newuser={
         }
         </div>
        
-      ))}
+      ))
+    : <p className=" text-2xl text-center my-10 "> No Post Found </p>
+    }
       
     </section>
   );

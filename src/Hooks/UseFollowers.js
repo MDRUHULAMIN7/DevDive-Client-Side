@@ -18,7 +18,7 @@ const UseFollowers = () => {
 
    
 
-    console.log(followers); 
+  
    refetch()
     return [followers, isLoading, refetch]; 
 };
