@@ -23,7 +23,6 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 import UseLikes from "../../../Hooks/UseLikes";
 import UseDisLikes from "../../../Hooks/UseDisLike";
-import CommentsSection from "../../nifat/CommentSection";
 import PostComponent from "./PostComponent";
 import UseFollowers from "../../../Hooks/UseFollowers";
 import LikeDislikeFilter from "../../adnan/LikeDislikeFilter";
@@ -36,19 +35,10 @@ const CardRuhul = () => {
   const [likes] = UseLikes();
   const [dislikes] = UseDisLikes();
   const [newPosts, setNewPosts] = useState([]);
-  const [showComments, setShowComments] = useState(false);
-  const [comments, setComments] = useState([]);
   const [follwers] = UseFollowers();
   console.log(follwers);
 
-  const handleComment = () => {
-    setShowComments(!showComments);
-    console.log("showing comments");
-    fetch("../../../../public/comments.json")
-      .then((response) => response.json())
-      .then((data) => setComments(data))
-      .catch((error) => console.error("Error fetching the comments:", error));
-  };
+  
 
   const handleFollow = async (postId, postUsername) => {
     if (!user) {
@@ -310,21 +300,22 @@ const CardRuhul = () => {
               </div>
 
               <div className="flex items-center space-x-4">
-                <button
-                  onClick={handleComment}
-                  className="flex items-center space-x-1 hover:text-blue-500">
+                <Link
+                  to={`/detailsWithComments/${data._id}`}
+                  className="flex items-center space-x-1 hover:text-blue-500"
+                >
                   <FaCommentAlt className="h-5 w-5" />
                   <span className="text-sm">Comments</span>
-                </button>
+                </Link>
                 <button className="flex items-center space-x-1 hover:text-gray-800">
                   <FaShare className="h-5 w-5" />
                   <span>Share</span>
                 </button>
               </div>
             </div>
-            {showComments && (
-              <CommentsSection comments={comments}></CommentsSection>
-            )}
+            {/* {
+          showComments &&  <CommentsSection comments={comments}></CommentsSection>
+        } */}
           </div>
         ))
       ) : (

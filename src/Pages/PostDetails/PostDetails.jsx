@@ -69,7 +69,7 @@ const PostDetails = () => {
         <h1 className="text-2xl font-semibold my-4">{data?.title}</h1>
 
       <div className="flex my-2 flex-wrap gap-2">  {
-            data?.tags.map((tag,index)=> <p 
+            data?.tags?.map((tag,index)=> <p 
             className="text-md bg-gray-100 dark:bg-gray-700 text-blue-500 dark:text-blue-300 px-3 py-1 rounded-full border border-gray-300 dark:border-gray-600 shadow hover:bg-gray-200 dark:hover:bg-gray-600 transition duration-300 ease-in-out" 
             key={index}
           >
