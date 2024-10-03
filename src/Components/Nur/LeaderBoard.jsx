@@ -1,15 +1,11 @@
-import UseUSer from "../../Hooks/UseUser";
 import UseLeaderBoardPosts from "../../Hooks/Nur/UseLeaderBoardPosts";
 
 const LeaderBoard = () => {
-  const [users] = UseUSer();
   const [leaderBoardPosts] = UseLeaderBoardPosts();
   console.log(leaderBoardPosts);
 
   return (
     <div>
-      LeaderBoard : Users Count - {users.length} Post :{" "}
-      {leaderBoardPosts.length}
       <div className="m-4 grid grid-cols-6 gap-4">
         <div className="pb-4 col-span-6 md:col-span-3 lg:col-span-2 ">
           <div className="card bg-white shadow rounded-lg dark:bg-themeColor2">
@@ -29,7 +25,7 @@ const LeaderBoard = () => {
                       className="d-flex justify-between items-center list-group-item list-group-item-action px-4 py-2 border-b w-full hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none border-gray-300">
                       <div className=" ml-2 mr-auto flex gap-2">
                         <span className="font-bold">{index + 1}.</span>
-                        <p className="flex-grow">{post.username}</p>
+                        <p className="flex-grow">{post.title}</p>
                         <p>{post.likes}</p>
                       </div>
                     </div>
