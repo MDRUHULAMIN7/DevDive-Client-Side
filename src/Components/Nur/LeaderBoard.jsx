@@ -4,18 +4,25 @@ import UseLeaderBoardLikes from "../../Hooks/Nur/UseLeaderBoardLikes";
 import UseLeaderBoardComments from "../../Hooks/Nur/UseLeaderBoardComments";
 
 const LeaderBoard = () => {
-  const [leaderBoardPosts] = UseLeaderBoardPosts();
-  // console.log(leaderBoardPosts);
+  const [loadAll, setLoadAll] = useState(false);
+
+  const [leaderBoardPosts] = UseLeaderBoardPosts(loadAll);
+  console.log(leaderBoardPosts);
 
   const [LeaderBoardLikes] = UseLeaderBoardLikes();
   // console.log( "LeaderBoardLikes", LeaderBoardLikes );
 
   const [leaderBoardComments] = UseLeaderBoardComments();
-  console.log("leaderBoardComments", leaderBoardComments);
+  // console.log("leaderBoardComments", leaderBoardComments);
 
   const [activeTab, setActiveTab] = useState("Post");
 
   const tabs = ["Post", "Like", "Comments"];
+
+   const handleLoadAll = () => {
+     setLoadAll(true);
+   };
+
   return (
     <div className="md:p-4 p-1 w-full mx-auto items-center">
       {/* Tab Header */}
@@ -24,7 +31,7 @@ const LeaderBoard = () => {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-4 py-2 text-sm font-semibold transition-colors duration-200 rounded-lg
+            className={`px-4 py-2 text-sm font-semibold transition-colors duration-200 rounded-lg ml-4 mt-2
               ${
                 activeTab === tab
                   ? "bg-blue-500 text-white dark:bg-blue-600"
@@ -69,8 +76,11 @@ const LeaderBoard = () => {
                 ))}
                 <div className="d-flex justify-between items-center list-group-item px-4 py-2">
                   <span>&nbsp;</span>
-                  <a className="link-primary text-blue-500" href="#">
-                    Next
+                  <a
+                    onClick={handleLoadAll}
+                    className="link-primary text-blue-500"
+                    href="#">
+                    Load All
                   </a>
                 </div>
               </ol>
