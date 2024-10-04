@@ -20,7 +20,7 @@ const UseLeaderBoardPosts = () => {
     },
   });
 
-  console.log(leaderBoardPosts);
+  // console.log(leaderBoardPosts);
 
   return [leaderBoardPosts, isLoading, refetch];
 };
