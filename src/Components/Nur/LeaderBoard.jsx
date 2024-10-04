@@ -5,12 +5,13 @@ import UseLeaderBoardComments from "../../Hooks/Nur/UseLeaderBoardComments";
 
 const LeaderBoard = () => {
   const [loadAllPosts, setLoadAllPosts] = useState(false);
+  const [loadAllLikes, setLoadAllLikes] = useState(false);
 
   const [leaderBoardPosts] = UseLeaderBoardPosts(loadAllPosts);
   console.log(leaderBoardPosts);
 
-  const [LeaderBoardLikes] = UseLeaderBoardLikes();
-  // console.log( "LeaderBoardLikes", LeaderBoardLikes );
+  const [LeaderBoardLikes] = UseLeaderBoardLikes(loadAllLikes);
+  console.log( "LeaderBoardLikes", LeaderBoardLikes );
 
   const [leaderBoardComments] = UseLeaderBoardComments();
   // console.log("leaderBoardComments", leaderBoardComments);
@@ -21,6 +22,10 @@ const LeaderBoard = () => {
 
   const handleLoadAllPosts = (loadAllPosts) => {
     setLoadAllPosts(!loadAllPosts);
+  };
+
+  const handleLoadAllLikes = (loadAllLikes) => {
+    setLoadAllLikes(!loadAllLikes);
   };
 
   return (
@@ -106,7 +111,7 @@ const LeaderBoard = () => {
                 Users with highest Liked karma.
               </p>
               <ol className="list-group list-group-flush list-group-numbered pl-0 pr-1 md:pr-4">
-                {LeaderBoardLikes[0].map((user, index) => (
+                {LeaderBoardLikes[0]?.map((user, index) => (
                   // console.log(user),
                   <div
                     key={index}
@@ -120,8 +125,11 @@ const LeaderBoard = () => {
                 ))}
                 <div className="d-flex justify-between items-center list-group-item px-4 py-2">
                   <span>&nbsp;</span>
-                  <a className="link-primary text-blue-500" href="#">
-                    Next
+                  <a
+                    onClick={() => handleLoadAllLikes(loadAllLikes)}
+                    className="link-primary text-blue-500"
+                    href="#">
+                    {loadAllLikes ? "Show All" : "Show Top 5"}
                   </a>
                 </div>
               </ol>
@@ -159,12 +167,12 @@ const LeaderBoard = () => {
                     </div>
                   </div>
                 ))}
-                <div className="d-flex justify-between items-center list-group-item px-4 py-2">
+                {/* <div className="d-flex justify-between items-center list-group-item px-4 py-2">
                   <span>&nbsp;</span>
                   <a className="link-primary text-blue-500" href="#">
                     Next
                   </a>
-                </div>
+                </div> */}
               </ol>
             </div>
             {/* </div> */}
