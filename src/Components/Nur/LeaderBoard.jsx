@@ -6,9 +6,8 @@ const LeaderBoard = () => {
   const [leaderBoardPosts] = UseLeaderBoardPosts();
   // console.log(leaderBoardPosts);
 
-const [LeaderBoardLikes] = UseLeaderBoardLikes()
-console.log( "LeaderBoardLikes", LeaderBoardLikes );
-
+  const [LeaderBoardLikes] = UseLeaderBoardLikes();
+  // console.log( "LeaderBoardLikes", LeaderBoardLikes );
 
   const [activeTab, setActiveTab] = useState("Post");
 
@@ -52,22 +51,18 @@ console.log( "LeaderBoardLikes", LeaderBoardLikes );
                 Users with highest Liked in Post karma.
               </p>
               <ol className="list-group list-group-flush list-group-numbered pl-0 pr-1 md:pr-4">
-                {leaderBoardPosts.map(
-                  (post, index) => (
-                    // console.log(post),
-                    (
-                      <div
-                        key={index}
-                        className="d-flex justify-between items-center list-group-item list-group-item-action px-1 md:px-4 py-2 border-b w-full hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none border-gray-300">
-                        <div className=" ml-2 mr-auto flex gap-2">
-                          <span className="font-bold">{index + 1}.</span>
-                          <p className="flex-grow">{post.title}</p>
-                          <p className="font-medium">{post.likes}</p>
-                        </div>
-                      </div>
-                    )
-                  )
-                )}
+                {leaderBoardPosts.map((post, index) => (
+                  // console.log(post),
+                  <div
+                    key={index}
+                    className="d-flex justify-between items-center list-group-item list-group-item-action px-1 md:px-4 py-2 border-b w-full hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none border-gray-300">
+                    <div className=" ml-2 mr-auto flex gap-2">
+                      <span className="font-bold">{index + 1}.</span>
+                      <p className="flex-grow">{post.title}</p>
+                      <p className="font-medium">{post.likes}</p>
+                    </div>
+                  </div>
+                ))}
                 <div className="d-flex justify-between items-center list-group-item px-4 py-2">
                   <span>&nbsp;</span>
                   <a className="link-primary text-blue-500" href="#">
@@ -97,22 +92,18 @@ console.log( "LeaderBoardLikes", LeaderBoardLikes );
                 Users with highest Liked karma.
               </p>
               <ol className="list-group list-group-flush list-group-numbered pl-0 pr-1 md:pr-4">
-                {leaderBoardPosts.map(
-                  (post, index) => (
-                    console.log(post),
-                    (
-                      <div
-                        key={index}
-                        className="d-flex justify-between items-center list-group-item list-group-item-action px-1 md:px-4 py-2 border-b w-full hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none border-gray-300">
-                        <div className=" ml-2 mr-auto flex gap-2">
-                          <span className="font-bold">{index + 1}.</span>
-                          <p className="flex-grow">{post.title}</p>
-                          <p className="font-medium">{post.likes}</p>
-                        </div>
-                      </div>
-                    )
-                  )
-                )}
+                {LeaderBoardLikes[0].map((user, index) => (
+                  // console.log(user),
+                  <div
+                    key={index}
+                    className="d-flex justify-between items-center list-group-item list-group-item-action px-1 md:px-4 py-2 border-b w-full hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none border-gray-300">
+                    <div className=" ml-2 mr-auto flex gap-2">
+                      <span className="font-bold">{index + 1}.</span>
+                      <p className="flex-grow">{user.name}</p>
+                      <p className="font-medium">{user.count}</p>
+                    </div>
+                  </div>
+                ))}
                 <div className="d-flex justify-between items-center list-group-item px-4 py-2">
                   <span>&nbsp;</span>
                   <a className="link-primary text-blue-500" href="#">
