@@ -3,7 +3,7 @@ import UseAuth from "../UseAuth";
 import useAxiosPublic from "../useAxiosPublic";
 
 
-const UseLeaderBoardPosts = (loadAll) => {
+const UseLeaderBoardPosts = (loadAllPosts) => {
   const { user } = UseAuth();
   const axiosPublic = useAxiosPublic();
 
@@ -12,10 +12,12 @@ const UseLeaderBoardPosts = (loadAll) => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["leaderBoardPosts", user?.email, loadAll],
+    queryKey: ["leaderBoardPosts", user?.email, loadAllPosts],
     enabled: true,
     queryFn: async () => {
-      const res = await axiosPublic.get(`/leaderBoardPosts?loadAll=${loadAll}`);
+      const res = await axiosPublic.get(
+        `/leaderBoardPosts?loadAllPosts=${loadAllPosts}`
+      );
       return res.data;
     },
   });

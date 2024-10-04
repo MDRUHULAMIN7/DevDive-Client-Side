@@ -4,9 +4,9 @@ import UseLeaderBoardLikes from "../../Hooks/Nur/UseLeaderBoardLikes";
 import UseLeaderBoardComments from "../../Hooks/Nur/UseLeaderBoardComments";
 
 const LeaderBoard = () => {
-  const [loadAll, setLoadAll] = useState(false);
+  const [loadAllPosts, setLoadAllPosts] = useState(false);
 
-  const [leaderBoardPosts] = UseLeaderBoardPosts(loadAll);
+  const [leaderBoardPosts] = UseLeaderBoardPosts(loadAllPosts);
   console.log(leaderBoardPosts);
 
   const [LeaderBoardLikes] = UseLeaderBoardLikes();
@@ -19,9 +19,9 @@ const LeaderBoard = () => {
 
   const tabs = ["Post", "Like", "Comments"];
 
-   const handleLoadAll = () => {
-     setLoadAll(true);
-   };
+  const handleLoadAllPosts = (loadAllPosts) => {
+    setLoadAllPosts(!loadAllPosts);
+  };
 
   return (
     <div className="md:p-4 p-1 w-full mx-auto items-center">
@@ -77,10 +77,10 @@ const LeaderBoard = () => {
                 <div className="d-flex justify-between items-center list-group-item px-4 py-2">
                   <span>&nbsp;</span>
                   <a
-                    onClick={handleLoadAll}
+                    onClick={() => handleLoadAllPosts(loadAllPosts)}
                     className="link-primary text-blue-500"
                     href="#">
-                    Load All
+                    {loadAllPosts ? "Show Top 5" : "Show All"}
                   </a>
                 </div>
               </ol>
