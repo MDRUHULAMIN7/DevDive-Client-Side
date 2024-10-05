@@ -9,10 +9,18 @@ import All from "../Pages/All/All";
 import CreatePost from "../components/adnan/CreatePost";
 import AdminSetting from "../Pages/Ruhul/Admin/AdminSetting.jsx/AdminSetting";
 import SignModal from "../Components/Nur/SignModal";
-import CardRuhul from "../Components/Ruhul/Card-Ruhul/CardRuhul";
+
 import AboutSection from "../Pages/Ruhul/Admin/AboutSection/AboutSection";
 import BlogCard from "../Components/Sanjida/BlogCard";
 import ReadMore from "../Components/Sanjida/ReadMore";
+import CardRuhul from "../Components/Ruhul/Card-Ruhul/CardRuhul";
+import PostDetails from "../Pages/PostDetails/PostDetails";
+import PrivateRoute from "../Providers/PrivateRoute";
+import DetailsWithComments from "../Pages/PostDetails/DetailsWithComments";
+import UserProfile from "../Pages/Ruhul/UserProfile/UserProfile";
+import EditProfile from "../Pages/Ruhul/UserProfile/EditProfile";
+import LeaderBoard from "../Components/Nur/Leaderboard";
+import ContactForm from "../components/adnan/ContactForm";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +49,10 @@ export const router = createBrowserRouter([
         path: "/card",
         element: <Card></Card>,
       },
+      {
+        path: "/contact",
+        element: <ContactForm></ContactForm> ,
+      },
       // .......for testing......../
       {
         path: '/blogCard',
@@ -53,15 +65,15 @@ export const router = createBrowserRouter([
 
       {
         path: "/create-post/text-post",
-        element: <CreatePost></CreatePost>,
+        element: <PrivateRoute><CreatePost></CreatePost></PrivateRoute>
       },
       {
         path: "/create-post/image-post",
-        element: <CreatePost></CreatePost>,
+        element: <PrivateRoute><CreatePost></CreatePost></PrivateRoute>,
       },
       {
         path: "/create-post/link-post",
-        element: <CreatePost></CreatePost>,
+        element: <PrivateRoute><CreatePost></CreatePost></PrivateRoute>,
       },
       {
         path: "/signModal",
@@ -74,6 +86,26 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         element: <AboutSection></AboutSection>
+      },
+      {
+        path:'/post-details/:id',
+        element:<DetailsWithComments></DetailsWithComments>
+      },
+      {
+        path:'/detailsWithComments/:id',
+        element:<DetailsWithComments></DetailsWithComments>
+      },
+      {
+        path:'/users/:email',
+        element:<UserProfile></UserProfile>
+      },
+      {
+        path:'/edit-profile/:email',
+        element:<EditProfile></EditProfile>,
+      }
+      ,{
+        path:'/leaderBoard',
+        element:<LeaderBoard></LeaderBoard>
       },
 
       // for admin

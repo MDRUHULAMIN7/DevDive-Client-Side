@@ -2,6 +2,8 @@ import { FaArrowTrendUp } from 'react-icons/fa6';
 import { IoMdHome } from 'react-icons/io';
 import { MdBarChart } from 'react-icons/md';
 import { RiUserFollowFill } from 'react-icons/ri';
+import { TfiWrite } from "react-icons/tfi";
+import { FcAbout } from "react-icons/fc";
 import { NavLink } from 'react-router-dom';
 
 const Sidebar = ({ setOpenMenu, openMenu }) => {
@@ -49,7 +51,27 @@ const Sidebar = ({ setOpenMenu, openMenu }) => {
                         <span className="mx-4 font-medium text-xs">All</span>
                     </NavLink>
 
+                       
+                    <hr className="my-6 border-gray-200 dark:border-gray-700" />
 
+                    <NavLink
+                        to='/blogCard'
+                        className={({ isActive }) =>
+                            `flex items-center px-4 py-2 rounded-md duration-200 hover:bg-pm-color hover:text-white ${isActive ? 'bg-pm-color text-white' : ''}`
+                        }
+                    >
+                        <TfiWrite className='' />
+                        <span className="mx-3 font-medium text-xs">Blogs</span>
+                    </NavLink>
+                    <NavLink
+                        to='/about'
+                        className={({ isActive }) =>
+                            `flex items-center px-4 py-2 rounded-md duration-200 hover:bg-pm-color hover:text-white ${isActive ? 'bg-pm-color text-white' : ''}`
+                        }
+                    >
+                        <FcAbout className='text-lg' />
+                        <span className="mx-3 font-medium text-xs">About</span>
+                    </NavLink>
                     <hr className="my-6 border-gray-200 dark:border-gray-700" />
                 </nav>
             </div>

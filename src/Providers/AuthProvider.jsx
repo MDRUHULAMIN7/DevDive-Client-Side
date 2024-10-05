@@ -1,3 +1,4 @@
+//my edited private route
 /* eslint-disable react/prop-types */
 
 import { createContext, useEffect, useState } from "react";
@@ -13,6 +14,7 @@ import {
   signInWithPopup,
   signOut,
   updateProfile,
+  sendEmailVerification,
 } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 
@@ -80,19 +82,22 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      console.log("effeect", currentUser);
+      // setUser(currentUser);
+      // console.log("effeect", currentUser);
 
       if (currentUser) {
+        setUser(currentUser);
+        console.log("effeect", currentUser);
         const userInfo = { email: currentUser.email };
         console.log(userInfo);
       } else {
+        setUser(null)
         localStorage.removeItem("access-token");
-        setLoading(false);
       }
+      setLoading(false);
     });
     return () => {
-      unsubscribe();
+      return unsubscribe();
     };
   }, [auth]);
   const authInfo = {
@@ -110,6 +115,7 @@ const AuthProvider = ({ children }) => {
     setIsModalOpen,
     gitHubLogin,
     passwordResetEmail,
+    sendEmailVerification,
   };
 
   console.log(user);

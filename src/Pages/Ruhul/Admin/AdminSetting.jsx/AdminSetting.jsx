@@ -2,11 +2,12 @@
 import  { useState } from 'react';
 import ManagUsers from '../Component/ManageUsers/ManagUsers';
 import PostBlogPage from '../PostBlogPage/PostBlogpage';
+import Followers from '../Component/Followers/Followers';
 
 const AdminSetting = () => {
   const [activeTab, setActiveTab] = useState('General');
 
-  const tabs = ['General', 'User Management', 'Post Blog', 'System Settings'];
+  const tabs = ['General', 'User Management', 'Post Blog', 'System Settings','Follwers'];
 
   return (
     <div className="md:p-4 p-1 w-full mx-auto">
@@ -59,6 +60,11 @@ const AdminSetting = () => {
             <p className="text-gray-700 dark:text-gray-300">
               Configure system-wide settings, including performance and security.
             </p>
+          </div>
+        )}
+        {activeTab === 'Follwers' && (
+          <div>
+            <Followers></Followers>
           </div>
         )}
       </div>

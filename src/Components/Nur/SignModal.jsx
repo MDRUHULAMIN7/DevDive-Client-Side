@@ -26,6 +26,8 @@ const SignModal = () => {
     setIsModalOpen,
     gitHubLogin,
     passwordResetEmail,
+    sendEmailVerification,
+    logout,
   } = useContext(AuthContext);
 
   const toggleSignUpMode = () => {
@@ -86,28 +88,42 @@ const SignModal = () => {
           userLastLoinTime
         )
         .then(() => {
-          toast.success("GitHub Sign In successful.");
+          toast.success("Continue With GitHub successful.");
           setIsModalOpen(false);
         });
-
-      toast.success("Continue With GitHub successful.");
     });
   };
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
     setLoading(true);
     const email = e.target.email.value;
     const password = e.target.password.value;
     console.log(email, password);
-    signInUser(email, password)
-      .then(() => {
-        toast.success("Sign In successful.");
+    try {
+      const result = await signInUser(email, password);
+      const userLastLoginTime = {
+        lastSignInTime: result.user?.metadata?.lastSignInTime,
+        lastLoginAt: result.user?.metadata?.lastLoginAt,
+      };
+      await axiosPublic.put(`/users/${result.user?.email}`, userLastLoginTime);
+
+      if (!result.user.emailVerified) {
+        console.log("Email is not verified.");
+        toast.error("Please verify your email before signing in.");
+        setLoading(false);
+        logout();
         setIsModalOpen(false);
-      })
-      .catch(() => {
-        toast.error("Sign In failed. Please check your Email and Password.");
-      });
+        return;
+      }
+
+      toast.success("Sign In successful.");
+      setIsModalOpen(false);
+    } catch {
+      toast.error("Sign In failed. Please check your Email and Password.");
+      setLoading(false);
+      setShowPassword(true);
+    }
   };
 
   const handleRegister = async (e) => {
@@ -148,6 +164,8 @@ const SignModal = () => {
         lastLoginAt: result.user?.metadata?.lastLoginAt,
       };
 
+      console.log("userLastLoginTime", userLastLoginTime);
+
       const response = await fetch(`${import.meta.env.VITE_URL}users`, {
         method: "POST",
         headers: {
@@ -163,7 +181,15 @@ const SignModal = () => {
       await updateuserprofile(name, photoUrl);
       await axiosPublic.put(`/users/${result.user?.email}`, userLastLoginTime);
 
-      toast.success("Registered Successfully");
+      await sendEmailVerification(result.user).then(() =>
+        toast.success(
+          "Verified email sent successfully, Please check your email"
+        )
+      );
+
+      await logout();
+
+      // toast.success("Registered Successfully");
 
       setIsModalOpen(false);
     } catch (error) {
@@ -179,9 +205,7 @@ const SignModal = () => {
     console.log(email);
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_URL}user/${email}`
-      );
+      const response = await fetch(`${import.meta.env.VITE_URL}user/${email}`);
       const user = await response.json();
 
       if (!user || user.length === 0) {
