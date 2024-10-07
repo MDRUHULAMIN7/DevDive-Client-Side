@@ -7,13 +7,18 @@ import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import UseAuth from '../../Hooks/UseAuth';
 import useReplies from '../../Hooks/useReplies';
 import toast from 'react-hot-toast';
+import useCommentLike from '../../Hooks/useCommentLike';
+import useCommentDislike from '../../Hooks/useCommentDislike';
 
 const Comment = ({comment}) => {
   const { user } = UseAuth();
   const axiosPublic= useAxiosPublic()
   const [replies, refetch] = useReplies(comment._id);
+  const [commentLikes] = useCommentLike()
+  const [commentDislikes] = useCommentDislike()
   const [isReplying, setIsReplying] = useState(false);
   const [replyContent, setReplyContent] = useState('');
+  const [showReplies, setShowReplies]=useState(false)
   console.log(comment);
   console.log(replies)
     // Handle reply submission
@@ -43,7 +48,54 @@ const Comment = ({comment}) => {
     setIsReplying(false);
     setReplyContent('');
   };
-    return (
+  const handleLike = async (commentId) => {
+    if (!user) {
+      toast("You need to log in to like a post.");
+      return;
+    }
+
+    const newuser = {
+      name: user?.displayName,
+      email: user?.email,
+      photo: user?.photoURL,
+    };
+    if (newuser?.email && newuser?.photo) {
+      await axiosPublic
+        .post(`/commentLike/${commentId}`, { newuser })
+        .then((res) => {
+          refetch();
+          console.log(res.data);
+        })
+        .catch((err) => {
+          refetch();
+          console.log(err);
+        });
+    }
+  };
+  const handleDislike = async (commentId) => {
+    if (!user) {
+      toast("You need to log in to like a post.");
+      return;
+    }
+    const newuser = {
+      name: user?.displayName,
+      email: user?.email,
+      photo: user?.photoURL,
+    };
+    if (newuser?.email && newuser?.photo) {
+      await axiosPublic
+        .post(`/commentDislike/${commentId}`, { newuser })
+        .then((res) => {
+          refetch();
+          console.log(res.data);
+        })
+        .catch((err) => {
+          refetch();
+          console.log(err);
+        });
+    }
+  };
+  return (
         <div className='mt-4'>
             <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-lg shadow-sm mb-2">
       <div className="flex items-center">
@@ -63,27 +115,65 @@ const Comment = ({comment}) => {
         <div className="flex items-center space-x-4">
           {/* Like */}
           <button
-            // onClick={handleLike}
-            className="flex items-center space-x-1 hover:text-blue-500"
-          >
-            <FaThumbsUp className="h-5 w-5" />
-            <span className='text-black'>{comment.likeCount}</span>
-          </button>
+                onClick={() => {
+                  handleLike(comment._id);
+                }}
+                className={`flex items-center space-x-1 hover:text-blue-500 `}
+              >
+                {commentLikes &&
+                commentLikes.find(
+                  (like) =>
+                    like.commentId === comment._id && like?.email === user?.email
+                ) ? (
+                  <p className="flex text-blue-500 justify-center items-center gap-x-1">
+                    {" "}
+                    <FaThumbsUp className="h-5 w-5" />{" "}
+                  </p>
+                ) : (
+                  <p className="flex  justify-center items-center gap-x-1">
+                    {" "}
+                    <FaThumbsUp className="h-5 w-5" />{" "}
+                  </p>
+                )}
+                <span className="ml-1 text-sm text-gray-600">
+                  {comment?.likeCount}
+                </span>{" "}
+                {/* Total likes count */}
+              </button>
 
           {/* Dislike */}
           <button
-            // onClick={handleDislike}
-            className="flex items-center space-x-1 hover:text-red-500"
-          >
-            <FaThumbsDown className="h-5 w-5" />
-            <span className='text-black'>{comment.disLikeCount}</span>
-          </button>
+                onClick={() => {
+                  handleDislike(comment._id);
+                }}
+                className={`flex items-center space-x-1 hover:text-red-500 `}
+              >
+                {commentDislikes &&
+                commentDislikes?.find(
+                  (dislike) =>
+                    dislike.commentId === comment._id && dislike?.email === user?.email
+                ) ? (
+                  <p className="flex text-red-500 justify-center items-center gap-x-1">
+                    {" "}
+                    <FaThumbsDown className="h-5 w-5" />{" "}
+                  </p>
+                ) : (
+                  <p className="flex  justify-center items-center gap-x-1">
+                    {" "}
+                    <FaThumbsDown className="h-5 w-5" />
+                  </p>
+                )}
+                <span className="ml-1 text-sm text-gray-600">
+                  {comment?.disLikeCount}
+                </span>{" "}
+                {/* Total dislikes count */}
+              </button>
         </div>
 
 
-        <button className="flex items-center space-x-1 hover:text-blue-500">
+        <button onClick={()=>setShowReplies(!showReplies)} className="flex items-center space-x-1 hover:text-blue-500">
           <FaCommentAlt className="h-5 w-5" />
-          <span className="text-sm">Show replies  {replies.length}</span>
+          <span className="text-sm">Replies  {replies.length}</span>
         </button>
         <button
             onClick={() => setIsReplying(!isReplying)}
@@ -103,7 +193,7 @@ const Comment = ({comment}) => {
       </div>
       </div>
       {/* Display nested replies */}
-      {replies.length > 0 && (
+      {(showReplies &&  replies.length > 0 )&& (
           <div className="ml-8 mt-4 border-l-2 pl-4 rounded-b-2xl">
             {replies?.map(reply => (
               <Comment key={reply._id} comment={reply} />
