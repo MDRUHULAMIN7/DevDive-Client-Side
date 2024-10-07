@@ -1,8 +1,9 @@
 import React from "react";
 
 const ContactForm = () => {
+
   return (
-    <div>
+    <form onSubmit={handleSubmit()}>
       <section class="bg-white dark:bg-gray-900">
         <div class="container px-6 py-12 mx-auto">
           <div>
@@ -200,7 +201,7 @@ const ContactForm = () => {
           </div>
         </div>
       </section>
-    </div>
+    </form>
   );
 };
 
