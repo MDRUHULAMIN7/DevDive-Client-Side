@@ -241,7 +241,7 @@ const DetailsWithComments = () => {
             </div>
           </div>
           <div>
-            <button onClick={handleComment} className="flex items-center gap-2 rounded-full p-2 border-2 bg-slate-100 font-medium"><IoMdAdd /> Add a Comment</button>
+            <button onClick={handleComment} className="flex items-center gap-2 rounded-full p-2 border-2 bg-slate-100 dark:bg-gray-700 dark:border-gray-700 font-medium"><IoMdAdd /> Add a Comment</button>
           </div>
           <div>
             {
