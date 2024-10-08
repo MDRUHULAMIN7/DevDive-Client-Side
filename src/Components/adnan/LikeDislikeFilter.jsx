@@ -5,7 +5,6 @@ import UseAuth from "../../Hooks/UseAuth";
 import UseLikes from "../../Hooks/UseLikes";
 import UseDisLikes from "../../Hooks/UseDisLike";
 import UseAllComments from "../../Hooks/adnan/UseAllComments";
-import { comment } from "postcss";
 
 export default function LikeDislikeFilter  ({ setPosts }) {
   const { user } = UseAuth(); // Get the current user
@@ -14,9 +13,6 @@ export default function LikeDislikeFilter  ({ setPosts }) {
   const [disLikes] = UseDisLikes(); // Get the list of dislikes for the current user
   const [comments] = UseAllComments(); 
   const [sortOption, setSortOption] = useState("");
-
-  console.log(comments);
-  console.log(user);
 
 
   useEffect(() => {
@@ -67,9 +63,6 @@ export default function LikeDislikeFilter  ({ setPosts }) {
      setPosts(filteredPosts);
     }, [sortOption, posts, setPosts]);
 
-    // Updating the parent component's state
-  //   setPosts(sortedPosts);
-  // }, [sortOption, posts, likes, setPosts]);
 
   const handleChange = (event) => {
     setSortOption(event.target.value); // Update sort option based on user selection
@@ -78,7 +71,7 @@ export default function LikeDislikeFilter  ({ setPosts }) {
   return (
     <div>
       <select
-        className="w-32 p-1 border dark:border-themeColor3 rounded-md outline-none bg-white text-black dark:bg-themeColor dark:text-white"
+        className="w-36 p-1 border dark:border-themeColor3 rounded-md outline-none bg-white text-black dark:bg-themeColor dark:text-white"
         onChange={handleChange}
         defaultValue=""
       >
