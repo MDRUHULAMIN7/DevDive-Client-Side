@@ -20,6 +20,7 @@ import DetailsWithComments from "../Pages/PostDetails/DetailsWithComments";
 import UserProfile from "../Pages/Ruhul/UserProfile/UserProfile";
 import EditProfile from "../Pages/Ruhul/UserProfile/EditProfile";
 import LeaderBoard from "../Components/Nur/Leaderboard";
+import ContactForm from "../components/adnan/ContactForm";
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
       {
         path: "/card",
         element: <Card></Card>,
+      },
+      {
+        path: "/contact",
+        element: <ContactForm></ContactForm> ,
       },
       // .......for testing......../
       {
