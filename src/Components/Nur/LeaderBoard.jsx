@@ -129,7 +129,7 @@ const LeaderBoard = () => {
                     onClick={() => handleLoadAllLikes(loadAllLikes)}
                     className="link-primary text-blue-500"
                     href="#">
-                    {loadAllLikes ? "Show All" : "Show Top 5"}
+                    {loadAllLikes ? "Show Top 5" : "Show All"}
                   </a>
                 </div>
               </ol>
