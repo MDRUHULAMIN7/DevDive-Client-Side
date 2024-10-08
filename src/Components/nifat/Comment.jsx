@@ -2,7 +2,6 @@ import moment from 'moment';
 import {  useState } from 'react';
 import { FaCommentAlt } from 'react-icons/fa';
 import { FaReply, FaThumbsDown, FaThumbsUp } from 'react-icons/fa6';
-import { MdOutlineReply } from 'react-icons/md';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import UseAuth from '../../Hooks/UseAuth';
 import useReplies from '../../Hooks/useReplies';

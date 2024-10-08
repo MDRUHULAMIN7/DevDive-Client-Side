@@ -2,27 +2,26 @@ import { useQuery } from "@tanstack/react-query";
 import UseAuth from "../UseAuth";
 import useAxiosPublic from "../useAxiosPublic";
 
-
-const UseLeaderBoardPosts = () => {
+const UseLeaderBoardComments = () => {
   const { user } = UseAuth();
   const axiosPublic = useAxiosPublic();
 
   const {
-    data: leaderBoardPosts = [],
+    data: leaderBoardComments = [],
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["leaderBoardPosts", user?.email],
+    queryKey: ["leaderBoardComments", user?.email],
     enabled: true,
     queryFn: async () => {
-      const res = await axiosPublic.get(`/leaderBoardPosts`);
+      const res = await axiosPublic.get(`/leaderBoardComments`);
       return res.data;
     },
   });
 
-  // console.log(leaderBoardPosts);
+  console.log(leaderBoardComments);
 
-  return [leaderBoardPosts, isLoading, refetch];
+  return [leaderBoardComments, isLoading, refetch];
 };
 
-export default UseLeaderBoardPosts;
+export default UseLeaderBoardComments;

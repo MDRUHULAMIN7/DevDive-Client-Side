@@ -110,8 +110,6 @@ const CreatePost = () => {
   }, [files]);
 
 
-
-
   const handlePost = async () => {
     if (inputValue.length < 2) {
       setEmptyTitle(true);
