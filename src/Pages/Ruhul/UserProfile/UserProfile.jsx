@@ -26,7 +26,7 @@ const UserProfile = () => {
       <div className="relative">
         <img
           className="h-52 w-full rounded-xl object-cover shadow-lg"
-          src="https://res.cloudinary.com/dpomtzref/image/upload/v1727683977/qyVBpT-TSs20b4myZ5bvOQ_r7roxb.jpg"
+          src={users?.users?.mainuser?.coverPhoto && users?.users?.mainuser?.coverPhoto || "https://res.cloudinary.com/dpomtzref/image/upload/v1727683977/qyVBpT-TSs20b4myZ5bvOQ_r7roxb.jpg" }
           alt="Cover"
         />
         <div className="absolute top-40 md:top-36 left-1/2 transform -translate-x-1/2 md:left-10 md:transform-none">
