@@ -1,8 +1,7 @@
 import moment from 'moment';
 import {  useState } from 'react';
 import { FaCommentAlt } from 'react-icons/fa';
-import { FaThumbsDown, FaThumbsUp } from 'react-icons/fa6';
-import { MdOutlineReply } from 'react-icons/md';
+import { FaReply, FaThumbsDown, FaThumbsUp } from 'react-icons/fa6';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import UseAuth from '../../Hooks/UseAuth';
 import useReplies from '../../Hooks/useReplies';
@@ -179,7 +178,7 @@ const Comment = ({comment}) => {
             onClick={() => setIsReplying(!isReplying)}
             className="text-blue-500 text-sm hover:underline"
           >
-            <span className='flex items-center '><MdOutlineReply /> Reply</span>
+            <span className='flex items-center '><FaReply className='text-xl mr-1'/> Reply</span>
         </button>
 
 
@@ -202,9 +201,9 @@ const Comment = ({comment}) => {
         )}
       {/* Reply form */}
       {isReplying && (
-          <form onSubmit={handleReply} className="mt-2">
+          <form onSubmit={handleReply} className="mt-2 ">
             <textarea
-              className="w-full p-2 border rounded-lg"
+              className="w-full p-2 border rounded-lg dark:bg-gray-700"
               placeholder="Write a reply..."
               value={replyContent}
               onChange={(e) => setReplyContent(e.target.value)}
