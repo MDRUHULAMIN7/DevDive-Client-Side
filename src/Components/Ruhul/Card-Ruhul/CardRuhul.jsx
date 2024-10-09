@@ -26,6 +26,7 @@ import UseDisLikes from "../../../Hooks/UseDisLike";
 import PostComponent from "./PostComponent";
 import UseFollowers from "../../../Hooks/UseFollowers";
 import LikeDislikeFilter from "../../adnan/LikeDislikeFilter";
+import DevLoader from "../../Fardus/DevLoader/DevLoader";
 
 const CardRuhul = () => {
   const { user } = UseAuth(); // Get user info from auth hook
@@ -132,6 +133,7 @@ const CardRuhul = () => {
   if (isLoading) {
     return (
       <div className=" text-2xl text-center my-10 ">Post is loading ....</div>
+      // <DevLoader></DevLoader>
     );
   }
 
@@ -145,7 +147,7 @@ const CardRuhul = () => {
         newPosts?.map((data, index) => (
           <div
             key={index}
-            className="mt-4 bg-white dark:bg-gray-900 shadow-md mx-1 rounded-lg p-4 my-4  md:mx-auto border border-gray-200 dark:border-gray-700 ">
+            className="mt-4 bg-white dark:bg-gray-900 shadow-md rounded-lg p-4 my-4  md:mx-auto border border-gray-200 dark:border-gray-700 ">
             <div className="flex justify-between items-center mb-3">
               <div className="flex items-center">
                 <img
@@ -160,7 +162,7 @@ const CardRuhul = () => {
 
                   <PostComponent data={data}></PostComponent>
                 </div>
-                <div className="ml-5">
+                <div className="ml-5 mr-3">
                   <button
                     onClick={() => handleFollow(data._id, data.username)}
                     className={`p-1 font-semibold text-sm text-white rounded-xl w-full h-8 bg-blue-700`}>
@@ -176,17 +178,18 @@ const CardRuhul = () => {
                 </div>
               </div>
               <div className="relative flex items-center gap-2">
-                <BsThreeDots
-                  onClick={toggleDropdown}
-                  className="cursor-pointer"
-                />
+                <div onClick={toggleDropdown} className="p-2 dark:hover:bg-gray-700 hover:bg-gray-200 rounded-full duration-200 cursor-pointer">
+                  <BsThreeDots/>
+                </div>
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-36 w-32 bg-white rounded-xl shadow-lg z-10">
-                    <ul>
+                  <div className="absolute right-0 mt-36 w-32 rounded-xl shadow-lg z-10">
+                    <ul className="m-0 p-0 bg-white dark:bg-themeColor rounded-xl">
                       <li className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 dark:hover:text-black cursor-pointer flex items-center gap-1">
                         <MdSaveAlt /> Save
                       </li>
-                    
+                      <li className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 dark:hover:text-black cursor-pointer flex items-center gap-1">
+                        <BiHide /> Hide
+                      </li>
                       <li className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 dark:hover:text-black cursor-pointer flex items-center gap-1">
                         <FaRegFlag /> Report
                       </li>
@@ -318,6 +321,7 @@ const CardRuhul = () => {
         ))
       ) : (
         <p className=" text-2xl text-center my-10 "> No Post Found </p>
+        // <DevLoader></DevLoader>
       )}
     </section>
   );

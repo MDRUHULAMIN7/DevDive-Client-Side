@@ -7,6 +7,7 @@ import Lottie from "lottie-react";
 // import { AuthContext } from "./AuthProvider";
 import UseAuth from "../Hooks/UseAuth";
 import { Navigate } from "react-router-dom";
+import DevLoader from "../Components/Fardus/DevLoader/DevLoader";
 
 const PrivateRoute = ({children}) => {
     const {user,loading, setIsModalOpen}=UseAuth()
@@ -20,9 +21,10 @@ const PrivateRoute = ({children}) => {
 
     if(loading){
         return <div>
-            <div className="w-1/6 mx-auto h-screen flex items-center ">
-                <Lottie animationData={loadingDots} />;
+            <div >
+                {/* <Lottie animationData={loadingDots} /> */}
                 {/* <h2>loading</h2> */}
+                <DevLoader></DevLoader>
             </div>
         </div>
     }

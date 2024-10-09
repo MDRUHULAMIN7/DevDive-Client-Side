@@ -14,6 +14,7 @@ import AboutSection from "../Pages/Ruhul/Admin/AboutSection/AboutSection";
 import BlogCard from "../Components/Sanjida/BlogCard";
 import ReadMore from "../Components/Sanjida/ReadMore";
 import CardRuhul from "../Components/Ruhul/Card-Ruhul/CardRuhul";
+import PostDetails from "../Pages/PostDetails/PostDetails";
 import PrivateRoute from "../Providers/PrivateRoute";
 import DetailsWithComments from "../Pages/PostDetails/DetailsWithComments";
 import UserProfile from "../Pages/Ruhul/UserProfile/UserProfile";
@@ -50,7 +51,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/contact",
-        element: <ContactForm></ContactForm> ,
+        element: <ContactForm></ContactForm>,
       },
       // .......for testing......../
       {
@@ -58,8 +59,8 @@ export const router = createBrowserRouter([
         element: <BlogCard></BlogCard>
       },
       {
-        path:'/readMore/:id',
-        element:<ReadMore></ReadMore>
+        path: '/readMore/:id',
+        element: <ReadMore></ReadMore>
       },
 
       {
@@ -75,6 +76,10 @@ export const router = createBrowserRouter([
         element: <PrivateRoute><CreatePost></CreatePost></PrivateRoute>,
       },
       {
+        path: "/create-post/poll",
+        element: <PrivateRoute><CreatePost></CreatePost></PrivateRoute>,
+      },
+      {
         path: "/signModal",
         element: <SignModal></SignModal>,
       },
@@ -87,24 +92,24 @@ export const router = createBrowserRouter([
         element: <AboutSection></AboutSection>
       },
       {
-        path:'/post-details/:id',
-        element:<DetailsWithComments></DetailsWithComments>
+        path: '/post-details/:id',
+        element: <DetailsWithComments></DetailsWithComments>
       },
       {
-        path:'/detailsWithComments/:id',
-        element:<DetailsWithComments></DetailsWithComments>
+        path: '/detailsWithComments/:id',
+        element: <DetailsWithComments></DetailsWithComments>
       },
       {
-        path:'/users/:email',
-        element:<UserProfile></UserProfile>
+        path: '/users/:email',
+        element: <UserProfile></UserProfile>
       },
       {
-        path:'/edit-profile/:email',
-        element:<EditProfile></EditProfile>,
+        path: '/edit-profile/:email',
+        element: <EditProfile></EditProfile>,
       }
-      ,{
-        path:'/leaderBoard',
-        element:<LeaderBoard></LeaderBoard>
+      , {
+        path: '/leaderBoard',
+        element: <LeaderBoard></LeaderBoard>
       },
 
       // for admin

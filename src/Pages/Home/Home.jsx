@@ -5,8 +5,12 @@ import CardRuhul from '../../Components/Ruhul/Card-Ruhul/CardRuhul';
 import Card from '../../Components/Sanjida/Card';
 import RecentPostCard from '../../Components/Fardus/RecentPostCard/RecentPostCard';
 import Chatbot from '../../Components/Ruhul/Cahtbot/Chatbot';
+import UsePosts from '../../Hooks/UsePosts';
 
 const Home = () => {
+    let [posts, isLoading, refetch] = UsePosts();
+
+    console.log(posts);
 
     const slides = [
         { image: 'https://uqsport.com.au/wp-content/uploads/2018/05/UQ_Sport_2022_10_13_093-scaled.jpg', title: 'Slide 1', description: 'This is a short description for slide 1.' },
@@ -27,27 +31,27 @@ const Home = () => {
                 <title>DevDive | Home</title>
             </Helmet>
             <Slider slides={slides} />
-            
+
             <div className="flex justify-between mx-auto mt-5">
                 <div className="lg:w-[68%] max-w-full space-y-5">
-                  <CardRuhul></CardRuhul>
+                    <CardRuhul></CardRuhul>
                 </div>
-                <div className="sticky top-[68px] scrollBar h-[calc(100vh-80px)] overflow-y-auto lg:w-[28%] w-[32%] border dark:border-gray-800 rounded-2xl p-5 lg:block hidden">
-                    <h2 className="font-semibold text-black dark:text-white mb-5">Recent Posts</h2>
+                <div className="sticky top-[68px] scrollBar h-[calc(100vh-80px)] overflow-y-auto lg:w-[28%] w-[32%] border dark:border-gray-800 rounded-xl py-5 px-3 lg:block hidden">
+                    <h2 className="font-semibold text-black dark:text-white mb-5 px-3">Recent Posts</h2>
 
                     <div className="space-y-5">
-                        <RecentPostCard></RecentPostCard>
-                        <RecentPostCard></RecentPostCard>
-                        <RecentPostCard></RecentPostCard>
-                        <RecentPostCard></RecentPostCard>
-                        <RecentPostCard></RecentPostCard>
-                        <RecentPostCard></RecentPostCard>
-                        <RecentPostCard></RecentPostCard>
-                        <RecentPostCard></RecentPostCard>
-                        <RecentPostCard></RecentPostCard>
+                        {
+                            posts?.slice(0, 10)?.map((post) => (
+                                <div key={post.id}>
+                                    <RecentPostCard post={post}></RecentPostCard>
+                                </div>
+                            ))
+                        }
                     </div>
+
+
                 </div>
-          <Chatbot></Chatbot>
+                <Chatbot></Chatbot>
             </div>
         </div>
     );
