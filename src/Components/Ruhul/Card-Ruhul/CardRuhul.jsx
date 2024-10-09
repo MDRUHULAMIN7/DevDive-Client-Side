@@ -170,7 +170,7 @@ const CardRuhul = () => {
                         a.followerEmail === user?.email &&
                         a.followingEmail === data?.userEmail
                     )
-                      ? "Unfollow"
+                      ? "Following"
                       : "Follow"}
                   </button>
                 </div>
@@ -186,9 +186,7 @@ const CardRuhul = () => {
                       <li className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 dark:hover:text-black cursor-pointer flex items-center gap-1">
                         <MdSaveAlt /> Save
                       </li>
-                      <li className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 dark:hover:text-black cursor-pointer flex items-center gap-1">
-                        <BiHide /> Hide
-                      </li>
+                    
                       <li className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 dark:hover:text-black cursor-pointer flex items-center gap-1">
                         <FaRegFlag /> Report
                       </li>

@@ -3,6 +3,7 @@ import  { useState } from 'react';
 import ManagUsers from '../Component/ManageUsers/ManagUsers';
 import PostBlogPage from '../PostBlogPage/PostBlogpage';
 import Followers from '../Component/Followers/Followers';
+import General from '../General/General';
 
 const AdminSetting = () => {
   const [activeTab, setActiveTab] = useState('General');
@@ -34,9 +35,7 @@ const AdminSetting = () => {
         {activeTab === 'General' && (
           <div>
             <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">General Settings</h2>
-            <p className="text-gray-700 dark:text-gray-300">
-              Here you can update general settings for the admin panel.
-            </p>
+           <General></General>
           </div>
         )}
         {activeTab === 'User Management' && (

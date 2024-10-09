@@ -19,8 +19,8 @@ const UseDisLikes = () => {
             },
           
         })
-           refetch()
-
+          
+        refetch()
         return [dislikes[0],isLoading,refetch]
     
 };

@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import UseAuth from "../../../Hooks/UseAuth";
+import { calcLength } from "framer";
 
 const EditProfile = () => {
   const { email } = useParams();
@@ -107,14 +108,15 @@ const EditProfile = () => {
     }
 
     const updatedUSerInfo={
-      name : name || users?.users?.mainuser?.name,
-      photoUrl : profilePic || users?.users?.mainuser?.photoUrl,
-      coverPhoto : coverPic || '',
+      name : name ? name : users?.users?.mainuser?.name,
+      photoUrl : profilePic ?profilePic : users?.users?.mainuser?.photoUrl,
+      coverPhoto : coverPic ? coverPic : users?.users?.mainuser?.coverPic ?  users?.users?.mainuser?.coverPic : '' ,
     }
 
      if(updatedUSerInfo){
+      console.log(updatedUSerInfo)
        try {
-        await updateuserprofile(name,updatedUSerInfo?.photoUrl);
+        await updateuserprofile(updatedUSerInfo?.name,updatedUSerInfo?.photoUrl);
         await axiosPublic.put(`/users-update/${email}`, updatedUSerInfo);
     
         toast.success("Profile updated successfully!");
