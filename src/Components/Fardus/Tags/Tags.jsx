@@ -34,7 +34,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'rust',
     'go',
     'elixir',
-
     // Frontend Development
     'frontend',
     'react',
@@ -54,7 +53,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'ui/ux',
     'web accessibility',
     'cross-browser compatibility',
-
     // Backend Development
     'backend',
     'node.js',
@@ -68,7 +66,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'asp.net',
     'koa.js',
     'fastapi',
-
     // Databases & Data Management
     'database',
     'mysql',
@@ -86,7 +83,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'data modeling',
     'data warehousing',
     'big data',
-
     // DevOps & Cloud
     'devops',
     'docker',
@@ -108,7 +104,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'load balancing',
     'kafka',
     'rabbitmq',
-
     // APIs & Authentication
     'api development',
     'rest api',
@@ -123,7 +118,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'firebase authentication',
     'passport.js',
     'api gateway',
-
     // Testing & Quality Assurance
     'testing',
     'unit testing',
@@ -140,7 +134,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'mocking',
     'tdd',
     'bdd',
-
     // Version Control & Collaboration
     'version control',
     'git',
@@ -158,7 +151,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'jira',
     'trello',
     'confluence',
-
     // Mobile Development
     'mobile development',
     'react native',
@@ -169,7 +161,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'android studio',
     'ionic',
     'cordova',
-
     // Performance & Optimization
     'performance optimization',
     'lazy loading',
@@ -181,7 +172,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'service workers',
     'progressive web apps',
     'web performance',
-
     // Security
     'security',
     'encryption',
@@ -194,7 +184,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'penetration testing',
     'firewall',
     'ddos protection',
-
     // Machine Learning, AI & Data Science
     'machine learning',
     'deep learning',
@@ -217,7 +206,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
 
     "bugs",
     "problems",
-
     // Blockchain & Cryptography
     'blockchain',
     'cryptocurrency',
@@ -228,7 +216,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'hyperledger',
     'cryptography',
     'zero knowledge proofs',
-
     // Game Development
     'game development',
     'unity',
@@ -238,7 +225,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'panda3d',
     'three.js',
     'webgl',
-
     // Miscellaneous Tools & Technologies
     'npm',
     'yarn',
@@ -365,7 +351,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
           ))}
         </div>
       )}
-
       <div id="tags-container" className={`${emptyTags ? "mt-8" : "mt-2"} flex flex-wrap gap-2`}>
         {tags.map((tag) => (
           <div

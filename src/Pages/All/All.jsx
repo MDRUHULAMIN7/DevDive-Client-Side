@@ -8,7 +8,7 @@ const All = () => {
             <Helmet>
                 <title>DevDive | All</title>
             </Helmet>
-            <DevLoader></DevLoader>
+            {/* <DevLoader></DevLoader> */}
         </div>
     );
 };

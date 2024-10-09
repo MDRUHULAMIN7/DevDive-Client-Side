@@ -39,7 +39,7 @@ const CardRuhul = () => {
   const [follwers] = UseFollowers();
   // console.log(follwers);
 
-
+  
 
   const handleFollow = async (postId, postUsername) => {
     if (!user) {
@@ -167,12 +167,12 @@ const CardRuhul = () => {
                     onClick={() => handleFollow(data._id, data.username)}
                     className={`p-1 font-semibold text-sm text-white rounded-xl w-full h-8 bg-blue-700`}>
                     {follwers &&
-                      follwers.find(
-                        (a) =>
-                          a.followerEmail === user?.email &&
-                          a.followingEmail === data?.userEmail
-                      )
-                      ? "Unfollow"
+                    follwers.find(
+                      (a) =>
+                        a.followerEmail === user?.email &&
+                        a.followingEmail === data?.userEmail
+                    )
+                      ? "Following"
                       : "Follow"}
                   </button>
                 </div>
@@ -252,10 +252,10 @@ const CardRuhul = () => {
                   }}
                   className={`flex items-center space-x-1 hover:text-blue-500 `}>
                   {likes &&
-                    likes.find(
-                      (like) =>
-                        like.postId === data._id && like?.email === user?.email
-                    ) ? (
+                  likes.find(
+                    (like) =>
+                      like.postId === data._id && like?.email === user?.email
+                  ) ? (
                     <p className="flex text-blue-500 justify-center items-center gap-x-1">
                       {" "}
                       <FaThumbsUp className="h-5 w-5" />{" "}
@@ -279,10 +279,10 @@ const CardRuhul = () => {
                   }}
                   className={`flex items-center space-x-1 hover:text-red-500 `}>
                   {dislikes &&
-                    dislikes?.find(
-                      (like) =>
-                        like.postId === data._id && like?.email === user?.email
-                    ) ? (
+                  dislikes?.find(
+                    (like) =>
+                      like.postId === data._id && like?.email === user?.email
+                  ) ? (
                     <p className="flex text-red-500 justify-center items-center gap-x-1">
                       {" "}
                       <FaThumbsDown className="h-5 w-5" />{" "}
@@ -296,17 +296,17 @@ const CardRuhul = () => {
                   <span className="ml-1 text-sm text-gray-600">
                     {data?.dislikes}
                   </span>{" "}
-
+                  
                 </button>
               </div>
 
               <div className="flex items-center space-x-4">
                 <Link
-                  to={`/detailsWithComments/${data._id}`}
+                  to={`/detailsWithComments/${data._id}#commentSection`}
                   className="flex items-center space-x-1 hover:text-blue-500"
                 >
                   <FaCommentAlt className="h-5 w-5" />
-                  <span className="text-sm">Comments</span>
+                  <span className="text-sm "> {data?.comments  || 0}</span>
                 </Link>
                 <button className="flex items-center space-x-1 hover:text-gray-800">
                   <FaShare className="h-5 w-5" />
