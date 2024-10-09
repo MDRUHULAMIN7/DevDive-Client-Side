@@ -1,0 +1,87 @@
+[
+    {
+      "id": 1,
+      "content": "This is the first top-level comment.",
+      "user": "UserA",
+      "parent_id": null,
+      "created_at": "2024-09-24T10:00:00"
+    },
+    {
+      "id": 2,
+      "content": "This is a reply to the first comment.",
+      "user": "UserB",
+      "parent_id": 1,
+      "created_at": "2024-09-24T10:05:00"
+    },
+    {
+      "id": 3,
+      "content": "This is a second reply to the first comment.",
+      "user": "UserC",
+      "parent_id": 1,
+      "created_at": "2024-09-24T10:10:00"
+    },
+    {
+      "id": 4,
+      "content": "This is a reply to UserB's comment.",
+      "user": "UserD",
+      "parent_id": 2,
+      "created_at": "2024-09-24T10:15:00"
+    },
+    {
+      "id": 5,
+      "content": "This is the second top-level comment.",
+      "user": "UserE",
+      "parent_id": null,
+      "created_at": "2024-09-24T11:00:00"
+    },
+    {
+      "id": 6,
+      "content": "This is a reply to the second top-level comment.",
+      "user": "UserF",
+      "parent_id": 5,
+      "created_at": "2024-09-24T11:05:00"
+    },
+    {
+      "id": 7,
+      "content": "This is another top-level comment with no replies.",
+      "user": "UserG",
+      "parent_id": null,
+      "created_at": "2024-09-24T12:00:00"
+    },
+    {
+      "id": 8,
+      "content": "This is a reply to UserF's comment.",
+      "user": "UserH",
+      "parent_id": 6,
+      "created_at": "2024-09-24T11:10:00"
+    },
+    {
+      "id": 9,
+      "content": "This is a reply to UserD's comment, which is a reply to a reply.",
+      "user": "UserI",
+      "parent_id": 4,
+      "created_at": "2024-09-24T10:20:00"
+    },
+    {
+      "id": 10,
+      "content": "This is a third top-level comment.",
+      "user": "UserJ",
+      "parent_id": null,
+      "created_at": "2024-09-25T13:00:00"
+    },
+    {
+      "id": 11,
+      "content": "This is a reply to the third top-level comment.",
+      "user": "UserK",
+      "parent_id": 10,
+      "created_at": "2024-09-03T13:05:00"
+    },
+    {
+      "id": 12,
+      "content": "This is a nested reply to UserK's comment.",
+      "user": "UserL",
+      "parent_id": 11,
+      "created_at": "2024-09-24T13:10:00"
+    }
+  ]
+  
