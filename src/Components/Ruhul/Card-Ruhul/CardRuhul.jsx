@@ -301,11 +301,11 @@ const CardRuhul = () => {
 
               <div className="flex items-center space-x-4">
                 <Link
-                  to={`/detailsWithComments/${data._id}`}
+                  to={`/detailsWithComments/${data._id}#commentSection`}
                   className="flex items-center space-x-1 hover:text-blue-500"
                 >
                   <FaCommentAlt className="h-5 w-5" />
-                  <span className="text-sm">Comments</span>
+                  <span className="text-sm "> {data?.comments  || 0}</span>
                 </Link>
                 <button className="flex items-center space-x-1 hover:text-gray-800">
                   <FaShare className="h-5 w-5" />
