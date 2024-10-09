@@ -3,7 +3,7 @@ import useAxiosPublic from "./useAxiosPublic";
 
 const useReplies = (id) => {
   const axiosPublic = useAxiosPublic();
-  const { refetch, data: replies = [] } = useQuery({
+  const { refetch:replyRefetch, data: replies = [] } = useQuery({
     queryKey: ["replies", id],
     queryFn: async () => {
       if (!id) return [];
@@ -12,7 +12,7 @@ const useReplies = (id) => {
     },
     enabled: !!id,
   });
-  return [replies, refetch];
+  return [replies, replyRefetch];
 };
 
 export default useReplies;

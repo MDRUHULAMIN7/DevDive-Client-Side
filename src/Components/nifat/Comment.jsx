@@ -9,12 +9,13 @@ import toast from 'react-hot-toast';
 import useCommentLike from '../../Hooks/useCommentLike';
 import useCommentDislike from '../../Hooks/useCommentDislike';
 
-const Comment = ({comment}) => {
+const Comment = ({comment,refetch}) => {
+  
   const { user } = UseAuth();
   const axiosPublic= useAxiosPublic()
-  const [replies, refetch] = useReplies(comment._id);
-  const [commentLikes] = useCommentLike()
-  const [commentDislikes] = useCommentDislike()
+  const [replies, replyRefetch] = useReplies(comment._id);
+  const [commentLikes,,likeRefetch] = useCommentLike()
+  const [commentDislikes,,dislikeRefetch] = useCommentDislike()
   const [isReplying, setIsReplying] = useState(false);
   const [replyContent, setReplyContent] = useState('');
   const [showReplies, setShowReplies]=useState(false)
@@ -36,7 +37,7 @@ const Comment = ({comment}) => {
     axiosPublic.post('/postReply',data)
     .then((result)=>{
             if(result.data.insertedId){
-              refetch()
+              replyRefetch()
               toast.success('replied')
 
             }
@@ -62,11 +63,13 @@ const Comment = ({comment}) => {
       await axiosPublic
         .post(`/commentLike/${commentId}`, { newuser })
         .then((res) => {
-          refetch();
+          likeRefetch()
+          refetch()
           console.log(res.data);
         })
         .catch((err) => {
-          refetch();
+          likeRefetch()
+          refetch()
           console.log(err);
         });
     }
@@ -85,10 +88,12 @@ const Comment = ({comment}) => {
       await axiosPublic
         .post(`/commentDislike/${commentId}`, { newuser })
         .then((res) => {
+          dislikeRefetch()
           refetch();
           console.log(res.data);
         })
         .catch((err) => {
+          dislikeRefetch()
           refetch();
           console.log(err);
         });
@@ -195,7 +200,7 @@ const Comment = ({comment}) => {
       {(showReplies &&  replies.length > 0 )&& (
           <div className="ml-8 mt-4 border-l-2 pl-4 rounded-b-2xl">
             {replies?.map(reply => (
-              <Comment key={reply._id} comment={reply} />
+              <Comment key={reply._id} comment={reply} refetch={replyRefetch} />
             ))}
           </div>
         )}
