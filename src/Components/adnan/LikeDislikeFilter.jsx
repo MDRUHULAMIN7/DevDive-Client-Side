@@ -47,14 +47,18 @@ export default function LikeDislikeFilter  ({ setPosts }) {
       filteredPosts = posts.filter(post => CommentedPostIds.includes(post._id));
       console.log(filteredPosts);
     }
-     // Sort for "Most Disliked" option
+    // Filter for all posts
+    else if (sortOption === "all-posts") {
+      filteredPosts = posts;
+    }
+     // Sort for "My Disliked" option
     //  else if (sortOption === "my-disliked-posts") {
     //   // filteredPosts = [...posts].sort((a, b) => b.dislikes - a.dislikes);
     //   const disLikedPostIds = disLikes
     //     .filter(like => like?.email === user?.email) // Only include posts liked by the signed-in user
     //     .map(like => like.postId); // Extract post IDs that the user has liked
 
-    //   // Filter posts based on liked post IDs
+    //   // Filter posts based on disliked post IDs
     //   filteredPosts = posts.filter(post => disLikedPostIds.includes(post._id));
     //   console.log(filteredPosts);
     // }
@@ -78,9 +82,10 @@ export default function LikeDislikeFilter  ({ setPosts }) {
         <option value="" disabled selected>
           Filter
         </option>
-        <option value="my-liked-posts">My Liked Posts</option>
+        <option value="all-posts">All</option>
+        <option value="my-liked-posts">Liked Posts</option>
         {/* <option value="my-disliked-posts">My Disliked Posts</option> */}
-        <option value="my-commented-posts">My Commented Posts</option>
+        <option value="my-commented-posts">Commented Posts</option>
         {/* <option value="most-liked">Most Liked</option> */}
       </select>
 
