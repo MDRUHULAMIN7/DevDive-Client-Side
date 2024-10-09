@@ -23,7 +23,7 @@ const UsePosts = () => {
   const posts = postsData.sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
   );
-
+  refetch();
   return [posts, isLoading, refetch]; 
 };
 

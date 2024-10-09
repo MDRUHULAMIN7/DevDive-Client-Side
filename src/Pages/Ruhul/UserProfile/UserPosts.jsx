@@ -14,6 +14,9 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import UseAuth from "../../../Hooks/UseAuth";
 import { BiEdit } from "react-icons/bi";
+import Swal from "sweetalert2";
+import { axiosPublic } from "../../../Hooks/useAxiosPublic";
+import toast from "react-hot-toast";
 const UserPosts =()=>{
     const [posts, isLoading, refetch] = UsePosts(); // Fetch posts
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -28,7 +31,7 @@ const UserPosts =()=>{
             setMyPosts(myPost)
         }
 
-    })
+    },[user,dislikes,setMyPosts,posts,likes]);
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
       };
@@ -39,10 +42,59 @@ const UserPosts =()=>{
       }
 
 
-      const handleDelete=(id)=>{
-        if(window.confirm('Are you sure you want to delete this post?')){
-          refetch()
-        }
+      const handleDelete=async(id)=>{
+        Swal.fire({
+          title: "<span class='text-blue-400 text-xl md:text-2xl'>Are you sure to delete this post?</span>",
+          html: "<span class='text-gray-600 dark:text-white text-base'>You won't be able to revert this!</span>",
+          icon: "warning",
+          background: "bg-white dark:bg-gray-800",
+          showCancelButton: true,
+          confirmButtonText: "Yes, delete it!",
+          cancelButtonText: "No, keep it!",
+          buttonsStyling: false,  
+          customClass: {
+            confirmButton: "inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out",
+            cancelButton: "inline-block bg-red-500 text-white font-bold py-2 px-4 rounded-lg ml-2 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300 transition duration-300 ease-in-out",
+            popup: "rounded-lg p-6 dark:bg-gray-800 bg-white"
+          }
+        }).then( async(result)=> {
+
+
+
+          if (result.isConfirmed) {
+
+            if(id){
+              await axiosPublic.delete(`/user-delete-post/${id}`)
+              .then((res)=>{
+                if(res.data.deletedCount > 0){
+                  refetch();
+                  Swal.fire({
+                    title: "<span class='text-blue-400 text-2xl'>Deleted!</span>",
+                    html: "<span class='text-gray-600 dark:white text-base'>Your Post  has been deleted.</span>",
+                    icon: "success",
+                    background: "bg-white dark:bg-gray-800", 
+                    confirmButtonText: "OK",
+                    buttonsStyling: false,
+                    customClass: {
+                      confirmButton: "inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out"
+                    }
+                  });
+                }
+             
+               
+              })
+              .catch(err=>{
+                refetch();
+                toast.error(err);
+              })
+            }
+          
+          }
+        });
+        
+        
+        
+
       }
     return (
         <section>
