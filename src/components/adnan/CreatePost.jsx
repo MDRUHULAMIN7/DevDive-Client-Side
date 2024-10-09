@@ -45,7 +45,7 @@ const CreatePost = () => {
   const handleLinkChange = (e) => {
     const link = e.target.value;
 
-    setLinkValue(link);
+    setLinkValue(link)
   };
 
   const remainingCharacters = maxCharacters - inputValue.length;
