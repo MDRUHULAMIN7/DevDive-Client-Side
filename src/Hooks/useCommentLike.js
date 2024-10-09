@@ -8,7 +8,7 @@ const useCommentLike = () => {
      const axiosPublic=useAxiosPublic()
  
      
-        const {data:commentLikes=[0],isLoading,refetch}=useQuery({
+        const {data:commentLikes=[0],isLoading,refetch:likeRefetch}=useQuery({
             queryKey:['commentLikes',user?.email],
             enabled:!!user?.email && !loading,
             queryFn: async () => {
@@ -18,9 +18,9 @@ const useCommentLike = () => {
             },
           
         })
-           refetch()
+           likeRefetch()
 
-        return [commentLikes[0],isLoading,refetch]
+        return [commentLikes[0],isLoading,likeRefetch]
 };
 
 export default useCommentLike;
