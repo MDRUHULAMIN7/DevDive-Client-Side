@@ -45,7 +45,7 @@ const DetailsWithComments = () => {
         console.log("Element found. Scrolling now...");
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth' });
-        }, 100); // Slight delay to allow for full rendering
+        }, 200); // Slight delay to allow for full rendering
       } else {
         console.log("Element not found");
       }
