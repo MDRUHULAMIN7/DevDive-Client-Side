@@ -206,7 +206,8 @@ const Popular = () => {
               {data?.title}
             </h2>
 
-            <div className="text-gray-700 dark:text-gray-300 ">
+            {
+              data.body &&   <div className="text-gray-700 dark:text-gray-300 ">
               <p>
                 <span
                   dangerouslySetInnerHTML={{
@@ -220,6 +221,8 @@ const Popular = () => {
                 </Link>
               </p>
             </div>
+
+            }
 
             <div className="my-4">
               {data.images[0] && (
