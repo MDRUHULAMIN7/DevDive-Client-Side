@@ -261,7 +261,7 @@ const DetailsWithComments = () => {
               </form>
             }
             {
-              comments.map((comment) => <Comment key={comment._id} comment={comment}></Comment>)
+              comments.map((comment) => <Comment key={comment._id} comment={comment} refetch= {refetch}></Comment>)
               // comments.length>0 && <Comment comments={comments}></Comment>
             }
           </div>

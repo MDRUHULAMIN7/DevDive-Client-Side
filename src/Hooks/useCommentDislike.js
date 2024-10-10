@@ -8,7 +8,7 @@ const useCommentDislike = () => {
      const axiosPublic=useAxiosPublic()
  
      
-        const {data:commentDislikes=[0],isLoading,refetch}=useQuery({
+        const {data:commentDislikes=[0],isLoading,refetch:dislikeRefetch}=useQuery({
             queryKey:['commentDislikes',user?.email],
             enabled:!!user?.email && !loading,
             queryFn: async () => {
@@ -18,9 +18,9 @@ const useCommentDislike = () => {
             },
           
         })
-           refetch()
+           dislikeRefetch()
 
-        return [commentDislikes[0],isLoading,refetch]
+        return [commentDislikes[0],isLoading,dislikeRefetch]
 };
 
 export default useCommentDislike;

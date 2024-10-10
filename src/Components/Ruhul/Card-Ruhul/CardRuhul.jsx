@@ -1,6 +1,5 @@
 import { BsThreeDots } from "react-icons/bs";
 import { MdSaveAlt } from "react-icons/md";
-import { BiHide } from "react-icons/bi";
 import { FaRegFlag } from "react-icons/fa6";
 import { useState } from "react";
 import {
@@ -36,8 +35,6 @@ const CardRuhul = () => {
   const [dislikes] = UseDisLikes();
   const [newPosts, setNewPosts] = useState([]);
   const [follwers] = UseFollowers();
-  // console.log(follwers);
-
   
 
   const handleFollow = async (postId, postUsername) => {
@@ -303,7 +300,7 @@ const CardRuhul = () => {
                   className="flex items-center space-x-1 hover:text-blue-500"
                 >
                   <FaCommentAlt className="h-5 w-5" />
-                  <span className="text-sm">Comments</span>
+                  <span className="text-md">{data?.comments || 0}</span>
                 </Link>
                 <button className="flex items-center space-x-1 hover:text-gray-800">
                   <FaShare className="h-5 w-5" />
