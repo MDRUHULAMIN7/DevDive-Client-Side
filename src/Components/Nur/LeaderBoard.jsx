@@ -2,8 +2,10 @@ import { useState } from "react";
 import UseLeaderBoardPosts from "../../Hooks/Nur/UseLeaderBoardPosts";
 import UseLeaderBoardLikes from "../../Hooks/Nur/UseLeaderBoardLikes";
 import UseLeaderBoardComments from "../../Hooks/Nur/UseLeaderBoardComments";
+import { useNavigate } from "react-router-dom";
 
 const LeaderBoard = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Post");
   const [loadAllPosts, setLoadAllPosts] = useState(false);
   const [loadAllLikes, setLoadAllLikes] = useState(false);
@@ -56,8 +58,9 @@ const LeaderBoard = () => {
                 <ol className="list-group list-group-flush list-group-numbered pl-0 pr-1 md:pr-4">
                   {leaderBoardPosts.map((post, index) => (
                     <div
+                      onClick={() => navigate(`/post-details/${post._id}`)}
                       key={index}
-                      className="d-flex justify-between items-center list-group-item list-group-item-action px-1 md:px-4 py-2 border-b w-full hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none border-gray-300">
+                      className="d-flex justify-between items-center list-group-item list-group-item-action px-1 md:px-4 py-2 border-b w-full hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none border-gray-300 hover:cursor-pointer">
                       <div className=" ml-2 mr-auto flex gap-2">
                         <span className="font-bold">{index + 1}.</span>
                         <p className="flex-grow">{post.title}</p>
