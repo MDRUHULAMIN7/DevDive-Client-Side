@@ -58,7 +58,7 @@ const EditProfile = () => {
 
   const handleCoverPhotoChange = (e) => {
     const file = e.target.files[0];
-    setCoverImage(file);
+    setCoverImage(file)
     handleImageUpload(file, setCoverPic);
   };
 
@@ -92,7 +92,7 @@ const EditProfile = () => {
       toast.success("Profile updated successfully!");
     } catch (error) {
       toast.error("Failed to update profile. Please try again.");
-      setError('Failed to update profile. Please try again.');
+      setError('Failed to update profile. Please try again.',error);
     } finally {
       setLoading(false);
     }
