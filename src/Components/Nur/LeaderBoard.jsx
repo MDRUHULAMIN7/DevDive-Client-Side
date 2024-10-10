@@ -2,8 +2,10 @@ import { useState } from "react";
 import UseLeaderBoardPosts from "../../Hooks/Nur/UseLeaderBoardPosts";
 import UseLeaderBoardLikes from "../../Hooks/Nur/UseLeaderBoardLikes";
 import UseLeaderBoardComments from "../../Hooks/Nur/UseLeaderBoardComments";
+import { useNavigate } from "react-router-dom";
 
 const LeaderBoard = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Post");
   const [loadAllPosts, setLoadAllPosts] = useState(false);
   const [loadAllLikes, setLoadAllLikes] = useState(false);
@@ -48,16 +50,17 @@ const LeaderBoard = () => {
             <div>
               <div className="bg-white shadow rounded-lg dark:bg-themeColor2">
                 <div className="card-header px-4 py-2 border-b border-gray-500 text-lg">
-                  <strong>Popular Karma</strong>
+                  <strong>Popular Posts</strong>
                 </div>
                 <p className="m-3 card-text text-gray-700 dark:text-slate-100">
-                  Users with highest Liked in Post karma.
+                  Posts with the highest number of likes.
                 </p>
                 <ol className="list-group list-group-flush list-group-numbered pl-0 pr-1 md:pr-4">
                   {leaderBoardPosts.map((post, index) => (
                     <div
+                      onClick={() => navigate(`/post-details/${post._id}`)}
                       key={index}
-                      className="d-flex justify-between items-center list-group-item list-group-item-action px-1 md:px-4 py-2 border-b w-full hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none border-gray-300">
+                      className="d-flex justify-between items-center list-group-item list-group-item-action px-1 md:px-4 py-2 border-b w-full hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none border-gray-300 hover:cursor-pointer">
                       <div className=" ml-2 mr-auto flex gap-2">
                         <span className="font-bold">{index + 1}.</span>
                         <p className="flex-grow">{post.title}</p>
@@ -69,7 +72,7 @@ const LeaderBoard = () => {
                     <span>&nbsp;</span>
                     <a
                       onClick={() => handleLoadAllPosts(loadAllPosts)}
-                      className="link-primary text-blue-500"
+                      className="link-primary text-white inline-block px-3 py-1 text-sm rounded-lg bg-blue-500"
                       href="#">
                       {loadAllPosts ? "Show Top 5" : "Show All"}
                     </a>
@@ -82,10 +85,10 @@ const LeaderBoard = () => {
             <div>
               <div className="bg-white shadow rounded-lg dark:bg-themeColor2">
                 <div className="card-header px-4 py-2 border-b border-gray-500 text-lg">
-                  <strong>Like Karma</strong>
+                  <strong>Top Liker</strong>
                 </div>
                 <p className="m-3 card-text text-gray-700 dark:text-slate-100">
-                  Users with highest Liked karma.
+                  Users who have given the highest number of likes.
                 </p>
                 <ol className="list-group list-group-flush list-group-numbered pl-0 pr-1 md:pr-4">
                   {LeaderBoardLikes[0]?.map((user, index) => (
@@ -103,7 +106,7 @@ const LeaderBoard = () => {
                     <span>&nbsp;</span>
                     <a
                       onClick={() => handleLoadAllLikes(loadAllLikes)}
-                      className="link-primary text-blue-500"
+                      className="link-primary text-white inline-block px-3 py-1 text-sm rounded-lg bg-blue-500"
                       href="#">
                       {loadAllLikes ? "Show Top 5" : "Show All"}
                     </a>
@@ -116,10 +119,10 @@ const LeaderBoard = () => {
             <div>
               <div className="bg-white shadow rounded-lg dark:bg-themeColor2">
                 <div className="card-header px-4 py-2 border-b border-gray-500 text-lg">
-                  <strong>Comments Karma</strong>
+                  <strong>Top Commenter</strong>
                 </div>
                 <p className="m-3 card-text text-gray-700 dark:text-slate-100">
-                  Users with highest Comment karma.
+                  Users who have made the highest number of comments.
                 </p>
                 <ol className="list-group list-group-flush list-group-numbered pl-0 pr-1 md:pr-4">
                   {leaderBoardComments.map((user, index) => (
