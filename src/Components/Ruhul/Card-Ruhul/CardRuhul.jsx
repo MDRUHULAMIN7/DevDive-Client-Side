@@ -1,6 +1,5 @@
 import { BsThreeDots } from "react-icons/bs";
 import { MdSaveAlt } from "react-icons/md";
-import { BiHide } from "react-icons/bi";
 import { FaRegFlag } from "react-icons/fa6";
 import { useState } from "react";
 import {
@@ -26,7 +25,8 @@ import UseDisLikes from "../../../Hooks/UseDisLike";
 import PostComponent from "./PostComponent";
 import UseFollowers from "../../../Hooks/UseFollowers";
 import LikeDislikeFilter from "../../adnan/LikeDislikeFilter";
-import DevLoader from "../../Fardus/DevLoader/DevLoader";
+import PollData from "./PollData";
+
 
 const CardRuhul = () => {
   const { user } = UseAuth(); // Get user info from auth hook
@@ -37,8 +37,6 @@ const CardRuhul = () => {
   const [dislikes] = UseDisLikes();
   const [newPosts, setNewPosts] = useState([]);
   const [follwers] = UseFollowers();
-  // console.log(follwers);
-
   
 
   const handleFollow = async (postId, postUsername) => {
@@ -187,9 +185,7 @@ const CardRuhul = () => {
                       <li className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 dark:hover:text-black cursor-pointer flex items-center gap-1">
                         <MdSaveAlt /> Save
                       </li>
-                      <li className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 dark:hover:text-black cursor-pointer flex items-center gap-1">
-                        <BiHide /> Hide
-                      </li>
+                      
                       <li className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 dark:hover:text-black cursor-pointer flex items-center gap-1">
                         <FaRegFlag /> Report
                       </li>
@@ -202,8 +198,8 @@ const CardRuhul = () => {
             <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-2">
               {data?.title}
             </h2>
-
-            <div className="text-gray-700 dark:text-gray-300 ">
+            {
+              data.body &&   <div className="text-gray-700 dark:text-gray-300 ">
               <p>
                 <span
                   dangerouslySetInnerHTML={{
@@ -217,6 +213,16 @@ const CardRuhul = () => {
                 </Link>
               </p>
             </div>
+
+            }
+
+            {
+              data.poll &&  <div className="text-gray-700 dark:text-gray-300 ">
+
+              <PollData data={data}></PollData>
+              </div>
+            }
+          
 
             <div className="my-4">
               {data.images[0] && (
@@ -306,7 +312,7 @@ const CardRuhul = () => {
                   className="flex items-center space-x-1 hover:text-blue-500"
                 >
                   <FaCommentAlt className="h-5 w-5" />
-                  <span className="text-sm "> {data?.comments  || 0}</span>
+                  <span className="text-md">{data?.comments || 0}</span>
                 </Link>
                 <button className="flex items-center space-x-1 hover:text-gray-800">
                   <FaShare className="h-5 w-5" />
