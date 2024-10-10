@@ -17,7 +17,7 @@ const LinkPost = ({handleLinkChange, linkValue}) => {
                 className={`absolute cursor-text px-1 left-2.5 bg-transparent text-slate-400 transition-all transform origin-left peer-focus:left-2.5
         ${linkValue ? 'top-[5px] left-2.5 scale-90 text-xs' : 'top-[50%] translate-y-[-50%] text-sm'}`}
               >
-                Link URL <span className="text-red-500 text-lg absolute top-[-3px] -right-2">*</span>
+                Link URL 
               </label>
             </div>
           </div>

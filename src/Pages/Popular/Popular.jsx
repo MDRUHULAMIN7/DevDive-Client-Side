@@ -139,10 +139,11 @@ const Popular = () => {
       );
     }
     return (
-        <section className='mx-auto max-w-[1090px] w-[95%]'>
+        <div className='mx-auto max-w-[1090px] w-[95%]'>
             <Helmet>
                 <title>DevDive | Popular</title>
             </Helmet>
+         
 
             <section className="">
    
@@ -323,10 +324,10 @@ const Popular = () => {
         ))
       ) : (
         <p className=" text-2xl text-center my-10 "> No Post Found </p>
-      )}
+      )};
     </section>
        
-        </section>
+        </div>
     );
 };
 

@@ -1,7 +1,6 @@
-import React from 'react';
+
 import { Helmet } from 'react-helmet';
-import SignModal from '../../Components/Nur/SignModal';
-import ProgressBar from '../../components/adnan/ProgressBar';
+import DevLoader from '../../Components/Fardus/DevLoader/DevLoader';
 
 const All = () => {
     return (
@@ -9,6 +8,7 @@ const All = () => {
             <Helmet>
                 <title>DevDive | All</title>
             </Helmet>
+            {/* <DevLoader></DevLoader> */}
         </div>
     );
 };

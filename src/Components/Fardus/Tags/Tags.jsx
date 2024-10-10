@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
   const [inputValue, setInputValue] = useState('');
-
   const [suggestions, setSuggestions] = useState([]);
 
   const predefinedTags = [
@@ -35,7 +34,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'rust',
     'go',
     'elixir',
-  
     // Frontend Development
     'frontend',
     'react',
@@ -55,7 +53,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'ui/ux',
     'web accessibility',
     'cross-browser compatibility',
-  
     // Backend Development
     'backend',
     'node.js',
@@ -69,7 +66,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'asp.net',
     'koa.js',
     'fastapi',
-  
     // Databases & Data Management
     'database',
     'mysql',
@@ -87,7 +83,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'data modeling',
     'data warehousing',
     'big data',
-  
     // DevOps & Cloud
     'devops',
     'docker',
@@ -109,7 +104,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'load balancing',
     'kafka',
     'rabbitmq',
-  
     // APIs & Authentication
     'api development',
     'rest api',
@@ -124,7 +118,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'firebase authentication',
     'passport.js',
     'api gateway',
-  
     // Testing & Quality Assurance
     'testing',
     'unit testing',
@@ -141,7 +134,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'mocking',
     'tdd',
     'bdd',
-  
     // Version Control & Collaboration
     'version control',
     'git',
@@ -159,7 +151,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'jira',
     'trello',
     'confluence',
-  
     // Mobile Development
     'mobile development',
     'react native',
@@ -170,7 +161,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'android studio',
     'ionic',
     'cordova',
-  
     // Performance & Optimization
     'performance optimization',
     'lazy loading',
@@ -182,7 +172,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'service workers',
     'progressive web apps',
     'web performance',
-  
     // Security
     'security',
     'encryption',
@@ -195,7 +184,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'penetration testing',
     'firewall',
     'ddos protection',
-  
     // Machine Learning, AI & Data Science
     'machine learning',
     'deep learning',
@@ -218,7 +206,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
 
     "bugs",
     "problems",
-  
     // Blockchain & Cryptography
     'blockchain',
     'cryptocurrency',
@@ -229,7 +216,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'hyperledger',
     'cryptography',
     'zero knowledge proofs',
-  
     // Game Development
     'game development',
     'unity',
@@ -239,7 +225,6 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'panda3d',
     'three.js',
     'webgl',
-  
     // Miscellaneous Tools & Technologies
     'npm',
     'yarn',
@@ -282,13 +267,11 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     'devtools',
     'regex',
   ];
-  
 
-  // This useEffect will trigger whenever the tags array changes and will pass the updated tags to the parent component.
+
   useEffect(() => {
     if (onTagsUpdate) {
       onTagsUpdate(tags);
-      
     }
   }, [tags, onTagsUpdate]);
 
@@ -316,44 +299,46 @@ const Tags = ({ onTagsUpdate, setTags, tags, emptyTags }) => {
     setTags((prevTags) => prevTags.filter((t) => t !== tag));
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && inputValue) {
-      if (!tags.includes(inputValue)) {
-        setTags((prevTags) => [...prevTags, inputValue]);
-      }
+  const handleAddTag = () => {
+    if (inputValue && !tags.includes(inputValue)) {
+      setTags((prevTags) => [...prevTags, inputValue]);
       setInputValue('');
       setSuggestions([]);
-      e.preventDefault();
     }
   };
 
   return (
     <div className="relative">
       <div className={`relative w-full border rounded-2xl ${emptyTags ? "border-red-500" : "border-gray-300 dark:border-gray-500"}`}>
-            <div className="relative">
-              <input
-                id="tag"
-                value={inputValue}
-                onChange={handleInputChange}
-                onKeyDown={handleKeyDown}
-                className={`w-full text-sm h-[58px] bg-transparent placeholder:text-slate-400 dark:text-gray-100 text-slate-700 rounded-md px-4 transition duration-300 ease outline-none
-                        ${inputValue? 'pt-2' : ''}`}
-              />
-              <label
-                htmlFor="tag"
-                className={`absolute cursor-text px-1 left-2.5 bg-transparent text-slate-400 transition-all transform origin-left peer-focus:left-2.5
-        ${inputValue ? 'top-[5px] left-2.5 scale-90 text-xs' : 'top-[50%] translate-y-[-50%] text-sm'}`}
-              >
-                Tags <span className="text-red-500 text-lg absolute top-[-3px] -right-2">*</span>
-              </label>
-              {emptyTags && <span className="text-right text-xs text-red-500 absolute left-1 bottom-[-25px]">Tag is Required</span>}
-            </div>
-          </div>
-      
+        <div className="relative">
+          <input
+            id="tag"
+            value={inputValue}
+            onChange={handleInputChange}
+            className={`w-full text-sm h-[58px] bg-transparent placeholder:text-slate-400 dark:text-gray-100 text-slate-700 rounded-md px-4 transition duration-300 ease outline-none
+              ${inputValue ? 'pt-2' : ''}`}
+          />
+          <label
+            htmlFor="tag"
+            className={`absolute cursor-text px-1 left-2.5 bg-transparent text-slate-400 transition-all transform origin-left peer-focus:left-2.5
+            ${inputValue ? 'top-[5px] left-2.5 scale-90 text-xs' : 'top-[50%] translate-y-[-50%] text-sm'}`}
+          >
+            Tags <span className="text-red-500 text-lg absolute top-[-3px] -right-2">*</span>
+          </label>
+          <button
+            onClick={handleAddTag}
+            className="mx-2 bg-pm-color text-white  py-2 px-3 rounded-full text-xs text-nowrap absolute right-0 top-[50%] translate-y-[-50%]"
+          >
+            Add
+          </button>
+          {emptyTags && <span className="text-right text-xs text-red-500 absolute left-1 bottom-[-25px]">Tag is Required</span>}
+        </div>
+      </div>
+
       {suggestions.length > 0 && (
         <div
           id="tags-suggestions"
-          className={`${emptyTags ? "mt-8" : "mt-2"} border border-gray-300 rounded-lg shadow-md max-h-32 overflow-y-auto`}
+          className={`${emptyTags ? "mt-8" : "mt-2"} border border-gray-300 rounded-lg shadow-md max-h-32 overflow-y-auto scrollBar`}
         >
           {suggestions.map((suggestion) => (
             <div

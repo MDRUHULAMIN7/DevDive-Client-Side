@@ -11,6 +11,7 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { useProgress } from "./ProgressBar";
+import Poll from "../Fardus/Poll/Poll";
 
 const CreatePost = () => {
   const location = useLocation();
@@ -28,6 +29,7 @@ const CreatePost = () => {
   const [emptyTags, setEmptyTags] = useState(false);
   const [imageLoader, setImageLoader] = useState(false)
   const [getImageUrl, setGetImageUrl] = useState([])
+  const [pollOptions, setPollOptions] = useState([]);
   const { startProgressBar, completeProgressBar } = useProgress();
   const maxCharacters = 300;
 
@@ -43,7 +45,7 @@ const CreatePost = () => {
   const handleLinkChange = (e) => {
     const link = e.target.value;
 
-    setLinkValue(link);
+    setLinkValue(link)
   };
 
   const remainingCharacters = maxCharacters - inputValue.length;
@@ -136,6 +138,7 @@ const CreatePost = () => {
           userEmail: user?.email,
           username: user?.displayName,
           profilePicture: user?.photoURL,
+          poll: pollOptions
         });
 
         if (response.status === 200) {
@@ -152,6 +155,7 @@ const CreatePost = () => {
           setLinkValue("");
           setGetImageUrl([]);
           setFiles([]);
+          setPollOptions([])
         }
       } catch (error) {
         console.error("Error posting data:", error);
@@ -175,7 +179,7 @@ const CreatePost = () => {
           </div>
           <h2 className="text-xl font-bold mb-5">Create Post</h2>
 
-          <div className="flex justify-start items-center gap-14 text-sm font-bold mt-14 mb-7 ml-4">
+          <div className="flex flex-wrap justify-start items-center sm:gap-14 gap-8 text-sm font-bold mt-14 mb-7 ml-4">
             <NavLink className={({ isActive }) =>
               ` pb-2 px-2 border-b-2 text-gray-700 dark:text-gray-500 ${isActive ? 'border-sec-color' : 'border-transparent'}`
             } to="/create-post/text-post">Text</NavLink>
@@ -185,6 +189,9 @@ const CreatePost = () => {
             <NavLink className={({ isActive }) =>
               ` pb-2 px-2 border-b-2 text-gray-700 dark:text-gray-500 ${isActive ? 'border-sec-color' : 'border-transparent'}`
             } to="/create-post/link-post">Link</NavLink>
+            <NavLink className={({ isActive }) =>
+              ` pb-2 px-2 border-b-2 text-gray-700 dark:text-gray-500 ${isActive ? 'border-sec-color' : 'border-transparent'}`
+            } to="/create-post/poll">Poll</NavLink>
           </div>
 
           <div className={`relative w-full border rounded-2xl mb-10 ${emptyTitle ? "border-red-500" : "border-gray-300 dark:border-gray-500"}`}>
@@ -219,6 +226,7 @@ const CreatePost = () => {
             {location.pathname == "/create-post/text-post" && <BodyInput setValue={setValue} value={value}></BodyInput>}
             {location.pathname == "/create-post/image-post" && <ImagePost files={files} setFiles={setFiles}></ImagePost>}
             {location.pathname == "/create-post/link-post" && <LinkPost linkValue={linkValue} handleLinkChange={handleLinkChange}></LinkPost>}
+            {location.pathname == "/create-post/poll" && <Poll setPollOptions={setPollOptions} pollOptions={pollOptions}></Poll>}
           </div>
 
           <div className="w-full">

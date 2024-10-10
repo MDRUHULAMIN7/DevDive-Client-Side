@@ -1,6 +1,6 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import UsePosts from "../../Hooks/UsePosts";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
@@ -21,11 +21,38 @@ import { FaCommentAlt } from "react-icons/fa";
 import UseComments from "../../Hooks/UseComments";
 import Comment from "../../Components/nifat/Comment";
 import PostComponent from "../../Components/Ruhul/Card-Ruhul/PostComponent";
+import { Helmet } from "react-helmet";
 
 const DetailsWithComments = () => {
+  const [data, setData] = useState(null);
+  const location = useLocation();
+  const [readyToScroll, setReadyToScroll] = useState(false);
+  // Trigger this effect once when data is rendered
+  useEffect(() => {
+    // When the component mounts, set readyToScroll to true (indicating content is rendered)
+    setReadyToScroll(true);
+  }, [data]); // Depends on content rendering
+
+  useLayoutEffect(() => {
+    if (location.hash && readyToScroll) {
+      const elementId = location.hash.substring(1);
+      const element = document.getElementById(elementId);
+
+      console.log("Hash detected:", location.hash);
+      console.log("Scrolling to element with ID:", elementId);
+
+      if (element) {
+        console.log("Element found. Scrolling now...");
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 200); // Slight delay to allow for full rendering
+      } else {
+        console.log("Element not found");
+      }
+    }
+  }, [location, readyToScroll]);
   const { user } = UseAuth();
   const { id } = useParams();
-  const [data, setData] = useState(null);
   const [posts, , refetch] = UsePosts();
   const axiosPublic = useAxiosPublic();
   const [likes] = UseLikes();
@@ -123,6 +150,9 @@ const DetailsWithComments = () => {
 
   return (
     <section className="my-4 pb-4">
+      <Helmet>
+          <title>DevDive | Post Details</title>
+      </Helmet>
       {data && (
         <div className="mx-auto px-2 md:px-20 lg:px-32">
           <p className="text-lg my-4"><PostComponent data={data}></PostComponent></p>
@@ -240,10 +270,10 @@ const DetailsWithComments = () => {
               </button>
             </div>
           </div>
-          <div>
+          <div id="commentSection">
             <button onClick={handleComment} className="flex items-center gap-2 rounded-full p-2 border-2 bg-slate-100 dark:bg-gray-700 dark:border-gray-700 font-medium"><IoMdAdd /> Add a Comment</button>
           </div>
-          <div>
+          <div >
             {
               showCommentBox && <form onSubmit={submitComment} className="mt-6">
                 <textarea
