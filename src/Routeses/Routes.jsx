@@ -21,6 +21,7 @@ import UserProfile from "../Pages/Ruhul/UserProfile/UserProfile";
 import EditProfile from "../Pages/Ruhul/UserProfile/EditProfile";
 import LeaderBoard from "../Components/Nur/Leaderboard";
 import ContactForm from "../components/adnan/ContactForm";
+import AdminRoute from "../Providers/AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -115,7 +116,7 @@ export const router = createBrowserRouter([
       // for admin
       {
         path: "/admin-settings",
-        element: <AdminSetting></AdminSetting>,
+        element: <PrivateRoute><AdminRoute><AdminSetting></AdminSetting></AdminRoute></PrivateRoute>,
       },
     ],
   },

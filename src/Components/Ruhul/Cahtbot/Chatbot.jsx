@@ -30,7 +30,7 @@ const Chatbot = () => {
     }, []);
 
     return (
-        <section>
+        <section className='z-50'>
             {/* Chatbot content can go here */}
 
             {/* Scroll to top button */}

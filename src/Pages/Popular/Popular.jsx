@@ -1,10 +1,8 @@
-
 import { Helmet } from 'react-helmet';
-
 import { BsThreeDots } from "react-icons/bs";
 import { MdSaveAlt } from "react-icons/md";
 import { FaRegFlag } from "react-icons/fa6";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   FaThumbsUp,
   FaThumbsDown,
@@ -12,8 +10,6 @@ import {
   FaShare,
 } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// import './swiper.css';
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -27,41 +23,47 @@ import UseDisLikes from '../../Hooks/UseDisLike';
 import UseFollowers from '../../Hooks/UseFollowers';
 import PostComponent from '../../Components/Ruhul/Card-Ruhul/PostComponent';
 import UsePopularPosts from '../../Hooks/UsePopularPosts';
-
+import SkeletonLoader from '../../Components/Ruhul/Card-Ruhul/SkeletonLoader';
+import UseAdmin from '../../Hooks/Admin/UseAdmin';
 
 const Popular = () => {
     const { user } = UseAuth(); // Get user info from auth hook
-    let [popularPosts, isLoading, refetch] = UsePopularPosts()
+    let [popularPosts, isLoading, refetch] = UsePopularPosts();
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const axiosPublic = useAxiosPublic();
     const [likes] = UseLikes();
     const [dislikes] = UseDisLikes();
-   
     const [follwers] = UseFollowers();
-    
-  
+    const [isAdmin]=UseAdmin()
+   console.log(isAdmin);    
+    const [currentPage, setCurrentPage] = useState(1);
+    const postsPerPage = 5; // Adjust the number of posts per page
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // Smooth scroll to top on page change
+    }, [currentPage]);
+
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = popularPosts?.slice(indexOfFirstPost, indexOfLastPost);
+
     const handleFollow = async (postId, postUsername) => {
       if (!user) {
         toast("You need to log in to Follow / Unfollow.");
         return;
       }
-     
-  
+
       const newuser = {
         name: user?.displayName,
         email: user?.email,
         photo: user?.photoURL,
       };
-  
+
       if (newuser?.email && newuser?.photo) {
         try {
-          // Make POST request to follow/unfollow the user
           const res = await axiosPublic.post(`/follow/${postId}`, { newuser });
-  
           const { message } = res.data;
-  
 
-  
           if (message === "Unfollowed successfully") {
             toast(`Unfollowed ${postUsername}`);
           } else if (message === "Followed successfully") {
@@ -69,9 +71,8 @@ const Popular = () => {
           } else {
             toast(`No changes made for ${postUsername}`);
           }
-     
-          refetch(); // Refresh the data
 
+          refetch(); // Refresh the data
         } catch (err) {
           console.error("Error:", err);
           toast.error("An error occurred while processing your request.");
@@ -80,13 +81,13 @@ const Popular = () => {
         toast("Invalid user data. Please log in again.");
       }
     };
-  
+
     const handleLike = async (postId) => {
       if (!user) {
         toast("You need to log in to like a post.");
         return;
       }
-  
+
       const newuser = {
         name: user?.displayName,
         email: user?.email,
@@ -105,11 +106,13 @@ const Popular = () => {
           });
       }
     };
+
     const handleDislike = async (postId) => {
       if (!user) {
         toast("You need to log in to dislike a post.");
         return;
       }
+
       const newuser = {
         name: user?.displayName,
         email: user?.email,
@@ -128,27 +131,34 @@ const Popular = () => {
           });
       }
     };
-  
+
     const toggleDropdown = () => {
       setDropdownOpen(!dropdownOpen);
     };
-  
+
+    const paginate = (pageNumber) => {
+      setCurrentPage(pageNumber);
+    };
+
     if (isLoading) {
       return (
-        <div className=" text-2xl text-center my-10 ">Post is loading ....</div>
+        <div className=" text-2xl text-center my-10 ">
+          <SkeletonLoader />
+          <SkeletonLoader />
+          <SkeletonLoader />
+        </div>
       );
     }
+
     return (
-        <div className='mx-auto max-w-[1090px] w-[95%]'>
+        <div className='mx-auto max-w-[1090px] pb-10 w-[95%]'>
             <Helmet>
                 <title>DevDive | Popular</title>
             </Helmet>
          
-
             <section className="">
-   
-      {popularPosts?.length > 0 ? (
-        popularPosts?.map((data, index) => (
+      {currentPosts?.length > 0 ? (
+        currentPosts?.map((data, index) => (
           <div
             key={index}
             className="mt-4 bg-white dark:bg-gray-900 shadow-md mx-1 rounded-lg p-4 my-4  md:mx-auto border border-gray-200 dark:border-gray-700 ">
@@ -164,7 +174,7 @@ const Popular = () => {
                     {data.username}
                   </h3>
 
-                  <PostComponent data={data}></PostComponent>
+                  <PostComponent data={data} />
                 </div>
                 <div className="ml-5">
                   <button
@@ -192,7 +202,6 @@ const Popular = () => {
                       <li className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 dark:hover:text-black cursor-pointer flex items-center gap-1">
                         <MdSaveAlt /> Save
                       </li>
-                    
                       <li className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 dark:hover:text-black cursor-pointer flex items-center gap-1">
                         <FaRegFlag /> Report
                       </li>
@@ -206,23 +215,22 @@ const Popular = () => {
               {data?.title}
             </h2>
 
-            {
-              data.body &&   <div className="text-gray-700 dark:text-gray-300 ">
-              <p>
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: data.body && data?.body?.slice(0, 200),
-                  }}
-                />
-                <Link
-                  className="text-blue-600 mt-1 block"
-                  to={`/post-details/${data._id}`}>
-                  See more...
-                </Link>
-              </p>
-            </div>
-
-            }
+            {data.body && (
+              <div className="text-gray-700 dark:text-gray-300 ">
+                <p>
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: data.body && data?.body?.slice(0, 200),
+                    }}
+                  />
+                  <Link
+                    className="text-blue-600 mt-1 block"
+                    to={`/post-details/${data._id}`}>
+                    See more...
+                  </Link>
+                </p>
+              </div>
+            )}
 
             <div className="my-4">
               {data.images[0] && (
@@ -238,9 +246,9 @@ const Popular = () => {
                       <SwiperSlide key={index}>
                         <div className="h-[300px] md:h-[400px]  w-full flex justify-center items-center overflow-hidden rounded-lg">
                           <img
-                            src={image} // Ensure this is a valid URL
+                            src={image}
                             alt="Post"
-                            className="w-full h-full object-cover" // Use object-cover to maintain aspect ratio
+                            className="w-full h-full object-cover"
                           />
                         </div>
                       </SwiperSlide>
@@ -250,7 +258,7 @@ const Popular = () => {
             </div>
 
             <div className="flex flex-wrap justify-between items-center text-gray-500 dark:text-gray-400 text-sm">
-              <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4">
                 {/* Like */}
                 <button
                   onClick={() => {
@@ -308,7 +316,7 @@ const Popular = () => {
 
               <div className="flex items-center space-x-4">
                 <Link
-                  to={`/detailsWithComments/${data._id}`}
+                  to={`/detailsWithComments/${data._id}#commentSection`}
                   className="flex items-center space-x-1 hover:text-blue-500"
                 >
                   <FaCommentAlt className="h-5 w-5" />
@@ -320,16 +328,25 @@ const Popular = () => {
                 </button>
               </div>
             </div>
-            {/* {
-          showComments &&  <CommentsSection comments={comments}></CommentsSection>
-        } */}
           </div>
         ))
       ) : (
-        <p className=" text-2xl text-center my-10 "> No Post Found </p>
-      )};
+        <div>No Popular posts yet...</div>
+      )}
     </section>
-       
+
+            {/* Pagination */}
+            <div className="pagination flex justify-center mt-4">
+                {Array.from({ length: Math.ceil(popularPosts?.length / postsPerPage) }, (_, index) => (
+                    <button
+                        key={index + 1}
+                        onClick={() => paginate(index + 1)}
+                        className={`px-3 py-2 mx-1 rounded ${index + 1 === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}
+                    >
+                        {index + 1}
+                    </button>
+                ))}
+            </div>
         </div>
     );
 };

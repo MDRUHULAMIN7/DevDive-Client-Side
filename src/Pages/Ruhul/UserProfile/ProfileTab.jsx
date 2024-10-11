@@ -6,7 +6,6 @@ import UserPosts from './UserPosts';
 
 const ProfileTab = (data) => {
   const userData = data && data;
-  
   const [activeTab, setActiveTab] = useState('posts'); // Default tab
   return (
     <div className="w-full max-w-4xl mx-auto mt-10">
@@ -41,7 +40,7 @@ const ProfileTab = (data) => {
           <UserFollowing followingdata={userData.data.users.following}   ></UserFollowing>
         )}
         {activeTab === 'posts' && (
-          <UserPosts></UserPosts>
+          <UserPosts user2={userData.data.users.mainuser} ></UserPosts>
         )}
       </div>
     </div>

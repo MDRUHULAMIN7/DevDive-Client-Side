@@ -20,20 +20,22 @@ import { Link } from "react-router-dom";
 import UseAuth from "../../../Hooks/UseAuth";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
-import UseLikes from "../../../Hooks/UseLikes";
 import UseDisLikes from "../../../Hooks/UseDisLike";
 import PostComponent from "./PostComponent";
 import UseFollowers from "../../../Hooks/UseFollowers";
 import LikeDislikeFilter from "../../adnan/LikeDislikeFilter";
 import PollData from "./PollData";
+import SkeletonLoader from "./SkeletonLoader";
+import LikeButton from "./LikeButton";
+
 
 
 const CardRuhul = () => {
   const { user } = UseAuth(); // Get user info from auth hook
-  let [posts, isLoading, refetch] = UsePosts(); // Fetch posts
+  let [, isLoading, refetch] = UsePosts(); // Fetch posts
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const axiosPublic = useAxiosPublic();
-  const [likes] = UseLikes();
+
   const [dislikes] = UseDisLikes();
   const [newPosts, setNewPosts] = useState([]);
   const [follwers] = UseFollowers();
@@ -76,30 +78,9 @@ const CardRuhul = () => {
     }
   };
 
-  const handleLike = async (postId) => {
-    if (!user) {
-      toast("You need to log in to like a post.");
-      return;
-    }
+ 
 
-    const newuser = {
-      name: user?.displayName,
-      email: user?.email,
-      photo: user?.photoURL,
-    };
-    if (newuser?.email && newuser?.photo) {
-      await axiosPublic
-        .post(`/like/${postId}`, { newuser })
-        .then((res) => {
-          refetch();
-          console.log(res.data);
-        })
-        .catch((err) => {
-          refetch();
-          console.log(err);
-        });
-    }
-  };
+  
   const handleDislike = async (postId) => {
     if (!user) {
       toast("You need to log in to dislike a post.");
@@ -130,7 +111,11 @@ const CardRuhul = () => {
 
   if (isLoading) {
     return (
-      <div className=" text-2xl text-center my-10 ">Post is loading ....</div>
+      <div className=" text-2xl text-center my-10 ">
+
+        <SkeletonLoader></SkeletonLoader>
+        
+      </div>
       // <DevLoader></DevLoader>
     );
   }
@@ -148,11 +133,13 @@ const CardRuhul = () => {
             className="mt-4 bg-white dark:bg-gray-900 shadow-md rounded-lg p-4 my-4  md:mx-auto border border-gray-200 dark:border-gray-700 ">
             <div className="flex justify-between items-center mb-3">
               <div className="flex items-center">
+                <Link to={`/users/${data?.userEmail}`}>
+                
                 <img
                   src={data.profilePicture}
                   alt="User"
-                  className="rounded-full h-10 w-10 object-cover"
-                />
+                  className="rounded-full border border-primary h-10 w-10 object-cover"
+                /></Link>
                 <div className="ml-3">
                   <h3 className="font-semibold text-gray-800 dark:text-gray-200">
                     {data.username}
@@ -252,31 +239,9 @@ const CardRuhul = () => {
             <div className="flex flex-wrap justify-between items-center text-gray-500 dark:text-gray-400 text-sm">
               <div className="flex items-center space-x-4">
                 {/* Like */}
-                <button
-                  onClick={() => {
-                    handleLike(data._id);
-                  }}
-                  className={`flex items-center space-x-1 hover:text-blue-500 `}>
-                  {likes &&
-                  likes.find(
-                    (like) =>
-                      like.postId === data._id && like?.email === user?.email
-                  ) ? (
-                    <p className="flex text-blue-500 justify-center items-center gap-x-1">
-                      {" "}
-                      <FaThumbsUp className="h-5 w-5" />{" "}
-                    </p>
-                  ) : (
-                    <p className="flex  justify-center items-center gap-x-1">
-                      {" "}
-                      <FaThumbsUp className="h-5 w-5" />{" "}
-                    </p>
-                  )}
-                  <span className="ml-1 text-sm text-gray-600">
-                    {data?.likes}
-                  </span>{" "}
-                  {/* Total likes count */}
-                </button>
+
+                <LikeButton data={data} user={user}></LikeButton>
+                
 
                 {/* Dislike */}
                 <button
@@ -307,6 +272,9 @@ const CardRuhul = () => {
               </div>
 
               <div className="flex items-center space-x-4">
+               <div className="">
+               
+               </div>
                 <Link
                   to={`/detailsWithComments/${data._id}#commentSection`}
                   className="flex items-center space-x-1 hover:text-blue-500"
