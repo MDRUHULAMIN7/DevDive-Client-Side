@@ -14,7 +14,6 @@ import AboutSection from "../Pages/Ruhul/Admin/AboutSection/AboutSection";
 import BlogCard from "../Components/Sanjida/BlogCard";
 import ReadMore from "../Components/Sanjida/ReadMore";
 import CardRuhul from "../Components/Ruhul/Card-Ruhul/CardRuhul";
-import PostDetails from "../Pages/PostDetails/PostDetails";
 import PrivateRoute from "../Providers/PrivateRoute";
 import DetailsWithComments from "../Pages/PostDetails/DetailsWithComments";
 import UserProfile from "../Pages/Ruhul/UserProfile/UserProfile";
@@ -22,6 +21,7 @@ import EditProfile from "../Pages/Ruhul/UserProfile/EditProfile";
 import LeaderBoard from "../Components/Nur/Leaderboard";
 import ContactForm from "../components/adnan/ContactForm";
 import AdminRoute from "../Providers/AdminRoute";
+import Message from "../Pages/Ruhul/Message/Message";
 
 export const router = createBrowserRouter([
   {
@@ -118,6 +118,11 @@ export const router = createBrowserRouter([
         path: "/admin-settings",
         element: <PrivateRoute><AdminRoute><AdminSetting></AdminSetting></AdminRoute></PrivateRoute>,
       },
+
+      {
+        path: "/chat/:email",
+        element: <PrivateRoute><Message></Message></PrivateRoute>
+      }
     ],
   },
 ]);

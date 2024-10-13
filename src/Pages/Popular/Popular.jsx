@@ -1,11 +1,6 @@
 import { Helmet } from 'react-helmet';
-import { BsThreeDots } from "react-icons/bs";
-import { MdSaveAlt } from "react-icons/md";
-import { FaRegFlag } from "react-icons/fa6";
 import { useState, useEffect } from "react";
 import {
-  FaThumbsUp,
-  FaThumbsDown,
   FaCommentAlt,
   FaShare,
 } from "react-icons/fa";
@@ -15,27 +10,23 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import { Link } from "react-router-dom";
-import toast from "react-hot-toast";
 import UseAuth from '../../Hooks/UseAuth';
-import useAxiosPublic from '../../Hooks/useAxiosPublic';
-import UseLikes from '../../Hooks/UseLikes';
-import UseDisLikes from '../../Hooks/UseDisLike';
-import UseFollowers from '../../Hooks/UseFollowers';
 import PostComponent from '../../Components/Ruhul/Card-Ruhul/PostComponent';
 import UsePopularPosts from '../../Hooks/UsePopularPosts';
 import SkeletonLoader from '../../Components/Ruhul/Card-Ruhul/SkeletonLoader';
-import UseAdmin from '../../Hooks/Admin/UseAdmin';
+import FollowButton from '../../Components/Ruhul/Card-Ruhul/FollowButton';
+import LikeButton from '../../Components/Ruhul/Card-Ruhul/LikeButton';
+import DisLikeButton from '../../Components/Ruhul/Card-Ruhul/DisLikeButton';
+import DropDown from '../../Components/Ruhul/Card-Ruhul/DropDown';
 
 const Popular = () => {
     const { user } = UseAuth(); // Get user info from auth hook
-    let [popularPosts, isLoading, refetch] = UsePopularPosts();
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const axiosPublic = useAxiosPublic();
-    const [likes] = UseLikes();
-    const [dislikes] = UseDisLikes();
-    const [follwers] = UseFollowers();
-    const [isAdmin]=UseAdmin()
-   console.log(isAdmin);    
+    let [popularPosts, isLoading] = UsePopularPosts();
+    const [openDropdownId, setOpenDropdownId] = useState(null); // Track which dropdown is open
+    const toggleDropdown = (id) => {
+      setOpenDropdownId((prevId) => (prevId === id ? null : id)); // Toggle the same ID or close it
+    };
+     
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 5; // Adjust the number of posts per page
 
@@ -47,94 +38,6 @@ const Popular = () => {
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = popularPosts?.slice(indexOfFirstPost, indexOfLastPost);
 
-    const handleFollow = async (postId, postUsername) => {
-      if (!user) {
-        toast("You need to log in to Follow / Unfollow.");
-        return;
-      }
-
-      const newuser = {
-        name: user?.displayName,
-        email: user?.email,
-        photo: user?.photoURL,
-      };
-
-      if (newuser?.email && newuser?.photo) {
-        try {
-          const res = await axiosPublic.post(`/follow/${postId}`, { newuser });
-          const { message } = res.data;
-
-          if (message === "Unfollowed successfully") {
-            toast(`Unfollowed ${postUsername}`);
-          } else if (message === "Followed successfully") {
-            toast(`Following ${postUsername}`);
-          } else {
-            toast(`No changes made for ${postUsername}`);
-          }
-
-          refetch(); // Refresh the data
-        } catch (err) {
-          console.error("Error:", err);
-          toast.error("An error occurred while processing your request.");
-        }
-      } else {
-        toast("Invalid user data. Please log in again.");
-      }
-    };
-
-    const handleLike = async (postId) => {
-      if (!user) {
-        toast("You need to log in to like a post.");
-        return;
-      }
-
-      const newuser = {
-        name: user?.displayName,
-        email: user?.email,
-        photo: user?.photoURL,
-      };
-      if (newuser?.email && newuser?.photo) {
-        await axiosPublic
-          .post(`/like/${postId}`, { newuser })
-          .then((res) => {
-            refetch();
-            console.log(res.data);
-          })
-          .catch((err) => {
-            refetch();
-            console.log(err);
-          });
-      }
-    };
-
-    const handleDislike = async (postId) => {
-      if (!user) {
-        toast("You need to log in to dislike a post.");
-        return;
-      }
-
-      const newuser = {
-        name: user?.displayName,
-        email: user?.email,
-        photo: user?.photoURL,
-      };
-      if (newuser?.email && newuser?.photo) {
-        await axiosPublic
-          .post(`/dislike/${postId}`, { newuser })
-          .then((res) => {
-            refetch();
-            console.log(res.data);
-          })
-          .catch((err) => {
-            refetch();
-            console.log(err);
-          });
-      }
-    };
-
-    const toggleDropdown = () => {
-      setDropdownOpen(!dropdownOpen);
-    };
 
     const paginate = (pageNumber) => {
       setCurrentPage(pageNumber);
@@ -145,7 +48,7 @@ const Popular = () => {
         <div className=" text-2xl text-center my-10 ">
           <SkeletonLoader />
           <SkeletonLoader />
-          <SkeletonLoader />
+        
         </div>
       );
     }
@@ -177,37 +80,13 @@ const Popular = () => {
                   <PostComponent data={data} />
                 </div>
                 <div className="ml-5">
-                  <button
-                    onClick={() => handleFollow(data._id, data.username)}
-                    className={`p-1 font-semibold text-sm text-white rounded-xl w-full h-8 bg-blue-700`}>
-                    {follwers &&
-                    follwers.find(
-                      (a) =>
-                        a.followerEmail === user?.email &&
-                        a.followingEmail === data?.userEmail
-                    )
-                      ? "Following"
-                      : "Follow"}
-                  </button>
+                <FollowButton user={user} data={data}></FollowButton>
                 </div>
               </div>
               <div className="relative flex items-center gap-2">
-                <BsThreeDots
-                  onClick={toggleDropdown}
-                  className="cursor-pointer"
-                />
-                {dropdownOpen && (
-                  <div className="absolute right-0 mt-36 w-32 bg-white rounded-xl shadow-lg z-10">
-                    <ul>
-                      <li className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 dark:hover:text-black cursor-pointer flex items-center gap-1">
-                        <MdSaveAlt /> Save
-                      </li>
-                      <li className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 dark:hover:text-black cursor-pointer flex items-center gap-1">
-                        <FaRegFlag /> Report
-                      </li>
-                    </ul>
-                  </div>
-                )}
+              <DropDown id={data._id}
+              isOpen={openDropdownId === data._id} 
+              toggleDropdown={toggleDropdown} ></DropDown>
               </div>
             </div>
 
@@ -260,58 +139,10 @@ const Popular = () => {
             <div className="flex flex-wrap justify-between items-center text-gray-500 dark:text-gray-400 text-sm">
             <div className="flex items-center space-x-4">
                 {/* Like */}
-                <button
-                  onClick={() => {
-                    handleLike(data._id);
-                  }}
-                  className={`flex items-center space-x-1 hover:text-blue-500 `}>
-                  {likes &&
-                  likes.find(
-                    (like) =>
-                      like.postId === data._id && like?.email === user?.email
-                  ) ? (
-                    <p className="flex text-blue-500 justify-center items-center gap-x-1">
-                      {" "}
-                      <FaThumbsUp className="h-5 w-5" />{" "}
-                    </p>
-                  ) : (
-                    <p className="flex  justify-center items-center gap-x-1">
-                      {" "}
-                      <FaThumbsUp className="h-5 w-5" />{" "}
-                    </p>
-                  )}
-                  <span className="ml-1 text-sm text-gray-600">
-                    {data?.likes}
-                  </span>{" "}
-                  {/* Total likes count */}
-                </button>
+               <LikeButton user={user} data={data}></LikeButton>
 
                 {/* Dislike */}
-                <button
-                  onClick={() => {
-                    handleDislike(data._id);
-                  }}
-                  className={`flex items-center space-x-1 hover:text-red-500 `}>
-                  {dislikes &&
-                  dislikes?.find(
-                    (like) =>
-                      like.postId === data._id && like?.email === user?.email
-                  ) ? (
-                    <p className="flex text-red-500 justify-center items-center gap-x-1">
-                      {" "}
-                      <FaThumbsDown className="h-5 w-5" />{" "}
-                    </p>
-                  ) : (
-                    <p className="flex  justify-center items-center gap-x-1">
-                      {" "}
-                      <FaThumbsDown className="h-5 w-5" />
-                    </p>
-                  )}
-                  <span className="ml-1 text-sm text-gray-600">
-                    {data?.dislikes}
-                  </span>{" "}
-                  
-                </button>
+               <DisLikeButton user={ user} data={data}></DisLikeButton>
               </div>
 
               <div className="flex items-center space-x-4">
