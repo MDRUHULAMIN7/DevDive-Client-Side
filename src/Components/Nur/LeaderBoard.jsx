@@ -93,8 +93,9 @@ const LeaderBoard = () => {
                 <ol className="list-group list-group-flush list-group-numbered pl-0 pr-1 md:pr-4">
                   {LeaderBoardLikes[0]?.map((user, index) => (
                     <div
+                      onClick={() => navigate(`/users/${user._id}`)}
                       key={index}
-                      className="d-flex justify-between items-center list-group-item list-group-item-action px-1 md:px-4 py-2 border-b w-full hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none border-gray-300 dark:border-gray-600">
+                      className="d-flex justify-between items-center list-group-item list-group-item-action px-1 md:px-4 py-2 border-b w-full hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none border-gray-300 dark:border-gray-600 hover:cursor-pointer">
                       <div className=" ml-2 mr-auto flex gap-2">
                         <span className="font-bold">{index + 1}.</span>
                         <p className="flex-grow">{user.name}</p>
