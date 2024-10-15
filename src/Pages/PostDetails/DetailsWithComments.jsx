@@ -71,12 +71,13 @@ const DetailsWithComments = () => {
     const contentId = id;
     const comment = newComment;
     const userName = user.displayName;
+    const userEmail = user.email;
     const userImage = user.photoURL;
     const likeCount = 0;
     const disLikeCount = 0;
     const replyCount = 0;
     const parentId = null;
-    const data = { contentId, comment, userName, userImage, likeCount, disLikeCount, replyCount, parentId }
+    const data = { contentId, comment, userName,userEmail, userImage, likeCount, disLikeCount, replyCount, parentId }
     console.log(data)
     axiosPublic.post('/postComment', data)
       .then((result) => {

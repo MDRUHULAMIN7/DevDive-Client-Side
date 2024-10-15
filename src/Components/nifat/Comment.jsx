@@ -8,6 +8,7 @@ import useReplies from '../../Hooks/useReplies';
 import toast from 'react-hot-toast';
 import useCommentLike from '../../Hooks/useCommentLike';
 import useCommentDislike from '../../Hooks/useCommentDislike';
+import { SlOptionsVertical } from "react-icons/sl";
 
 const Comment = ({comment,refetch}) => {
   
@@ -19,20 +20,23 @@ const Comment = ({comment,refetch}) => {
   const [isReplying, setIsReplying] = useState(false);
   const [replyContent, setReplyContent] = useState('');
   const [showReplies, setShowReplies]=useState(false)
+  const [commentEditOption, setCommentEditOption]=useState(false)
   console.log(comment);
   console.log(replies)
+  console.log(user)
     // Handle reply submission
   const handleReply = (e) => {
     e.preventDefault();
     const contentId= comment.contentId;
     const reply= replyContent;
     const userName= user.displayName;
+    const userEmail= user.email;
     const userImage= user.photoURL;
     const likeCount=0;
     const disLikeCount=0;
     const replyCount=0;
     const parentId= comment._id;
-    const data= {contentId,reply,userName,userImage,likeCount,disLikeCount,replyCount,parentId}
+    const data= {contentId,reply,userName,userEmail,userImage,likeCount,disLikeCount,replyCount,parentId}
     console.log(data)
     axiosPublic.post('/postReply',data)
     .then((result)=>{
@@ -48,6 +52,9 @@ const Comment = ({comment,refetch}) => {
     setIsReplying(false);
     setReplyContent('');
   };
+  const handleShowCommentEditOption=()=>{
+    setCommentEditOption(!commentEditOption)
+  }
   const handleLike = async (commentId) => {
     if (!user) {
       toast("You need to log in to like a post.");
@@ -102,16 +109,29 @@ const Comment = ({comment,refetch}) => {
   return (
         <div className='mt-4'>
             <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-lg shadow-sm mb-2">
-      <div className="flex items-center">
-          <img
-            src={comment.userImage}
-            alt="User"
-            className="rounded-full h-10 w-10 object-cover"
-          />
-          <div className="ml-3">
-            <h3 className="font-medium text-black dark:text-gray-200">{comment.userName}</h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400">{moment(comment.createdAt).fromNow()}</p>
+        <div className='flex justify-between'>
+          <div className="flex items-center">
+            <img
+              src={comment.userImage}
+              alt="User"
+              className="rounded-full h-10 w-10 object-cover"
+            />
+            <div className="ml-3">
+              <h3 className="font-medium text-black dark:text-gray-200">{comment.userName}</h3>
+              <p className="text-xs text-gray-500 dark:text-gray-400">{moment(comment.createdAt).fromNow()}</p>
+            </div>
           </div>
+          {
+            (comment.userName == user.displayName)? 
+            <div>
+              <button onClick={handleShowCommentEditOption}>
+                <SlOptionsVertical />
+              </button>
+              {
+
+              }
+            </div>:<div></div>
+          }
         </div>
         <p className="text-md text-black dark:text-gray-400">{comment.comment || comment.reply}</p>
         {/*like/dislike section  */}
