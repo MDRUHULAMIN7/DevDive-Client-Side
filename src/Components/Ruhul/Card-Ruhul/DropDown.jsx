@@ -24,9 +24,17 @@ const DropDown = ({ id, isOpen, toggleDropdown, archiveData }) => {
       }
     } catch (error) {
       console.error("Error archiving data:", error);
-
+      if (error.response && error.response.status === 400) {
+        // Handle specific 400 Bad Request error
+        if (error.response.data.message === "Post already archived") {
+          toast.error("Post already archived.");
+        } else {
+          toast.error("Failed to archive data.");
+        }
+      } else {
+        console.error("Error archiving data:", error);
         toast.error("Failed to archive data. Try again.");
-      
+      }
     }
   };
 
