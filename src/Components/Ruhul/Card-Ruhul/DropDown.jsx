@@ -1,12 +1,33 @@
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegFileArchive, FaRegFlag } from "react-icons/fa";
+import { axiosPublic } from "../../../Hooks/useAxiosPublic";
+import toast from "react-hot-toast";
 
 const DropDown = ({ id, isOpen, toggleDropdown, archiveData }) => {
   console.log("archiveData", archiveData);
 
   const handleArchive = async (archiveData) => {
     console.log("archiveDataAfterHit", archiveData);
+    try {
+      const transformedData = {
+        ...archiveData,
+        post_id: archiveData._id,
+      };
+      delete transformedData._id;
 
+      console.log("Transformed Data:", transformedData);
+
+      const response = await axiosPublic.post("/archiveData", transformedData);
+      if (response.status === 200) {
+        toast.success("Data archived successfully!");
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.error("Error archiving data:", error);
+
+        toast.error("Failed to archive data. Try again.");
+      
+    }
   };
 
   return (
