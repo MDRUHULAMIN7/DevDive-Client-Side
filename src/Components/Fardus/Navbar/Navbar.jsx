@@ -172,7 +172,7 @@ const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
                                     <div
                                         className={`${clickPp ? "lg:block hidden" : "hidden"
                                             } w-[250px] pt-5 shadow-2xl absolute top-14 right-1 rounded-lg bg-white dark:bg-themeColor2`}>
-                                        <div className="flex items-center gap-2 px-5 py-4 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 ">
+                                        <Link to={`/users/${user?.email}`} className="flex items-center gap-2 px-5 py-4 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 ">
                                             <Link to={`/users/${user?.email}`} className="relative">
                                                 <img
                                                     className="object-cover w-9 h-9 rounded-full"
@@ -185,7 +185,7 @@ const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
                                                 <h2 className="text-sm">{user?.displayName}</h2>
                                                 <h3 className="text-xs">{user?.email}</h3>
                                             </div>
-                                        </div>
+                                        </Link>
 
                                         <div className="flex justify-between lg:px-6 px-5 py-3 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
                                             <span className="flex items-center gap-3">
@@ -277,7 +277,7 @@ const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
             <div
                 className={`fixed z-[100] bottom-0 left-0 lg:hidden ${clickPp ? "translate-y-0" : "translate-y-[100%] hidden"
                     } bg-white dark:bg-themeColor2 text-black dark:text-white w-full`}>
-                <div className="flex items-center gap-2 px-5 py-4 hover:bg-gray-100">
+                <Link to={`/users/${user?.email}`} className="flex items-center gap-2 px-5 py-4 hover:bg-gray-100">
                     <div className="relative">
                         <img
                             className="object-cover w-9 h-9 rounded-full"
@@ -291,7 +291,7 @@ const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
                         }</h2>
                         <h3 className="text-xs">{user?.email}</h3>
                     </div>
-                </div>
+                </Link>
 
                 <div className="flex justify-between lg:px-6 px-5 py-3 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
                     <span className="flex items-center gap-3">

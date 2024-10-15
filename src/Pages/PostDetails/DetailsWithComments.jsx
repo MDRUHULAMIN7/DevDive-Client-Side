@@ -22,6 +22,7 @@ import UseComments from "../../Hooks/UseComments";
 import Comment from "../../Components/nifat/Comment";
 import PostComponent from "../../Components/Ruhul/Card-Ruhul/PostComponent";
 import { Helmet } from "react-helmet";
+import PollData from "../../Components/Ruhul/Card-Ruhul/PollData";
 
 const DetailsWithComments = () => {
   const [data, setData] = useState(null);
@@ -195,11 +196,20 @@ const DetailsWithComments = () => {
               </p>
             ))}
           </div>
+        {  data?.body &&
           <p
             className="text-gray-700 dark:text-gray-300 mt-5"
             dangerouslySetInnerHTML={{ __html: data.body }}
           />
+        }
           {/* new */}
+          {
+              data.poll &&  <div className="text-gray-700 dark:text-gray-300 ">
+
+              <PollData data={data}></PollData>
+              </div>
+            }
+          
 
           <div className="flex my-5 flex-wrap gap-5 items-center text-gray-500 dark:text-gray-400 text-sm">
             <div className="flex items-center space-x-4">

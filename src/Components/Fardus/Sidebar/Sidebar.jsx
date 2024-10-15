@@ -49,7 +49,7 @@ const Sidebar = ({ setOpenMenu, openMenu }) => {
             <span className="mx-4 font-medium text-xs">Following</span>
           </NavLink>
 
-          <NavLink
+          {/* <NavLink
             to="/all"
             className={({ isActive }) =>
               `flex items-center px-4 py-2 duration-200 hover:bg-pm-color hover:text-white rounded-md ${
@@ -58,7 +58,7 @@ const Sidebar = ({ setOpenMenu, openMenu }) => {
             }>
             <MdBarChart className="text-lg" />
             <span className="mx-4 font-medium text-xs">All</span>
-          </NavLink>
+          </NavLink> */}
 
           <hr className="my-6 border-gray-200 dark:border-gray-700" />
 
@@ -79,7 +79,7 @@ const Sidebar = ({ setOpenMenu, openMenu }) => {
                 isActive ? "bg-pm-color text-white" : ""
               }`
             }>
-            <TfiWrite className="" />
+            <MdBarChart className="" />
             <span className="mx-3 font-medium text-xs">Leaderboard</span>
           </NavLink>
           <NavLink

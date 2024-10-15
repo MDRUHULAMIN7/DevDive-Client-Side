@@ -17,6 +17,7 @@ import {
   sendEmailVerification,
 } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
+import { axiosPublic } from "../Hooks/useAxiosPublic";
 
 export const AuthContext = createContext(null);
 
@@ -90,6 +91,13 @@ const AuthProvider = ({ children }) => {
         console.log("effeect", currentUser);
         const userInfo = { email: currentUser.email };
         console.log(userInfo);
+       axiosPublic.post('/jwt',userInfo)
+        .then(res=>{
+            console.log(res.data.token);
+            if(res.data.token){
+                localStorage.setItem('access-token',res.data.token);
+                setLoading(false)
+            }});
       } else {
         setUser(null)
         localStorage.removeItem("access-token");

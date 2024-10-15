@@ -12,12 +12,13 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
-import UseAuth from "../../../Hooks/UseAuth";
 import { BiEdit } from "react-icons/bi";
 import Swal from "sweetalert2";
 import { axiosPublic } from "../../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
-const UserPosts =()=>{
+import SkeletonLoader from "../../../Components/Ruhul/Card-Ruhul/SkeletonLoader";
+import UseAuth from "../../../Hooks/UseAuth";
+const UserPosts =({user2})=>{
     const [posts, isLoading, refetch] = UsePosts(); // Fetch posts
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [likes] = UseLikes();
@@ -26,18 +27,21 @@ const UserPosts =()=>{
     const [myPosts, setMyPosts] = useState([])
 
     useEffect(()=>{
-        const myPost = posts && posts?.filter((data)=>data?.userEmail === user?.email);
+        const myPost = posts && posts?.filter((data)=>data?.userEmail === user2?.email);
         if(myPost?.length){
             setMyPosts(myPost)
         }
 
-    },[user,dislikes,setMyPosts,posts,likes]);
+    },[user2,dislikes,setMyPosts,posts,likes]);
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
       };
     if (isLoading) {
         return (
-          <div className=" text-2xl text-center my-10 ">Post is loading ....</div>
+          <div className=" text-2xl text-center my-10 ">
+
+            <SkeletonLoader></SkeletonLoader>
+          </div>
         );
       }
 
@@ -123,7 +127,10 @@ const UserPosts =()=>{
                  
                 </div>
               </div>
-              <div className="relative flex items-center gap-2">
+              {
+                user2?.email === user?.email
+
+                &&    <div className="relative flex items-center gap-2">
                 <BsThreeDots
                   onClick={toggleDropdown}
                   className="cursor-pointer"
@@ -143,6 +150,8 @@ const UserPosts =()=>{
                   </div>
                 )}
               </div>
+              }
+           
             </div>
 
             <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-2">
@@ -200,7 +209,7 @@ const UserPosts =()=>{
                     (like) =>
                       like.postId === data._id && like?.email === user?.email
                   ) ? (
-                    <p className="flex text-blue-500 justify-center items-center gap-x-1">
+                    <p className="flex  justify-center items-center gap-x-1">
                       {" "}
                       <FaThumbsUp className="h-5 w-5" />{" "}
                     </p>
@@ -225,7 +234,7 @@ const UserPosts =()=>{
                     (like) =>
                       like.postId === data._id && like?.email === user?.email
                   ) ? (
-                    <p className="flex text-red-500 justify-center items-center gap-x-1">
+                    <p className="flex  justify-center items-center gap-x-1">
                       {" "}
                       <FaThumbsDown className="h-5 w-5" />{" "}
                     </p>
@@ -247,8 +256,8 @@ const UserPosts =()=>{
                   to={`/detailsWithComments/${data._id}`}
                   className="flex items-center space-x-1 hover:text-blue-500"
                 >
-                  <FaCommentAlt className="h-5 w-5" />
-                  <span className="text-sm">Comments</span>
+                 <FaCommentAlt className="h-5 w-5" />
+                 <span className="text-md">{data?.comments || 0}</span>
                 </Link>
                 <button className="flex items-center space-x-1 hover:text-gray-800">
                   <FaShare className="h-5 w-5" />

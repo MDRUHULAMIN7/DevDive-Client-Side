@@ -4,6 +4,7 @@ import UsePosts from "../../../../Hooks/UsePosts";
 import AllPostModal from './AllPostModal';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
+import { axiosPublic } from '../../../../Hooks/useAxiosPublic';
 
 function AllPosts() {
     const [posts, isLoading, refetch] = UsePosts(); // Fetch posts
@@ -93,6 +94,11 @@ function AllPosts() {
         
         
 
+      }
+
+      if(isLoading) {
+
+        <p>Posts is Loading...</p>
       }
 
     return (
