@@ -1,13 +1,10 @@
 import { toast } from "react-hot-toast";
 import { axiosPublic } from "../../Hooks/useAxiosPublic";
 
-
-const handleArchive = async (archiveData,user) => {
-
+const handleArchive = async (archiveData, user) => {
   console.log("archiveDataAfterHit", archiveData);
 
-  console.log("user from handled archive",user);
-
+  console.log("user from handled archive", user);
 
   try {
     const transformedData = {
@@ -31,7 +28,7 @@ const handleArchive = async (archiveData,user) => {
       console.log(response.data);
     }
   } catch (error) {
-    console.error("Error archiving data:", error);
+    // console.error("Error archiving data:", error);
 
     if (error.response && error.response.status === 400) {
       if (error.response.data.message === "Post already archived") {

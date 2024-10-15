@@ -23,6 +23,7 @@ import ContactForm from "../components/adnan/ContactForm";
 import AdminRoute from "../Providers/AdminRoute";
 import Message from "../Pages/Ruhul/Message/Message";
 import VideoRoom from "../Pages/Ruhul/Message/VideoRoom";
+import ArchiveDetails from "../Components/Nur/ArchiveDetails";
 
 export const router = createBrowserRouter([
   {
@@ -57,29 +58,45 @@ export const router = createBrowserRouter([
       },
       // .......for testing......../
       {
-        path: '/blogCard',
-        element: <BlogCard></BlogCard>
+        path: "/blogCard",
+        element: <BlogCard></BlogCard>,
       },
       {
-        path: '/readMore/:id',
-        element: <ReadMore></ReadMore>
+        path: "/readMore/:id",
+        element: <ReadMore></ReadMore>,
       },
 
       {
         path: "/create-post/text-post",
-        element: <PrivateRoute><CreatePost></CreatePost></PrivateRoute>
+        element: (
+          <PrivateRoute>
+            <CreatePost></CreatePost>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/create-post/image-post",
-        element: <PrivateRoute><CreatePost></CreatePost></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <CreatePost></CreatePost>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/create-post/link-post",
-        element: <PrivateRoute><CreatePost></CreatePost></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <CreatePost></CreatePost>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/create-post/poll",
-        element: <PrivateRoute><CreatePost></CreatePost></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <CreatePost></CreatePost>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/signModal",
@@ -87,46 +104,60 @@ export const router = createBrowserRouter([
       },
       {
         path: "/ruhulcard",
-        element: <CardRuhul></CardRuhul>
+        element: <CardRuhul></CardRuhul>,
       },
       {
         path: "/about",
-        element: <AboutSection></AboutSection>
+        element: <AboutSection></AboutSection>,
       },
       {
-        path: '/post-details/:id',
-        element: <DetailsWithComments></DetailsWithComments>
+        path: "/post-details/:id",
+        element: <DetailsWithComments></DetailsWithComments>,
       },
       {
-        path: '/detailsWithComments/:id',
-        element: <DetailsWithComments></DetailsWithComments>
+        path: "/detailsWithComments/:id",
+        element: <DetailsWithComments></DetailsWithComments>,
       },
       {
-        path: '/users/:email',
-        element: <UserProfile></UserProfile>
+        path: "/users/:email",
+        element: <UserProfile></UserProfile>,
       },
       {
-        path: '/edit-profile/:email',
+        path: "/edit-profile/:email",
         element: <EditProfile></EditProfile>,
-      }
-      , {
-        path: '/leaderBoard',
-        element: <LeaderBoard></LeaderBoard>
       },
       {
-        path:"/room/:roomId",
-        element:<VideoRoom></VideoRoom>
+        path: "/leaderBoard",
+        element: <LeaderBoard></LeaderBoard>,
+      },
+      {
+        path: "/room/:roomId",
+        element: <VideoRoom></VideoRoom>,
+      },
+      {
+        path: "/archiveDetails",
+        element: <ArchiveDetails></ArchiveDetails>,
       },
 
       // for admin
       {
         path: "/admin-settings",
-        element: <PrivateRoute><AdminRoute><AdminSetting></AdminSetting></AdminRoute></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AdminSetting></AdminSetting>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
       },
 
       {
         path: "/chat/:email",
-        element: <PrivateRoute><Message></Message></PrivateRoute>
+        element: (
+          <PrivateRoute>
+            <Message></Message>
+          </PrivateRoute>
+        ),
       },
     ],
   },
