@@ -1,7 +1,14 @@
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegFileArchive, FaRegFlag } from "react-icons/fa";
 
-const DropDown = ({ id, isOpen, toggleDropdown }) => {
+const DropDown = ({ id, isOpen, toggleDropdown, archiveData }) => {
+  console.log("archiveData", archiveData);
+
+  const handleArchive = async (archiveData) => {
+    console.log("archiveDataAfterHit", archiveData);
+
+  };
+
   return (
     <section>
       <div
@@ -12,10 +19,14 @@ const DropDown = ({ id, isOpen, toggleDropdown }) => {
       {isOpen && (
         <div className="absolute right-0 mt-6 w-32 rounded-xl shadow-lg z-10">
           <ul className="m-0 p-0 bg-white dark:bg-themeColor rounded-xl">
-            <li className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 dark:hover:text-black cursor-pointer flex items-center gap-1">
+            <li
+              onClick={() => handleArchive(archiveData)}
+              className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 dark:hover:text-black cursor-pointer flex items-center gap-1">
               <FaRegFileArchive /> Archive
             </li>
-            <li className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 dark:hover:text-black cursor-pointer flex items-center gap-1">
+            <li
+              onClick={() => console.log("Report Hit")}
+              className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 dark:hover:text-black cursor-pointer flex items-center gap-1">
               <FaRegFlag /> Report
             </li>
           </ul>

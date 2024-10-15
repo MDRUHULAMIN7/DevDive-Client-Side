@@ -15,6 +15,7 @@ const UseMessages = ({ reciver, sender }) => {
       return res.data;
     },
   });
+console.log("UseMessages", messages);
 
   return [messages, isLoading, refetch];
 };
