@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet';
 import Slider from '../../Components/Fardus/Slider/Slider';
 import CardRuhul from '../../Components/Ruhul/Card-Ruhul/CardRuhul';
 
-import Card from '../../Components/Sanjida/Card';
+
 import RecentPostCard from '../../Components/Fardus/RecentPostCard/RecentPostCard';
 import Chatbot from '../../Components/Ruhul/Cahtbot/Chatbot';
 import UsePosts from '../../Hooks/UsePosts';
@@ -10,7 +10,6 @@ import UsePosts from '../../Hooks/UsePosts';
 const Home = () => {
     let [posts, isLoading, refetch] = UsePosts();
 
-    console.log(posts);
 
     const slides = [
         { image: 'https://uqsport.com.au/wp-content/uploads/2018/05/UQ_Sport_2022_10_13_093-scaled.jpg', title: 'Slide 1', description: 'This is a short description for slide 1.' },

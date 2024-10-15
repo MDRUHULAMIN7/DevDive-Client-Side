@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 const RecentPostCard = ({ post }) => {
 
-    console.log(post);
     return (
         <Link to={`/post-details/${post._id}`}>
             <div className='shadow-md dark:shadow-lg hover:shadow-xl dark:hover:shadow-2xl transition-shadow duration-300'>

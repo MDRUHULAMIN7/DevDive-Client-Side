@@ -22,6 +22,7 @@ import LeaderBoard from "../Components/Nur/Leaderboard";
 import ContactForm from "../components/adnan/ContactForm";
 import AdminRoute from "../Providers/AdminRoute";
 import Message from "../Pages/Ruhul/Message/Message";
+import VideoRoom from "../Pages/Ruhul/Message/VideoRoom";
 
 export const router = createBrowserRouter([
   {
@@ -112,6 +113,10 @@ export const router = createBrowserRouter([
         path: '/leaderBoard',
         element: <LeaderBoard></LeaderBoard>
       },
+      {
+        path:"/room/:roomId",
+        element:<VideoRoom></VideoRoom>
+      },
 
       // for admin
       {
@@ -122,7 +127,7 @@ export const router = createBrowserRouter([
       {
         path: "/chat/:email",
         element: <PrivateRoute><Message></Message></PrivateRoute>
-      }
+      },
     ],
   },
 ]);
