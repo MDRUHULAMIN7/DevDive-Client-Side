@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UseAuth from "../../../Hooks/UseAuth";
 import { axiosPublic } from "../../../Hooks/useAxiosPublic";
 
@@ -7,8 +7,64 @@ import VideoButton from "./VideoButton";
 
 
 const ChatArea=({selectedUser})=>{
+  const [meetingLink,setMeetingLink] = useState(""); // Store the meeting link
 
-const {user}=UseAuth();
+  console.log(meetingLink)
+  const {user}=UseAuth();
+
+  // Send a message automatically when the meeting link changes
+  useEffect(() => {
+    if (meetingLink && selectedUser && user) {
+      const message = meetingLink;
+      const messageInfo = {
+        senderName: user.displayName,
+        senderEmail: user.email,
+        senderPhoto: user.photoURL,
+        message,
+        timestamp: new Date(),
+        receiverName: selectedUser.name,
+        receiverEmail: selectedUser.email,
+        receiverPhoto: selectedUser.photoUrl,
+      };
+
+      axiosPublic.post("/messages", messageInfo)
+        .then((res) => {
+          console.log("Meeting link message sent:", res.data);
+          setResponse('r'); // Update response state
+        })
+        .catch((err) => {
+          console.error("Error sending message:", err);
+        });
+    }
+  }, [meetingLink, selectedUser, user]);
+
+//   useEffect(()=>{
+//   const message = meetingLink;
+//   const messageInfo={
+//     senderName : user.displayName,
+//     senderEmail : user.email,
+//     senderPhoto : user.photoURL,
+//     message,
+//     timestamp : new Date(),
+//     receiverName : selectedUser.name,
+//     receiverEmail : selectedUser.email,
+//     receiverPhoto : selectedUser.photoUrl,
+// }
+
+// if (meetingLink && messageInfo){
+//   axiosPublic.post('/messages',messageInfo)
+//         .then(res=>{
+//              console.log(res.data)
+            
+//          setResponse('r')
+ 
+//         }).catch(err=>{
+//              console.log(err)
+//          })
+// }
+
+//   },[meetingLink,setMeetingLink])
+
 const [response,setResponse]=useState([])
 const handleMessage=(e)=>{
     e.preventDefault()
@@ -71,7 +127,7 @@ const handleMessage=(e)=>{
             </div>
 
             <div> 
-              <VideoButton user={user} selectedUser={selectedUser}></VideoButton>
+              <VideoButton meetingLink={meetingLink} setMeetingLink={setMeetingLink} user={user} selectedUser={selectedUser}></VideoButton>
              
             </div>
 

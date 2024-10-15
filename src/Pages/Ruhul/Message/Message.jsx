@@ -81,9 +81,9 @@ if(!users){
             WebkitOverflowScrolling: 'touch', 
           }}
         >
-          {users.map((user) => (
+          {users.map((user,index) => (
             <div
-              key={user.id}
+              key={index}
               onClick={() => handleUserClick(user)}
               className={`flex-shrink-0 flex flex-col items-center cursor-pointer p-1 rounded-full transition duration-200 ease-in-out ${
                 selectedUser?._id === user._id ? "bg-blue-500" : ""

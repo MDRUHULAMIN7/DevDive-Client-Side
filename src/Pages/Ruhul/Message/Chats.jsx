@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import UseMessages from "../../../Hooks/UseMessages";
 
 import ChatModal from "./ChatModal";
+import MessageDisplay from "./MessageDisplay";
 
 const Chats = ({ reciver, sender, response }) => {
   const [messages, setMessages] = useState([]);
@@ -72,8 +73,9 @@ const Chats = ({ reciver, sender, response }) => {
 
                  
                
-                <p className="whitespace-pre-wrap break-words h-full">
-                    {message.message}
+                <p  className="whitespace-pre-wrap break-words h-full">
+                <MessageDisplay message={message} />
+
                   </p>
                   </div>
                   
