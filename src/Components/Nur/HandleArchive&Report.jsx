@@ -24,15 +24,17 @@ const handleArchive = async (archiveData, user) => {
     const response = await axiosPublic.post("/archiveData", transformedData);
 
     if (response.status === 200) {
-      toast.success("Data archived successfully!");
+      toast.success("Post archived successfully!");
       console.log(response.data);
     }
   } catch (error) {
     // console.error("Error archiving data:", error);
 
     if (error.response && error.response.status === 400) {
-      if (error.response.data.message === "Post already archived") {
-        toast.error("Post already archived.");
+      if (
+        error.response.data.message === "Post already archived by this user"
+      ) {
+        toast.error("Post already archived by you.");
       } else {
         toast.error("Failed to archive data.");
       }

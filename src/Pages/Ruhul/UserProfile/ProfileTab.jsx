@@ -24,7 +24,7 @@ const ProfileTab = (data) => {
           onClick={() => setActiveTab("posts")}>
           posts
         </button>
-        {userData.data.users.mainuser.email === user.email && (
+        {userData.data.users.mainuser?.email === user?.email && (
           <button
             className={`py-2 px-4 font-semibold ${
               activeTab === "Archive"
