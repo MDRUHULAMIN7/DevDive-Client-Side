@@ -2,6 +2,7 @@ import { useState } from "react";
 import UserFollowers from "./UserFollowers";
 import UserFollowing from "./UserFollowing";
 import UserPosts from "./UserPosts";
+import ArchiveDetails from "../../../Components/Nur/ArchiveDetails";
 
 const ProfileTab = (data) => {
   const userData = data && data;
@@ -60,6 +61,9 @@ const ProfileTab = (data) => {
         )}
         {activeTab === "posts" && (
           <UserPosts user2={userData.data.users.mainuser}></UserPosts>
+        )}
+        {activeTab === "Archive" && (
+          <ArchiveDetails archiveDataUser={userData.data.users.mainuser.email}></ArchiveDetails>
         )}
       </div>
     </div>

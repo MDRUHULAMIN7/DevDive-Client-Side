@@ -1,8 +1,13 @@
-import  { useContext } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
 import useIndividualArchiveData from "../../Hooks/Nur/useIndividualArchiveData";
 
-const ArchiveDetails = () => {
+
+const ArchiveDetails = ({ archiveDataUser }) => {
+  console.log(archiveDataUser);
+   const navigate = useNavigate();
+
   const { user } = useContext(AuthContext); // Get the user info
 
   const {
@@ -17,7 +22,6 @@ const ArchiveDetails = () => {
   //   }
   // }, [archiveData, updateArchiveData]); // Get the user info
 
-
   console.log(archiveData);
 
   if (isLoading) return <p>Loading...</p>;
@@ -29,7 +33,10 @@ const ArchiveDetails = () => {
     <div className="space-y-8">
       <h1 className="text-2xl font-semibold">Archived Posts</h1>
       {archiveData.map((post) => (
-        <div key={post._id} className="p-5 border rounded-lg shadow-md">
+        <div
+          onClick={() => navigate(`/post-details/${post.post_id}`)}
+          key={post._id}
+          className="p-5 border rounded-lg shadow-md hover:cursor-pointer">
           <h2 className="text-xl font-bold">
             {post.title || "No title available"}
           </h2>
@@ -40,10 +47,10 @@ const ArchiveDetails = () => {
               ? new Date(post.archivedAt).toLocaleString()
               : "Not available"}
           </p>
-          <p
+          {/* <p
             className="mt-2 text-md"
-            dangerouslySetInnerHTML={{ __html: post.body }}></p>
-          {post.images.length > 0 && (
+            dangerouslySetInnerHTML={{ __html: post.body }}></p> */}
+          {/* {post.images.length > 0 && (
             <div className="mt-4 flex space-x-4">
               {post.images.map((image, index) => (
                 <img
@@ -54,15 +61,15 @@ const ArchiveDetails = () => {
                 />
               ))}
             </div>
-          )}
-          <p className="mt-2">
+          )} */}
+          {/* <p className="mt-2">
             <strong>Likes:</strong> {post.likes} | <strong>Dislikes:</strong>{" "}
             {post.dislikes} | <strong>Comments:</strong> {post.comments}
-          </p>
-          <p className="mt-2 text-sm text-gray-500">
+          </p> */}
+          {/* <p className="mt-2 text-sm text-gray-500">
             <strong>Archived By:</strong> {post.archivedBy.name} (
             {post.archivedBy.email})
-          </p>
+          </p> */}
         </div>
       ))}
     </div>
