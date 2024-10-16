@@ -13,18 +13,23 @@ const UsePosts = () => {
     refetch,
   } = useQuery({
     queryKey: ["posts", user?.email],
-    enabled: ruhul, 
+    enabled: ruhul,
     queryFn: async () => {
-      const res = await axiosPublic.get(`/main-posts`); 
-      return res.data; 
+      const res = await axiosPublic.get(`/main-posts`);
+      return res.data;
     },
   });
 
   const posts = postsData.sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
   );
-  
-  return [posts, isLoading, refetch]; 
+  // refetch();
+
+  console.log("usePostHook", posts);
+
+
+  return [posts, isLoading, refetch];
+
 };
 
 export default UsePosts;

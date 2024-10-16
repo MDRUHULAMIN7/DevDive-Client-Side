@@ -6,15 +6,22 @@ const UseLikes = () => {
   const { user, loading } = UseAuth();
   const axiosPublic = useAxiosPublic();
 
-  const { data: likes = [], isLoading, refetch } = useQuery({
-    queryKey: ["likes", user?.email],  // Fetch likes based on user email
-    enabled: !!user?.email && !loading,  // Ensure query runs only when user is ready
+  const {
+    data: likes = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["likes", user?.email], // Fetch likes based on user email
+    enabled: !!user?.email && !loading, // Ensure query runs only when user is ready
     queryFn: async () => {
-      const res = await axiosPublic.get("/get-likes");  // Fetch likes
-      return res.data;  // Return the data as-is
+      const res = await axiosPublic.get("/get-likes"); // Fetch likes
+      return res.data; // Return the data as-is
     },
   });
-   refetch();
+
+  refetch();
+  console.log("UseLikes", likes);
+
   return [likes, isLoading, refetch]; // Return likes, loading, and refetch function
 };
 

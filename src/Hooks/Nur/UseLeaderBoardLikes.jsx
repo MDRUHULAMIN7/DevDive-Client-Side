@@ -23,6 +23,9 @@ const UseLeaderBoardLikes = (loadAllLikes) => {
     },
   });
 
+  console.log("leaderBoardLikes", leaderBoardLikes)
+
+
   return [leaderBoardLikes, isLoading, refetch];
 };
 

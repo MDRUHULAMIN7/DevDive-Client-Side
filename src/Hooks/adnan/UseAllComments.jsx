@@ -4,10 +4,10 @@ import UseAuth from '../UseAuth';
 import { useQuery } from '@tanstack/react-query';
 
 const UseAllComments = () => {
-  const { user } = UseAuth(); 
-    const axiosPublic = useAxiosPublic(); 
+  const { user } = UseAuth();
+    const axiosPublic = useAxiosPublic();
     const ruhul = true
-   
+
     const { data: allComments = [], isLoading, refetch } = useQuery({
 
         queryKey: ['allComments', user?.email],
@@ -17,7 +17,10 @@ const UseAllComments = () => {
             return res.data; // Return the data directly, assuming it's an array
         },
     });
-   
+
+    console.log("UseAllComments",allComments);
+
+
 
 
     return [allComments, isLoading, refetch];

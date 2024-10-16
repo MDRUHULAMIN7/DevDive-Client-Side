@@ -12,6 +12,10 @@ const useReplies = (id) => {
     },
     enabled: !!id,
   });
+
+  console.log("useReplies", replies);
+
+
   return [replies, replyRefetch];
 };
 

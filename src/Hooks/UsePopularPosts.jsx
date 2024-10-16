@@ -13,15 +13,21 @@ const UsePopularPosts = () => {
     refetch,
   } = useQuery({
     queryKey: ["posts", user?.email],
-    enabled: ruhul, 
+    enabled: ruhul,
     queryFn: async () => {
-      const res = await axiosPublic.get(`/get-popular-posts`); 
-      return res.data; 
+      const res = await axiosPublic.get(`/get-popular-posts`);
+      return res.data;
     },
   });
 
-  
-  return [popularPosts,isLoading,refetch]; 
+  // refetch();
+  console.log("UsePopularPosts", popularPosts);
+
+
+
+
+  return [popularPosts,isLoading,refetch];
+
 };
 
 export default UsePopularPosts;
