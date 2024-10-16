@@ -14,7 +14,7 @@ const UseDisLikes = () => {
       return res.data;  // Return the data directly
     },
   });
-
+  refetch();
   return [dislikes, isLoading, refetch];  // Return the necessary values
 };
 
