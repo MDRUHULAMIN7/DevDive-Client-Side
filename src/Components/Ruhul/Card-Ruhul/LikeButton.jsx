@@ -7,6 +7,8 @@ const LikeButton = ({ data, user }) => {
   const [likes, isLoading, refetch] = UseLikes(); // Proper destructuring
   const axios = useAxiosPublic(); // Use axios instance properly
 
+  
+
   const handleLike = async (postId) => {
     if (!user) {
       toast.error("You need to log in to like a post.");
@@ -22,7 +24,10 @@ const LikeButton = ({ data, user }) => {
     try {
       const res = await axios.post(`/like/${postId}`, { newUser });
       console.log(res.data); // Log the response for debugging
-      refetch(); // Refresh likes list
+      if(res.statusCode === 200) {
+      await  refetch();
+      }
+       // Refresh likes list
     } catch (err) {
       console.error("Error:", err);
       toast.error("An error occurred while liking the post.");

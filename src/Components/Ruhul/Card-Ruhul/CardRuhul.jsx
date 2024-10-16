@@ -24,7 +24,7 @@ const CardRuhul = () => {
   const { user } = UseAuth(); // Get user info from auth hook
   let [, isLoading] = UsePosts(); // Fetch posts
   const [newPosts, setNewPosts] = useState([]);
-  const [openDropdownId, setOpenDropdownId] = useState(null); // Track which dropdown is open
+  const [openDropdownId, setOpenDropdownId] = useState(null);
   const toggleDropdown = (id) => {
     setOpenDropdownId((prevId) => (prevId === id ? null : id)); // Toggle the same ID or close it
   };
@@ -94,11 +94,18 @@ const CardRuhul = () => {
                   <Link
                     className="text-blue-600 mt-1 block"
                     to={`/post-details/${data._id}`}>
-                    See more...
+                    See more....
                   </Link>
                 </p>
               </div>
             )}
+
+            {
+              data.poll &&  <div className="text-gray-700 dark:text-gray-300 ">
+
+              <PollData data={data}></PollData>
+              </div>
+            }
 
             {data.poll && (
               <div className="text-gray-700 dark:text-gray-300 ">

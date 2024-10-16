@@ -29,6 +29,7 @@ const UsePosts = () => {
 
 
   return [posts, isLoading, refetch];
+
 };
 
 export default UsePosts;

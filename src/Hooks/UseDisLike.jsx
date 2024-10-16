@@ -18,6 +18,7 @@ const UseDisLikes = () => {
   console.log("UseDisLikes", dislikes);
 
 
+  refetch();
   return [dislikes, isLoading, refetch];  // Return the necessary values
 };
 

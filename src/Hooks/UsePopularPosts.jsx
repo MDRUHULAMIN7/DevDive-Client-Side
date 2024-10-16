@@ -20,13 +20,14 @@ const UsePopularPosts = () => {
     },
   });
 
+  // refetch();
   console.log("UsePopularPosts", popularPosts);
 
 
 
 
-  // refetch();
   return [popularPosts,isLoading,refetch];
+
 };
 
 export default UsePopularPosts;

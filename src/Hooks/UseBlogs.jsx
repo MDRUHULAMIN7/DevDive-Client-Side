@@ -1,7 +1,6 @@
-
-import { useQuery } from '@tanstack/react-query';
-import UseAuth from './UseAuth';
-import useAxiosPublic from './useAxiosPublic';
+import { useQuery } from "@tanstack/react-query";
+import UseAuth from "./UseAuth";
+import useAxiosPublic from "./useAxiosPublic";
 
 const UseBlogs = () => {
 
@@ -19,9 +18,9 @@ const UseBlogs = () => {
             },
 
         })
-        //    refetch()
+        //
         console.log("UseBlogs", blogs[0]);
-        
+
 
         return [blogs[0],isLoading,refetch]
 

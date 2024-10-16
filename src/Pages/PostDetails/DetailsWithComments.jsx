@@ -1,6 +1,6 @@
 import { useLocation, useParams } from "react-router-dom";
 import UsePosts from "../../Hooks/UsePosts";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
@@ -23,6 +23,7 @@ import Comment from "../../Components/nifat/Comment";
 import PostComponent from "../../Components/Ruhul/Card-Ruhul/PostComponent";
 import { Helmet } from "react-helmet";
 import PollData from "../../Components/Ruhul/Card-Ruhul/PollData";
+import usePost from "../../Hooks/usePost";
 
 const DetailsWithComments = () => {
   const [data, setData] = useState(null);
@@ -58,13 +59,19 @@ const DetailsWithComments = () => {
   const axiosPublic = useAxiosPublic();
   const [likes] = UseLikes();
   const [dislikes] = UseDisLikes();
-  const [comments] = UseComments(id);
+  let [comments,commentRefetch] = UseComments(id);
+  const [post, postRefetch] = usePost(id);
   const [showCommentBox, setShowCommentBox] = useState(false)
   const [newComment, setNewComment] = useState('');
+  const postCommentButton = useRef(null);
 
   const handleComment = () => {
     setShowCommentBox(!showCommentBox)
     // console.log(comments[0].userName)
+    setTimeout(()=>{
+      postCommentButton.current?.scrollIntoView({ behavior: 'smooth' });
+    },100)
+    
   }
 
   const submitComment = (e) => {
@@ -72,17 +79,19 @@ const DetailsWithComments = () => {
     const contentId = id;
     const comment = newComment;
     const userName = user.displayName;
+    const userEmail = user.email;
     const userImage = user.photoURL;
     const likeCount = 0;
     const disLikeCount = 0;
     const replyCount = 0;
     const parentId = null;
-    const data = { contentId, comment, userName, userImage, likeCount, disLikeCount, replyCount, parentId }
+    const data = { contentId, comment, userName,userEmail, userImage, likeCount, disLikeCount, replyCount, parentId }
     console.log(data)
     axiosPublic.post('/postComment', data)
       .then((result) => {
         if (result.data.insertedId) {
           refetch()
+          postRefetch()
           toast.success('successfully commented')
         }
       })
@@ -272,7 +281,8 @@ const DetailsWithComments = () => {
             <div className="flex items-center space-x-4">
               <button to={`/post-details/${data._id}`} className="flex items-center space-x-1 hover:text-blue-500">
                 <FaCommentAlt className="h-5 w-5" />
-                <span className="text-sm">{comments.length}</span>
+                {/* <span className="text-sm">{comments.length}</span> */}
+                <span className="text-sm">{post?.comments}</span>
               </button>
               <button className="flex items-center space-x-1 hover:text-gray-800">
                 <FaShare className="h-5 w-5" />
@@ -294,6 +304,7 @@ const DetailsWithComments = () => {
                 />
                 <button
                   type="submit"
+                  ref={postCommentButton}
                   className="bg-blue-500 text-white py-2 px-4 rounded-lg"
                 >
                   Post Comment
@@ -301,7 +312,7 @@ const DetailsWithComments = () => {
               </form>
             }
             {
-              comments.map((comment) => <Comment key={comment._id} comment={comment} refetch= {refetch}></Comment>)
+              comments.map((comment) => <Comment key={comment._id} comment={comment} refetch= {refetch} postRefetch={postRefetch}></Comment>)
               // comments.length>0 && <Comment comments={comments}></Comment>
             }
           </div>

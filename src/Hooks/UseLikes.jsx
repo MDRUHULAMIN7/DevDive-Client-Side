@@ -15,8 +15,8 @@ const UseLikes = () => {
     },
   });
 
+   refetch();
   console.log("UseLikes", likes);
-  
 
   return [likes, isLoading, refetch]; // Return likes, loading, and refetch function
 };

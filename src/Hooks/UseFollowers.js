@@ -17,8 +17,9 @@ const UseFollowers = () => {
   });
 
   console.log("UseFollowers", follwers);
-  
 
+
+ console.log(follwers,"followers")
   return [ follwers, isLoading, refetch ]; // Return as an object for clarity
 };
 

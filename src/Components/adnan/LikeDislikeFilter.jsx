@@ -48,9 +48,10 @@ export default function LikeDislikeFilter  ({ setPosts }) {
       console.log(filteredPosts);
     }
     // Filter for all posts
-    else if (sortOption === "all-posts") {
-      filteredPosts = posts;
-    }
+    // else if (sortOption === "all-posts") {
+    //   filteredPosts = posts;
+    // }
+
      // Sort for "My Disliked" option
     //  else if (sortOption === "my-disliked-posts") {
     //   // filteredPosts = [...posts].sort((a, b) => b.dislikes - a.dislikes);
@@ -84,8 +85,8 @@ export default function LikeDislikeFilter  ({ setPosts }) {
         </option>
         <option value="all-posts">All</option>
         <option value="my-liked-posts">Liked Posts</option>
-        {/* <option value="my-disliked-posts">My Disliked Posts</option> */}
         <option value="my-commented-posts">Commented Posts</option>
+        {/* <option value="my-disliked-posts">My Disliked Posts</option> */}       
         {/* <option value="most-liked">Most Liked</option> */}
       </select>
 
@@ -95,7 +96,6 @@ export default function LikeDislikeFilter  ({ setPosts }) {
             <p>Like: {post.likes}</p>
             <p>Dislike: {post.dislikes}</p>
           </div>
-          
         ))} */}
       </div>
     </div>

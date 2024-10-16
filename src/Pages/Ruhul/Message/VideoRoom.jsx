@@ -11,6 +11,7 @@ const VideoRoom = () => {
   const [isInMeeting, setIsInMeeting] = useState(false); // State to track if user is in a meeting
 
   useEffect(() => {
+    
     const initializeMeeting = async () => {
       const appID = parseFloat(import.meta.env.VITE_AppID);
       const serverSecret = import.meta.env.VITE_Server_Secret;
@@ -22,7 +23,8 @@ const VideoRoom = () => {
         serverSecret,
         roomId,
         time,
-        displayName
+        displayName,
+        
       );
 
       const zc = ZegoUIKitPrebuilt.create(kitToken);
