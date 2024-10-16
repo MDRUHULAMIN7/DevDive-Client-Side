@@ -23,6 +23,7 @@ import ContactForm from "../components/adnan/ContactForm";
 import AdminRoute from "../Providers/AdminRoute";
 import Message from "../Pages/Ruhul/Message/Message";
 import VideoRoom from "../Pages/Ruhul/Message/VideoRoom";
+import CodeEditor from "../components/adnan/codeEditor/codeEditorComponents/CodeEditor";
 
 export const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
       {
         path: "/contact",
         element: <ContactForm></ContactForm>,
+      },
+      {
+        path: "/code-editor",
+        element: <CodeEditor></CodeEditor>
       },
       // .......for testing......../
       {
