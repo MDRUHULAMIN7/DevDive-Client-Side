@@ -17,15 +17,18 @@ export default function DisLikeButton({ data, user }) {
       email: user?.email,
       photo: user?.photoURL,
     };
-
+    if (newUser?.email && newUser?.photo) {
+    
     try {
       const res = await axiosPublic.post(`/dislike/${postId}`, { newUser });
-      console.log(res.data);  // Debugging the response
-      refetch();  // Refresh the dislikes data
+      if(res.data){
+        await refetch(); 
+      }  // Debugging the response
+     // Refresh the dislikes data
     } catch (error) {
       console.error("Error disliking post:", error);
       toast.error("An error occurred while disliking the post.");
-    }
+    }}
   };
 
   const isDisliked = dislikes.some(

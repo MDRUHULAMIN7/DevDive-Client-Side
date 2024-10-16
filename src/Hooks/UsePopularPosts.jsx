@@ -21,7 +21,6 @@ const UsePopularPosts = () => {
   });
 
   
-  refetch();
   return [popularPosts,isLoading,refetch]; 
 };
 

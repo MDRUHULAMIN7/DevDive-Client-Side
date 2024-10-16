@@ -19,7 +19,7 @@ const UseBlogs = () => {
             },
           
         })
-           refetch()
+          
 
         return [blogs[0],isLoading,refetch]
     

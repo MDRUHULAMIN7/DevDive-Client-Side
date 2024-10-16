@@ -14,7 +14,7 @@ const UseLikes = () => {
       return res.data;  // Return the data as-is
     },
   });
-
+   refetch();
   return [likes, isLoading, refetch]; // Return likes, loading, and refetch function
 };
 

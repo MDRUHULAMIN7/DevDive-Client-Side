@@ -18,9 +18,7 @@ const UseComments = (postId) => {
             return res.data; // Return the data directly, assuming it's an array
         },
     });
-    refetch()
-    console.log(comments.length); // Log the posts array to verify the result
-
+    
     return [comments, isLoading, refetch];
 };
 

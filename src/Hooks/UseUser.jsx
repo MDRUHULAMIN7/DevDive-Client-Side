@@ -19,7 +19,7 @@ const UseUSer = () => {
             },
 
         })
-           refetch()
+           
 
         return [users[0],isLoading,refetch]
 
