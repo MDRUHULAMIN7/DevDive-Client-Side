@@ -83,6 +83,16 @@ const Sidebar = ({ setOpenMenu, openMenu }) => {
             <span className="mx-3 font-medium text-xs">Leaderboard</span>
           </NavLink>
           <NavLink
+            to="/archiveDetails"
+            className={({ isActive }) =>
+              `flex items-center px-4 py-2 rounded-md duration-200 hover:bg-pm-color hover:text-white ${
+                isActive ? "bg-pm-color text-white" : ""
+              }`
+            }>
+            <MdBarChart className="" />
+            <span className="mx-3 font-medium text-xs">Archive</span>
+          </NavLink>
+          <NavLink
             to="/about"
             className={({ isActive }) =>
               `flex items-center px-4 py-2 rounded-md duration-200 hover:bg-pm-color hover:text-white ${

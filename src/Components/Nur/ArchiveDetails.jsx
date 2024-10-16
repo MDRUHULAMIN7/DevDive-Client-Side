@@ -4,14 +4,21 @@ import useIndividualArchiveData from "../../Hooks/Nur/useIndividualArchiveData";
 
 const ArchiveDetails = () => {
   const { user } = useContext(AuthContext); // Get the user info
+
   const {
     data: archiveData,
     isLoading,
     error,
   } = useIndividualArchiveData(user?.email); // Fetch archived data based on user email
 
-  console.log(archiveData);
+  // useEffect(() => {
+  //   if (archiveData) {
+  //     updateArchiveData(archiveData);
+  //   }
+  // }, [archiveData, updateArchiveData]); // Get the user info
 
+
+  console.log(archiveData);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
