@@ -51,7 +51,7 @@ const CodeEditor = () => {
 
   return (
     <div className="min-h-full flex flex-col lg:flex-row gap-2">
-      <div className="w-full lg:w-11/12">
+      <div className="w-full ">
       <LanguageSelector language={language} onSelect={onSelect} className="mb-10"/>
       <Editor
         height="75vh"
@@ -63,7 +63,7 @@ const CodeEditor = () => {
         onChange={(value) => setValue(value)}
       />
       </div>
-      <div className="w-full lg:w-11/12">
+      <div className="w-full">
       <Output editorRef={editorRef} language={language}/>
       </div>
     </div>
