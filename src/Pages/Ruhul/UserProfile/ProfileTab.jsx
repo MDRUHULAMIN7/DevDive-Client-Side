@@ -16,7 +16,7 @@ const ProfileTab = (data) => {
       {/* Tab Header */}
       <div className="flex justify-center  mb-4">
         <button
-          className={`py-2 px-4 font-semibold ${
+          className={`py-2 px-2 md:px-4 font-semibold ${
             activeTab === "posts"
               ? "border-b-2 border-blue-500 text-blue-500"
               : "text-gray-500"
@@ -26,7 +26,7 @@ const ProfileTab = (data) => {
         </button>
         {userData.data.users.mainuser?.email === user?.email && (
           <button
-            className={`py-2 px-4 font-semibold ${
+            className={`py-2 px-2 md:px-4  font-semibold ${
               activeTab === "Archive"
                 ? "border-b-2 border-blue-500 text-blue-500"
                 : "text-gray-500"
@@ -36,7 +36,7 @@ const ProfileTab = (data) => {
           </button>
         )}
         <button
-          className={`py-2 px-4 font-semibold ${
+          className={`py-2  px-2 md:px-4  font-semibold ${
             activeTab === "followers"
               ? "border-b-2 border-blue-500 text-blue-500"
               : "text-gray-500"
@@ -45,7 +45,7 @@ const ProfileTab = (data) => {
           followers
         </button>
         <button
-          className={`py-2 px-4 font-semibold ${
+          className={`py-2  px-2 md:px-4  font-semibold ${
             activeTab === "following"
               ? "border-b-2 border-blue-500 text-blue-500"
               : "text-gray-500"

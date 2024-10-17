@@ -40,7 +40,7 @@ const ArchiveDetails = ({ archiveDataUser }) => {
         <div
           key={post._id}
           className="p-5 border rounded-lg shadow-md hover:cursor-pointer">
-          <div className="flex">
+          <div className="sm:flex">
             <div
               onClick={() => navigate(`/post-details/${post.post_id}`)}
               className="flex-grow">
@@ -55,7 +55,7 @@ const ArchiveDetails = ({ archiveDataUser }) => {
                   : "Not available"}
               </p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center justify-end">
               {/* add unarchive button  */}
               <button
                 onClick={() => handleUnarchive(post.post_id, archiveDataUser, refetch)}
