@@ -24,10 +24,16 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const auth = getAuth(app);
   const googleProvider = new GoogleAuthProvider();
-  const gitHubAuthProvider = new GithubAuthProvider()
+  const gitHubAuthProvider = new GithubAuthProvider();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [archiveData, setArchiveData] = useState([]);
+
+  // const updateArchiveData = (newData) => {
+  //   setArchiveData(newData);
+  //   console.log("Updated archiveData:", newData);
+  // };
 
   const googleSigin = () => {
     setLoading(true);
@@ -91,15 +97,15 @@ const AuthProvider = ({ children }) => {
         console.log("effeect", currentUser);
         const userInfo = { email: currentUser.email };
         console.log(userInfo);
-       axiosPublic.post('/jwt',userInfo)
-        .then(res=>{
-            console.log(res.data.token);
-            if(res.data.token){
-                localStorage.setItem('access-token',res.data.token);
-                setLoading(false)
-            }});
+        axiosPublic.post("/jwt", userInfo).then((res) => {
+          console.log(res.data.token);
+          if (res.data.token) {
+            localStorage.setItem("access-token", res.data.token);
+            setLoading(false);
+          }
+        });
       } else {
-        setUser(null)
+        setUser(null);
         localStorage.removeItem("access-token");
       }
       setLoading(false);
@@ -124,9 +130,14 @@ const AuthProvider = ({ children }) => {
     gitHubLogin,
     passwordResetEmail,
     sendEmailVerification,
+    // archiveData,
+    // setArchiveData,
+    // updateArchiveData,
   };
 
   console.log(user);
+  // console.log(archiveData);
+
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

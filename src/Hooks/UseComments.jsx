@@ -5,8 +5,8 @@ import useAxiosPublic from "./useAxiosPublic";
 
 const UseComments = (postId) => {
     // const{postsss}=postId;
-    const { user } = UseAuth(); 
-    const axiosPublic = useAxiosPublic(); 
+    const { user } = UseAuth();
+    const axiosPublic = useAxiosPublic();
     const ruhul = true
     // console.log('hello',postId)
     const { data: comments = [], isLoading, refetch:commentRefetch } = useQuery({
@@ -18,7 +18,17 @@ const UseComments = (postId) => {
             return res.data; // Return the data directly, assuming it's an array
         },
     });
+<<<<<<< HEAD
     
+=======
+
+    console.log("UseComments",comments);
+
+    console.log(comments.length); // Log the posts array to verify the result
+
+    commentRefetch()
+
+>>>>>>> 6e494376c0de653aa05e82eb29eeb0dd271fbc62
     return [comments, isLoading, commentRefetch];
 };
 
