@@ -4,10 +4,9 @@ import { useNavigate } from "react-router-dom";
 import useIndividualArchiveData from "../../Hooks/Nur/useIndividualArchiveData";
 import { handleUnarchive } from "./HandleUnarchive";
 
-
 const ArchiveDetails = ({ archiveDataUser }) => {
   console.log(archiveDataUser);
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const { user } = useContext(AuthContext); // Get the user info
 
@@ -15,7 +14,7 @@ const ArchiveDetails = ({ archiveDataUser }) => {
     data: archiveData,
     isLoading,
     error,
-    refetch
+    refetch,
   } = useIndividualArchiveData(user?.email); // Fetch archived data based on user email
 
   // useEffect(() => {
@@ -27,9 +26,12 @@ const ArchiveDetails = ({ archiveDataUser }) => {
   console.log(archiveData);
 
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-  if (!archiveData || archiveData.length === 0)
-    return <p>No archive data found.</p>;
+  if (error) return <p>Error: {error.message}</p>; // Error state
+
+  if (archiveData.length === 0) {
+    // Show a custom message if no archived posts
+    return <p>You have not archived any post.</p>;
+  }
 
   return (
     <div className="space-y-8">
