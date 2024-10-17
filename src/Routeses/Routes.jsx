@@ -139,10 +139,6 @@ export const router = createBrowserRouter([
         path: "/room/:roomId",
         element: <VideoRoom></VideoRoom>,
       },
-      {
-        path: "/archiveDetails",
-        element: <ArchiveDetails></ArchiveDetails>,
-      },
 
       // for admin
       {
