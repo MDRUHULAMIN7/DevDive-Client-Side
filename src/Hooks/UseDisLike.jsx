@@ -6,7 +6,7 @@ const UseDisLikes = () => {
   const { user, loading } = UseAuth();
   const axiosPublic = useAxiosPublic();
 
-  const { data: dislikes = [], isLoading, refetch } = useQuery({
+  const { data: dislikes = [], isLoading, refetch:dislikeRef } = useQuery({
     queryKey: ["dislikes", user?.email],  // Fetch dislikes based on user email
     enabled: !!user?.email && !loading,   // Ensure query runs only when user is ready
     queryFn: async () => {
@@ -15,11 +15,7 @@ const UseDisLikes = () => {
     },
   });
 
-  console.log("UseDisLikes", dislikes);
-
-
-  refetch();
-  return [dislikes, isLoading, refetch];  // Return the necessary values
+  return [dislikes, isLoading, dislikeRef];  // Return the necessary values
 };
 
 export default UseDisLikes;

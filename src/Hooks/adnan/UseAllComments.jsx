@@ -1,4 +1,4 @@
-import React from 'react';
+
 import useAxiosPublic from '../useAxiosPublic';
 import UseAuth from '../UseAuth';
 import { useQuery } from '@tanstack/react-query';
@@ -18,7 +18,7 @@ const UseAllComments = () => {
         },
     });
 
-    console.log("UseAllComments",allComments);
+   
 
 
 

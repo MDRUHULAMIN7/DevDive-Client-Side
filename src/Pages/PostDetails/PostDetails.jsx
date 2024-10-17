@@ -28,6 +28,7 @@ const PostDetails = () => {
     console.log(data);
     return (
         <section className="my-4 pb-4">
+          hello from me
 
             {
                 data && (<div className="mx-auto px-2 md:px-20 lg:px-32">

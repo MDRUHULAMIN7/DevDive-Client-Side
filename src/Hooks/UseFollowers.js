@@ -20,9 +20,7 @@ const UseFollowers = () => {
     },
   });
 
-  console.log("UseFollowers", follwers);
-
-  return [follwers, isLoading, refetch]; // Return as an object for clarity
+  return [ follwers, isLoading, refetch ]; // Return as an object for clarity
 };
 
 export default UseFollowers;

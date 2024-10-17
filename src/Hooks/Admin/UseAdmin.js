@@ -16,7 +16,7 @@ const UseAdmin = () => {
             return res.data.admin
         }
     })
-    console.log("isAdmin",isAdmin);
+  
     return [isAdmin]
 };
 
