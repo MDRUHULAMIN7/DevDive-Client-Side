@@ -20,10 +20,12 @@ import PostComponent from "./PostComponent";
 import LikeDislikeFilter from "../../adnan/LikeDislikeFilter";
 import PollData from "./PollData";
 import SkeletonLoader from "./SkeletonLoader";
-import LikeButton from "./LikeButton";
+
 import FollowButton from "./FollowButton";
-import DisLikeButton from "./DisLikeButton";
+
 import DropDown from "./DropDown";
+import PostActions from "./PostActions";
+
 
 
 
@@ -35,7 +37,7 @@ const CardRuhul = () => {
   const toggleDropdown = (id) => {
     setOpenDropdownId((prevId) => (prevId === id ? null : id)); // Toggle the same ID or close it
   };
-  
+ 
   
   if (isLoading) {
     return (
@@ -146,12 +148,7 @@ const CardRuhul = () => {
               <div className="flex items-center space-x-4">
                 {/* Like */}
 
-                <LikeButton data={data} user={user}></LikeButton>
-                
-
-                {/* Dislike */}
-                <DisLikeButton user={user} data={data}></DisLikeButton>
-            
+              <PostActions data={data} user={user}></PostActions>
               </div>
 
               <div className="flex items-center space-x-4">

@@ -1,53 +1,38 @@
+import { useState } from "react";
 import { FaThumbsUp } from "react-icons/fa";
-import { toast } from "react-toastify";
-import UseLikes from "../../../Hooks/UseLikes";
-import useAxiosPublic from "../../../Hooks/useAxiosPublic"; // Ensure this is correctly imported
+import './LikeButton.css'; 
 
-const LikeButton = ({ data, user }) => {
-  const [likes, isLoading, refetch] = UseLikes(); // Proper destructuring
-  const axios = useAxiosPublic(); // Use axios instance properly
+const LikeButton = ({ handleLike, isLiked, data, isLoading }) => {
+  const [animate, setAnimate] = useState(false);
+
+  const handleClick = () => {
+    if (!isLoading) {
+
+      setAnimate(true);
+ 
+      handleLike(data._id);
 
   
-
-  const handleLike = async (postId) => {
-    if (!user) {
-      toast.error("You need to log in to like a post.");
-      return;
-    }
-
-    const newUser = {
-      name: user.displayName,
-      email: user.email,
-      photo: user.photoURL,
-    };
-
-    try {
-      const res = await axios.post(`/like/${postId}`, { newUser });
-      console.log(res.data); // Log the response for debugging
-      if(res.statusCode === 200) {
-      await  refetch();
-      }
-       // Refresh likes list
-    } catch (err) {
-      console.error("Error:", err);
-      toast.error("An error occurred while liking the post.");
+      setTimeout(() => {
+        setAnimate(false);
+      }, 600); 
     }
   };
 
-  const isLiked = likes.some(
-    (like) => like.postId === data._id && like.email === user?.email
-  );
-
   return (
     <button
-      onClick={() => handleLike(data._id)}
-      className={`flex items-center space-x-1 hover:text-blue-500 ${
+      onClick={handleClick}
+      className={`flex items-center space-x-1 transition duration-500 transform ${
         isLiked ? "text-blue-500" : "text-gray-600"
-      }`}
-      disabled={isLoading} // Disable button while loading
+      } ${animate ? 'animate-bounce' : ''}`}
+      disabled={isLoading}
     >
-      <FaThumbsUp className="h-5 w-5" />
-      <span className="ml-1 text-sm">{data?.likes || 0}</span>
+      <FaThumbsUp
+        className={`h-6 w-6 transition-transform duration-500 ${
+          animate ? 'rotate-12 scale-125' : 'scale-100'
+        }`} 
+      />
+      <span className="text-sm">{data?.likes || 0}</span>
     </button>
   );
 };

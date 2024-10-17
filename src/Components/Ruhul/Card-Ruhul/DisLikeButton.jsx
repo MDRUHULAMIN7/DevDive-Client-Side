@@ -1,50 +1,37 @@
+import { useState } from "react";
 import { FaThumbsDown } from "react-icons/fa";
-import { axiosPublic } from "../../../Hooks/useAxiosPublic";
-import UseDisLikes from "../../../Hooks/UseDisLike";
-import toast from "react-hot-toast";
+import './DisLikeButton.css';
 
-export default function DisLikeButton({ data, user }) {
-  const [dislikes, isLoading, refetch] = UseDisLikes();  // Proper destructuring
+export default function DisLikeButton({ data, handleDislike, isDisliked, isLoading }) {
+  const [animate, setAnimate] = useState(false); 
 
-  const handleDislike = async (postId) => {
-    if (!user) {
-      toast.error("You need to log in to dislike a post.");
-      return;
-    }
+  const handleClick = () => {
+    if (!isLoading) {
+      setAnimate(true);
 
-    const newUser = {
-      name: user?.displayName,
-      email: user?.email,
-      photo: user?.photoURL,
-    };
-    if (newUser?.email && newUser?.photo) {
+      handleDislike(data._id);
+
     
-    try {
-      const res = await axiosPublic.post(`/dislike/${postId}`, { newUser });
-      if(res.data){
-        await refetch(); 
-      }  // Debugging the response
-     // Refresh the dislikes data
-    } catch (error) {
-      console.error("Error disliking post:", error);
-      toast.error("An error occurred while disliking the post.");
-    }}
+      setTimeout(() => {
+        setAnimate(false);
+      }, 600); 
+    }
   };
-
-  const isDisliked = dislikes.some(
-    (dislike) => dislike.postId === data._id && dislike.email === user?.email
-  );
 
   return (
     <button
-      onClick={() => handleDislike(data._id)}
-      className={`flex items-center space-x-1 hover:text-red-500 ${
+      onClick={handleClick}
+      className={`flex items-center space-x-1 transition duration-500 transform ${
         isDisliked ? "text-red-500" : "text-gray-600"
-      }`}
-      disabled={isLoading}  // Disable button while loading
+      } ${animate ? 'animate-bounce' : ''}`}
+      disabled={isLoading} 
     >
-      <FaThumbsDown className="h-5 w-5" />
-      <span className="ml-1 text-sm">{data?.dislikes || 0}</span>
+      <FaThumbsDown
+        className={`h-6 w-6 transition-transform duration-500 ${
+          animate ? 'rotate-12 scale-125' : 'scale-100'
+        }`} 
+      />
+      <span className="text-sm">{data?.dislikes || 0}</span>
     </button>
   );
 }
