@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 import { axiosPublic } from '../../Hooks/useAxiosPublic';
 import toast from 'react-hot-toast';
 
-const DeleteCommentButton = ({comment,refetch,replyRefetch,postRefetch}) => {
+const DeleteCommentButton = ({comment,refetch,replyRefetch,postRefetch,commentRefetch}) => {
     const deleteButton = (id) =>{
         if(id){
     
@@ -14,6 +14,7 @@ const DeleteCommentButton = ({comment,refetch,replyRefetch,postRefetch}) => {
               refetch()
               replyRefetch()
               postRefetch()
+              commentRefetch()
               
             }
             console.log(res)})
@@ -22,6 +23,7 @@ const DeleteCommentButton = ({comment,refetch,replyRefetch,postRefetch}) => {
             refetch()
             replyRefetch()
             postRefetch()
+            commentRefetch()
           }});
         }
       }
