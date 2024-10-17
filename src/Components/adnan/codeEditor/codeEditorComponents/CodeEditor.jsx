@@ -50,11 +50,11 @@ const CodeEditor = () => {
   };
 
   return (
-    <div className="min-h-full flex gap-2">
-      <div className="w-1/2">
+    <div className="min-h-full flex flex-col lg:flex-row gap-2">
+      <div className="w-full lg:w-11/12">
       <LanguageSelector language={language} onSelect={onSelect} className="mb-10"/>
       <Editor
-        height="90vh"
+        height="75vh"
         theme={theme} // Dynamically set the theme based on dark or light mode
         language={language}
         defaultValue={CODE_SNIPPETS[language]}
@@ -63,7 +63,9 @@ const CodeEditor = () => {
         onChange={(value) => setValue(value)}
       />
       </div>
+      <div className="w-full lg:w-11/12">
       <Output editorRef={editorRef} language={language}/>
+      </div>
     </div>
   );
 };
