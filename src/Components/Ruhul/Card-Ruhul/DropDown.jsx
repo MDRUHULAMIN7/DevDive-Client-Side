@@ -4,6 +4,7 @@ import { handleArchive, handleReport } from "../../Nur/HandleArchive&Report";
 import { useContext } from "react";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import useCheckArchiveStatus from "../../../Hooks/Nur/useCheckArchiveStatus";
+import useCheckReportStatus from "../../../Hooks/Nur/useCheckReportStatus";
 
 const DropDown = ({ id, isOpen, toggleDropdown, archiveData }) => {
   console.log("archiveData from dropdown", archiveData);
@@ -14,8 +15,21 @@ const DropDown = ({ id, isOpen, toggleDropdown, archiveData }) => {
     archiveData?._id,
     user?.email
   );
-
   console.log("is archived from dropdown", archived, isLoading, error);
+
+  const {
+    reported,
+    isLoading: isReportLoading,
+    error: reportError,
+    refetch: refetchReport,
+  } = useCheckReportStatus(archiveData?._id, user?.email);
+
+  console.log(
+    "is reported from dropdown",
+    reported,
+    isReportLoading,
+    reportError
+  );
 
   const handleArchiveClick = async () => {
     if (archived) return;
@@ -28,7 +42,7 @@ const DropDown = ({ id, isOpen, toggleDropdown, archiveData }) => {
     // if (archived) return;
     toggleDropdown(id);
     await handleReport(archiveData, user);
-    await refetch();
+    await refetchReport();
   };
 
   return (
@@ -52,8 +66,12 @@ const DropDown = ({ id, isOpen, toggleDropdown, archiveData }) => {
             </li>
             <li
               onClick={handleReportClick}
-              className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 dark:hover:text-black cursor-pointer flex items-center gap-1">
-              <FaRegFlag /> Report
+              className={`px-4 py-2 flex items-center gap-1 ${
+                reported
+                  ? "cursor-not-allowed text-gray-400"
+                  : "cursor-pointer hover:bg-gray-100 dark:hover:text-black dark:bg-gray-600"
+              }`}>
+              <FaRegFlag /> {reported ? "Reported" : "Report"}
             </li>
           </ul>
         </div>
