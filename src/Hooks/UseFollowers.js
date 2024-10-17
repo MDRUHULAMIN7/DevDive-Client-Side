@@ -1,17 +1,21 @@
-import { useQuery } from '@tanstack/react-query';
-import UseAuth from './UseAuth';
-import useAxiosPublic from './useAxiosPublic';
+import { useQuery } from "@tanstack/react-query";
+import UseAuth from "./UseAuth";
+import useAxiosPublic from "./useAxiosPublic";
 
 const UseFollowers = () => {
-  const { user, loading } = UseAuth(); 
+  const { user, loading } = UseAuth();
   const axiosPublic = useAxiosPublic();
 
   // Correct query with proper key spelling ('followers', not 'follwers')
-  const { data: follwers = [], isLoading, refetch } = useQuery({
-    queryKey: ['follwers', user?.email], 
+  const {
+    data: follwers = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["follwers", user?.email],
     enabled: !!user?.email && !loading, // Ensures query only runs if user is available
     queryFn: async () => {
-      const res = await axiosPublic.get('/get-followers');
+      const res = await axiosPublic.get("/get-followers");
       return res.data;
     },
   });
@@ -20,4 +24,3 @@ const UseFollowers = () => {
 };
 
 export default UseFollowers;
-

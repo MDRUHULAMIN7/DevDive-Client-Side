@@ -15,9 +15,8 @@ import PostComponent from '../../Components/Ruhul/Card-Ruhul/PostComponent';
 import UsePopularPosts from '../../Hooks/UsePopularPosts';
 import SkeletonLoader from '../../Components/Ruhul/Card-Ruhul/SkeletonLoader';
 import FollowButton from '../../Components/Ruhul/Card-Ruhul/FollowButton';
-import LikeButton from '../../Components/Ruhul/Card-Ruhul/LikeButton';
-import DisLikeButton from '../../Components/Ruhul/Card-Ruhul/DisLikeButton';
 import DropDown from '../../Components/Ruhul/Card-Ruhul/DropDown';
+import PostActions from '../../Components/Ruhul/Card-Ruhul/PostActions';
 
 const Popular = () => {
     const { user } = UseAuth(); // Get user info from auth hook
@@ -139,10 +138,7 @@ const Popular = () => {
             <div className="flex flex-wrap justify-between items-center text-gray-500 dark:text-gray-400 text-sm">
             <div className="flex items-center space-x-4">
                 {/* Like */}
-               <LikeButton user={user} data={data}></LikeButton>
-
-                {/* Dislike */}
-               <DisLikeButton user={ user} data={data}></DisLikeButton>
+               <PostActions data={data} user={user}></PostActions>
               </div>
 
               <div className="flex items-center space-x-4">

@@ -19,6 +19,8 @@ import toast from "react-hot-toast";
 import SkeletonLoader from "../../../Components/Ruhul/Card-Ruhul/SkeletonLoader";
 import UseAuth from "../../../Hooks/UseAuth";
 const UserPosts =({user2})=>{
+  console.log(user2);
+  
     const [posts, isLoading, refetch] = UsePosts(); // Fetch posts
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [likes] = UseLikes();
@@ -55,7 +57,7 @@ const UserPosts =({user2})=>{
           showCancelButton: true,
           confirmButtonText: "Yes, delete it!",
           cancelButtonText: "No, keep it!",
-          buttonsStyling: false,  
+          buttonsStyling: false,
           customClass: {
             confirmButton: "inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out",
             cancelButton: "inline-block bg-red-500 text-white font-bold py-2 px-4 rounded-lg ml-2 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300 transition duration-300 ease-in-out",
@@ -76,7 +78,7 @@ const UserPosts =({user2})=>{
                     title: "<span class='text-blue-400 text-2xl'>Deleted!</span>",
                     html: "<span class='text-gray-600 dark:white text-base'>Your Post  has been deleted.</span>",
                     icon: "success",
-                    background: "bg-white dark:bg-gray-800", 
+                    background: "bg-white dark:bg-gray-800",
                     confirmButtonText: "OK",
                     buttonsStyling: false,
                     customClass: {
@@ -84,25 +86,25 @@ const UserPosts =({user2})=>{
                     }
                   });
                 }
-             
-               
+
+
               })
               .catch(err=>{
                 refetch();
                 toast.error(err);
               })
             }
-          
+
           }
         });
-        
-        
-        
+
+
+
 
       }
     return (
         <section>
-           
+
           <div>
           {myPosts?.length > 0 ? (
              myPosts?.map((data, index) => (
@@ -124,7 +126,7 @@ const UserPosts =({user2})=>{
                   <PostComponent data={data}></PostComponent>
                 </div>
                 <div className="ml-5">
-                 
+
                 </div>
               </div>
               {
@@ -138,20 +140,20 @@ const UserPosts =({user2})=>{
                 {dropdownOpen && (
                   <div className="absolute right-0 mt-36 w-32 bg-white rounded-xl shadow-lg z-10">
                     <ul>
-                  
+
                       <Link to={''}  className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 dark:hover:text-black cursor-pointer flex items-center gap-1">
                         <BiEdit /> Edit
                       </Link>
                       <button onClick={()=>handleDelete(data._id)} className="px-4 py-2 hover:bg-gray-100 dark:bg-gray-600 dark:hover:text-black cursor-pointer flex items-center gap-1">
                         <MdDelete /> Delete
                       </button>
-                     
+
                     </ul>
                   </div>
                 )}
               </div>
               }
-           
+
             </div>
 
             <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-2">
@@ -202,7 +204,7 @@ const UserPosts =({user2})=>{
               <div className="flex items-center space-x-4">
                 {/* Like */}
                 <button
-                 
+
                   className={`flex items-center space-x-1 hover:text-blue-500 `}>
                   {likes &&
                   likes.find(
@@ -227,7 +229,7 @@ const UserPosts =({user2})=>{
 
                 {/* Dislike */}
                 <button
-                 
+
                   className={`flex items-center space-x-1 hover:text-red-500 `}>
                   {dislikes &&
                   dislikes?.find(
@@ -247,7 +249,7 @@ const UserPosts =({user2})=>{
                   <span className="ml-1 text-sm text-gray-600">
                     {data?.dislikes}
                   </span>{" "}
-                  
+
                 </button>
               </div>
 
@@ -266,7 +268,7 @@ const UserPosts =({user2})=>{
               </div>
             </div>
             {/* {
-    
+
         } */}
           </div>
         ))

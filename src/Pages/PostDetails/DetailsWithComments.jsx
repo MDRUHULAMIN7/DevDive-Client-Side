@@ -1,6 +1,6 @@
 import { useLocation, useParams } from "react-router-dom";
 import UsePosts from "../../Hooks/UsePosts";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
@@ -12,10 +12,9 @@ import { Pagination } from "swiper/modules";
 import { SwiperSlide, Swiper } from "swiper/react";
 import UseAuth from "../../Hooks/UseAuth";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import UseLikes from "../../Hooks/UseLikes";
-import UseDisLikes from "../../Hooks/UseDisLike";
+
 import toast from "react-hot-toast";
-import { FaShare, FaThumbsDown, FaThumbsUp } from "react-icons/fa6";
+import { FaShare, } from "react-icons/fa6";
 import { IoMdAdd } from "react-icons/io";
 import { FaCommentAlt } from "react-icons/fa";
 import UseComments from "../../Hooks/UseComments";
@@ -23,6 +22,8 @@ import Comment from "../../Components/nifat/Comment";
 import PostComponent from "../../Components/Ruhul/Card-Ruhul/PostComponent";
 import { Helmet } from "react-helmet";
 import PollData from "../../Components/Ruhul/Card-Ruhul/PollData";
+import usePost from "../../Hooks/usePost";
+import PostActions from "../../Components/Ruhul/Card-Ruhul/PostActions";
 
 const DetailsWithComments = () => {
   const [data, setData] = useState(null);
@@ -56,15 +57,20 @@ const DetailsWithComments = () => {
   const { id } = useParams();
   const [posts, , refetch] = UsePosts();
   const axiosPublic = useAxiosPublic();
-  const [likes] = UseLikes();
-  const [dislikes] = UseDisLikes();
-  const [comments] = UseComments(id);
+
+  let [comments,,commentRefetch] = UseComments(id);
+  const [post, postRefetch] = usePost(id);
   const [showCommentBox, setShowCommentBox] = useState(false)
   const [newComment, setNewComment] = useState('');
+  const postCommentButton = useRef(null);
 
   const handleComment = () => {
     setShowCommentBox(!showCommentBox)
     // console.log(comments[0].userName)
+    setTimeout(()=>{
+      postCommentButton.current?.scrollIntoView({ behavior: 'smooth' });
+    },100)
+    
   }
 
   const submitComment = (e) => {
@@ -72,17 +78,21 @@ const DetailsWithComments = () => {
     const contentId = id;
     const comment = newComment;
     const userName = user.displayName;
+    const userEmail = user.email;
     const userImage = user.photoURL;
     const likeCount = 0;
     const disLikeCount = 0;
     const replyCount = 0;
     const parentId = null;
-    const data = { contentId, comment, userName, userImage, likeCount, disLikeCount, replyCount, parentId }
+    const data = { contentId, comment, userName,userEmail, userImage, likeCount, disLikeCount, replyCount, parentId }
     console.log(data)
     axiosPublic.post('/postComment', data)
       .then((result) => {
         if (result.data.insertedId) {
+          console.log("checking for comment refetch", result)
           refetch()
+          postRefetch()
+          commentRefetch()
           toast.success('successfully commented')
         }
       })
@@ -101,53 +111,7 @@ const DetailsWithComments = () => {
   }, [id, posts, comments]);
   console.log(data);
 
-  const handleLike = async (postId) => {
-    if (!user) {
-      toast("You need to log in to like a post.");
-      return;
-    }
-
-    const newuser = {
-      name: user?.displayName,
-      email: user?.email,
-      photo: user?.photoURL,
-    };
-    if (newuser?.email && newuser?.photo) {
-      await axiosPublic
-        .post(`/like/${postId}`, { newuser })
-        .then((res) => {
-          refetch();
-          console.log(res.data);
-        })
-        .catch((err) => {
-          refetch();
-          console.log(err);
-        });
-    }
-  };
-  const handleDislike = async (postId) => {
-    if (!user) {
-      toast("You need to log in to like a post.");
-      return;
-    }
-    const newuser = {
-      name: user?.displayName,
-      email: user?.email,
-      photo: user?.photoURL,
-    };
-    if (newuser?.email && newuser?.photo) {
-      await axiosPublic
-        .post(`/dislike/${postId}`, { newuser })
-        .then((res) => {
-          refetch();
-          console.log(res.data);
-        })
-        .catch((err) => {
-          refetch();
-          console.log(err);
-        });
-    }
-  };
+  
 
   return (
     <section className="my-4 pb-4">
@@ -213,66 +177,17 @@ const DetailsWithComments = () => {
           <div className="flex my-5 flex-wrap gap-5 items-center text-gray-500 dark:text-gray-400 text-sm">
             <div className="flex items-center space-x-4">
               {/* Like */}
-              <button
-                onClick={() => {
-                  handleLike(data._id);
-                }}
-                className={`flex items-center space-x-1 hover:text-blue-500 `}
-              >
-                {likes &&
-                  likes.find(
-                    (like) =>
-                      like.postId === data._id && like?.email === user?.email
-                  ) ? (
-                  <p className="flex text-blue-500 justify-center items-center gap-x-1">
-                    {" "}
-                    <FaThumbsUp className="h-5 w-5" />{" "}
-                  </p>
-                ) : (
-                  <p className="flex  justify-center items-center gap-x-1">
-                    {" "}
-                    <FaThumbsUp className="h-5 w-5" />{" "}
-                  </p>
-                )}
-                <span className="ml-1 text-sm text-gray-600">
-                  {data?.likes}
-                </span>{" "}
-                {/* Total likes count */}
-              </button>
+              <PostActions data={data} user={user}></PostActions>
 
               {/* Dislike */}
-              <button
-                onClick={() => {
-                  handleDislike(data._id);
-                }}
-                className={`flex items-center space-x-1 hover:text-red-500 `}
-              >
-                {dislikes &&
-                  dislikes?.find(
-                    (like) =>
-                      like.postId === data._id && like?.email === user?.email
-                  ) ? (
-                  <p className="flex text-red-500 justify-center items-center gap-x-1">
-                    {" "}
-                    <FaThumbsDown className="h-5 w-5" />{" "}
-                  </p>
-                ) : (
-                  <p className="flex  justify-center items-center gap-x-1">
-                    {" "}
-                    <FaThumbsDown className="h-5 w-5" />
-                  </p>
-                )}
-                <span className="ml-1 text-sm text-gray-600">
-                  {data?.dislikes}
-                </span>{" "}
-                {/* Total dislikes count */}
-              </button>
+              
             </div>
 
             <div className="flex items-center space-x-4">
               <button to={`/post-details/${data._id}`} className="flex items-center space-x-1 hover:text-blue-500">
                 <FaCommentAlt className="h-5 w-5" />
-                <span className="text-sm">{comments.length}</span>
+                {/* <span className="text-sm">{comments.length}</span> */}
+                <span className="text-sm">{post?.comments}</span>
               </button>
               <button className="flex items-center space-x-1 hover:text-gray-800">
                 <FaShare className="h-5 w-5" />
@@ -294,6 +209,7 @@ const DetailsWithComments = () => {
                 />
                 <button
                   type="submit"
+                  ref={postCommentButton}
                   className="bg-blue-500 text-white py-2 px-4 rounded-lg"
                 >
                   Post Comment
@@ -301,7 +217,7 @@ const DetailsWithComments = () => {
               </form>
             }
             {
-              comments.map((comment) => <Comment key={comment._id} comment={comment} refetch= {refetch}></Comment>)
+              comments.map((comment) => <Comment key={comment._id} comment={comment} refetch= {refetch} postRefetch={postRefetch} commentRefetch={commentRefetch}></Comment>)
               // comments.length>0 && <Comment comments={comments}></Comment>
             }
           </div>

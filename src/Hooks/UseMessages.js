@@ -4,7 +4,7 @@ import useAxiosPublic from './useAxiosPublic';
 const UseMessages = ({ reciver, sender }) => {
   const axiosPublic = useAxiosPublic();
 
-  const { data: messages = [0], isLoading, refetch } = useQuery({
+  const { data: messages = [0], isLoading, refetch:chatRef } = useQuery({
     queryKey: ['messages', sender?.email, reciver?.email],
     enabled: !!sender?.email && !!reciver?.email,
     queryFn: async () => {
@@ -16,7 +16,8 @@ const UseMessages = ({ reciver, sender }) => {
     },
   });
 
-  return [messages, isLoading, refetch];
+
+  return [messages, isLoading, chatRef];
 };
 
 export default UseMessages;

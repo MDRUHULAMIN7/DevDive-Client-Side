@@ -10,6 +10,8 @@ const formatMessage = (message) => {
 };
 
 const MessageDisplay = ({ message }) => {
+
+  console.log(message)
   const safeMessage = DOMPurify.sanitize(formatMessage(message.message));
 
   return (

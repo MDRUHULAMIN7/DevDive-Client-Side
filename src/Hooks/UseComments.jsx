@@ -5,11 +5,11 @@ import useAxiosPublic from "./useAxiosPublic";
 
 const UseComments = (postId) => {
     // const{postsss}=postId;
-    const { user } = UseAuth(); 
-    const axiosPublic = useAxiosPublic(); 
+    const { user } = UseAuth();
+    const axiosPublic = useAxiosPublic();
     const ruhul = true
     // console.log('hello',postId)
-    const { data: comments = [], isLoading, refetch } = useQuery({
+    const { data: comments = [], isLoading, refetch:commentRefetch } = useQuery({
 
         queryKey: ['comments', user?.email],
         enabled: ruhul, // Ensure query runs only if user email is available and not loading
@@ -18,10 +18,8 @@ const UseComments = (postId) => {
             return res.data; // Return the data directly, assuming it's an array
         },
     });
-    refetch()
-    console.log(comments.length); // Log the posts array to verify the result
-
-    return [comments, isLoading, refetch];
+    
+    return [comments, isLoading, commentRefetch];
 };
 
 export default UseComments;
