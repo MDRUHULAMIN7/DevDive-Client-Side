@@ -1,13 +1,27 @@
+import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import { axiosPublic } from "../../Hooks/useAxiosPublic";
 
-const handleUnarchive = async (postId,refetch) => {
+const handleUnarchive = async (postId, refetch) => {
   try {
-    const response = await axiosPublic.delete(`/unarchive/${postId}`); // Send request to unarchive
-    if (response.status === 200) {
-      toast.success("Post unarchived successfully!");
-      refetch();
-      // refetch useIndividualArchiveData
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to unarchive this post?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, unarchive it!",
+    });
+
+    if (result.isConfirmed) {
+      const response = await axiosPublic.delete(`/unarchive/${postId}`);
+      if (response.status === 200) {
+        toast.success("Post unarchived successfully!");
+        refetch(); // Refetch the archive data
+      }
+    } else {
+      toast("Unarchive cancelled");
     }
   } catch (error) {
     console.error("Error unarchiving post:", error);
