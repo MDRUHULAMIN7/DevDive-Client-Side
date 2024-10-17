@@ -91,14 +91,31 @@ const handleReport = async (archiveData, user) => {
 
       console.log("Transformed Report Data:", transformedReportData);
 
-      // Simulate sending the report data to the backend
-      toast.success("Report submitted successfully!");
+      const response = await axiosPublic.post("/reportData", transformedReportData);
+
+      if (response.status === 200) {
+        toast.success("Report submitted successfully!");
+        console.log(response.data);
+
+      }
+
+
     } else {
       toast("Report cancelled."); // Show cancellation toast
     }
   } catch (error) {
-    console.error("Error handling report:", error);
-    toast.error("Something went wrong. Please try again.");
+
+    if (error.response && error.response.status === 400) {
+      if (
+        error.response.data.message === "Post already reported by this user"
+      ) {
+        toast.error("Post already reported by you.");
+      } else {
+        toast.error("Failed to report post.");
+      }
+    } else {
+      toast.error("Failed to report post. Try again.");
+    }
   }
 };
 

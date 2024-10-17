@@ -26,9 +26,9 @@ const DropDown = ({ id, isOpen, toggleDropdown, archiveData }) => {
 
   const handleReportClick = async () => {
     // if (archived) return;
+    toggleDropdown(id);
     await handleReport(archiveData, user);
     await refetch();
-    toggleDropdown(id);
   };
 
   return (
