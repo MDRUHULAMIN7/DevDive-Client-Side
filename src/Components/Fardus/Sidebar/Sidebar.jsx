@@ -1,4 +1,4 @@
-import { FaArrowTrendUp } from "react-icons/fa6";
+import { FaArrowTrendUp, FaCode } from "react-icons/fa6";
 import { IoMdHome } from "react-icons/io";
 import { MdBarChart } from "react-icons/md";
 import { RiUserFollowFill } from "react-icons/ri";
@@ -62,6 +62,16 @@ const Sidebar = ({ setOpenMenu, openMenu }) => {
 
           <hr className="my-6 border-gray-200 dark:border-gray-700" />
 
+          <NavLink
+            to="/code-editor"
+            className={({ isActive }) =>
+              `flex items-center px-4 py-2 rounded-md duration-200 hover:bg-pm-color hover:text-white ${
+                isActive ? "bg-pm-color text-white" : ""
+              }`
+            }>
+            <FaCode className="" />
+            <span className="mx-3 font-medium text-xs">DevStudio</span>
+          </NavLink>
           <NavLink
             to="/blogCard"
             className={({ isActive }) =>
