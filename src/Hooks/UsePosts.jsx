@@ -25,7 +25,7 @@ const UsePosts = () => {
   );
   // refetch();
 
-  console.log("usePostHook", posts);
+
 
 
   return [posts, isLoading, refetch];

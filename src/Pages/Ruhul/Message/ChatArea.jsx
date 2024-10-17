@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import UseAuth from "../../../Hooks/UseAuth";
 import { axiosPublic } from "../../../Hooks/useAxiosPublic";
-
 import Chats from "./Chats";
 import VideoButton from "./VideoButton";
+import UseMessages from "../../../Hooks/UseMessages";
 
 
 const ChatArea=({selectedUser})=>{
   const [meetingLink,setMeetingLink] = useState(""); // Store the meeting link
 
-  console.log(meetingLink)
   const {user}=UseAuth();
 
   // Send a message automatically when the meeting link changes
@@ -38,35 +37,11 @@ const ChatArea=({selectedUser})=>{
     }
   }, [meetingLink, selectedUser, user]);
 
-//   useEffect(()=>{
-//   const message = meetingLink;
-//   const messageInfo={
-//     senderName : user.displayName,
-//     senderEmail : user.email,
-//     senderPhoto : user.photoURL,
-//     message,
-//     timestamp : new Date(),
-//     receiverName : selectedUser.name,
-//     receiverEmail : selectedUser.email,
-//     receiverPhoto : selectedUser.photoUrl,
-// }
 
-// if (meetingLink && messageInfo){
-//   axiosPublic.post('/messages',messageInfo)
-//         .then(res=>{
-//              console.log(res.data)
-            
-//          setResponse('r')
- 
-//         }).catch(err=>{
-//              console.log(err)
-//          })
-// }
-
-//   },[meetingLink,setMeetingLink])
-
+const [messages, , chatRef] = UseMessages({sender:user,reciver:selectedUser});
+console.log(messages,'from here')
 const [response,setResponse]=useState([])
-const handleMessage=(e)=>{
+const handleMessage=async(e)=>{
     e.preventDefault()
     const form = e.target;
   setResponse([])
@@ -86,11 +61,16 @@ const handleMessage=(e)=>{
     if(messageInfo.senderPhoto && message){
         console.log(messageInfo)
 
-        axiosPublic.post('/messages',messageInfo)
+       await axiosPublic.post('/messages',messageInfo)
         .then(res=>{
-             console.log(res.data)
-             form.reset();
-         setResponse('r')
+          chatRef()
+          if(res.data){
+       
+          
+            form.reset();
+        setResponse('r')
+          }
+         
  
         }).catch(err=>{
              console.log(err)

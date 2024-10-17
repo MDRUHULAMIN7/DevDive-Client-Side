@@ -10,6 +10,7 @@ import User from "../../../assets/User_icon_2.svg.png";
 import {
     IoAdd,
     IoArrowBackOutline,
+    IoChatboxEllipsesOutline,
     IoNotificationsOutline,
     IoSettingsOutline,
 } from "react-icons/io5";
@@ -20,6 +21,7 @@ import { AuthContext } from "../../../Providers/AuthProvider";
 import { Link } from "react-router-dom";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import PostComponent from "../../Ruhul/Card-Ruhul/PostComponent";
+import UseAdmin from "../../../Hooks/Admin/UseAdmin";
 
 const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
     const axiosPublic = useAxiosPublic();
@@ -31,7 +33,7 @@ const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
     // const [focusInput, setFocusInput] = useState(false);
     const [searchData, setSearchData] = useState([]);
     const inputRef = useRef(null);
-
+   const [isAdmin]=UseAdmin()
     useEffect(() => {
         focusInput && inputRef.current.focus();
     }, [focusInput]);
@@ -203,9 +205,16 @@ const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
                                         </span>
 
                                         <hr className="mt-1 border-gray-200 dark:border-gray-700" />
-                                        <Link to={'/admin-settings'} className="flex justify-start lg:px-6 px-5 py-4 my-1 dark:hover:text-gray-50 dark:hover:bg-opacity-30 dark:hover:bg-gray-700 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
+
+
+                                       { isAdmin && <Link to={'/admin-settings'} className="flex justify-start lg:px-6 px-5 py-4 my-1 dark:hover:text-gray-50 dark:hover:bg-opacity-30 dark:hover:bg-gray-700 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
                                             <IoSettingsOutline className="text-2xl" />
                                             Setting
+                                        </Link>}
+                                        <Link to={`/chat/${user?.email}`} className="flex justify-start lg:px-6 px-5 py-4 my-1 dark:hover:text-gray-50 dark:hover:bg-opacity-30 dark:hover:bg-gray-700 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
+                                        <IoChatboxEllipsesOutline
+                                         className="text-2xl" />
+                                            chat
                                         </Link>
 
                                         <hr className="border-gray-200 dark:border-gray-700" />
@@ -310,10 +319,15 @@ const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
 
                 <hr className="mt-1 border-gray-200 dark:border-gray-700" />
 
-                <Link to={'/admin-settings'} className="flex justify-start lg:px-6 px-5 py-4 my-1 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
+               { isAdmin && <Link to={'/admin-settings'} className="flex justify-start lg:px-6 px-5 py-4 my-1 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
                     <IoSettingsOutline className="text-2xl" />
                     Setting
-                </Link>
+                </Link>}
+                <Link to={`/chat/${user?.email}`} className="flex justify-start lg:px-6 px-5 py-4 my-1 dark:hover:text-gray-50 dark:hover:bg-opacity-30 dark:hover:bg-gray-700 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
+                                        <IoChatboxEllipsesOutline
+                                         className="text-2xl" />
+                                            chat
+                                        </Link>
 
                 <hr className="mt-1 border-gray-200 dark:border-gray-700" />
 

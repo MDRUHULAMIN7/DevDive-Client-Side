@@ -6,20 +6,20 @@ import MessageDisplay from "./MessageDisplay";
 
 const Chats = ({ reciver, sender, response }) => {
   const [messages, setMessages] = useState([]);
-  const [messagesData, isLoading, refetch] = UseMessages({ reciver, sender });
+  const [messagesData, isLoading, chatRef] = UseMessages({ reciver, sender });
   const [openModalId, setOpenModalId] = useState(null);
-
+console.log(messagesData)
   useEffect(() => {
-    if (messagesData?.length || response) {
+    if (messagesData?.length || response ||  isLoading) {
       setMessages(messagesData);
     }
-  }, [messagesData, response]);
+  }, [messagesData, response,chatRef, isLoading]);
 
   useEffect(() => {
-    if (reciver && sender) {
-      refetch();
+    if(messagesData?.length || response ||  isLoading) {
+      chatRef();
     }
-  }, [reciver, sender, refetch, response]);
+  }, [messagesData, response,chatRef, isLoading]);
 
   if (isLoading) {
     return (
@@ -57,27 +57,27 @@ const Chats = ({ reciver, sender, response }) => {
 
                 <div className="flex flex-col">
                   <div
-                    className={`md:p-3 rounded-lg shadow-md text-sm ${
+                    className={`md:p-3 p-1 rounded-lg shadow-md text-sm ${
                       message.senderEmail === sender.email
                         ? "bg-blue-500 text-white"
                         : "bg-gray-200 text-black"
                     } max-w-xs md:max-w-md`}
                   >
                     <p className="whitespace-pre-wrap break-words h-full">
-                      <MessageDisplay message={message} />
+                      <MessageDisplay message={message} />  
                     </p>
                   </div>
                 </div>
 
-                <div>
+              { sender?.email === message?.senderEmail && <div> 
                   <ChatModal
                     message={message}
                     sender={sender}
                     openModalId={openModalId}
                     setOpenModalId={setOpenModalId}
-                    refetch={refetch}
+                    refetch={chatRef}
                   />
-                </div>
+                </div>}
               </div>
             </div>
           ))
