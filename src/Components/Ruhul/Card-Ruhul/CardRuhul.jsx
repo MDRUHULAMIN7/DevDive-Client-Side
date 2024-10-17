@@ -110,9 +110,9 @@ const CardRuhul = () => {
             }
 
             {
-              data.poll &&  <div className="text-gray-700 dark:text-gray-300 ">
+              data?.poll?.length > 0 &&  <div className="text-gray-700 dark:text-gray-300 ">
 
-              <PollData data={data}></PollData>
+              <PollData pollPost={data}></PollData>
               </div>
             }
           

@@ -1,6 +1,8 @@
 import { FaUsers, FaGlobe, FaCode, FaRegClipboard, FaRegStar, FaTools, FaHandsHelping } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { MdStorage } from 'react-icons/md';
+import OurTeam from '../../../../Components/Fardus/OurTeam/OurTeam';
+import { Facebook } from 'react-content-loader';
 
 const AboutSection = () => {
   return (
@@ -123,43 +125,68 @@ const AboutSection = () => {
       {
         image: "https://lh3.googleusercontent.com/a/ACg8ocJTmh8z1WAXiebQcBypHJociUdnDai19wLXQdXNpGFapnFmuSJU=s96-c", // Development Team
         title: "Md Ruhul Amin",
-        desc: "A dedicated team of developers focused on building innovative solutions."
+        role : "Mern Stack Developer",
+        facebook: "",
+        linkedin: "",
+        github: "",
+
       },
       {
-        image: "https://i.ibb.co/VMNcT0V/In-Shot-20240703-024633597.jpg", // Support Team
+        image: "https://i.ibb.co.com/vwzwdGq/In-Shot-20240703-024633597.jpg", // Support Team
         title: "Fardus Hassan",
-        desc: "Here to help our community with any queries or issues."
+        role : "Mern Stack Developer",
+        facebook: "https://www.facebook.com/profile.php?id=100034957954013",
+        linkedin: "https://www.linkedin.com/in/fardus-hassan",
+        github: "https://github.com/Fardus-Hassan",
+
       },
       {
-        image: "https://randomuser.me/api/portraits/men/52.jpg", // Design Team
-        title: "Design Team",
-        desc: "Creative minds working on making our platform user-friendly."
+        image: "https://sanjidaema.netlify.app/assets/mypic-BdSK1L4O.jfif", // Design Team
+        title: "Mst Sanjida Akter",
+        role : "Mern Stack Developer",
+        facebook: "https://www.facebook.com/profile.php?id=100054261816897&_rdc=1&_rdr",
+        linkedin: "https://www.linkedin.com/in/sanjidaema/",
+        github: "https://github.com/SanjidaOSD",
+
       },
       {
         image: "https://randomuser.me/api/portraits/men/11.jpg", // Marketing Team
-        title: "Marketing Team",
-        desc: "Driving our outreach and community engagement."
+        title: "",
+        role : "Mern Stack Developer",
+        facebook: "",
+        linkedin: "",
+        github: "",
+
       },
       {
         image: "https://randomuser.me/api/portraits/women/14.jpg", // Content Team
         title: "Content Team",
-        desc: "Creating valuable resources and guides for our community."
+        role : "Mern Stack Developer",
+        facebook: "",
+        linkedin: "",
+        github: "",
+
       },
       {
         image: "https://randomuser.me/api/portraits/men/21.jpg", // Project Management
         title: "Project Management",
-        desc: "Ensuring smooth workflow and team collaboration."
+        role : "Mern Stack Developer",
+        facebook: "",
+        linkedin: "",
+        github: "",
+
       }
-    ].map(({ image, title, desc }, idx) => (
-      <motion.div
-        key={idx}
-        whileHover={{ scale: 1.05 }}
-        className="bg-gray-300 dark:bg-gray-800 rounded-lg p-8 shadow-lg text-center relative z-10"
-      >
-        <img src={image} alt={title} className="w-24 h-24 mx-auto mb-4 rounded-full object-cover" />
-        <h3 className="text-2xl font-semibold mb-2">{title}</h3>
-        <p className="dark:text-gray-400">{desc}</p>
-      </motion.div>
+    ].map((member, idx) => (
+      // <motion.div
+      //   key={idx}
+      //   whileHover={{ scale: 1.05 }}
+      //   className="bg-gray-300 dark:bg-gray-800 rounded-lg p-8 shadow-lg text-center relative z-10"
+      // >
+      //   <img src={image} alt={title} className="w-24 h-24 mx-auto mb-4 rounded-full object-cover" />
+      //   <h3 className="text-2xl font-semibold mb-2">{title}</h3>
+      //   <p className="dark:text-gray-400">{desc}</p>
+      // </motion.div>
+      <OurTeam key={idx} member={member}></OurTeam>
     ))}
   </div>
 </motion.div>
