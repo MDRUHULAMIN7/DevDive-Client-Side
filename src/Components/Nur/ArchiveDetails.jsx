@@ -5,7 +5,7 @@ import useIndividualArchiveData from "../../Hooks/Nur/useIndividualArchiveData";
 import { handleUnarchive } from "./HandleUnarchive";
 
 const ArchiveDetails = ({ archiveDataUser }) => {
-  console.log(archiveDataUser);
+  console.log("archiveDataUser", archiveDataUser);
   const navigate = useNavigate();
 
   const { user } = useContext(AuthContext); // Get the user info
@@ -58,7 +58,7 @@ const ArchiveDetails = ({ archiveDataUser }) => {
             <div className="flex items-center">
               {/* add unarchive button  */}
               <button
-                onClick={() => handleUnarchive(post.post_id, refetch)}
+                onClick={() => handleUnarchive(post.post_id, archiveDataUser, refetch)}
                 className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-4">
                 Unarchive
               </button>
