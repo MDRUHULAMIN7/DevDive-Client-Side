@@ -2,20 +2,20 @@ import { useQuery } from "@tanstack/react-query";
 import UseAuth from "./UseAuth";
 import useAxiosPublic from "./useAxiosPublic";
 
-const UsePopularPosts = () => {
+const UsefollowingPosts = () => {
   const { user } = UseAuth();
   const axiosPublic = useAxiosPublic();
-  const ruhul = true;
-
+ 
+const email = user?.email;
   const {
-    data: popularPosts = [],
+    data: followingPosts = [],
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["posts", user?.email],
-    enabled: ruhul,
+    queryKey: ["followingPosts", user?.email],
+    enabled:!!user?.email,
     queryFn: async () => {
-      const res = await axiosPublic.get(`/get-popular-posts`);
+      const res = await axiosPublic.get(`/get-following-posts/${email}`);
       return res.data;
     },
   });
@@ -26,8 +26,8 @@ const UsePopularPosts = () => {
 
 
 
-  return [popularPosts,isLoading,refetch];
+  return [followingPosts,isLoading,refetch];
 
 };
 
-export default UsePopularPosts;
+export default UsefollowingPosts;

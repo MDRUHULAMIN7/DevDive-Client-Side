@@ -11,7 +11,7 @@ import useCommentDislike from '../../Hooks/useCommentDislike';
 import { SlOptionsVertical } from "react-icons/sl";
 import DeleteCommentButton from './DeleteCommentButton';
 
-const Comment = ({comment,refetch,postRefetch}) => {
+const Comment = ({comment,refetch,postRefetch,commentRefetch}) => {
   
   const { user } = UseAuth();
   const axiosPublic= useAxiosPublic()
@@ -124,7 +124,10 @@ const Comment = ({comment,refetch,postRefetch}) => {
       axiosPublic
         .put(`/editComment/${id}`, { comment: updatedComment })
         .then((res) => {
-          if (res) refetch(); 
+          if (res) {
+            refetch()
+            commentRefetch()
+          }; 
           setIsEditModalOpen(false); 
         })
         .catch((err) => {
@@ -159,7 +162,7 @@ const Comment = ({comment,refetch,postRefetch}) => {
                   
                   <button onClick={handleEditClick} className='border-2 border-slate-200 hover:bg-blue-400 rounded-md px-5'>Update</button>
                   {/* <button className='border-2 border-slate-500 rounded-md px-5'>Delete</button> */}
-                  <DeleteCommentButton comment={comment} refetch={refetch} replyRefetch={replyRefetch} postRefetch={postRefetch}></DeleteCommentButton>
+                  <DeleteCommentButton comment={comment} refetch={refetch} replyRefetch={replyRefetch} postRefetch={postRefetch} commentRefetch={commentRefetch}></DeleteCommentButton>
                 </div>
               }
             </div>:<div></div>
