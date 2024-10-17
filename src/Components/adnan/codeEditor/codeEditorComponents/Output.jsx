@@ -31,7 +31,7 @@ const Output = ({ editorRef, language }) => {
   };
 
   return (
-    <div className='w-1/2'>
+    <div className='w-full'>
       <h2 className='mx-2 my-4 font-semibold text-lg'>Output</h2>
       <button 
       isLoading={isLoading}
@@ -46,7 +46,7 @@ const Output = ({ editorRef, language }) => {
       </button>
 
       <div
-      className={`h-[90vh] p-2 border-2 rounded-md ${isError ? 'text-red-600' : 'text-black dark:text-white'}`}
+      className={`h-[75vh] p-2 border-2 rounded-md ${isError ? 'text-red-600' : 'text-black dark:text-white'}`}
       >
       {output
           ? output.map((line, i) => <h2 key={i}>{line}</h2>)
