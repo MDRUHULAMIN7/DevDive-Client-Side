@@ -39,7 +39,7 @@ const DropDown = ({ id, isOpen, toggleDropdown, archiveData }) => {
   };
 
   const handleReportClick = async () => {
-    // if (archived) return;
+    if (reported) return;
     toggleDropdown(id);
     await handleReport(archiveData, user);
     await refetchReport();
