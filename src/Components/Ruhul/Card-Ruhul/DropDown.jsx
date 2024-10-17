@@ -1,6 +1,6 @@
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegFileArchive, FaRegFlag } from "react-icons/fa";
-import { handleArchive } from "../../Nur/HandleArchive&Report";
+import { handleArchive, handleReport } from "../../Nur/HandleArchive&Report";
 import { useContext } from "react";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import useCheckArchiveStatus from "../../../Hooks/Nur/useCheckArchiveStatus";
@@ -10,22 +10,24 @@ const DropDown = ({ id, isOpen, toggleDropdown, archiveData }) => {
   // check archiveData._id === post_id and archivedBy.email === user.email the show already archived
   const { user } = useContext(AuthContext);
 
-  const { archived, isLoading, error,refetch } = useCheckArchiveStatus(
+  const { archived, isLoading, error, refetch } = useCheckArchiveStatus(
     archiveData?._id,
     user?.email
   );
 
   console.log("is archived from dropdown", archived, isLoading, error);
 
-  const handleArchiveClick =async () => {
+  const handleArchiveClick = async () => {
     if (archived) return;
-    await  handleArchive(archiveData, user);
-    await  refetch();
+    await handleArchive(archiveData, user);
+    await refetch();
     toggleDropdown(id);
   };
 
-  const handleReportClick = () => {
-    console.log("Report Hit");
+  const handleReportClick = async () => {
+    // if (archived) return;
+    await handleReport(archiveData, user);
+    await refetch();
     toggleDropdown(id);
   };
 
