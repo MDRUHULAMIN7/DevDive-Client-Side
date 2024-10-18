@@ -1,5 +1,11 @@
 import { useState, useEffect } from 'react';
-import { FaArrowUp } from 'react-icons/fa6';
+import {
+  
+    IoChatboxEllipsesOutline,
+  
+} from "react-icons/io5";
+import { Link } from 'react-router-dom';
+import UseAuth from '../../../Hooks/UseAuth';
 
 const Chatbot = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -12,14 +18,8 @@ const Chatbot = () => {
             setIsVisible(false);
         }
     };
+const {user} =UseAuth()
 
-    // Scroll to the top of the page when the button is clicked
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-        });
-    };
 
     useEffect(() => {
         window.addEventListener('scroll', toggleVisibility);
@@ -30,20 +30,22 @@ const Chatbot = () => {
     }, []);
 
     return (
-        <section className='z-50'>
+        <Link to={`/chat/${user?.email}`} className='z-50'>
             {/* Chatbot content can go here */}
 
             {/* Scroll to top button */}
             <button
-                onClick={scrollToTop}
+               
                 className={`fixed bottom-5 right-5 bg-blue-500 text-white p-3 rounded-full shadow-lg transition-transform duration-500 w-12 h-12 flex justify-center items-center ${
                     isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
                 } hover:scale-110 hover:shadow-[0_0_15px_rgba(0,123,255,0.6)]`}
                 style={{ transition: 'opacity 0.5s ease, transform 0.5s ease' }}
             >
-                <FaArrowUp className="text-xl" />
+                  <IoChatboxEllipsesOutline
+                                         className="text-2xl" />
+               
             </button>
-        </section>
+        </Link>
     );
 };
 

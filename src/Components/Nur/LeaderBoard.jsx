@@ -128,7 +128,7 @@ const LeaderBoard = () => {
                 <ol className="list-group list-group-flush list-group-numbered pl-0 pr-1 md:pr-4">
                   {leaderBoardComments.map(
                     (user, index) => (
-                      console.log(user),
+                      console.log("jibon ses"),
                       (
                         <div
                           onClick={() => navigate(`/users/${user.userEmail}`)}
