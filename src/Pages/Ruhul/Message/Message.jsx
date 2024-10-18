@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaSearch, FaBars } from "react-icons/fa"; // Import FaBars for the drawer toggle
+import { FaSearch, FaBars } from "react-icons/fa";
 import UseUser from "../../../Hooks/UseUser";
 import ChatArea from "./ChatArea";
 import SkeletonLoader from "../../../Components/Ruhul/Card-Ruhul/SkeletonLoader";
@@ -10,7 +10,7 @@ const Message = () => {
   const [users] = UseUser();
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
-  const [drawerOpen, setDrawerOpen] = useState(false); // State for drawer visibility
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   // Filter users based on search input
   useEffect(() => {
@@ -24,7 +24,7 @@ const Message = () => {
 
   const handleUserClick = (user) => {
     setSelectedUser(user);
-    setDrawerOpen(false); // Close drawer on user click
+    setDrawerOpen(false);
   };
 
   if (!users) {
@@ -43,7 +43,7 @@ const Message = () => {
 
       {/* Drawer toggle button for small devices */}
       <button
-        onClick={() => setDrawerOpen(!drawerOpen)} // Toggle the drawer
+        onClick={() => setDrawerOpen(!drawerOpen)}
         className="lg:hidden absolute top-16 left-4 z-20 bg-blue-500 rounded-full shadow-md p-2">
         <FaBars className="text-black dark:text-white text-5xl" size={20} />
       </button>
