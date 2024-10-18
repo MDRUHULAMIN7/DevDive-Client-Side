@@ -31,27 +31,28 @@ const Chats = ({ reciver, sender, response }) => {
   // Handle scroll event
   const handleScroll = () => {
     if (chatContainerRef.current) {
+      setShowScrollButton(true);
       const { scrollTop, scrollHeight, clientHeight } =
         chatContainerRef.current;
-      // Show button if scrolled up
-      setShowScrollButton(scrollTop + clientHeight < scrollHeight);
+      const atBottom = scrollTop + clientHeight >= scrollHeight - 10;
+      setShowScrollButton(!atBottom);
     }
   };
+
   // Scroll to bottom function
   const scrollToBottom = () => {
+    setShowScrollButton(true);
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    setShowScrollButton(false); // Hide the button after scrolling
+    setShowScrollButton(false);
   };
+
   useEffect(() => {
     const container = chatContainerRef.current;
     if (container) {
       container.addEventListener("scroll", handleScroll);
+      handleScroll();
     }
-    return () => {
-      if (container) {
-        container.removeEventListener("scroll", handleScroll);
-      }
-    };
+    return () => container?.removeEventListener("scroll", handleScroll);
   }, []);
 
   if (isLoading) {
