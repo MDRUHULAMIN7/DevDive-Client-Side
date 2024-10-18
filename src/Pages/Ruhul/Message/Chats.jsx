@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import UseMessages from "../../../Hooks/UseMessages";
 import ChatModal from "./ChatModal";
 import MessageDisplay from "./MessageDisplay";
+import { FaArrowDown } from "react-icons/fa";
 
 const Chats = ({ reciver, sender, response }) => {
   const [messages, setMessages] = useState([]);
   const [messagesData, isLoading, chatRef] = UseMessages({ reciver, sender });
   const [openModalId, setOpenModalId] = useState(null);
+  const messagesEndRef = useRef(null);
+  const chatContainerRef = useRef(null); // Reference for the chat container
+  const [showScrollButton, setShowScrollButton] = useState(false);
 
   useEffect(() => {
     if (messagesData?.length || response || isLoading) {
@@ -19,6 +23,36 @@ const Chats = ({ reciver, sender, response }) => {
       chatRef();
     }
   }, [messagesData, response, chatRef, isLoading]);
+
+  // Scroll to the bottom when messages change
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+  // Handle scroll event
+  const handleScroll = () => {
+    if (chatContainerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } =
+        chatContainerRef.current;
+      // Show button if scrolled up
+      setShowScrollButton(scrollTop + clientHeight < scrollHeight);
+    }
+  };
+  // Scroll to bottom function
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    setShowScrollButton(false); // Hide the button after scrolling
+  };
+  useEffect(() => {
+    const container = chatContainerRef.current;
+    if (container) {
+      container.addEventListener("scroll", handleScroll);
+    }
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, []);
 
   if (isLoading) {
     return (
@@ -38,7 +72,16 @@ const Chats = ({ reciver, sender, response }) => {
             display: none;
           }
         `}</style>
-      <div className="flex flex-col space-y-20">
+      <div
+        ref={chatContainerRef}
+        className="flex flex-col space-y-20"
+        style={{
+          overflowY: "auto",
+          maxHeight: "calc(100vh - 200px)",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+          WebkitOverflowScrolling: "touch",
+        }}>
         {messages.length > 0 ? (
           messages.map((message, index) => (
             <div
@@ -88,7 +131,18 @@ const Chats = ({ reciver, sender, response }) => {
         ) : (
           <p className="text-center text-gray-900">No messages yet</p>
         )}
+        <div ref={messagesEndRef} /> {/* Reference to scroll to the bottom */}
       </div>
+      {/* Scroll to Bottom Button */}
+      {showScrollButton && (
+        <button
+          onClick={scrollToBottom}
+          className="fixed bottom-20 left-1/2 lg:left-2/3 transform -translate-x-1/2 bg-blue-500 text-white p-2 rounded-full shadow-lg"
+          style={{ zIndex: 1000 }} // Ensure button is on top
+        >
+          <FaArrowDown />
+        </button>
+      )}
     </section>
   );
 };

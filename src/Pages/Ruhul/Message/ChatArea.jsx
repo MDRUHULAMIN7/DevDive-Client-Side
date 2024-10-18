@@ -9,7 +9,7 @@ const ChatArea = ({ selectedUser }) => {
   const [meetingLink, setMeetingLink] = useState("");
   const { user } = UseAuth();
   const [response, setResponse] = useState([]);
-  const [messages, , chatRef] = UseMessages({ sender: user, reciver: selectedUser });
+  const [, , chatRef] = UseMessages({ sender: user, reciver: selectedUser });
 
   useEffect(() => {
     if (meetingLink && selectedUser && user) {
