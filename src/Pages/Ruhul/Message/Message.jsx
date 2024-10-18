@@ -1,116 +1,128 @@
-import { useRef, useState } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Import React Icons
+import { useRef, useState, useEffect } from "react";
+import { FaChevronLeft, FaChevronRight, FaSearch, FaBars } from "react-icons/fa"; // Import FaBars for the drawer toggle
 import UseUser from "../../../Hooks/UseUser";
 import ChatArea from "./ChatArea";
 import SkeletonLoader from "../../../Components/Ruhul/Card-Ruhul/SkeletonLoader";
-
+import { Helmet } from "react-helmet";
 
 const Message = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [users] = UseUser();
-  const scrollRef = useRef(null); // Ref for scrolling
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [drawerOpen, setDrawerOpen] = useState(false); // State for drawer visibility
+  const scrollRef = useRef(null);
+
+  // Filter users based on search input
+  useEffect(() => {
+    setFilteredUsers(
+      users && users.filter((user) =>
+        user.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  }, [searchTerm, users]);
 
   const handleUserClick = (user) => {
     setSelectedUser(user);
+    setDrawerOpen(false); // Close drawer on user click
   };
 
-  const scrollLeft = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: -150, behavior: "smooth" }); // Scroll left
-    }
-  };
 
-  const scrollRight = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: 150, behavior: "smooth" }); // Scroll right
-    }
-  };
-if(!users){
 
-  return(
-    <section>
-      <SkeletonLoader></SkeletonLoader>
-    </section>
-  )
-}
+  if (!users) {
+    return (
+      <section>
+        <SkeletonLoader />
+      </section>
+    );
+  }
+
   return (
     <section className="flex flex-col lg:flex-row h-screen">
-      {/* Sidebar for larger screens */}
-      <div className="w-full hidden lg:flex flex-col lg:w-1/4 border-r p-2 md:p-4 bg-gray-100 dark:bg-gray-900 h-screen overflow-y-auto">
-        <h2 className="font-bold text-lg mb-4">Users</h2>
-        {users?.length &&
-          users?.map((user) => (
-            <div
-              key={user._id}
-              onClick={() => handleUserClick(user)}
-              className={`flex items-center p-2 mb-2 cursor-pointer rounded ${
-                selectedUser?._id === user._id ? "bg-blue-500" : ""
-              } hover:bg-blue-600 transition`}
-            >
-              <img
-                src={user.photoUrl}
-                alt={user.name}
-                className="w-10 h-10 rounded-full mr-3"
-              />
-              <div className="flex-col hidden md:flex">
-                <p className="font-medium ">{user.name}</p>
-              
-              </div>
+      <Helmet>
+        <title>DevDive | Chat</title>
+      </Helmet>
+
+      {/* Drawer toggle button for small devices */}
+      <button
+        onClick={() => setDrawerOpen(!drawerOpen)} // Toggle the drawer
+        className="lg:hidden absolute top-16 left-4 z-20 bg-blue-500 rounded-full shadow-md p-2"
+      >
+        <FaBars className="text-black dark:text-white text-5xl" size={20} />
+      </button>
+
+      {/* Drawer for small devices */}
+      <div className={`lg:hidden fixed inset-0 bg-gray-800 bg-opacity-75 transition-opacity ${drawerOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`} onClick={() => setDrawerOpen(false)} />
+
+      <div className={`lg:hidden fixed top-4 left-0 bg-white dark:bg-gray-900 w-64 h-full overflow-y-auto transform transition-transform ${drawerOpen ? "translate-x-0" : "-translate-x-full"}`}>
+       
+        <h2 className="font-bold text-lg  mt-24 px-4">Users</h2>
+        <div className="flex items-center  p-4">
+          <FaSearch className="text-gray-600 dark:text-gray-400 mr-2 " />
+          <input
+            type="text"
+            placeholder="Search users..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full p-2 bg-white dark:bg-gray-800 border rounded focus:outline-none"
+          />
+        </div>
+        {filteredUsers && filteredUsers.map((user) => (
+          <div
+            key={user._id}
+            onClick={() => handleUserClick(user)}
+            className={`flex items-center p-2 mb-2 cursor-pointer rounded ${
+              selectedUser?._id === user._id ? "bg-blue-500 " : ""
+            } hover:bg-blue-600 transition`}
+          >
+            <img
+              src={user.photoUrl}
+              alt={user.name}
+              className="w-10 h-10 rounded-full mr-3"
+            />
+            <div className="flex-col ">
+              <p className="font-medium">{user.name}</p>
             </div>
-          ))}
+          </div>
+        ))}
       </div>
 
-      {/* Horizontal User Slider for Mobile */}
-      <div className="relative lg:hidden flex items-center">
-   
-        <button
-          onClick={scrollLeft}
-          className="absolute left-0 z-10 bg-blue-500  rounded-full shadow-md p-1"
-          style={{ top: "50%", transform: "translateY(-50%)" }} 
-        >
-          <FaChevronLeft className="text-gray-700 dark:text-gray-300" size={20} />
-        </button>
-
- 
-        <div
-          ref={scrollRef}
-          className="flex gap-x-4 p-2 bg-gray-100 dark:bg-gray-900 overflow-x-auto overflow-y-hidden whitespace-nowrap px-4"
-          style={{
-            scrollbarWidth: 'none', 
-            msOverflowStyle: 'none', 
-            WebkitOverflowScrolling: 'touch', 
-          }}
-        >
-          {users.map((user,index) => (
-            <div
-              key={index}
-              onClick={() => handleUserClick(user)}
-              className={`flex-shrink-0 flex flex-col items-center cursor-pointer p-1 rounded-full transition duration-200 ease-in-out ${
-                selectedUser?._id === user._id ? "bg-blue-500" : ""
-              } hover:bg-blue-200 transform hover:scale-105`}
-            >
-              <img
-                src={user.photoUrl}
-                alt={user.name}
-                className="w-14 h-14 rounded-full border border-gray-300 shadow-md"
-              />
-              
-            </div>
-          ))}
+      {/* Sidebar for larger screens */}
+      <div className="w-full hidden lg:flex flex-col lg:w-1/4 border-r p-4 bg-gray-100 dark:bg-gray-900 h-screen overflow-y-auto">
+        <div className="flex items-center mb-4">
+          <FaSearch className="text-gray-600 dark:text-gray-400 mr-2" />
+          <input
+            type="text"
+            placeholder="Search users..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full p-2 bg-white dark:bg-gray-800 border rounded focus:outline-none"
+          />
         </div>
 
- 
-        <button
-          onClick={scrollRight}
-          className="absolute right-0 z-10 bg-blue-500 rounded-full shadow-md p-1"
-          style={{ top: "50%", transform: "translateY(-50%)" }} 
-        >
-          <FaChevronRight className="text-gray-700 dark:text-gray-300" size={20} />
-        </button>
+        <h2 className="font-bold text-lg mb-4">Users</h2>
+        {filteredUsers && filteredUsers.map((user) => (
+          <div
+            key={user._id}
+            onClick={() => handleUserClick(user)}
+            className={`flex items-center p-2 mb-2 cursor-pointer rounded ${
+              selectedUser?._id === user._id ? "bg-blue-500 text-white" : ""
+            } hover:bg-blue-600 transition`}
+          >
+            <img
+              src={user.photoUrl}
+              alt={user.name}
+              className="w-10 h-10 rounded-full mr-3"
+            />
+            <div className="flex-col hidden md:flex">
+              <p className="font-medium">{user.name}</p>
+            </div>
+          </div>
+        ))}
       </div>
 
- 
-      <div className="w-full lg:w-3/4 md:h-screen overflow-y-auto bg-white dark:bg-gray-900">
+      {/* Chat Area */}
+      <div className="w-full lg:w-3/4 h-screen overflow-y-auto bg-white dark:bg-gray-900">
         <ChatArea selectedUser={selectedUser} />
       </div>
     </section>

@@ -123,7 +123,7 @@ const AboutSection = () => {
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
     {[
       {
-        image: "https://i.ibb.co.com/3ySBHBR/i7f0c5y2m51eqn1kher4-2.webp", // Development Team
+        image: "https://res.cloudinary.com/dpomtzref/image/upload/v1729242097/dm2bbwotaoqc8ab6q9sz.jpg", // Development Team
         title: "Md Ruhul Amin",
         role : "Mern Stack Developer",
         facebook: "https://www.facebook.com/profile.php?id=100075508398981",

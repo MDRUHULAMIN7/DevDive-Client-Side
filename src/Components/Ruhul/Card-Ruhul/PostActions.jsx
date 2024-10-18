@@ -5,77 +5,46 @@ import UseLikes from "../../../Hooks/UseLikes";
 import UseDisLikes from "../../../Hooks/UseDisLike";
 import { toast } from "react-toastify";
 import UsePosts from "../../../Hooks/UsePosts";
-
+import { useCallback, useState } from "react";
 
 export default function PostActions({ data, user }) {
+  const [likes, isLoading, likeRef] = UseLikes();
+  const [dislikes, , dislikeRef] = UseDisLikes();
+  const [,, refetch] = UsePosts();
+  const axiosPublic = useAxiosPublic();
+  const [isUpdating, setIsUpdating] = useState(false); // Track state to avoid spamming
 
-  const [likes, isLoading,likeRef] = UseLikes();
-  const [,,refetch]=UsePosts()
- 
-  const [dislikes,,dislikeRef] = UseDisLikes();  // Proper destructuring
-  const axiosPublic = useAxiosPublic(); // Use axios instance properly
- 
-  
-  const handleLike = async (postId) => {
-    
-    if (!user) {
-      toast.error("You need to log in to like a post.");
-      return;
-    }
-   
-    const newUser = {
-      name: user.displayName,
-      email: user.email,
-      photo: user.photoURL,
-    };
-
-    try {
-      const res = await axiosPublic.post(`/like/${postId}`, { newUser });
-      if(res?.status === 200){
-        await refetch(); 
-        await likeRef();
-        await dislikeRef()
-      } 
-     
-       // Refresh likes list
-    } catch (err) {
-      console.error("Error:", err);
-      toast.error("An error occurred while liking the post.");
-    }
-  };
- 
-  
- 
-
-  const handleDislike = async (postId) => {
-    if (!user) {
-      toast.error("You need to log in to dislike a post.");
-      return;
-    }
-
-    const newUser = {
-      name: user?.displayName,
-      email: user?.email,
-      photo: user?.photoURL,
-    };
-    if (newUser?.email && newUser?.photo) {
-    
-    try {
-      const res = await axiosPublic.post(`/dislike/${postId}`, { newUser });
-    
-      if(res?.status === 200){
-        await refetch(); 
-        await dislikeRef();
-        await likeRef()  
+  const handleAction = useCallback(
+    async (type, postId) => {
+      if (!user) {
+        toast.error(`You need to log in to ${type} a post.`);
+        return;
       }
-        
-      
+      if (isUpdating) return; // Prevent multiple clicks during update
 
-    } catch (error) {
-      console.error("Error disliking post:", error);
-      toast.error("An error occurred while disliking the post.");
-    }}
-  };
+      setIsUpdating(true);
+      const newUser = {
+        name: user.displayName,
+        email: user.email,
+        photo: user.photoURL,
+      };
+
+      try {
+        const url = `/${type}/${postId}`;
+        const res = await axiosPublic.post(url, { newUser });
+
+        if (res?.status === 200) {
+          await Promise.all([refetch(), likeRef(), dislikeRef()]); // Parallel refetch
+        }
+      } catch (err) {
+        console.error(`Error during ${type}:`, err);
+        toast.error(`An error occurred while ${type}ing the post.`);
+      } finally {
+        setIsUpdating(false); // Reset update state
+      }
+    },
+    [user, axiosPublic, refetch, likeRef, dislikeRef, isUpdating]
+  );
 
   const isDisliked = dislikes.some(
     (dislike) => dislike.postId === data._id && dislike.email === user?.email
@@ -83,22 +52,21 @@ export default function PostActions({ data, user }) {
   const isLiked = likes.some(
     (like) => like.postId === data._id && like.email === user?.email
   );
- 
+
   return (
     <div className="flex space-x-4">
-        <LikeButton
-      isLiked={isLiked}
-      data={data}
-      isLoading={isLoading}
-      
-      handleLike ={() =>  handleLike (data._id)}
-    />
-    <DisLikeButton
-      isDisliked={isDisliked}
-      data={data}
-      isLoading={isLoading}
-      handleDislike={() => handleDislike(data._id)}
-    />
+      <LikeButton
+        isLiked={isLiked}
+        data={data}
+        isLoading={isLoading}
+        handleLike={() => handleAction("like", data._id)}
+      />
+      <DisLikeButton
+        isDisliked={isDisliked}
+        data={data}
+        isLoading={isLoading}
+        handleDislike={() => handleAction("dislike", data._id)}
+      />
     </div>
   );
 }
