@@ -65,6 +65,7 @@ const Chats = ({ reciver, sender, response }) => {
   }
 
   return (
+<<<<<<< HEAD
     <section
       className="flex flex-col h-full p-2 md:p-4 min-h-[65vh]"
       style={{ overflow: 'hidden' }}
@@ -84,13 +85,45 @@ const Chats = ({ reciver, sender, response }) => {
           messages.map((message, index) => (
             <div key={index} className={`flex ${message.senderEmail === sender.email ? "justify-end" : "justify-start"}`}>
               <div className={`relative flex items-start ${message.senderEmail === sender.email ? "flex-row-reverse md:gap-3 gap-x-1" : "md:gap-3 gap-x-1"}`}>
+=======
+    <section className="flex flex-col h-full p-2 md:p-4 overflow-y-auto  hide-scrollbar">
+      <style>{`
+          .hide-scrollbar {
+            scrollbar-width: none;
+          }
+          .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
+      <div className="flex flex-col space-y-20">
+        {messages.length > 0 ? (
+          messages.map((message, index) => (
+            <div
+              key={index}
+              className={`flex ${
+                message.senderEmail === sender.email
+                  ? "justify-end"
+                  : "justify-start"
+              }`}>
+              <div
+                className={`relative flex items-start ${
+                  message.senderEmail === sender.email
+                    ? "flex-row-reverse md:gap-3 gap-x-1"
+                    : "md:gap-3 gap-x-1"
+                }`}>
+>>>>>>> 10364c6c7aeb53d3aec8386fcecb9d6fdea55936
                 <img
                   className="h-8 w-8 rounded-full object-cover md:h-10 md:w-10"
                   src={message.senderPhoto}
                   alt={message.senderEmail}
                 />
                 <div className="flex flex-col">
-                  <div className={`md:p-3 p-1 rounded-lg shadow-md text-sm ${message.senderEmail === sender.email ? "bg-blue-500 text-white" : "bg-gray-200 text-black"} max-w-xs md:max-w-md`}>
+                  <div
+                    className={`md:p-3 p-1 rounded-lg shadow-md text-sm ${
+                      message.senderEmail === sender.email
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-200 text-black"
+                    } max-w-xs md:max-w-md`}>
                     <p className="whitespace-pre-wrap break-words h-full">
                       <MessageDisplay message={message} />
                     </p>
