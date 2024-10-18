@@ -86,7 +86,7 @@ const ChatArea = ({ selectedUser }) => {
   }
 
   return (
-    <section className="w-full h-screen  p-4 flex flex-col">
+    <section className="w-full  p-4 flex flex-col" style={{ height: 'calc(100vh - 40px)'}}>
       {/* Header Section */}
       <div className="flex justify-between items-center px-10 lg:px-0">
         <div className="flex items-center gap-x-2">
@@ -102,7 +102,7 @@ const ChatArea = ({ selectedUser }) => {
       </div>
 
       {/* Chats Section */}
-      <div className="flex-grow overflow-y-auto mt-4 mb-2">
+      <div className="flex-grow overflow-hidden mt-4 mb-2">
         <Chats response={response} sender={user} reciver={selectedUser} />
       </div>
 

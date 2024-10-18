@@ -118,79 +118,78 @@ const AboutSection = () => {
         </motion.div>
 
         {/* Our Teams Section */}
-        <motion.div className="mb-24" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.8 }}>
-  <h2 className="text-4xl font-bold text-center mb-12">Our Teams</h2>
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-    {[
-      {
-        image: "https://res.cloudinary.com/dpomtzref/image/upload/v1729242097/dm2bbwotaoqc8ab6q9sz.jpg", // Development Team
-        title: "Md Ruhul Amin",
-        role : "Mern Stack Developer",
-        facebook: "https://www.facebook.com/profile.php?id=100075508398981",
-        linkedin: "https://www.linkedin.com/in/ruhul7/",
-        github: "https://github.com/MDRUHULAMIN7",
+        <motion.div
+      className="relative mb-24 rounded-lg overflow-hidden bg-gradient-to-r from-[#6a11cb] to-[#2575fc] p-10"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
+      <h2 className="text-4xl font-bold text-white text-center mb-12">
+        Our Teams
+      </h2>
 
-      },
-      {
-        image: "https://i.ibb.co.com/vwzwdGq/In-Shot-20240703-024633597.jpg", // Support Team
-        title: "Fardus Hassan",
-        role : "Mern Stack Developer",
-        facebook: "https://www.facebook.com/profile.php?id=100034957954013",
-        linkedin: "https://www.linkedin.com/in/fardus-hassan",
-        github: "https://github.com/Fardus-Hassan",
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 z-10 relative">
+        {[
+          {
+            image:
+              "https://res.cloudinary.com/dpomtzref/image/upload/v1729242097/dm2bbwotaoqc8ab6q9sz.jpg",
+            title: "Md Ruhul Amin",
+            role: "MERN Stack Developer",
+            facebook: "https://www.facebook.com/profile.php?id=100075508398981",
+            linkedin: "https://www.linkedin.com/in/ruhul7/",
+            github: "https://github.com/MDRUHULAMIN7",
+          },
+          {
+            image: "https://i.ibb.co/vwzwdGq/In-Shot-20240703-024633597.jpg",
+            title: "Fardus Hassan",
+            role: "MERN Stack Developer",
+            facebook: "https://www.facebook.com/profile.php?id=100034957954013",
+            linkedin: "https://www.linkedin.com/in/fardus-hassan",
+            github: "https://github.com/Fardus-Hassan",
+          },
+          {
+            image:
+              "https://sanjidaema.netlify.app/assets/mypic-BdSK1L4O.jfif",
+            title: "Mst Sanjida Akter",
+            role: "MERN Stack Developer",
+            facebook:
+              "https://www.facebook.com/profile.php?id=100054261816897&_rdc=1&_rdr",
+            linkedin: "https://www.linkedin.com/in/sanjidaema/",
+            github: "https://github.com/SanjidaOSD",
+          },
+          {
+            image: "https://i.ibb.co/4mhX1pJ/min2.webp",
+            title: "Md. Nifat Hossain",
+            role: "MERN Stack Developer",
+            facebook: "https://www.facebook.com/mdnifat.hossain.9",
+            linkedin: "www.linkedin.com/in/nifat-hossain",
+            github: "https://github.com/NifatHossain",
+          },
+          {
+            image: "https://i.ibb.co/cy0X7FM/1720414006721.jpg",
+            title: "Md. Firoz Mahmud Nur",
+            role: "MERN Stack Developer",
+            facebook: "https://www.facebook.com/firoz.nur",
+            linkedin: "linkedin.com/in/md-firoz-mahmud-nur",
+            github: "https://github.com/Md-Firoz-Mahmud-Nur",
+          },
+          {
+            image: "https://i.ibb.co/r4V1gPZ/86263892.jpg",
+            title: "Md Adnan Shiragee",
+            role: "MERN Stack Developer",
+            facebook:
+              "https://www.facebook.com/profile.php?id=61561913450158",
+            linkedin: "https://www.linkedin.com/in/mdadnan-shiragee",
+            github: "https://github.com/adnan2508",
+          },
+        ].map((member, idx) => (
+          <OurTeam key={idx} member={member} />
+        ))}
+      </div>
 
-      },
-      {
-        image: "https://sanjidaema.netlify.app/assets/mypic-BdSK1L4O.jfif", // Design Team
-        title: "Mst Sanjida Akter",
-        role : "Mern Stack Developer",
-        facebook: "https://www.facebook.com/profile.php?id=100054261816897&_rdc=1&_rdr",
-        linkedin: "https://www.linkedin.com/in/sanjidaema/",
-        github: "https://github.com/SanjidaOSD",
-
-      },
-      {
-        image: "https://i.ibb.co.com/4mhX1pJ/min2.webp", // Marketing Team
-        title: "Md. Nifat Hossain",
-        role : "Mern Stack Developer",
-        facebook: "https://www.facebook.com/mdnifat.hossain.9",
-        linkedin: "www.linkedin.com/in/nifat-hossain",
-        github: "https://github.com/NifatHossain",
-
-      },
-      {
-        image: "https://i.ibb.co.com/cy0X7FM/1720414006721.jpg", // Content Team
-        title: "Md. Firoz Mahmud Nur",
-        role : "Mern Stack Developer",
-        facebook: "https://www.facebook.com/firoz.nur",
-        linkedin: "linkedin.com/in/md-firoz-mahmud-nur",
-        github: "https://github.com/Md-Firoz-Mahmud-Nur",
-
-      },
-      {
-        image: "https://i.ibb.co.com/r4V1gPZ/86263892.jpg", // Project Management
-        title: "Md Adnan Shiragee",
-        role : "Mern Stack Developer",
-        facebook: "https://www.facebook.com/profile.php?id=61561913450158",
-        linkedin: "https://www.linkedin.com/in/mdadnan-shiragee",
-        github: "https://github.com/adnan2508",
-
-      }
-    ].map((member, idx) => (
-      // <motion.div
-      //   key={idx}
-      //   whileHover={{ scale: 1.05 }}
-      //   className="bg-gray-300 dark:bg-gray-800 rounded-lg p-8 shadow-lg text-center relative z-10"
-      // >
-      //   <img src={image} alt={title} className="w-24 h-24 mx-auto mb-4 rounded-full object-cover" />
-      //   <h3 className="text-2xl font-semibold mb-2">{title}</h3>
-      //   <p className="dark:text-gray-400">{desc}</p>
-      // </motion.div>
-      <OurTeam key={idx} member={member}></OurTeam>
-    ))}
-  </div>
-</motion.div>
-
+      {/* Animated Background Layer */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-50 animate-pulse"></div>
+    </motion.div>
 
         {/* Join Us Section */}
         <motion.div className="mb-24" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.8 }}>

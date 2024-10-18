@@ -23,7 +23,7 @@ const UserProfile = () => {
       {/* profile section  */}
       <div className="relative">
         <img
-          className="h-52 w-full rounded-xl object-cover shadow-lg"
+          className="h-72 w-full rounded-xl object-cover shadow-lg"
           src={
             (users?.users?.mainuser?.coverPhoto &&
               users?.users?.mainuser?.coverPhoto) ||
@@ -31,7 +31,7 @@ const UserProfile = () => {
           }
           alt="Cover"
         />
-        <div className="absolute top-40 md:top-36 left-1/2 transform -translate-x-1/2 md:left-10 md:transform-none">
+        <div className="absolute top-52 md:top-52 left-1/2 transform -translate-x-1/2 md:left-10 md:transform-none">
           <img
             className="h-32 w-32 md:h-44 md:w-44 rounded-full border-8 border-white dark:border-black "
             src={users?.users?.mainuser?.photoUrl}
