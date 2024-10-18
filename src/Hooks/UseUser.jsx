@@ -19,7 +19,7 @@ const UseUSer = () => {
     },
   });
   //    refetch()
-  console.log("useUser", users[0]);
+
 
   return [users[0], isLoading, refetch];
 };
