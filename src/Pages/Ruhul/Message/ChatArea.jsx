@@ -86,11 +86,17 @@ const ChatArea = ({ selectedUser }) => {
   }
 
   return (
-    <section className="w-full h-screen  p-4 flex flex-col">
+    <section
+      className="w-full  p-4 flex flex-col h-[calc(100vh-56px)]"
+      >
       {/* Header Section */}
-      <div className="flex justify-between items-center px-10 lg:px-0">
+      <div className="flex justify-between items-center px-10 lg:px-0 pb-2 border-b-2 ">
         <div className="flex items-center gap-x-2">
-          <img className="h-12 w-12 rounded-full" src={selectedUser?.photoUrl} alt="" />
+          <img
+            className="h-12 w-12 rounded-full"
+            src={selectedUser?.photoUrl}
+            alt=""
+          />
           <p>{selectedUser?.name}</p>
         </div>
         <VideoButton
@@ -116,8 +122,7 @@ const ChatArea = ({ selectedUser }) => {
         />
         <button
           className="px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition"
-          type="submit"
-        >
+          type="submit">
           Send
         </button>
       </form>
