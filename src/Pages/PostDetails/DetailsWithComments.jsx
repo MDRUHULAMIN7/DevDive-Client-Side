@@ -12,8 +12,9 @@ import { Pagination } from "swiper/modules";
 import { SwiperSlide, Swiper } from "swiper/react";
 import UseAuth from "../../Hooks/UseAuth";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+
 import toast from "react-hot-toast";
-import { FaShare } from "react-icons/fa6";
+import { FaShare, } from "react-icons/fa6";
 import { IoMdAdd } from "react-icons/io";
 import { FaCommentAlt } from "react-icons/fa";
 import UseComments from "../../Hooks/UseComments";
