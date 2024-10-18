@@ -36,7 +36,7 @@ const Popular = () => {
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = popularPosts?.slice(indexOfFirstPost, indexOfLastPost);
-
+    console.log(popularPosts);
 
     const paginate = (pageNumber) => {
       setCurrentPage(pageNumber);

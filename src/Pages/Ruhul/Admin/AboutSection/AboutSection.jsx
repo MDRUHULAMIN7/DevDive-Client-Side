@@ -1,6 +1,8 @@
 import { FaUsers, FaGlobe, FaCode, FaRegClipboard, FaRegStar, FaTools, FaHandsHelping } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { MdStorage } from 'react-icons/md';
+import OurTeam from '../../../../Components/Fardus/OurTeam/OurTeam';
+import { Facebook } from 'react-content-loader';
 
 const AboutSection = () => {
   return (
@@ -121,45 +123,70 @@ const AboutSection = () => {
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
     {[
       {
-        image: "https://lh3.googleusercontent.com/a/ACg8ocJTmh8z1WAXiebQcBypHJociUdnDai19wLXQdXNpGFapnFmuSJU=s96-c", // Development Team
+        image: "https://i.ibb.co.com/3ySBHBR/i7f0c5y2m51eqn1kher4-2.webp", // Development Team
         title: "Md Ruhul Amin",
-        desc: "A dedicated team of developers focused on building innovative solutions."
+        role : "Mern Stack Developer",
+        facebook: "https://www.facebook.com/profile.php?id=100075508398981",
+        linkedin: "https://www.linkedin.com/in/ruhul7/",
+        github: "https://github.com/MDRUHULAMIN7",
+
       },
       {
-        image: "https://i.ibb.co/VMNcT0V/In-Shot-20240703-024633597.jpg", // Support Team
+        image: "https://i.ibb.co.com/vwzwdGq/In-Shot-20240703-024633597.jpg", // Support Team
         title: "Fardus Hassan",
-        desc: "Here to help our community with any queries or issues."
+        role : "Mern Stack Developer",
+        facebook: "https://www.facebook.com/profile.php?id=100034957954013",
+        linkedin: "https://www.linkedin.com/in/fardus-hassan",
+        github: "https://github.com/Fardus-Hassan",
+
       },
       {
-        image: "https://randomuser.me/api/portraits/men/52.jpg", // Design Team
-        title: "Design Team",
-        desc: "Creative minds working on making our platform user-friendly."
+        image: "https://sanjidaema.netlify.app/assets/mypic-BdSK1L4O.jfif", // Design Team
+        title: "Mst Sanjida Akter",
+        role : "Mern Stack Developer",
+        facebook: "https://www.facebook.com/profile.php?id=100054261816897&_rdc=1&_rdr",
+        linkedin: "https://www.linkedin.com/in/sanjidaema/",
+        github: "https://github.com/SanjidaOSD",
+
       },
       {
-        image: "https://randomuser.me/api/portraits/men/11.jpg", // Marketing Team
-        title: "Marketing Team",
-        desc: "Driving our outreach and community engagement."
+        image: "https://i.ibb.co.com/4mhX1pJ/min2.webp", // Marketing Team
+        title: "Md. Nifat Hossain",
+        role : "Mern Stack Developer",
+        facebook: "https://www.facebook.com/mdnifat.hossain.9",
+        linkedin: "www.linkedin.com/in/nifat-hossain",
+        github: "https://github.com/NifatHossain",
+
       },
       {
-        image: "https://randomuser.me/api/portraits/women/14.jpg", // Content Team
-        title: "Content Team",
-        desc: "Creating valuable resources and guides for our community."
+        image: "https://i.ibb.co.com/cy0X7FM/1720414006721.jpg", // Content Team
+        title: "Md. Firoz Mahmud Nur",
+        role : "Mern Stack Developer",
+        facebook: "https://www.facebook.com/firoz.nur",
+        linkedin: "linkedin.com/in/md-firoz-mahmud-nur",
+        github: "https://github.com/Md-Firoz-Mahmud-Nur",
+
       },
       {
-        image: "https://randomuser.me/api/portraits/men/21.jpg", // Project Management
-        title: "Project Management",
-        desc: "Ensuring smooth workflow and team collaboration."
+        image: "https://i.ibb.co.com/r4V1gPZ/86263892.jpg", // Project Management
+        title: "Md Adnan Shiragee",
+        role : "Mern Stack Developer",
+        facebook: "https://www.facebook.com/profile.php?id=61561913450158",
+        linkedin: "https://www.linkedin.com/in/mdadnan-shiragee",
+        github: "https://github.com/adnan2508",
+
       }
-    ].map(({ image, title, desc }, idx) => (
-      <motion.div
-        key={idx}
-        whileHover={{ scale: 1.05 }}
-        className="bg-gray-300 dark:bg-gray-800 rounded-lg p-8 shadow-lg text-center relative z-10"
-      >
-        <img src={image} alt={title} className="w-24 h-24 mx-auto mb-4 rounded-full object-cover" />
-        <h3 className="text-2xl font-semibold mb-2">{title}</h3>
-        <p className="dark:text-gray-400">{desc}</p>
-      </motion.div>
+    ].map((member, idx) => (
+      // <motion.div
+      //   key={idx}
+      //   whileHover={{ scale: 1.05 }}
+      //   className="bg-gray-300 dark:bg-gray-800 rounded-lg p-8 shadow-lg text-center relative z-10"
+      // >
+      //   <img src={image} alt={title} className="w-24 h-24 mx-auto mb-4 rounded-full object-cover" />
+      //   <h3 className="text-2xl font-semibold mb-2">{title}</h3>
+      //   <p className="dark:text-gray-400">{desc}</p>
+      // </motion.div>
+      <OurTeam key={idx} member={member}></OurTeam>
     ))}
   </div>
 </motion.div>
