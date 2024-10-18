@@ -9,7 +9,7 @@ const ChatArea = ({ selectedUser }) => {
   const [meetingLink, setMeetingLink] = useState("");
   const { user } = UseAuth();
   const [response, setResponse] = useState([]);
-  const [messages, , chatRef] = UseMessages({ sender: user, reciver: selectedUser });
+  const [, , chatRef] = UseMessages({ sender: user, reciver: selectedUser });
 
   useEffect(() => {
     if (meetingLink && selectedUser && user) {
@@ -25,7 +25,8 @@ const ChatArea = ({ selectedUser }) => {
         receiverPhoto: selectedUser.photoUrl,
       };
 
-      axiosPublic.post("/messages", messageInfo)
+      axiosPublic
+        .post("/messages", messageInfo)
         .then((res) => {
           console.log("Meeting link message sent:", res.data);
           setResponse("r"); // Trigger message refetch
@@ -55,7 +56,8 @@ const ChatArea = ({ selectedUser }) => {
 
     if (messageInfo.senderPhoto && message) {
       console.log(messageInfo);
-      await axiosPublic.post("/messages", messageInfo)
+      await axiosPublic
+        .post("/messages", messageInfo)
         .then((res) => {
           chatRef(); // Refetch messages after sending
           if (res.data) {
@@ -86,11 +88,15 @@ const ChatArea = ({ selectedUser }) => {
   }
 
   return (
-    <section className="w-full  p-4 flex flex-col" style={{ height: 'calc(100vh - 40px)'}}>
+    <section className="w-full  p-4 flex flex-col h-[calc(100vh-56px)]">
       {/* Header Section */}
-      <div className="flex justify-between items-center px-10 lg:px-0">
+      <div className="flex justify-between items-center px-10 lg:px-0 pb-2 border-b-2 ">
         <div className="flex items-center gap-x-2">
-          <img className="h-12 w-12 rounded-full" src={selectedUser?.photoUrl} alt="" />
+          <img
+            className="h-12 w-12 rounded-full"
+            src={selectedUser?.photoUrl}
+            alt=""
+          />
           <p>{selectedUser?.name}</p>
         </div>
         <VideoButton
@@ -102,7 +108,7 @@ const ChatArea = ({ selectedUser }) => {
       </div>
 
       {/* Chats Section */}
-      <div className="flex-grow overflow-hidden mt-4 mb-2">
+      <div className="flex-grow overflow-y-auto mt-4 mb-2">
         <Chats response={response} sender={user} reciver={selectedUser} />
       </div>
 
@@ -116,8 +122,7 @@ const ChatArea = ({ selectedUser }) => {
         />
         <button
           className="px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition"
-          type="submit"
-        >
+          type="submit">
           Send
         </button>
       </form>
