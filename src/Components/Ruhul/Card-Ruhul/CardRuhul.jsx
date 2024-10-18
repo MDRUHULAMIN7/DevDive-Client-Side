@@ -110,7 +110,7 @@ const CardRuhul = () => {
               </div>
             }
 
-            {data.poll && (
+            {data?.poll && (
               <div className="text-gray-700 dark:text-gray-300 ">
                 <PollData data={data}></PollData>
               </div>

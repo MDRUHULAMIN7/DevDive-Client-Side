@@ -36,7 +36,7 @@ const PollData = ({ pollPost }) => {
 
   return (
     <div>
-      {data.poll.map((poll, index) => {
+      {data?.poll?.map((poll, index) => {
         const percentage = totalVotes ? ((poll.count / totalVotes) * 100).toFixed(2) : 0;
 
         return (

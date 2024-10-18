@@ -123,12 +123,12 @@ const AboutSection = () => {
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
     {[
       {
-        image: "https://lh3.googleusercontent.com/a/ACg8ocJTmh8z1WAXiebQcBypHJociUdnDai19wLXQdXNpGFapnFmuSJU=s96-c", // Development Team
+        image: "https://i.ibb.co.com/3ySBHBR/i7f0c5y2m51eqn1kher4-2.webp", // Development Team
         title: "Md Ruhul Amin",
         role : "Mern Stack Developer",
-        facebook: "",
-        linkedin: "",
-        github: "",
+        facebook: "https://www.facebook.com/profile.php?id=100075508398981",
+        linkedin: "https://www.linkedin.com/in/ruhul7/",
+        github: "https://github.com/MDRUHULAMIN7",
 
       },
       {
@@ -150,30 +150,30 @@ const AboutSection = () => {
 
       },
       {
-        image: "https://randomuser.me/api/portraits/men/11.jpg", // Marketing Team
-        title: "",
+        image: "https://i.ibb.co.com/4mhX1pJ/min2.webp", // Marketing Team
+        title: "Md. Nifat Hossain",
         role : "Mern Stack Developer",
-        facebook: "",
-        linkedin: "",
-        github: "",
+        facebook: "https://www.facebook.com/mdnifat.hossain.9",
+        linkedin: "www.linkedin.com/in/nifat-hossain",
+        github: "https://github.com/NifatHossain",
 
       },
       {
-        image: "https://randomuser.me/api/portraits/women/14.jpg", // Content Team
-        title: "Content Team",
+        image: "https://i.ibb.co.com/cy0X7FM/1720414006721.jpg", // Content Team
+        title: "Md. Firoz Mahmud Nur",
         role : "Mern Stack Developer",
-        facebook: "",
-        linkedin: "",
-        github: "",
+        facebook: "https://www.facebook.com/firoz.nur",
+        linkedin: "linkedin.com/in/md-firoz-mahmud-nur",
+        github: "https://github.com/Md-Firoz-Mahmud-Nur",
 
       },
       {
-        image: "https://randomuser.me/api/portraits/men/21.jpg", // Project Management
-        title: "Project Management",
+        image: "https://i.ibb.co.com/r4V1gPZ/86263892.jpg", // Project Management
+        title: "Md Adnan Shiragee",
         role : "Mern Stack Developer",
-        facebook: "",
-        linkedin: "",
-        github: "",
+        facebook: "https://www.facebook.com/profile.php?id=61561913450158",
+        linkedin: "https://www.linkedin.com/in/mdadnan-shiragee",
+        github: "https://github.com/adnan2508",
 
       }
     ].map((member, idx) => (
