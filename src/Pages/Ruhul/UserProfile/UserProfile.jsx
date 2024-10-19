@@ -51,9 +51,9 @@ const UserProfile = () => {
           {users?.users?.mainuser?.email === user?.email ? (
             <div className="mt-4 md:mt-0">
               <Link
-                className="flex justify-center items-center w-fit mx-auto md:mx-0 text-lg md:text-xl gap-x-2 bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md shadow-md transition duration-300"
+                className="flex justify-center items-center w-fit mx-auto md:mx-0 text-lg md:text-xl gap-x-2 b text-gray-900 dark:bg-gray-800 bg-gray-300 dark:text-white px-4 py-2 rounded-md shadow-md transition duration-300"
                 to={`/edit-profile/${email}`}>
-                Edit <FaEdit className="text-lg" />
+                 <FaEdit className="text-lg" />
               </Link>
             </div>
           ) : (
