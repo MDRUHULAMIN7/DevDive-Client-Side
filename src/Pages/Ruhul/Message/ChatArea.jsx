@@ -59,10 +59,10 @@ const ChatArea = ({ selectedUser }) => {
       await axiosPublic
         .post("/messages", messageInfo)
         .then((res) => {
-          chatRef(); // Refetch messages after sending
+          chatRef(); 
           if (res.data) {
             form.reset();
-            setResponse("r"); // Trigger message refetch
+            setResponse("r"); 
           }
         })
         .catch((err) => {
@@ -89,7 +89,7 @@ const ChatArea = ({ selectedUser }) => {
 
   return (
     <section className="w-full  p-4 flex flex-col h-[calc(100vh-56px)]">
-      {/* Header Section */}
+ 
       <div className="flex justify-between items-center px-10 lg:px-0 pb-2 border-b-2 ">
         <div className="flex items-center gap-x-2">
           <img
@@ -113,7 +113,7 @@ const ChatArea = ({ selectedUser }) => {
       </div>
 
       {/* Input Section */}
-      <form className="flex items-center gap-x-2" onSubmit={handleMessage}>
+      <form className="flex items-center gap-x-2 ml-8 lg:ml-0" onSubmit={handleMessage}>
         <input
           name="message"
           className="flex-grow px-3 py-2 rounded-xl bg-gray-200 dark:bg-gray-800 border border-gray-500"

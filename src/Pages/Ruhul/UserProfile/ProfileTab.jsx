@@ -12,7 +12,7 @@ const ProfileTab = (data) => {
 
   const [activeTab, setActiveTab] = useState("posts"); // Default tab
   return (
-    <div className="w-full max-w-4xl mx-auto mt-10">
+    <div className="w-full max-w-4xl mx-auto mt-10 capitalize">
       {/* Tab Header */}
       <div className="flex justify-center  mb-4">
         <button
@@ -22,7 +22,7 @@ const ProfileTab = (data) => {
               : "text-gray-500"
           }`}
           onClick={() => setActiveTab("posts")}>
-          posts
+          Posts
         </button>
         {userData.data.users.mainuser?.email === user?.email && (
           <button
@@ -42,7 +42,7 @@ const ProfileTab = (data) => {
               : "text-gray-500"
           }`}
           onClick={() => setActiveTab("followers")}>
-          followers
+          Followers
         </button>
         <button
           className={`py-2  px-2 md:px-4  font-semibold ${

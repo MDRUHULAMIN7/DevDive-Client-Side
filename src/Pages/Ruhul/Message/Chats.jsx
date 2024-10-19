@@ -9,8 +9,9 @@ const Chats = ({ reciver, sender, response }) => {
   const [messagesData, isLoading, chatRef] = UseMessages({ reciver, sender });
   const [openModalId, setOpenModalId] = useState(null);
   const messagesEndRef = useRef(null);
-  const chatContainerRef = useRef(null); 
+  const chatContainerRef = useRef(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
+  const [hoveredMessageId, setHoveredMessageId] = useState(null); // Track hovered message
 
   useEffect(() => {
     if (messagesData?.length || response || isLoading) {
@@ -24,14 +25,11 @@ const Chats = ({ reciver, sender, response }) => {
     }
   }, [messagesData, response, chatRef, isLoading]);
 
-
   useEffect(() => {
     const container = chatContainerRef.current;
     if (container) {
       container.addEventListener("scroll", handleScroll);
-      handleScroll(); 
-
-    
+      handleScroll();
       scrollToBottom();
     }
     return () => container?.removeEventListener("scroll", handleScroll);
@@ -41,24 +39,13 @@ const Chats = ({ reciver, sender, response }) => {
     if (chatContainerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = chatContainerRef.current;
       const atBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-
-      setShowScrollButton(!atBottom); 
+      setShowScrollButton(!atBottom);
     }
   };
-
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-
-  useEffect(() => {
-    const container = chatContainerRef.current;
-    if (container) {
-      container.addEventListener("scroll", handleScroll);
-      handleScroll();
-    }
-    return () => container?.removeEventListener("scroll", handleScroll);
-  }, []);
 
   if (isLoading) {
     return (
@@ -71,38 +58,42 @@ const Chats = ({ reciver, sender, response }) => {
   return (
     <section className="flex flex-col h-full p-2 md:p-4 overflow-y-auto hide-scrollbar">
       <style>{`
-          .hide-scrollbar {
-            scrollbar-width: none;
-          }
-          .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-          }
-        `}</style>
+        .hide-scrollbar {
+          scrollbar-width: none;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
+
       <div
         ref={chatContainerRef}
-        className="flex flex-col space-y-20"
+        className="flex flex-col space-y-10"
         style={{
           overflowY: "auto",
           maxHeight: "calc(100vh - 200px)",
           scrollbarWidth: "none",
           msOverflowStyle: "none",
           WebkitOverflowScrolling: "touch",
-        }}>
+        }}
+      >
         {messages.length > 0 ? (
           messages.map((message, index) => (
             <div
               key={index}
               className={`flex ${
-                message.senderEmail === sender.email
-                  ? "justify-end"
-                  : "justify-start"
-              }`}>
+                message.senderEmail === sender.email ? "justify-end" : "justify-start"
+              }`}
+              onMouseEnter={() => setHoveredMessageId(index)} // Track hover
+              onMouseLeave={() => setHoveredMessageId(null)}
+            >
               <div
                 className={`relative flex items-start ${
                   message.senderEmail === sender.email
                     ? "flex-row-reverse md:gap-3 gap-x-1"
                     : "md:gap-3 gap-x-1"
-                }`}>
+                }`}
+              >
                 <img
                   className="h-8 w-8 rounded-full object-cover md:h-10 md:w-10"
                   src={message.senderPhoto}
@@ -114,23 +105,36 @@ const Chats = ({ reciver, sender, response }) => {
                       message.senderEmail === sender.email
                         ? "bg-blue-500 text-white"
                         : "bg-gray-200 text-black"
-                    } max-w-xs md:max-w-md`}>
+                    } max-w-xs md:max-w-md`}
+                    style={{ position: "relative" }}
+                  >
                     <p className="whitespace-pre-wrap break-words h-full">
                       <MessageDisplay message={message} />
                     </p>
+
+                    {sender?.email === message?.senderEmail &&
+                      hoveredMessageId === index && ( // Show on hover only
+                        <div
+                          style={{
+                            zIndex:1000,
+                            position: "absolute",
+                            top: "50%",
+                            right: message.senderEmail === sender.email ? "100%" : "auto",
+                            left: message.senderEmail !== sender.email ? "100%" : "auto",
+                            transform: "translateY(-50%)",
+                          }}
+                        >
+                          <ChatModal
+                            message={message}
+                            sender={sender}
+                            openModalId={openModalId}
+                            setOpenModalId={setOpenModalId}
+                            refetch={chatRef}
+                          />
+                        </div>
+                      )}
                   </div>
                 </div>
-                {sender?.email === message?.senderEmail && (
-                  <div>
-                    <ChatModal
-                      message={message}
-                      sender={sender}
-                      openModalId={openModalId}
-                      setOpenModalId={setOpenModalId}
-                      refetch={chatRef}
-                    />
-                  </div>
-                )}
               </div>
             </div>
           ))
@@ -139,7 +143,7 @@ const Chats = ({ reciver, sender, response }) => {
         )}
         <div ref={messagesEndRef} />
       </div>
-      
+
       {showScrollButton && (
         <button
           onClick={scrollToBottom}
@@ -147,12 +151,12 @@ const Chats = ({ reciver, sender, response }) => {
           style={{
             boxShadow: "0 0 15px 5px rgba(59, 130, 246, 0.6)",
             animation: "pulse-glow 2s infinite",
-           
           }}
         >
           <FaArrowDown size={12} />
         </button>
       )}
+
       <style>
         {`
           @keyframes pulse-glow {

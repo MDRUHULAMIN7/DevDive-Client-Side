@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaSearch, FaBars } from "react-icons/fa";
+import { FaSearch, FaArrowLeft } from "react-icons/fa";
 import UseUser from "../../../Hooks/UseUser";
 import ChatArea from "./ChatArea";
 import SkeletonLoader from "../../../Components/Ruhul/Card-Ruhul/SkeletonLoader";
@@ -12,13 +12,12 @@ const Message = () => {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  // Filter users based on search input
+
   useEffect(() => {
     setFilteredUsers(
-      users &&
-        users.filter((user) =>
-          user.name.toLowerCase().includes(searchTerm.toLowerCase())
-        )
+      users?.filter((user) =>
+        user.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
     );
   }, [searchTerm, users]);
 
@@ -41,58 +40,56 @@ const Message = () => {
         <title>DevDive | Chat</title>
       </Helmet>
 
-      {/* Drawer toggle button for small devices */}
       <button
-        onClick={() => setDrawerOpen(!drawerOpen)}
-        className="lg:hidden absolute top-6 left-4 z-30 bg-blue-500 rounded-full shadow-md p-2">
-        <FaBars className="text-black dark:text-white text-5xl" size={20} />
+        onClick={() => setDrawerOpen(true)}
+        className="lg:hidden fixed bottom-3 left-2 text-blue-500  rounded-full shadow-md p-3 z-40">
+      <FaArrowLeft  className="text-xl font-bold " />
       </button>
 
-      {/* Overlay for disabling clicks outside drawer */}
-      {drawerOpen && (
-        <div
-          className="fixed inset-0 bg-gray-800 bg-opacity-75 z-20"
-          onClick={() => setDrawerOpen(false)}
-        ></div>
-      )}
+      
 
-      {/* Drawer for small devices */}
+      {/* Full-screen Drawer for Mobile */}
       <div
-        className={`lg:hidden fixed top-4 left-0 bg-white dark:bg-gray-900 w-64 h-full overflow-y-auto transform hide-scrollbar transition-transform z-30 ${
-          drawerOpen ? "translate-x-0" : "-translate-x-full"
+        className={`lg:hidden fixed inset-0 pt-16 bg-white dark:bg-gray-900 overflow-y-auto hide-scrollbar transition-transform z-40 ${
+          drawerOpen ? "translate-x-0" : "translate-x-full"
         }`}>
-        <h2 className="font-bold text-lg mt-24 px-4">Users</h2>
-        <div className="flex items-center p-4">
-          <FaSearch className="text-gray-600 dark:text-gray-400 mr-2" />
-          <input
-            type="text"
-            placeholder="Search users..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full p-2 bg-white dark:bg-gray-800 border rounded focus:outline-none"
-          />
+        <div className="p-4 flex items-center border-b border-gray-300 dark:border-gray-700">
+        
+
+          <div className="flex items-center  w-full bg-gray-100 dark:bg-gray-800 rounded-md p-2">
+            <FaSearch className="text-gray-600 dark:text-gray-400 mr-2" />
+            <input
+              type="text"
+              placeholder="Search users..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full bg-transparent outline-none"
+            />
+          </div>
         </div>
-        {filteredUsers &&
-          filteredUsers.map((user) => (
+
+       
+        <div className="p-4">
+          <h2 className="font-bold text-lg mb-4">Users</h2>
+          {filteredUsers?.map((user) => (
             <div
               key={user._id}
               onClick={() => handleUserClick(user)}
               className={`flex items-center p-2 mb-2 cursor-pointer rounded ${
-                selectedUser?._id === user._id ? "bg-blue-500 " : ""
+                selectedUser?._id === user._id ? "bg-blue-500 text-white" : ""
               } hover:bg-blue-600 transition`}>
               <img
                 src={user.photoUrl}
                 alt={user.name}
                 className="w-10 h-10 rounded-full mr-3"
               />
-              <div className="flex-col">
-                <p className="font-medium">{user.name}</p>
-              </div>
+              <p className="font-medium">{user.name}</p>
             </div>
           ))}
+        </div>
       </div>
 
-      {/* Sidebar for larger screens */}
+      {/* Sidebar for Larger Screens */}
       <div className="w-full hidden lg:flex flex-col lg:w-1/4 border-r p-4 bg-gray-100 dark:bg-gray-900 overflow-y-auto hide-scrollbar h-[calc(100vh-56px)]">
         <style>{`
           .hide-scrollbar {
@@ -114,27 +111,25 @@ const Message = () => {
         </div>
 
         <h2 className="font-bold text-lg mb-4">Users</h2>
-        {filteredUsers &&
-          filteredUsers.map((user) => (
-            <div
-              key={user._id}
-              onClick={() => handleUserClick(user)}
-              className={`flex items-center p-2 mb-2 cursor-pointer rounded ${
-                selectedUser?._id === user._id ? "bg-blue-500 text-white" : ""
-              } hover:bg-blue-600 transition`}>
-              <img
-                src={user.photoUrl}
-                alt={user.name}
-                className="w-10 h-10 rounded-full mr-3"
-              />
-              <div className="flex-col hidden md:flex">
-                <p className="font-medium">{user.name}</p>
-              </div>
+        {filteredUsers?.map((user) => (
+          <div
+            key={user._id}
+            onClick={() => handleUserClick(user)}
+            className={`flex items-center p-2 mb-2 cursor-pointer rounded ${
+              selectedUser?._id === user._id ? "bg-blue-500 text-white" : ""
+            } hover:bg-blue-600 transition`}>
+            <img
+              src={user.photoUrl}
+              alt={user.name}
+              className="w-10 h-10 rounded-full mr-3"
+            />
+            <div className="flex-col hidden md:flex">
+              <p className="font-medium">{user.name}</p>
             </div>
-          ))}
+          </div>
+        ))}
       </div>
 
-      {/* Chat Area */}
       <div className="w-full lg:w-3/4 overflow-y-auto bg-white dark:bg-gray-900 h-[calc(100vh-56px)]">
         <ChatArea selectedUser={selectedUser} />
       </div>

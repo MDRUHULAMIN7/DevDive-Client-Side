@@ -37,13 +37,12 @@ const ChatModal = ({ message, sender, openModalId, setOpenModalId, refetch }) =>
 
   return (
     <>
-      <section className="relative">
+      <section className="relative ">
      
         <button onClick={() => toggleModal(message._id)}>
           <BsThreeDotsVertical />
         </button>
 
-        {/* Dropdown Modal for Delete and Edit Options */}
         {openModalId === message._id && (
           <div
             className={`absolute shadow-lg rounded-lg p-2 space-y-2 z-20 bg-white dark:bg-gray-700 
@@ -67,7 +66,7 @@ const ChatModal = ({ message, sender, openModalId, setOpenModalId, refetch }) =>
         )}
       </section>
 
-      {/* Edit Message Modal */}
+  
       {isEditModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-80 space-y-4">
