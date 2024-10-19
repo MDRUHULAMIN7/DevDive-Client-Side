@@ -35,7 +35,7 @@ const CardRuhul = () => {
   if (isLoading) {
     return (
       <div className=" text-2xl text-center my-10 ">
-        <SkeletonLoader></SkeletonLoader>
+        <SkeletonLoader value={"PostCard"}></SkeletonLoader>
       </div>
       // <DevLoader></DevLoader>
     );

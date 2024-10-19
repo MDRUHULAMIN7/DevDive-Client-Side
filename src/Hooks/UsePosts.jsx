@@ -8,7 +8,7 @@ const UsePosts = () => {
   const ruhul = true;
 
   const {
-    data: postsData = [],
+    data: posts = [],
     isLoading,
     refetch,
   } = useQuery({
@@ -20,10 +20,6 @@ const UsePosts = () => {
     },
   });
 
-  const posts = postsData.sort(
-    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-  );
-  // refetch();
 
 
 
