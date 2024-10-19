@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaSearch, FaBars } from "react-icons/fa"; // Import FaBars for the drawer toggle
+import { FaSearch, FaBars } from "react-icons/fa";
 import UseUser from "../../../Hooks/UseUser";
 import ChatArea from "./ChatArea";
 import SkeletonLoader from "../../../Components/Ruhul/Card-Ruhul/SkeletonLoader";
@@ -10,7 +10,7 @@ const Message = () => {
   const [users] = UseUser();
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
-  const [drawerOpen, setDrawerOpen] = useState(false); // State for drawer visibility
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   // Filter users based on search input
   useEffect(() => {
@@ -24,7 +24,7 @@ const Message = () => {
 
   const handleUserClick = (user) => {
     setSelectedUser(user);
-    setDrawerOpen(false); // Close drawer on user click
+    setDrawerOpen(false);
   };
 
   if (!users) {
@@ -37,21 +37,20 @@ const Message = () => {
 
   return (
     <section className="flex flex-col lg:flex-row h-[calc(100vh-56px)]">
-    <section className="flex flex-col lg:flex-row h-[calc(100vh-56px)]">
       <Helmet>
         <title>DevDive | Chat</title>
       </Helmet>
 
       {/* Drawer toggle button for small devices */}
       <button
-        onClick={() => setDrawerOpen(!drawerOpen)} // Toggle the drawer
+        onClick={() => setDrawerOpen(!drawerOpen)}
         className="lg:hidden absolute top-16 left-4 z-20 bg-blue-500 rounded-full shadow-md p-2">
         <FaBars className="text-black dark:text-white text-5xl" size={20} />
       </button>
 
       {/* Drawer for small devices */}
       <div
-        className={`lg:hidden fixed inset-0 bg-gray-800 bg-opacity-75  transition-opacity ${
+        className={`lg:hidden fixed inset-0 bg-gray-800 bg-opacity-75 transition-opacity ${
           drawerOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
@@ -137,7 +136,6 @@ const Message = () => {
       </div>
 
       {/* Chat Area */}
-      <div className="w-full lg:w-3/4  overflow-y-auto bg-white dark:bg-gray-900 h-[calc(100vh-56px)]">
       <div className="w-full lg:w-3/4  overflow-y-auto bg-white dark:bg-gray-900 h-[calc(100vh-56px)]">
         <ChatArea selectedUser={selectedUser} />
       </div>
