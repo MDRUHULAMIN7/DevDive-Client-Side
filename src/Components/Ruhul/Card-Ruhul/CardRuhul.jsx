@@ -71,7 +71,7 @@ const CardRuhul = () => {
                   <PostComponent data={data}></PostComponent>
                 </div>
                 <div className="ml-5 mr-3">
-                 {user.email !== data.userEmail && <FollowButton user={user} data={data}></FollowButton>}
+                 {user?.email && user.email !== data.userEmail && <FollowButton user={user} data={data}></FollowButton>}
                 </div>
               </div>
               <div className="relative flex items-center gap-2">
