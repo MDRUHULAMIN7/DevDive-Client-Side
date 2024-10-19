@@ -1,0 +1,129 @@
+[33m0951376[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mRuhul[m[33m, [m[1;31morigin/Ruhul[m[33m)[m update chat page responsive
+[33mc501a3c[m update chat page responsive
+[33m10364c6[m[33m ([m[1;31morigin/development[m[33m)[m Merge pull request #95 from MDRUHULAMIN7/Nur
+[33m8e6a304[m Add : User Profile Route From Comments Leader Board
+[33mbcec4e5[m Fix : Chat Responsive
+[33mb4b3aed[m Merge pull request #94 from MDRUHULAMIN7/Ruhul
+[33m2f82cde[m serch in chat
+[33me173362[m  update hooks
+[33m9715120[m  update hooks
+[33mb2da580[m Merge pull request #93 from MDRUHULAMIN7/Fardus-Bappy
+[33m05b9b9c[m added about section
+[33m3ab3b09[m Merge branch 'development' of https://github.com/MDRUHULAMIN7/DevDive-Client-Side into Fardus-Bappy
+[33m10b147d[m update polling funcnality
+[33m86d547f[m added polling funcnality
+[33mb84d61f[m Merge pull request #92 from MDRUHULAMIN7/Ruhul
+[33m2a265da[m delete comment
+[33m32057fb[m delete comment
+[33m79b6da7[m delete comment
+[33me08c8a0[m Merge pull request #91 from MDRUHULAMIN7/adnan-shiragee
+[33me6c9e6e[m responsive
+[33m732cbe3[m Merge pull request #90 from MDRUHULAMIN7/Nur
+[33m5ec0a2f[m Fix : Reported Button Click After Report
+[33mdd45ad9[m responsive done
+[33m753ad35[m Merge pull request #89 from MDRUHULAMIN7/Ruhul
+[33m768dce8[m h
+[33mee5faa2[m h
+[33m84d7e90[m Merge pull request #88 from MDRUHULAMIN7/Nur
+[33m1f1a6ec[m Add : Check Report
+[33m26c5455[m Merge pull request #87 from MDRUHULAMIN7/Ruhul
+[33m9f56f71[m Add : Relevant Message For Report Operation
+[33m75b8b99[m reports
+[33m903f22b[m Add : Report Data
+[33mbd7df69[m Merge pull request #86 from MDRUHULAMIN7/Nur
+[33mc413749[m Add : Hide DropDown After Archive Click
+[33m3418a06[m Add : Checking Archive Status For Each Post
+[33m8970bf1[m 3 dots modal in chat
+[33m21a73ad[m 3 dots modal in chat
+[33maeb8274[m Merge pull request #85 from MDRUHULAMIN7/Nur
+[33mf6392f4[m Add : Responsive To Archive
+[33md770045[m Add : Email Check To Unarchive
+[33ma47923d[m Add : Confirmation For Unarchive
+[33m728cffb[m Add :  Zero Archive Message
+[33md35c5f2[m Add : Unarchive
+[33m0c43bf7[m inhance like dislike functionality
+[33m223274f[m inhance like dislike functionality
+[33m6e49437[m Merge pull request #84 from MDRUHULAMIN7/Nur
+[33m739ae55[m Fix : Multiple User Archive Issue
+[33m7b4713b[m Merge pull request #83 from MDRUHULAMIN7/Nur
+[33mbbb8f05[m Fix : Archive Data Don't Show In Other User Profile
+[33mb9fa3e1[m Remove : Archive From Side Navbar
+[33m489ec52[m Add : Archive List To User Profile Section
+[33m7491f7f[m Merge pull request #82 from MDRUHULAMIN7/Nur
+[33m22e742e[m Remove : Unwanted Refetch
+[33mceaf1f6[m Merge branch 'development' of https://github.com/MDRUHULAMIN7/DevDive-Client-Side into Nur
+[33m138f3ee[m Add : Archive Data To Sidebar
+[33m6b2db44[m Merge pull request #81 from MDRUHULAMIN7/Ruhul
+[33m143bc03[m some problem solve
+[33mec5116b[m some problem solve
+[33m21364d7[m Merge pull request #80 from MDRUHULAMIN7/nifat_updated
+[33m1ea69d5[m Added confirmation button for delete
+[33m43b539b[m Comment edit and delete  is functional
+[33m203fd35[m Merge pull request #79 from MDRUHULAMIN7/adnan-shiragee
+[33mf35ee4a[m code-editor added
+[33m1e52591[m Add : Archive Tab
+[33m88091fa[m Get : User Archive List
+[33mcdbf177[m Add : Separate File For Archive
+[33mee82d73[m Fix : Backend Catch Message
+[33mf05645e[m Post : Backend Successfully
+[33m573dd72[m Fix : Continuos Refetch & Get : Archive & Report In Console
+[33m9422204[m Merge branch 'development' of https://github.com/MDRUHULAMIN7/DevDive-Client-Side into Nur
+[33m2bfc803[m Merge branch 'development' of https://github.com/MDRUHULAMIN7/DevDive-Client-Side into nifat_updated
+[33mc2f3943[m comment edit option and email of commenter added
+[33m7dad0ea[m Merge pull request #78 from MDRUHULAMIN7/Ruhul
+[33mb547aff[m resolve problem
+[33m69f13a4[m message function add
+[33m5bd39b8[m Add : User Profile Route From LeaderBoard Like Section
+[33m9ebb418[m Add : Archive button
+[33m1b32a3b[m Merge pull request #77 from MDRUHULAMIN7/Ruhul
+[33m6d471c0[m many updates
+[33mb37f064[m admin route
+[33m56c0f1c[m Merge pull request #76 from MDRUHULAMIN7/Ruhul
+[33m98bc23c[m redierct folder add
+[33m7881962[m resolve merge conflict
+[33mf98ad87[m solve merge conflict
+[33m5448555[m Merge pull request #75 from MDRUHULAMIN7/Nur
+[33m0472fbc[m Fix : Dark Mode Color
+[33mc6f4b87[m Merge pull request #74 from MDRUHULAMIN7/Nur
+[33m6207efd[m Change : Header Name And Button Design
+[33m21b55b5[m Add : Navigate To Post Details
+[33m1d78930[m Change : LeaderBoard Icon
+[33m259bc8e[m Merge pull request #73 from MDRUHULAMIN7/Ruhul
+[33m5e04b87[m follower page update
+[33m5603e37[m Merge pull request #72 from MDRUHULAMIN7/Ruhul
+[33md221fd7[m poll component
+[33m8dbb47a[m popular page add
+[33m516314b[m popular page add
+[33mf00adca[m Pulled new codes
+[33m068073b[m Merge pull request #71 from MDRUHULAMIN7/Fardus-Bappy
+[33m9b1ac6c[m solved marge conflig and created a new branch
+[33ma15c53c[m Merge pull request #70 from MDRUHULAMIN7/nifat_updated
+[33m7161a63[m No conflict found
+[33m4d6ead6[m commit
+[33md718c69[m Merge branch 'development' of https://github.com/MDRUHULAMIN7/DevDive-Client-Side into nifat_updated
+[33mf67da9a[m Comment count is showing and smooth scrool to comment section after redirect
+[33m82b205f[m commit
+[33m0abf439[m added poll
+[33mc1bd284[m Merge pull request #69 from MDRUHULAMIN7/adnan-shiragee
+[33mb13c79d[m Merge pull request #68 from MDRUHULAMIN7/Ruhul
+[33m176ef99[m delete post
+[33m2195c20[m added all posts option
+[33me9653e3[m Merge pull request #67 from MDRUHULAMIN7/nifat_updated
+[33m1451ae3[m Merge branch 'development' of https://github.com/MDRUHULAMIN7/DevDive-Client-Side into nifat_updated
+[33md77cc3d[m refetch error resolved
+[33m25085a0[m Merge pull request #66 from MDRUHULAMIN7/Nur
+[33m7d1835e[m Add : Responsive
+[33m4ed6beb[m Merge pull request #65 from MDRUHULAMIN7/Nur
+[33m4fc6b70[m Add : LeaderBoard To Side Navbar
+[33me7a2089[m Merge pull request #64 from MDRUHULAMIN7/adnan-shiragee
+[33ma079d27[m Merge pull request #63 from MDRUHULAMIN7/Ruhul
+[33m10d1099[m updated
+[33me536bed[m user profile update
+[33mc8d729a[m user profile update
+[33m7eafc71[m Merge branch 'development' of https://github.com/MDRUHULAMIN7/DevDive-Client-Side into Nur
+[33md473474[m Merge pull request #62 from MDRUHULAMIN7/nifat_updated
+[33m37e3388[m Merged development
+[33me19857f[m adaptive for dark mode now comment section
+[33m5dcd1fd[m Merge branch 'development' of https://github.com/MDRUHULAMIN7/DevDive-Client-Side into Nur
+[33m089ff5a[m Merge pull request #61 from MDRUHULAMIN7/development
+[33m8d998a6[m[33m ([m[1;32mmain[m[33m)[m Merge pull request #60 from MDRUHULAMIN7/adnan-shiragee

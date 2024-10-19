@@ -9,7 +9,7 @@ const Chats = ({ reciver, sender, response }) => {
   const [messagesData, isLoading, chatRef] = UseMessages({ reciver, sender });
   const [openModalId, setOpenModalId] = useState(null);
   const messagesEndRef = useRef(null);
-  const chatContainerRef = useRef(null); // Reference for the chat container
+  const chatContainerRef = useRef(null); 
   const [showScrollButton, setShowScrollButton] = useState(false);
 
   useEffect(() => {
@@ -24,26 +24,31 @@ const Chats = ({ reciver, sender, response }) => {
     }
   }, [messagesData, response, chatRef, isLoading]);
 
-  // Scroll to the bottom when messages change
+
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const container = chatContainerRef.current;
+    if (container) {
+      container.addEventListener("scroll", handleScroll);
+      handleScroll(); 
+
+    
+      scrollToBottom();
+    }
+    return () => container?.removeEventListener("scroll", handleScroll);
   }, [messages]);
-  // Handle scroll event
+
   const handleScroll = () => {
     if (chatContainerRef.current) {
-      setShowScrollButton(true);
-      const { scrollTop, scrollHeight, clientHeight } =
-        chatContainerRef.current;
-      const atBottom = scrollTop + clientHeight >= scrollHeight - 10;
-      setShowScrollButton(!atBottom);
+      const { scrollTop, scrollHeight, clientHeight } = chatContainerRef.current;
+      const atBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+
+      setShowScrollButton(!atBottom); 
     }
   };
 
-  // Scroll to bottom function
+
   const scrollToBottom = () => {
-    setShowScrollButton(true);
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    setShowScrollButton(false);
   };
 
   useEffect(() => {
@@ -64,7 +69,7 @@ const Chats = ({ reciver, sender, response }) => {
   }
 
   return (
-    <section className="flex flex-col h-full p-2 md:p-4 overflow-y-auto  hide-scrollbar">
+    <section className="flex flex-col h-full p-2 md:p-4 overflow-y-auto hide-scrollbar">
       <style>{`
           .hide-scrollbar {
             scrollbar-width: none;
@@ -132,18 +137,37 @@ const Chats = ({ reciver, sender, response }) => {
         ) : (
           <p className="text-center text-gray-900">No messages yet</p>
         )}
-        <div ref={messagesEndRef} /> {/* Reference to scroll to the bottom */}
+        <div ref={messagesEndRef} />
       </div>
-      {/* Scroll to Bottom Button */}
+      
       {showScrollButton && (
         <button
           onClick={scrollToBottom}
-          className="fixed bottom-20 left-1/2 lg:left-2/3 transform -translate-x-1/2 bg-blue-500 text-white p-2 rounded-full shadow-lg"
-          style={{ zIndex: 1000 }} // Ensure button is on top
+          className="fixed bottom-20 left-1/2 lg:left-2/3 transform -translate-x-1/2 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform duration-300"
+          style={{
+            boxShadow: "0 0 15px 5px rgba(59, 130, 246, 0.6)",
+            animation: "pulse-glow 2s infinite",
+           
+          }}
         >
-          <FaArrowDown />
+          <FaArrowDown size={12} />
         </button>
       )}
+      <style>
+        {`
+          @keyframes pulse-glow {
+            0% {
+              box-shadow: 0 0 10px 2px rgba(59, 130, 246, 0.5);
+            }
+            50% {
+              box-shadow: 0 0 20px 8px rgba(59, 130, 246, 0.7);
+            }
+            100% {
+              box-shadow: 0 0 10px 2px rgba(59, 130, 246, 0.5);
+            }
+          }
+        `}
+      </style>
     </section>
   );
 };

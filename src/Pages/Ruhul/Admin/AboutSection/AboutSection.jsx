@@ -2,7 +2,6 @@ import { FaUsers, FaGlobe, FaCode, FaRegClipboard, FaRegStar, FaTools, FaHandsHe
 import { motion } from 'framer-motion';
 import { MdStorage } from 'react-icons/md';
 import OurTeam from '../../../../Components/Fardus/OurTeam/OurTeam';
-import { Facebook } from 'react-content-loader';
 
 const AboutSection = () => {
   return (

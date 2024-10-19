@@ -36,7 +36,7 @@ const Message = () => {
   }
 
   return (
-    <section className="flex flex-col lg:flex-row h-[calc(100vh-56px)]">
+    <section className="flex flex-col lg:flex-row h-[calc(100vh-56px)] relative">
       <Helmet>
         <title>DevDive | Chat</title>
       </Helmet>
@@ -44,27 +44,26 @@ const Message = () => {
       {/* Drawer toggle button for small devices */}
       <button
         onClick={() => setDrawerOpen(!drawerOpen)}
-        className="lg:hidden absolute top-16 left-4 z-20 bg-blue-500 rounded-full shadow-md p-2">
+        className="lg:hidden absolute top-6 left-4 z-30 bg-blue-500 rounded-full shadow-md p-2">
         <FaBars className="text-black dark:text-white text-5xl" size={20} />
       </button>
 
+      {/* Overlay for disabling clicks outside drawer */}
+      {drawerOpen && (
+        <div
+          className="fixed inset-0 bg-gray-800 bg-opacity-75 z-20"
+          onClick={() => setDrawerOpen(false)}
+        ></div>
+      )}
+
       {/* Drawer for small devices */}
       <div
-        className={`lg:hidden fixed inset-0 bg-gray-800 bg-opacity-75 transition-opacity ${
-          drawerOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
-        }`}
-        onClick={() => setDrawerOpen(false)}
-      />
-
-      <div
-        className={`lg:hidden fixed top-4 left-0 bg-white dark:bg-gray-900 w-64 h-full overflow-y-auto transform transition-transform ${
+        className={`lg:hidden fixed top-4 left-0 bg-white dark:bg-gray-900 w-64 h-full overflow-y-auto transform hide-scrollbar transition-transform z-30 ${
           drawerOpen ? "translate-x-0" : "-translate-x-full"
         }`}>
-        <h2 className="font-bold text-lg  mt-24 px-4">Users</h2>
-        <div className="flex items-center  p-4">
-          <FaSearch className="text-gray-600 dark:text-gray-400 mr-2 " />
+        <h2 className="font-bold text-lg mt-24 px-4">Users</h2>
+        <div className="flex items-center p-4">
+          <FaSearch className="text-gray-600 dark:text-gray-400 mr-2" />
           <input
             type="text"
             placeholder="Search users..."
@@ -86,7 +85,7 @@ const Message = () => {
                 alt={user.name}
                 className="w-10 h-10 rounded-full mr-3"
               />
-              <div className="flex-col ">
+              <div className="flex-col">
                 <p className="font-medium">{user.name}</p>
               </div>
             </div>
@@ -136,7 +135,7 @@ const Message = () => {
       </div>
 
       {/* Chat Area */}
-      <div className="w-full lg:w-3/4  overflow-y-auto bg-white dark:bg-gray-900 h-[calc(100vh-56px)]">
+      <div className="w-full lg:w-3/4 overflow-y-auto bg-white dark:bg-gray-900 h-[calc(100vh-56px)]">
         <ChatArea selectedUser={selectedUser} />
       </div>
     </section>
