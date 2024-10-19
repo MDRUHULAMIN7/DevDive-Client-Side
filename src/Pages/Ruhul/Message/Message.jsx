@@ -37,6 +37,7 @@ const Message = () => {
 
   return (
     <section className="flex flex-col lg:flex-row h-[calc(100vh-56px)]">
+    <section className="flex flex-col lg:flex-row h-[calc(100vh-56px)]">
       <Helmet>
         <title>DevDive | Chat</title>
       </Helmet>
@@ -136,6 +137,7 @@ const Message = () => {
       </div>
 
       {/* Chat Area */}
+      <div className="w-full lg:w-3/4  overflow-y-auto bg-white dark:bg-gray-900 h-[calc(100vh-56px)]">
       <div className="w-full lg:w-3/4  overflow-y-auto bg-white dark:bg-gray-900 h-[calc(100vh-56px)]">
         <ChatArea selectedUser={selectedUser} />
       </div>

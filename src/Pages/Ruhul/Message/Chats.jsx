@@ -113,6 +113,12 @@ const Chats = ({ reciver, sender, response }) => {
                         ? "bg-blue-500 text-white"
                         : "bg-gray-200 text-black"
                     } max-w-xs md:max-w-md`}>
+                  <div
+                    className={`md:p-3 p-1 rounded-lg shadow-md text-sm ${
+                      message.senderEmail === sender.email
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-200 text-black"
+                    } max-w-xs md:max-w-md`}>
                     <p className="whitespace-pre-wrap break-words h-full">
                       <MessageDisplay message={message} />
                     </p>

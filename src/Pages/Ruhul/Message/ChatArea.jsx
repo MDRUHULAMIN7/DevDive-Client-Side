@@ -86,9 +86,19 @@ const ChatArea = ({ selectedUser }) => {
   }
 
   return (
+<<<<<<< HEAD
     <section
       className="w-full  p-4 flex flex-col h-[calc(100vh-56px)]"
       >
+=======
+<<<<<<< HEAD
+    <section className="w-full  p-4 flex flex-col" style={{ height: 'calc(100vh - 40px)'}}>
+=======
+    <section
+      className="w-full  p-4 flex flex-col h-[calc(100vh-56px)]"
+      >
+>>>>>>> 10364c6c7aeb53d3aec8386fcecb9d6fdea55936
+>>>>>>> 0951376a8f996e8b11a8ff00d8e84c53db593522
       {/* Header Section */}
       <div className="flex justify-between items-center px-10 lg:px-0 pb-2 border-b-2 ">
         <div className="flex items-center gap-x-2">
