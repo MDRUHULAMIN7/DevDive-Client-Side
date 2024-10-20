@@ -26,6 +26,8 @@ import VideoRoom from "../Pages/Ruhul/Message/VideoRoom";
 import ArchiveDetails from "../Components/Nur/ArchiveDetails";
 import CodeEditor from "../components/adnan/codeEditor/codeEditorComponents/CodeEditor";
 import GetPremium from "../Pages/Ruhul/UserProfile/GetPremium";
+import PaymentSucces from "../Pages/Ruhul/UserProfile/PaymentSucces";
+import PaymentFailed from "../Pages/Ruhul/UserProfile/PaymentFailed";
 
 export const router = createBrowserRouter([
   {
@@ -145,6 +147,16 @@ export const router = createBrowserRouter([
         element : <PrivateRoute> <GetPremium></GetPremium></PrivateRoute>,
       }
       ,
+      {
+        path:'/premium-success/:tran_id',
+        element: <PaymentSucces> </PaymentSucces> 
+
+      },
+      {
+        path:'/premium-failed/:tran_id',
+        element: <PaymentFailed></PaymentFailed>
+
+      },
 
       // for admin
       {
