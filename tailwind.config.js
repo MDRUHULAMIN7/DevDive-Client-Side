@@ -1,5 +1,7 @@
+const withMT = require("@material-tailwind/html/utils/withMT");
+
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = withMT({
   darkMode: 'selector',
   content: [
     "./index.html",
@@ -14,10 +16,10 @@ export default {
         'themeColor2' : "#181C1F",
         'themeColor3' : "#2A3236",
       },
-      fontFamily : {
-        Montserrat : ["Montserrat", "sans-serif"],
+      fontFamily: {
+        Montserrat: ["Montserrat", "sans-serif"],
       },
     },
   },
   plugins: [],
-}
+});
