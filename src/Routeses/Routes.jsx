@@ -30,6 +30,7 @@ import PaymentSucces from "../Pages/Ruhul/UserProfile/PaymentSucces";
 import PaymentFailed from "../Pages/Ruhul/UserProfile/PaymentFailed";
 import UserP from "../Pages/Ruhul/UserProfile/UserP";
 import UserPosts from "../Pages/Ruhul/UserProfile/UserPosts";
+import PaymentHistory from "../Pages/Ruhul/UserProfile/PaymentHistory";
 
 export const router = createBrowserRouter([
   {
@@ -194,6 +195,10 @@ export const router = createBrowserRouter([
       {
         path: "/users/:email/posts",
         element: <UserPosts></UserPosts>,
+      },
+      {
+        path: "/users/:email/payment-hitory/:email",
+        element: <PaymentHistory></PaymentHistory>,
       },
       {
         path: "/users/:email/archive/:testEmailWithRuhul",

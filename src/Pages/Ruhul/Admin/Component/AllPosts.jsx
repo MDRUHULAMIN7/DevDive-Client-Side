@@ -120,7 +120,7 @@ function AllPosts() {
                             {
                                 currentPosts && currentPosts.map((post, index) => (
                                     <tr
-                                        key={post.id} // Ensure each row has a unique key
+                                        key={post.id} 
                                         className="border-b py-5 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600"
                                     >
                                         <td className="py-3 px-4">{indexOfFirstPost + index + 1}</td>
@@ -128,7 +128,7 @@ function AllPosts() {
                                     
                                         <td className="py-3 px-4  space-x-2">
                                             <button 
-                                                onClick={() => openModal(post)} // Open modal on button click
+                                                onClick={() => openModal(post)} 
                                                 className="bg-blue-500 text-white px-2 py-1 rounded">
                                                 See..
                                             </button>
@@ -136,7 +136,7 @@ function AllPosts() {
                                         </td>
                                         <td className="py-3 px-4  space-x-2">
                                             <button 
-                                                onClick={() => openModal(post)} // Open modal on button click
+                                                onClick={() => openModal(post)}
                                                 className="bg-blue-500 text-white px-2 py-1 rounded">
                                                 View
                                             </button>
@@ -155,25 +155,25 @@ function AllPosts() {
                     </table>
                 </div>
 
-                {/* Pagination Controls */}
+           
                 <div className="flex justify-center space-x-2 mt-4">
                     {/* Show previous button */}
                     <button 
                         onClick={previousPage} 
-                        disabled={currentPage === 1} // Disable if on the first page
+                        disabled={currentPage === 1} 
                         className={`px-4 py-2 rounded ${currentPage === 1 ? 'bg-gray-300 dark:bg-gray-700 cursor-not-allowed' : 'bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600'}`}>
                         Previous
                     </button>
                     {/* Show next button */}
                     <button 
                         onClick={nextPage} 
-                        disabled={currentPage >= Math.ceil(posts.length / postsPerPage)} // Disable if on the last page
+                        disabled={currentPage >= Math.ceil(posts.length / postsPerPage)} 
                         className={`px-4 py-2 rounded ${currentPage >= Math.ceil(posts.length / postsPerPage) ? 'bg-gray-300 dark:bg-gray-700 cursor-not-allowed' : 'bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600'}`}>
                         Next
                     </button>
                 </div>
 
-                {isModalOpen && <AllPostModal data={selectedPost} onClose={closeModal} />} {/* Render modal if open */}
+                {isModalOpen && <AllPostModal data={selectedPost} onClose={closeModal} />} 
             </div>
         </section>
     );
