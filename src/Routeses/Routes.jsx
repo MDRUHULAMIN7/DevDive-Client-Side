@@ -28,8 +28,11 @@ import CodeEditor from "../components/adnan/codeEditor/codeEditorComponents/Code
 import GetPremium from "../Pages/Ruhul/UserProfile/GetPremium";
 import PaymentSucces from "../Pages/Ruhul/UserProfile/PaymentSucces";
 import PaymentFailed from "../Pages/Ruhul/UserProfile/PaymentFailed";
+import UserP from "../Pages/Ruhul/UserProfile/UserP";
+import UserPosts from "../Pages/Ruhul/UserProfile/UserPosts";
 
-export const router = createBrowserRouter([
+export const router = createBrowserRouter(
+  [
   {
     path: "/",
     element: <Main></Main>,
@@ -126,10 +129,7 @@ export const router = createBrowserRouter([
         path: "/detailsWithComments/:id",
         element: <DetailsWithComments></DetailsWithComments>,
       },
-      {
-        path: "/users/:email",
-        element: <UserProfile></UserProfile>,
-      },
+  
       {
         path: "/edit-profile/:email",
         element: <EditProfile></EditProfile>,
@@ -178,6 +178,38 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+
+
     ],
   },
-]);
+  {
+      path: "/users/:email",
+      element: <UserProfile></UserProfile>,
+      errorElement: <ErrorPage></ErrorPage>,
+      children: [
+        {
+         path: "/users/:email",
+         element: <UserP></UserP>,
+
+     },
+      
+        {
+         path: "/users/:email/posts",
+         element: <UserPosts></UserPosts>,
+
+     },
+        {
+         path: "/users/:email/archive",
+         element: <ArchiveDetails></ArchiveDetails>,
+
+     },
+  
+
+]
+}
+]
+
+
+
+
+);

@@ -98,13 +98,8 @@ const GetPremium = () => {
 
          
           <div className="flex flex-col md:flex-row space-x-0 md:space-x-4 mt-8">
-            <Link  className="w-full md:w-auto">
-              <button    onClick={() => openModal(499)} className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg glow-button transition duration-300 w-full">
-                <FaBangladeshiTakaSign className="text-xl" />
-                <span>499 / month</span>
-              </button>
-            </Link>
-            <Link  className="w-full md:w-auto mt-2 md:mt-0">
+          
+            <Link  className="w-full md:w-2/3 mt-2 md:mt-0">
               <button   onClick={() => openModal(3999)} className="flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-semibold px-6 py-3 rounded-lg glow-button transition duration-300 w-full">
                 <FaBangladeshiTakaSign className="text-xl" />
                 <span>3999 / year (Save 40%)</span>
@@ -177,12 +172,7 @@ const GetPremium = () => {
 
   </div>
   <div className="flex flex-col md:flex-row w-fit lg:w-1/2 md:w-2/3 mx-auto space-x-0 md:items-center md:justify-center md:space-x-4 mt-16">
-            <Link  className="w-full md:w-1/2">
-              <button  onClick={() => openModal(499)}  className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg glow-button transition duration-300 w-full">
-                <FaBangladeshiTakaSign className="text-xl" />
-                <span>499 / month</span>
-              </button>
-            </Link>
+           
             <Link  onClick={() => openModal(3999)}  className="w-full md:w-1/2 mt-2 md:mt-0">
               <button className="flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-semibold px-6 py-3 rounded-lg glow-button transition duration-300 w-full">
                 <FaBangladeshiTakaSign className="text-xl" />

@@ -34,8 +34,8 @@ const ArchiveDetails = ({ archiveDataUser }) => {
   }
 
   return (
-    <div className="space-y-8">
-      <h1 className="text-2xl font-semibold">Archived Posts</h1>
+    <div className="space-y-8 text-gray-900 dark:text-gray-100">
+      <h1 className="text-2xl font-semibold ">Archived Posts</h1>
       {archiveData.map((post) => (
         <div
           key={post._id}
