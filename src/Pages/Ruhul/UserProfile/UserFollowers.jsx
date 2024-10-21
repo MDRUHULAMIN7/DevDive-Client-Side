@@ -5,7 +5,7 @@ const UserFollowers = ({followerdata}) => {
 
     console.log(followerdata);
     return (
-        <section>
+        <section className="text-gray-900 dark:text-gray-100">
             {followerdata && followerdata?.map((data,index)=><div className="flex w-fit p-3 justify-center items-center gap-x-6" key={index}> 
              
              <Link to={`/users/${data?.followerEmail}`}><img className="h-14 w-14 object-center rounded-full " src={data?.followerPhoto} alt="photo" /></Link>

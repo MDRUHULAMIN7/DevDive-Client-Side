@@ -26,6 +26,10 @@ import VideoRoom from "../Pages/Ruhul/Message/VideoRoom";
 import ArchiveDetails from "../Components/Nur/ArchiveDetails";
 import CodeEditor from "../components/adnan/codeEditor/codeEditorComponents/CodeEditor";
 import GetPremium from "../Pages/Ruhul/UserProfile/GetPremium";
+import PaymentSucces from "../Pages/Ruhul/UserProfile/PaymentSucces";
+import PaymentFailed from "../Pages/Ruhul/UserProfile/PaymentFailed";
+import UserP from "../Pages/Ruhul/UserProfile/UserP";
+import UserPosts from "../Pages/Ruhul/UserProfile/UserPosts";
 
 export const router = createBrowserRouter([
   {
@@ -60,7 +64,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/code-editor",
-        element: <CodeEditor></CodeEditor>
+        element: <CodeEditor></CodeEditor>,
       },
       // .......for testing......../
       {
@@ -124,10 +128,7 @@ export const router = createBrowserRouter([
         path: "/detailsWithComments/:id",
         element: <DetailsWithComments></DetailsWithComments>,
       },
-      {
-        path: "/users/:email",
-        element: <UserProfile></UserProfile>,
-      },
+
       {
         path: "/edit-profile/:email",
         element: <EditProfile></EditProfile>,
@@ -142,9 +143,21 @@ export const router = createBrowserRouter([
       },
       {
         path: "/get-premium",
-        element : <PrivateRoute> <GetPremium></GetPremium></PrivateRoute>,
-      }
-      ,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <GetPremium></GetPremium>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/premium-success/:tran_id",
+        element: <PaymentSucces> </PaymentSucces>,
+      },
+      {
+        path: "/premium-failed/:tran_id",
+        element: <PaymentFailed></PaymentFailed>,
+      },
 
       // for admin
       {
@@ -165,6 +178,26 @@ export const router = createBrowserRouter([
             <Message></Message>
           </PrivateRoute>
         ),
+      },
+    ],
+  },
+  {
+    path: "/users/:email",
+    element: <UserProfile></UserProfile>,
+    errorElement: <ErrorPage></ErrorPage>,
+    children: [
+      {
+        path: "/users/:email/profile",
+        element: <UserP></UserP>,
+      },
+
+      {
+        path: "/users/:email/posts",
+        element: <UserPosts></UserPosts>,
+      },
+      {
+        path: "/users/:email/archive/:testEmailWithRuhul",
+        element: <ArchiveDetails></ArchiveDetails>,
       },
     ],
   },

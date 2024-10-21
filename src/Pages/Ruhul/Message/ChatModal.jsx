@@ -37,9 +37,9 @@ const ChatModal = ({ message, sender, openModalId, setOpenModalId, refetch }) =>
 
   return (
     <>
-      <section className="relative ">
+      <section className="relative text-gray-900 dark:text-gray-100">
      
-        <button onClick={() => toggleModal(message._id)}>
+        <button className="" onClick={() => toggleModal(message._id)}>
           <BsThreeDotsVertical />
         </button>
 
