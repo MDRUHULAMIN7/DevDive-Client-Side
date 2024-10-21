@@ -25,6 +25,8 @@ const Popular = () => {
     const toggleDropdown = (id) => {
       setOpenDropdownId((prevId) => (prevId === id ? null : id)); // Toggle the same ID or close it
     };
+
+
      
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 5; // Adjust the number of posts per page
@@ -37,7 +39,7 @@ const Popular = () => {
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = popularPosts?.slice(indexOfFirstPost, indexOfLastPost);
 
-
+console.log(currentPosts)
     const paginate = (pageNumber) => {
       setCurrentPage(pageNumber);
     };

@@ -23,7 +23,7 @@ const UserProfile = () => {
       {/* profile section  */}
       <div className="relative">
         <img
-          className="h-52 w-full rounded-xl object-cover shadow-lg"
+          className="h-72 w-full rounded-xl object-cover shadow-lg"
           src={
             (users?.users?.mainuser?.coverPhoto &&
               users?.users?.mainuser?.coverPhoto) ||
@@ -31,7 +31,7 @@ const UserProfile = () => {
           }
           alt="Cover"
         />
-        <div className="absolute top-40 md:top-36 left-1/2 transform -translate-x-1/2 md:left-10 md:transform-none">
+        <div className="absolute top-52 md:top-52 left-1/2 transform -translate-x-1/2 md:left-10 md:transform-none">
           <img
             className="h-32 w-32 md:h-44 md:w-44 rounded-full border-8 border-white dark:border-black "
             src={users?.users?.mainuser?.photoUrl}
@@ -51,9 +51,9 @@ const UserProfile = () => {
           {users?.users?.mainuser?.email === user?.email ? (
             <div className="mt-4 md:mt-0">
               <Link
-                className="flex justify-center items-center w-fit mx-auto md:mx-0 text-lg md:text-xl gap-x-2 bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md shadow-md transition duration-300"
+                className="flex justify-center items-center w-fit mx-auto md:mx-0 text-lg md:text-xl gap-x-2 b text-gray-900 dark:bg-gray-800 bg-gray-300 dark:text-white px-4 py-2 rounded-md shadow-md transition duration-300"
                 to={`/edit-profile/${email}`}>
-                Edit <FaEdit className="text-lg" />
+                 <FaEdit className="text-lg" />
               </Link>
             </div>
           ) : (

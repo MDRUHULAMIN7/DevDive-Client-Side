@@ -71,7 +71,7 @@ const CardRuhul = () => {
                   <PostComponent data={data}></PostComponent>
                 </div>
                 <div className="ml-5 mr-3">
-                  <FollowButton user={user} data={data}></FollowButton>
+                 {user?.email && user.email !== data.userEmail && <FollowButton user={user} data={data}></FollowButton>}
                 </div>
               </div>
               <div className="relative flex items-center gap-2">
@@ -104,13 +104,13 @@ const CardRuhul = () => {
             )}
 
             {
-              data.poll &&  <div className="text-gray-700 dark:text-gray-300 ">
+              data?.poll?.length > 0 &&  <div className="text-gray-700 dark:text-gray-300 ">
 
-              <PollData data={data}></PollData>
+              <PollData pollPost={data}></PollData>
               </div>
             }
 
-            {data.poll && (
+            {data?.poll && (
               <div className="text-gray-700 dark:text-gray-300 ">
                 <PollData data={data}></PollData>
               </div>
