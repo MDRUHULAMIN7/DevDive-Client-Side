@@ -11,7 +11,6 @@ import {
     IoAdd,
     IoArrowBackOutline,
     IoChatboxEllipsesOutline,
-    IoNotificationsOutline,
     IoSettingsOutline,
 } from "react-icons/io5";
 import Switcher1 from "../Switcher1/Switcher1";
@@ -22,6 +21,7 @@ import { Link } from "react-router-dom";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import PostComponent from "../../Ruhul/Card-Ruhul/PostComponent";
 import UseAdmin from "../../../Hooks/Admin/UseAdmin";
+import NotificationBtn from "../../nifat/NotificationBtn";
 
 const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
     const axiosPublic = useAxiosPublic();
@@ -43,7 +43,7 @@ const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
         setSearchData(data);
     }
 
-    const notification = <IoNotificationsOutline className="text-[22px] " />;
+    // const notification = <IoNotificationsOutline className="text-[22px] " />;
     const add = <IoAdd className="text-[22px]" />;
 
     return (
@@ -149,9 +149,10 @@ const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
                         </svg>
                         {user ? (
                             <div className="flex justify-between items-center">
-                                <button className="p-2 rounded-full  dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100  duration-200 lg:ml-0 ml-3">
+                                {/* <button className="p-2 rounded-full  dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100  duration-200 lg:ml-0 ml-3">
                                     {notification}
-                                </button>
+                                </button> */}
+                                <NotificationBtn></NotificationBtn>
                                 <Link to="/create-post/text-post" className="flex items-center gap-1 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 sm:px-3 px-2 py-2 sm:rounded-2xl rounded-full duration-200 mr-3">
                                     {add} <span className="sm:block text-sm hidden">Create</span>
                                 </Link>

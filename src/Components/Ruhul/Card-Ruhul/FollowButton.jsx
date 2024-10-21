@@ -26,6 +26,16 @@ const FollowButton = ({ user, data }) => {
       photo: user?.photoURL,
     };
 
+    const newNotification={
+      userEmail: data.userEmail,
+      message: `${user.email} following you`,
+      isRead: false,
+      relatedPostId: null,
+      relatedUserEmail: user.email,
+      type: "follow"
+
+    }
+
     if (newuser?.email && newuser?.photo) {
       setLoading(true); // Set loading state to true
 
@@ -39,6 +49,13 @@ const FollowButton = ({ user, data }) => {
         if (message === "Unfollowed successfully") {
           toast(`Unfollowed ${postUsername}`);
         } else if (message === "Followed successfully") {
+          try{
+            const res1= await axiosPublic.post('/postNotification', newNotification)
+            console.log(res1.data)
+          }
+          catch(err){
+            console.error("Error:", err);
+          }
           toast(`Following ${postUsername}`);
         } else {
           toast(`No changes made for ${postUsername}`);
