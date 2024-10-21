@@ -31,8 +31,7 @@ import PaymentFailed from "../Pages/Ruhul/UserProfile/PaymentFailed";
 import UserP from "../Pages/Ruhul/UserProfile/UserP";
 import UserPosts from "../Pages/Ruhul/UserProfile/UserPosts";
 
-export const router = createBrowserRouter(
-  [
+export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
@@ -65,7 +64,7 @@ export const router = createBrowserRouter(
       },
       {
         path: "/code-editor",
-        element: <CodeEditor></CodeEditor>
+        element: <CodeEditor></CodeEditor>,
       },
       // .......for testing......../
       {
@@ -129,7 +128,7 @@ export const router = createBrowserRouter(
         path: "/detailsWithComments/:id",
         element: <DetailsWithComments></DetailsWithComments>,
       },
-  
+
       {
         path: "/edit-profile/:email",
         element: <EditProfile></EditProfile>,
@@ -144,18 +143,20 @@ export const router = createBrowserRouter(
       },
       {
         path: "/get-premium",
-        element : <PrivateRoute> <GetPremium></GetPremium></PrivateRoute>,
-      }
-      ,
-      {
-        path:'/premium-success/:tran_id',
-        element: <PaymentSucces> </PaymentSucces> 
-
+        element: (
+          <PrivateRoute>
+            {" "}
+            <GetPremium></GetPremium>
+          </PrivateRoute>
+        ),
       },
       {
-        path:'/premium-failed/:tran_id',
-        element: <PaymentFailed></PaymentFailed>
-
+        path: "/premium-success/:tran_id",
+        element: <PaymentSucces> </PaymentSucces>,
+      },
+      {
+        path: "/premium-failed/:tran_id",
+        element: <PaymentFailed></PaymentFailed>,
       },
 
       // for admin
@@ -178,38 +179,26 @@ export const router = createBrowserRouter(
           </PrivateRoute>
         ),
       },
-
-
     ],
   },
   {
-      path: "/users/:email",
-      element: <UserProfile></UserProfile>,
-      errorElement: <ErrorPage></ErrorPage>,
-      children: [
-        {
-         path: "/users/:email",
-         element: <UserP></UserP>,
+    path: "/users/:email",
+    element: <UserProfile></UserProfile>,
+    errorElement: <ErrorPage></ErrorPage>,
+    children: [
+      {
+        path: "/users/:email/profile",
+        element: <UserP></UserP>,
+      },
 
-     },
-      
-        {
-         path: "/users/:email/posts",
-         element: <UserPosts></UserPosts>,
-
-     },
-        {
-         path: "/users/:email/archive",
-         element: <ArchiveDetails></ArchiveDetails>,
-
-     },
-  
-
-]
-}
-]
-
-
-
-
-);
+      {
+        path: "/users/:email/posts",
+        element: <UserPosts></UserPosts>,
+      },
+      {
+        path: "/users/:email/archive",
+        element: <ArchiveDetails></ArchiveDetails>,
+      },
+    ],
+  },
+]);

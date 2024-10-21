@@ -15,20 +15,14 @@ const ArchiveDetails = ({ archiveDataUser }) => {
     isLoading,
     error,
     refetch,
-  } = useIndividualArchiveData(user?.email); // Fetch archived data based on user email
-
-  // useEffect(() => {
-  //   if (archiveData) {
-  //     updateArchiveData(archiveData);
-  //   }
-  // }, [archiveData, updateArchiveData]); // Get the user info
+  } = useIndividualArchiveData(user?.email);
 
   console.log(archiveData);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>; // Error state
 
-  if (archiveData.length === 0) {
+  if (archiveData?.length === 0) {
     // Show a custom message if no archived posts
     return <p>You have not archived any post.</p>;
   }
@@ -36,7 +30,7 @@ const ArchiveDetails = ({ archiveDataUser }) => {
   return (
     <div className="space-y-8 text-gray-900 dark:text-gray-100">
       <h1 className="text-2xl font-semibold ">Archived Posts</h1>
-      {archiveData.map((post) => (
+      {archiveData?.map((post) => (
         <div
           key={post._id}
           className="p-5 border rounded-lg shadow-md hover:cursor-pointer">
@@ -58,35 +52,14 @@ const ArchiveDetails = ({ archiveDataUser }) => {
             <div className="flex items-center justify-end">
               {/* add unarchive button  */}
               <button
-                onClick={() => handleUnarchive(post.post_id, archiveDataUser, refetch)}
+                onClick={() =>
+                  handleUnarchive(post.post_id, archiveDataUser, refetch)
+                }
                 className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-4">
                 Unarchive
               </button>
             </div>
           </div>
-          {/* <p
-            className="mt-2 text-md"
-            dangerouslySetInnerHTML={{ __html: post.body }}></p> */}
-          {/* {post.images.length > 0 && (
-            <div className="mt-4 flex space-x-4">
-              {post.images.map((image, index) => (
-                <img
-                  key={index}
-                  src={image}
-                  alt={`Post Image ${index + 1}`}
-                  className="w-32 h-32 object-cover rounded-md"
-                />
-              ))}
-            </div>
-          )} */}
-          {/* <p className="mt-2">
-            <strong>Likes:</strong> {post.likes} | <strong>Dislikes:</strong>{" "}
-            {post.dislikes} | <strong>Comments:</strong> {post.comments}
-          </p> */}
-          {/* <p className="mt-2 text-sm text-gray-500">
-            <strong>Archived By:</strong> {post.archivedBy.name} (
-            {post.archivedBy.email})
-          </p> */}
         </div>
       ))}
     </div>
