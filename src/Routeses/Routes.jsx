@@ -196,7 +196,7 @@ export const router = createBrowserRouter([
         element: <UserPosts></UserPosts>,
       },
       {
-        path: "/users/:email/archive",
+        path: "/users/:email/archive/:testEmailWithRuhul",
         element: <ArchiveDetails></ArchiveDetails>,
       },
     ],

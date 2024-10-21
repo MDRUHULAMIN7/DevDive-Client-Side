@@ -76,7 +76,7 @@ const UserProfile = () => {
 
               {/* Archives */}
               <NavLink
-                to={`/users/${email}/archive`}
+                to={`/users/${email}/archive/${email}`}
                 onClick={handleToggle}
                 className={({ isActive }) =>
                   `text-gray-800 dark:text-gray-100 flex items-center px-4 py-2 rounded-md hover:bg-pm-color hover:text-white ${

@@ -1,11 +1,13 @@
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useIndividualArchiveData from "../../Hooks/Nur/useIndividualArchiveData";
 import { handleUnarchive } from "./HandleUnarchive";
 
-const ArchiveDetails = ({ archiveDataUser }) => {
-  console.log("archiveDataUser", archiveDataUser);
+const ArchiveDetails = () => {
+  const {testEmailWithRuhul} =useParams()
+  console.log("testEmailWithRuhul", testEmailWithRuhul);
+
   const navigate = useNavigate();
 
   const { user } = useContext(AuthContext); // Get the user info
@@ -17,7 +19,6 @@ const ArchiveDetails = ({ archiveDataUser }) => {
     refetch,
   } = useIndividualArchiveData(user?.email);
 
-  console.log(archiveData);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>; // Error state
@@ -53,7 +54,7 @@ const ArchiveDetails = ({ archiveDataUser }) => {
               {/* add unarchive button  */}
               <button
                 onClick={() =>
-                  handleUnarchive(post.post_id, archiveDataUser, refetch)
+                  handleUnarchive(post.post_id, testEmailWithRuhul, refetch)
                 }
                 className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-4">
                 Unarchive
