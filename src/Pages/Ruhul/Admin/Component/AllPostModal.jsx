@@ -1,21 +1,20 @@
-import React from 'react';
-import { FaShare, FaThumbsDown, FaThumbsUp } from 'react-icons/fa6';
+
+import { FaShare } from 'react-icons/fa6';
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
-import UseLikes from '../../../../Hooks/UseLikes';
-import UseDisLikes from '../../../../Hooks/UseDisLike';
-import UseAuth from '../../../../Hooks/UseAuth';
+
 import PostComponent from '../../../../Components/Ruhul/Card-Ruhul/PostComponent';
 import { Link } from 'react-router-dom';
 import { FaCommentAlt } from 'react-icons/fa';
+import PostActions from '../../../../Components/Ruhul/Card-Ruhul/PostActions';
 
-const AllPostModal = ({ data, onClose }) => {
-    const [likes] = UseLikes();
-    const [dislikes] = UseDisLikes();
-    const { user } = UseAuth();
+const AllPostModal = ({ data, onClose, user }) => {
+
+
+
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
@@ -81,43 +80,7 @@ const AllPostModal = ({ data, onClose }) => {
 
                     <div className="flex flex-wrap justify-between items-center text-gray-500 dark:text-gray-400 text-sm">
                         <div className="flex items-center space-x-4 mb-4 md:mb-0">
-                            {/* Like */}
-                            <button className={`flex items-center space-x-1 hover:text-blue-500`}>
-                                {likes &&
-                                    likes.find(
-                                        (like) => like.postId === data._id && like?.email === user?.email
-                                    ) ? (
-                                    <p className="flex text-blue-500 justify-center items-center gap-x-1">
-                                        <FaThumbsUp className="h-5 w-5" />
-                                    </p>
-                                ) : (
-                                    <p className="flex justify-center items-center gap-x-1">
-                                        <FaThumbsUp className="h-5 w-5" />
-                                    </p>
-                                )}
-                                <span className="ml-1 text-sm text-gray-600">
-                                    {data?.likes}
-                                </span>
-                            </button>
-
-                            {/* Dislike */}
-                            <button className={`flex items-center space-x-1 hover:text-red-500`}>
-                                {dislikes &&
-                                    dislikes?.find(
-                                        (like) => like.postId === data._id && like?.email === user?.email
-                                    ) ? (
-                                    <p className="flex text-red-500 justify-center items-center gap-x-1">
-                                        <FaThumbsDown className="h-5 w-5" />
-                                    </p>
-                                ) : (
-                                    <p className="flex justify-center items-center gap-x-1">
-                                        <FaThumbsDown className="h-5 w-5" />
-                                    </p>
-                                )}
-                                <span className="ml-1 text-sm text-gray-600">
-                                    {data?.dislikes}
-                                </span>
-                            </button>
+                          <PostActions data={data} user={user}></PostActions>
                         </div>
 
                         <div className="flex items-center space-x-4">

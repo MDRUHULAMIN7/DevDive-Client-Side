@@ -226,7 +226,7 @@ const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
                         to={"/admin/settings/manage-users"}
                         className="flex justify-start lg:px-6 px-5 py-4 my-1 dark:hover:text-gray-50 dark:hover:bg-opacity-30 dark:hover:bg-gray-700 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
                         <IoSettingsOutline className="text-2xl" />
-                        Setting
+                        Admin Setting
                       </Link>
                     )}
                     <Link
