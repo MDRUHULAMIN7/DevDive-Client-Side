@@ -12,11 +12,11 @@ const UseRuhulLikes = (userId,postId) => {
     enabled: !!postId,  
     queryFn: async () => {
       const res = await axiosPublic.get(`/is-liked/${userId}/${postId}`);
-      console.log("response from use ruhul like",res.data);
+      // console.log("response from use ruhul like",res.data);
       return res.data
     },
   });
-  console.log("likeInfo", likeInfo);
+  // console.log("likeInfo", likeInfo);
    
   return [ likeInfo, isLoading,likeRefetch]
 };

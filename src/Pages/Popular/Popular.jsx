@@ -47,8 +47,8 @@ console.log(currentPosts)
     if (isLoading) {
       return (
         <div className=" text-2xl text-center my-10 ">
-          <SkeletonLoader />
-          <SkeletonLoader />
+          <SkeletonLoader value={"PostCard"}/>
+          <SkeletonLoader value={"PostCard"}/>
         
         </div>
       );

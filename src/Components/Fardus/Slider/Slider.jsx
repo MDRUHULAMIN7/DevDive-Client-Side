@@ -13,17 +13,50 @@ import { Pagination } from 'swiper/modules';
 import PostComponent from '../../Ruhul/Card-Ruhul/PostComponent';
 import UsePopularPosts from '../../../Hooks/UsePopularPosts';
 import { Link } from 'react-router-dom';
+import SkeletonLoader from '../../Ruhul/Card-Ruhul/SkeletonLoader';
 
-const Slider = ({ slides }) => {
+const Slider = () => {
 
     const [popularPosts, isLoading, refetch] = UsePopularPosts()
 
-    console.log(popularPosts);
+    const load = [1,2,3]
 
     return (
 
         <div className='rounded-xl'>
-            <Swiper
+            {
+                isLoading ? <Swiper
+                breakpoints={{
+                    // when window width is >= 320px
+                    320: {
+                        slidesPerView: 1, // 1 slide for small screens
+                    },
+                    // when window width is >= 640px
+                    640: {
+                        slidesPerView: 2, // 2 slides for tablets
+                    },
+                    // when window width is >= 1024px
+                    1024: {
+                        slidesPerView: 3, // 3 slides for larger devices
+                    },
+                }}
+                spaceBetween={20}
+                pagination={{
+                    clickable: true,
+                }}
+                modules={[Pagination]}
+                className="mySwiper"
+            >
+                {
+                    load.map((slide, index) => (
+                        <SwiperSlide key={index} className="relative rounded-xl">
+                           <SkeletonLoader value ={"Slider"}/>
+                        </SwiperSlide> 
+                    ))
+                }
+
+
+            </Swiper>: <Swiper
                 breakpoints={{
                     // when window width is >= 320px
                     320: {
@@ -78,6 +111,8 @@ const Slider = ({ slides }) => {
 
 
             </Swiper>
+                
+            }
         </div>
     );
 };
