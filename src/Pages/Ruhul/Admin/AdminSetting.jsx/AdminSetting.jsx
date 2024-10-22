@@ -1,10 +1,8 @@
-
-import { Link, NavLink, Outlet, } from "react-router-dom";
-
+import { Link, NavLink, Outlet } from "react-router-dom";
 
 import { AiOutlineBars } from "react-icons/ai";
 
-import {  FaUsers } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
 import { MdOutlineDarkMode, MdOutlinePostAdd } from "react-icons/md";
 import { Helmet } from "react-helmet";
 import { useState } from "react";
@@ -12,14 +10,12 @@ import { RiUserFollowLine } from "react-icons/ri";
 import { TfiWrite } from "react-icons/tfi";
 import Switcher1 from "../../../../Components/Fardus/Switcher1/Switcher1";
 
-
 const AdminSetting = () => {
-
   const [isActive, setActive] = useState(false);
-    // Sidebar Responsive Handler
-    const handleToggle = () => {
-      setActive(!isActive);
-    };
+  // Sidebar Responsive Handler
+  const handleToggle = () => {
+    setActive(!isActive);
+  };
   return (
     <section className="min-h-screen flex bg-gray-100 dark:bg-gray-900">
       {/* Sidebar */}
@@ -48,7 +44,9 @@ const AdminSetting = () => {
             <nav className="space-y-5">
               {/* ManageUSers */}
 
-              <h1 className="text-xl pl-4 text-gray-900 dark:text-gray-100">Admin Settings</h1> 
+              <h1 className="text-xl pl-4 text-gray-900 dark:text-gray-100">
+                Admin Settings
+              </h1>
               <NavLink
                 to={`/admin/settings/manage-users`}
                 onClick={handleToggle}
@@ -87,8 +85,8 @@ const AdminSetting = () => {
                 <span className="mx-3 font-medium text-xs">Followers</span>
               </NavLink>
               {/* Pots blog*/}
-    
-            <NavLink
+
+              <NavLink
                 to={`/admin/settings/postsBlog`}
                 onClick={handleToggle}
                 className={({ isActive }) =>
@@ -96,12 +94,12 @@ const AdminSetting = () => {
                     isActive ? "bg-pm-color text-white" : ""
                   }`
                 }>
-                < TfiWrite className="text-md" />
+                <TfiWrite className="text-md" />
                 <span className="mx-3 font-medium text-xs">Posts Blogs</span>
               </NavLink>
               {/* All blog*/}
-    
-            <NavLink
+
+              <NavLink
                 to={`/admin/settings/allBlogs`}
                 onClick={handleToggle}
                 className={({ isActive }) =>
@@ -109,22 +107,21 @@ const AdminSetting = () => {
                     isActive ? "bg-pm-color text-white" : ""
                   }`
                 }>
-                < TfiWrite className="text-md" />
+                <TfiWrite className="text-md" />
                 <span className="mx-3 font-medium text-xs">All Blogs</span>
               </NavLink>
             </nav>
             <hr className="my-8" />
-        
-          <div className="flex h-full w-full items-center ">
-          <div className="flex justify-between  lg:px-1 px-2 py-3    items-center gap-1 sm:text-sm text-xs">
-                      <span className="flex items-center gap-1 text-gray-900 dark:text-gray-100">
-                        <MdOutlineDarkMode className="text-2xl" />
-                        Dark Mode
-                      </span>
-                      <Switcher1></Switcher1>
-                    </div>
-      
-           </div>
+
+            <div className="flex items-end h-full ">
+              <div className="flex justify-between w-full lg:px-1 px-2 py-3    items-center gap-1 sm:text-sm text-xs dark:text-white">
+                <span className="flex items-center gap-1 text-gray-900 dark:text-gray-100">
+                  <MdOutlineDarkMode className="text-2xl" />
+                </span>
+                <span>Dark Mode</span>
+                <Switcher1></Switcher1>
+              </div>
+            </div>
           </div>
         </div>
       </div>
