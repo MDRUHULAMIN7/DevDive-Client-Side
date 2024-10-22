@@ -1,17 +1,29 @@
-import { useEffect } from "react";
-import { FaEdit } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link, NavLink, Outlet, useParams } from "react-router-dom";
 import { fetchUsers } from "../../../Features/Users/UsersSlices";
-import ProfileTab from "./ProfileTab";
+
+import { AiOutlineBars } from "react-icons/ai";
+import { IoPerson } from "react-icons/io5";
+import { FaFileArchive } from "react-icons/fa";
+import { MdOutlinePostAdd, MdPayment } from "react-icons/md";
+import { Helmet } from "react-helmet";
 import UseAuth from "../../../Hooks/UseAuth";
 
 const UserProfile = () => {
   const { email } = useParams();
-  const users = useSelector((state) => state.users);
 
-  const { user } = UseAuth();
+  const {user}=UseAuth()
+
   const dispatch = useDispatch();
+
+  const [isActive, setActive] = useState(false);
+
+  // Sidebar Responsive Handler
+  const handleToggle = () => {
+    setActive(!isActive);
+  };
+
   useEffect(() => {
     if (email) {
       dispatch(fetchUsers(email));
@@ -19,58 +31,117 @@ const UserProfile = () => {
   }, [dispatch, email]);
 
   return (
-    <section className="p-4 mx-auto md:mx-20 lg:mx-44 max-w-7xl">
-      {/* profile section  */}
-      <div className="relative">
-        <img
-          className="h-72 w-full rounded-xl object-cover shadow-lg"
-          src={
-            (users?.users?.mainuser?.coverPhoto &&
-              users?.users?.mainuser?.coverPhoto) ||
-            "https://res.cloudinary.com/dpomtzref/image/upload/v1727683977/qyVBpT-TSs20b4myZ5bvOQ_r7roxb.jpg"
-          }
-          alt="Cover"
-        />
-        <div className="absolute top-52 md:top-52 left-1/2 transform -translate-x-1/2 md:left-10 md:transform-none">
-          <img
-            className="h-32 w-32 md:h-44 md:w-44 rounded-full border-8 border-white dark:border-black "
-            src={users?.users?.mainuser?.photoUrl}
-            alt="Profile"
-          />
-        </div>
-        <div className="mt-20 md:mt-5 md:ml-56 flex flex-col md:flex-row justify-center md:justify-between items-center md:items-start text-center md:text-left">
-          <div className="flex flex-col justify-center items-center md:items-start gap-y-2">
-            <h1 className="text-2xl md:text-3xl font-semibold text-gray-800 dark:text-gray-100 font-Montserrat">
-              {users?.users?.mainuser?.name}
-            </h1>
-            <h4 className="text-sm text-gray-600 dark:text-gray-400">
-              {users?.users?.totalFollowers || 0} followers ·{" "}
-              {users?.users?.totalFollowing || 0} following
-            </h4>
-          </div>
-          {users?.users?.mainuser?.email === user?.email ? (
-            <div className="mt-4 md:mt-0">
-              <Link
-                className="flex justify-center items-center w-fit mx-auto md:mx-0 text-lg md:text-xl gap-x-2 b text-gray-900 dark:bg-gray-800 bg-gray-300 dark:text-white px-4 py-2 rounded-md shadow-md transition duration-300"
-                to={`/edit-profile/${email}`}>
-                 <FaEdit className="text-lg" />
-              </Link>
-            </div>
-          ) : (
-            <Link to={`/chat/${user?.email}`}>
-              <button className="bg-blue-500 px-3 py-2 rounded-lg hover:bg-blue-600 font-semibold text-xl">
-                Message
-              </button>
+    <section className="min-h-screen flex bg-gray-100 dark:bg-gray-900">
+      {/* Sidebar */}
+
+      <Helmet>
+        <title>DevDive | UserProfile</title>
+      </Helmet>
+      <div
+        className={`fixed top-0 left-0 h-full bg-white  border-r dark:bg-gray-900 w-64 p-5 shadow-md transform ${
+          isActive ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0 transition-transform duration-300 ease-in-out z-40`}>
+        <div className="flex flex-col justify-between h-full">
+          {/* Logo and Navigation */}
+          <div>
+            <Link to="/" className="flex items-center  mb-8">
+              <img
+                src="https://res.cloudinary.com/dpomtzref/image/upload/v1729491491/1000005962_n0vgih.png"
+                alt="logo"
+                className="h-8"
+              />
+              <h1 className="text-3xl text-gray-800 dark:text-gray-100">
+                evDive
+              </h1>
             </Link>
-          )}
+
+            <nav className="space-y-5">
+              {/* Profile */}
+              <NavLink
+                to={`/users/${email}/profile`}
+                onClick={handleToggle}
+                className={({ isActive }) =>
+                  `text-gray-800 dark:text-gray-100 flex items-center px-4 py-2 rounded-md hover:bg-pm-color hover:text-white ${
+                    isActive ? "bg-pm-color text-white" : ""
+                  }`
+                }>
+                <IoPerson className="text-lg" />
+                <span className="mx-3 font-medium text-xs">Profile</span>
+              </NavLink>
+
+              {/* Posts */}
+              <NavLink
+                to={`/users/${email}/posts`}
+                onClick={handleToggle}
+                className={({ isActive }) =>
+                  ` text-gray-800 dark:text-gray-100 flex items-center px-4 py-2 rounded-md hover:bg-pm-color hover:text-white ${
+                    isActive ? "bg-pm-color text-white" : ""
+                  }`
+                }>
+                <MdOutlinePostAdd className="text-lg" />
+                <span className="mx-3 font-medium text-xs">Posts</span>
+              </NavLink>
+
+              {/* Archives */}
+              <NavLink
+                to={`/users/${email}/archive/${email}`}
+                onClick={handleToggle}
+                className={({ isActive }) =>
+                  `text-gray-800 dark:text-gray-100 flex items-center px-4 py-2 rounded-md hover:bg-pm-color hover:text-white ${
+                    isActive ? "bg-pm-color text-white" : ""
+                  }`
+                }>
+                <FaFileArchive className="text-lg" />
+                <span className="mx-3 font-medium text-xs">Archives</span>
+              </NavLink>
+              {/* payment history*/}
+           {
+            user?.email === email &&
+           
+           
+           <NavLink
+                to={`/users/${email}/payment-hitory/${email}`}
+                onClick={handleToggle}
+                className={({ isActive }) =>
+                  `text-gray-800 dark:text-gray-100 flex items-center px-4 py-2 rounded-md hover:bg-pm-color hover:text-white ${
+                    isActive ? "bg-pm-color text-white" : ""
+                  }`
+                }>
+                <MdPayment className="text-lg" />
+                <span className="mx-3 font-medium text-xs">Payment Hisstory</span>
+              </NavLink>}
+            </nav>
+          </div>
         </div>
-      </div>
-      {/* tab section */}
-      <div>
-        <ProfileTab data={users}></ProfileTab>
       </div>
 
-      {/*  */}
+      {/* Mobile Navbar */}
+      <div className="lg:hidden fixed top-0 left-0 w-full flex justify-between items-center bg-gray-100 dark:bg-gray-900 p-4 shadow-md z-30">
+        <Link to="/" className="flex items-center ">
+          <img
+            src="https://res.cloudinary.com/dpomtzref/image/upload/v1729491491/1000005962_n0vgih.png"
+            alt="logo"
+            className="h-8"
+          />
+          <h1 className="text-3xl text-gray-900 dark:text-gray-100">evDive</h1>
+        </Link>
+        <button onClick={handleToggle} className="p-2 focus:outline-none">
+          <AiOutlineBars className="h-6 w-6 text-gray-900 dark:text-gray-100" />
+        </button>
+      </div>
+
+      {/* Main Content */}
+      <div
+        className={`flex-1 min-h-screen transition-all duration-300 ${
+          isActive ? "opacity-100" : "opacity-100"
+        } md:ml-64 p-5`}>
+        <Outlet />
+      </div>
+
+      {/* Overlay for Small Screens */}
+      {isActive && (
+        <div className="fixed  z-20 lg:hidden" onClick={handleToggle}></div>
+      )}
     </section>
   );
 };

@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import UseAuth from "../../../Hooks/UseAuth";
 import UseLikes from "../../../Hooks/UseLikes";
-import UseDisLikes from "../../../Hooks/UseDisLike";
+// import UseDisLikes from "../../../Hooks/UseDisLike";
 import UseAllComments from "../../../Hooks/adnan/UseAllComments";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import SkeletonLoader from "./SkeletonLoader";
@@ -26,13 +26,13 @@ const CardRuhul = () => {
   const [newPosts, setNewPosts] = useState([]);
   const [openDropdownId, setOpenDropdownId] = useState(null);
   const [likes] = UseLikes();
-  const [disLikes] = UseDisLikes();
+  // const [disLikes] = UseDisLikes();
   const [comments] = UseAllComments();
   const [sortOption, setSortOption] = useState("");
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
-  const [reLoad, setReLoad] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [reLoad, setReLoad] = useState(false);
 
   const toggleDropdown = (id) => {
     setOpenDropdownId((prevId) => (prevId === id ? null : id));
@@ -40,7 +40,7 @@ const CardRuhul = () => {
 
   const fetchPosts = async () => {
     try {
-      setIsLoading(true);
+      // setIsLoading(true);
       const res = await axiosPublic.get(`/random-posts?page=${page}&limit=5`);
       const fetchedPosts = res.data;
       setPosts((prevPosts) => {
@@ -55,7 +55,7 @@ const CardRuhul = () => {
     } catch (error) {
       console.error("Error fetching posts:", error);
     } finally {
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 
@@ -108,7 +108,7 @@ const CardRuhul = () => {
         hasMore={hasMore} // Check if more posts are available
         loader={<SkeletonLoader value={"PostCard"} />} // Loading skeleton
       >
-        {newPosts?.length > 0 ? (
+        {newPosts?.length > 0 && (
           newPosts?.map((data) => (
             <div
               key={data._id}
@@ -199,7 +199,7 @@ const CardRuhul = () => {
 
               <div className="flex flex-wrap justify-between items-center text-gray-500 dark:text-gray-400 text-sm">
                 <div className="flex items-center space-x-4">
-                  <PostActions reLoad={reLoad} setReLoad={setReLoad} data={data} user={user}></PostActions>
+                  <PostActions data={data} user={user}></PostActions>
                 </div>
 
                 <div className="flex items-center space-x-4">
@@ -218,8 +218,6 @@ const CardRuhul = () => {
               </div>
             </div>
           ))
-        ) : (
-          <p className="text-2xl text-center my-10">No Post Found</p>
         )}
       </InfiniteScroll>
     </section>

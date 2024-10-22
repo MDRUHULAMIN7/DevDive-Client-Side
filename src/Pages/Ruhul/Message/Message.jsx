@@ -15,7 +15,7 @@ const Message = () => {
 
   useEffect(() => {
     setFilteredUsers(
-      users?.filter((user) =>
+     users && users?.filter((user) =>
         user.name.toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
@@ -71,7 +71,7 @@ const Message = () => {
        
         <div className="p-4">
           <h2 className="font-bold text-lg mb-4">Users</h2>
-          {filteredUsers?.map((user) => (
+          {filteredUsers && filteredUsers?.map((user) => (
             <div
               key={user._id}
               onClick={() => handleUserClick(user)}
@@ -111,7 +111,7 @@ const Message = () => {
         </div>
 
         <h2 className="font-bold text-lg mb-4">Users</h2>
-        {filteredUsers?.map((user) => (
+        {filteredUsers && filteredUsers?.map((user) => (
           <div
             key={user._id}
             onClick={() => handleUserClick(user)}

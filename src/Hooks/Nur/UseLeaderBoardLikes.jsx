@@ -5,7 +5,7 @@ import useAxiosPublic from "../useAxiosPublic";
 const UseLeaderBoardLikes = (loadAllLikes) => {
   const { user } = UseAuth();
   const axiosPublic = useAxiosPublic();
-  console.log("loadAllLikes", loadAllLikes);
+  // console.log("loadAllLikes", loadAllLikes);
 
   const {
     data: leaderBoardLikes = [],
@@ -23,7 +23,7 @@ const UseLeaderBoardLikes = (loadAllLikes) => {
     },
   });
 
-  console.log("leaderBoardLikes", leaderBoardLikes)
+  // console.log("leaderBoardLikes", leaderBoardLikes)
 
 
   return [leaderBoardLikes, isLoading, refetch];

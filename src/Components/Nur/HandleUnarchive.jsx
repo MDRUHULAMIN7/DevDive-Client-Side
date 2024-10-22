@@ -2,7 +2,7 @@ import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import { axiosPublic } from "../../Hooks/useAxiosPublic";
 
-const handleUnarchive = async (postId,archiveDataUser, refetch) => {
+const handleUnarchive = async (postId, testEmailWithRuhul, refetch) => {
   try {
     const result = await Swal.fire({
       title: "Are you sure?",
@@ -16,8 +16,10 @@ const handleUnarchive = async (postId,archiveDataUser, refetch) => {
 
     if (result.isConfirmed) {
       const response = await axiosPublic.delete(`/unarchive/${postId}`, {
-        params: { email: archiveDataUser },
+        params: { email: testEmailWithRuhul },
       });
+      console.log(response);
+
       if (response.status === 200) {
         toast.success("Post unarchived successfully!");
         refetch(); // Refetch the archive data
