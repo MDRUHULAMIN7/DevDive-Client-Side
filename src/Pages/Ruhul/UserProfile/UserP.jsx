@@ -5,6 +5,7 @@ import UseAuth from "../../../Hooks/UseAuth";
 import { useEffect } from "react";
 import { fetchUsers } from "../../../Features/Users/UsersSlices";
 import ProfileTab from "./ProfileTab";
+import { Helmet } from "react-helmet";
 
 const UserP =()=>{
     const { email } = useParams();
@@ -20,6 +21,9 @@ const UserP =()=>{
     return (
 
  <section className="p-4 mx-auto mt-10  lg:mx-20 xl:mx-44  max-w-7xl">
+    <Helmet>
+        <title>DevDive | UserProfile</title>
+      </Helmet>
       {/* profile section  */}
       <div className="relative">
         <img

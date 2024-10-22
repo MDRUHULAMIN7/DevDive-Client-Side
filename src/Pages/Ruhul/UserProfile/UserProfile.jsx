@@ -6,10 +6,14 @@ import { fetchUsers } from "../../../Features/Users/UsersSlices";
 import { AiOutlineBars } from "react-icons/ai";
 import { IoPerson } from "react-icons/io5";
 import { FaFileArchive } from "react-icons/fa";
-import { MdOutlinePostAdd } from "react-icons/md";
+import { MdOutlinePostAdd, MdPayment } from "react-icons/md";
+import { Helmet } from "react-helmet";
+import UseAuth from "../../../Hooks/UseAuth";
 
 const UserProfile = () => {
   const { email } = useParams();
+
+  const {user}=UseAuth()
 
   const dispatch = useDispatch();
 
@@ -29,6 +33,10 @@ const UserProfile = () => {
   return (
     <section className="min-h-screen flex bg-gray-100 dark:bg-gray-900">
       {/* Sidebar */}
+
+      <Helmet>
+        <title>DevDive | UserProfile</title>
+      </Helmet>
       <div
         className={`fixed top-0 left-0 h-full bg-white  border-r dark:bg-gray-900 w-64 p-5 shadow-md transform ${
           isActive ? "translate-x-0" : "-translate-x-full"
@@ -86,6 +94,22 @@ const UserProfile = () => {
                 <FaFileArchive className="text-lg" />
                 <span className="mx-3 font-medium text-xs">Archives</span>
               </NavLink>
+              {/* payment history*/}
+           {
+            user?.email === email &&
+           
+           
+           <NavLink
+                to={`/users/${email}/payment-hitory/${email}`}
+                onClick={handleToggle}
+                className={({ isActive }) =>
+                  `text-gray-800 dark:text-gray-100 flex items-center px-4 py-2 rounded-md hover:bg-pm-color hover:text-white ${
+                    isActive ? "bg-pm-color text-white" : ""
+                  }`
+                }>
+                <MdPayment className="text-lg" />
+                <span className="mx-3 font-medium text-xs">Payment Hisstory</span>
+              </NavLink>}
             </nav>
           </div>
         </div>
