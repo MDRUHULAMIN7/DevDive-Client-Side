@@ -7,12 +7,14 @@ import { toast } from "react-toastify";
 import UsePosts from "../../../Hooks/UsePosts";
 import { useCallback, useState } from "react";
 
-export default function PostActions({ data, user }) {
+export default function PostActions({ data, user, setReLoad, reLoad }) {
   const [likes, isLoading, likeRef] = UseLikes();
   const [dislikes, , dislikeRef] = UseDisLikes();
-  const [,, refetch] = UsePosts();
+  const [, , refetch] = UsePosts();
   const axiosPublic = useAxiosPublic();
-  const [isUpdating, setIsUpdating] = useState(false); // Track state to avoid spamming
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [like, setLike] = useState(data?.likes);
+  const [disLike, setDisLike] = useState(data?.dislikes);
 
   const handleAction = useCallback(
     async (type, postId) => {
@@ -34,7 +36,7 @@ export default function PostActions({ data, user }) {
         const res = await axiosPublic.post(url, { newUser });
 
         if (res?.status === 200) {
-          await Promise.all([refetch(), likeRef(), dislikeRef()]); // Parallel refetch
+          await Promise.all([refetch(), setReLoad(!reLoad), likeRef(), dislikeRef()]); // Parallel refetch
         }
       } catch (err) {
         console.error(`Error during ${type}:`, err);
@@ -43,7 +45,7 @@ export default function PostActions({ data, user }) {
         setIsUpdating(false); // Reset update state
       }
     },
-    [user, axiosPublic, refetch, likeRef, dislikeRef, isUpdating]
+    [user, axiosPublic, refetch, likeRef, dislikeRef, isUpdating, setReLoad, reLoad]
   );
 
   const isDisliked = dislikes.some(
@@ -56,13 +58,26 @@ export default function PostActions({ data, user }) {
   return (
     <div className="flex space-x-4">
       <LikeButton
+        like={like}
+        setLike={setLike}
+        disLike={disLike}
+        setDisLike={setDisLike}
+        reLoad={reLoad}
+        setReLoad={setReLoad}
         isLiked={isLiked}
         data={data}
         isLoading={isLoading}
         handleLike={() => handleAction("like", data._id)}
       />
       <DisLikeButton
+        like={like}
+        setLike={setLike}
+        disLike={disLike}
+        setDisLike={setDisLike}
+        reLoad={reLoad}
+        setReLoad={setReLoad}
         isDisliked={isDisliked}
+        isLiked={isLiked}
         data={data}
         isLoading={isLoading}
         handleDislike={() => handleAction("dislike", data._id)}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaThumbsDown } from "react-icons/fa";
 import './DisLikeButton.css';
 
-export default function DisLikeButton({ data, handleDislike, isDisliked, isLoading }) {
+export default function DisLikeButton({ data, handleDislike, isDisliked, isLoading,setReLoad, reLoad, disLike, setDisLike, like, setLike,}) {
   const [animate, setAnimate] = useState(false); 
 
   const handleClick = () => {
@@ -16,6 +16,13 @@ export default function DisLikeButton({ data, handleDislike, isDisliked, isLoadi
         setAnimate(false);
       }, 600); 
     }
+
+    if(data?.dislikes === data?.dislikes){
+      setDisLike(data?.dislikes + 1);
+      if(like >0 && data?.likes !== like)
+        setLike(like -1)
+    }
+    setReLoad(!reLoad); // Triggering re-render to update the dislike count
   };
 
   return (
@@ -31,7 +38,7 @@ export default function DisLikeButton({ data, handleDislike, isDisliked, isLoadi
           animate ? 'rotate-12 scale-125' : 'scale-100'
         }`} 
       />
-      <span className="text-sm">{data?.dislikes || 0}</span>
+      <span className="text-sm">{disLike || 0}</span>
     </button>
   );
 }

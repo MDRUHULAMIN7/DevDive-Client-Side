@@ -2,9 +2,8 @@ import { useState } from "react";
 import { FaThumbsUp } from "react-icons/fa";
 import './LikeButton.css'; 
 
-const LikeButton = ({ handleLike, isLiked, data, isLoading }) => {
+const LikeButton = ({ handleLike, isLiked, data, isLoading, setReLoad, reLoad, disLike, setDisLike, like, setLike }) => {
   const [animate, setAnimate] = useState(false);
-
   const handleClick = () => {
     if (!isLoading) {
 
@@ -15,8 +14,28 @@ const LikeButton = ({ handleLike, isLiked, data, isLoading }) => {
   
       setTimeout(() => {
         setAnimate(false);
-      }, 600); 
+      }, 500); 
     }
+
+    if(data?.likes === like){
+      setLike(isLiked ? like + 1 : like - 1)
+    }
+    // if(isLiked){
+    //     if(data?.likes === like){
+    //       setLike(data?.likes - 1);
+    //     }
+    //     // if(disLike >0 && data?.dislikes !== disLike)
+    //     //   setDisLike(disLike -1)
+    // }
+    // if(isLiked){
+    //   if(data?.likes < like){
+    //     setLike(like - 1);
+    //   }
+    // }
+    // if(data?.likes < like){
+    //   setLike(like - 1);
+    // }
+    // setReLoad(!reLoad);
   };
 
   return (
@@ -32,7 +51,7 @@ const LikeButton = ({ handleLike, isLiked, data, isLoading }) => {
           animate ? 'rotate-12 scale-125' : 'scale-100'
         }`} 
       />
-      <span className="text-sm">{data?.likes || 0}</span>
+      <span className="text-sm">{like || 0}</span>
     </button>
   );
 };
