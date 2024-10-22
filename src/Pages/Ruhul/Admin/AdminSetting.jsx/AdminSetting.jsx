@@ -113,11 +113,11 @@ const AdminSetting = () => {
                 <span className="mx-3 font-medium text-xs">All Blogs</span>
               </NavLink>
             </nav>
-            <hr className="my-10" />
+            <hr className="my-8" />
         
-          <div className="mt-10 ">
-          <div className="flex justify-between  lg:px-6 px-5 py-3 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
-                      <span className="flex items-center gap-3 text-gray-900 dark:text-gray-100">
+          <div className="flex h-full w-full items-center ">
+          <div className="flex justify-between  lg:px-1 px-2 py-3    items-center gap-1 sm:text-sm text-xs">
+                      <span className="flex items-center gap-1 text-gray-900 dark:text-gray-100">
                         <MdOutlineDarkMode className="text-2xl" />
                         Dark Mode
                       </span>
