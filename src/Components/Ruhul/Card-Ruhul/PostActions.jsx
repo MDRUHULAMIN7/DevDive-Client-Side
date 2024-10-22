@@ -1,71 +1,94 @@
 import LikeButton from "./LikeButton";
 import DisLikeButton from "./DisLikeButton";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
-import UseLikes from "../../../Hooks/UseLikes";
-import UseDisLikes from "../../../Hooks/UseDisLike";
-import { toast } from "react-toastify";
-import UsePosts from "../../../Hooks/UsePosts";
-import { useCallback, useState } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUsers } from "../../../Features/Users/UsersSlices";
+
+import UseRuhulLikes from "../../../Hooks/UseRuhulLikes";
+import UseRuhuldisLikes from "../../../Hooks/UseRuhuldislike";
+import { useEffect } from "react";
 
 export default function PostActions({ data, user }) {
-  const [likes, isLoading, likeRef] = UseLikes();
-  const [dislikes, , dislikeRef] = UseDisLikes();
-  const [,, refetch] = UsePosts();
+ 
   const axiosPublic = useAxiosPublic();
-  const [isUpdating, setIsUpdating] = useState(false); // Track state to avoid spamming
 
-  const handleAction = useCallback(
-    async (type, postId) => {
-      if (!user) {
-        toast.error(`You need to log in to ${type} a post.`);
-        return;
-      }
-      if (isUpdating) return; // Prevent multiple clicks during update
 
-      setIsUpdating(true);
-      const newUser = {
-        name: user.displayName,
-        email: user.email,
-        photo: user.photoURL,
-      };
 
-      try {
-        const url = `/${type}/${postId}`;
-        const res = await axiosPublic.post(url, { newUser });
+  const users = useSelector((state) => state.users);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (user?.email) {
+      dispatch(fetchUsers(user?.email));
+    }
+  }, [dispatch, user?.email]);
+  const userId = users?.users.mainuser?._id
+  const postId = data._id
 
-        if (res?.status === 200) {
-          await Promise.all([refetch(), likeRef(), dislikeRef()]); // Parallel refetch
-        }
-      } catch (err) {
-        console.error(`Error during ${type}:`, err);
-        toast.error(`An error occurred while ${type}ing the post.`);
-      } finally {
-        setIsUpdating(false); // Reset update state
-      }
-    },
-    [user, axiosPublic, refetch, likeRef, dislikeRef, isUpdating]
-  );
 
-  const isDisliked = dislikes.some(
-    (dislike) => dislike.postId === data._id && dislike.email === user?.email
-  );
-  const isLiked = likes.some(
-    (like) => like.postId === data._id && like.email === user?.email
-  );
+  const [likeInfo,isLoading,likeRefetch]=UseRuhulLikes(userId,postId)
+  const [ dislikesInfo,,dislikeRefetch]=UseRuhuldisLikes(userId,postId)
+  // if(userId) {
+  //   console.log(likeInfo,dislikesInfo)
+  // }
+ 
+
+  const handleLike = async (postId) => {
+
+   if(postId &&userId){
+
+
+    axiosPublic.post(`/like-ruhul/${userId}`,{postId})
+    .then((res)=>{
+      console.log(res);
+      likeRefetch()
+      dislikeRefetch()
+      
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+   }
+  
+  };
+  const  handleDislike = async (postId) => {
+   const userId = users?.users.mainuser?._id
+   if(postId &&userId){
+  
+
+    axiosPublic.post(`/dislike-ruhul/${userId}`,{postId})
+    .then((res)=>{
+      likeRefetch()
+      dislikeRefetch()
+      console.log(res.data);
+      
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+   }
+  
+  };
+
+  useEffect(()=>{
+
+  },[])
 
   return (
     <div className="flex space-x-4">
       <LikeButton
-        isLiked={isLiked}
+
+        likeInfo={likeInfo}
         data={data}
         isLoading={isLoading}
-        handleLike={() => handleAction("like", data._id)}
+        handleLike={() => handleLike(data._id)}
       />
       <DisLikeButton
-        isDisliked={isDisliked}
+
         data={data}
+        dislikesInfo={dislikesInfo}
         isLoading={isLoading}
-        handleDislike={() => handleAction("dislike", data._id)}
+        handleDislike={() => handleDislike( data._id)}
       />
     </div>
   );
