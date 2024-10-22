@@ -94,11 +94,11 @@ const AuthProvider = ({ children }) => {
 
       if (currentUser) {
         setUser(currentUser);
-        console.log("effeect", currentUser);
+        // console.log("effeect", currentUser);
         const userInfo = { email: currentUser.email };
-        console.log(userInfo);
+        // console.log(userInfo);
         axiosPublic.post("/jwt", userInfo).then((res) => {
-          console.log(res.data.token);
+          // console.log(res.data.token);
           if (res.data.token) {
             localStorage.setItem("access-token", res.data.token);
             setLoading(false);
@@ -135,7 +135,7 @@ const AuthProvider = ({ children }) => {
     // updateArchiveData,
   };
 
-  console.log(user);
+  // console.log(user);
   // console.log(archiveData);
 
 

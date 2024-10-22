@@ -3,7 +3,7 @@ import useAxiosPublic from "../useAxiosPublic";
 
 const useIndividualArchiveData = (userEmail) => {
   const axiosPublic = useAxiosPublic();
-console.log(userEmail);
+// console.log(userEmail);
 
   const query = useQuery({
     queryKey: ["archiveData", userEmail],

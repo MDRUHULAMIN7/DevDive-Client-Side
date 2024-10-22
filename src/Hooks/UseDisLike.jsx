@@ -11,6 +11,7 @@ const UseDisLikes = () => {
     enabled: !!user?.email && !loading,   // Ensure query runs only when user is ready
     queryFn: async () => {
       const res = await axiosPublic.get("/get-dislikes");  // API call
+      
       return res.data;  // Return the data directly
     },
   });

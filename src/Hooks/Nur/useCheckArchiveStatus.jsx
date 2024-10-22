@@ -3,7 +3,7 @@ import useAxiosPublic from "../useAxiosPublic";
 
 const useCheckArchiveStatus = (post_id, email) => {
   const axiosPublic = useAxiosPublic();
-console.log("useCheckArchiveStatus",post_id, email);
+// console.log("useCheckArchiveStatus",post_id, email);
 
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["checkArchiveStatus", post_id, email],
