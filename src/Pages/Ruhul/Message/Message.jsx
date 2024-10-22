@@ -4,15 +4,17 @@ import UseUser from "../../../Hooks/UseUser";
 import ChatArea from "./ChatArea";
 import SkeletonLoader from "../../../Components/Ruhul/Card-Ruhul/SkeletonLoader";
 import { Helmet } from "react-helmet";
+import { useParams } from "react-router-dom";
 
 const Message = () => {
-  const [selectedUser, setSelectedUser] = useState(null);
+ 
   const [users] = UseUser();
+  const [selectedUser, setSelectedUser] = useState(users && users?.map((user1)=>user1?.email));
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-
+const {email}=useParams()
   useEffect(() => {
     setFilteredUsers(
      users && users?.filter((user) =>
@@ -42,7 +44,7 @@ const Message = () => {
 
       <button
         onClick={() => setDrawerOpen(true)}
-        className="lg:hidden fixed bottom-3 left-2 text-blue-500  rounded-full shadow-md p-3 z-40">
+        className="lg:hidden fixed bottom-3 left-2 text-blue-500  rounded-full bg-transparent p-3 z-40">
       <FaArrowLeft  className="text-xl font-bold " />
       </button>
 
@@ -119,7 +121,7 @@ const Message = () => {
               selectedUser?._id === user._id ? "bg-blue-500 text-white" : ""
             } hover:bg-blue-600 transition`}>
             <img
-              src={user.photoUrl}
+              src={user.photoUrl || 'https://res.cloudinary.com/dpomtzref/image/upload/v1729587017/User_icon_2.svg_jjnimz.png'}
               alt={user.name}
               className="w-10 h-10 rounded-full mr-3"
             />
@@ -131,7 +133,7 @@ const Message = () => {
       </div>
 
       <div className="w-full lg:w-3/4 overflow-y-auto bg-white dark:bg-gray-900 h-[calc(100vh-56px)]">
-        <ChatArea selectedUser={selectedUser} />
+        <ChatArea email={email} selectedUser={selectedUser} />
       </div>
     </section>
   );

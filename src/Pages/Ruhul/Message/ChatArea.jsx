@@ -5,12 +5,13 @@ import Chats from "./Chats";
 import VideoButton from "./VideoButton";
 import UseMessages from "../../../Hooks/UseMessages";
 
-const ChatArea = ({ selectedUser }) => {
+const ChatArea = ({ selectedUser}) => {
   const [meetingLink, setMeetingLink] = useState("");
   const { user } = UseAuth();
   const [response, setResponse] = useState([]);
   const [, , chatRef] = UseMessages({ sender: user, reciver: selectedUser });
 
+  
   useEffect(() => {
     if (meetingLink && selectedUser && user) {
       const message = meetingLink;
@@ -71,21 +72,7 @@ const ChatArea = ({ selectedUser }) => {
     }
   };
 
-  if (!selectedUser || selectedUser.email === user.email) {
-    return (
-      <section className="mx-auto mt-10 text-center">
-        <div className="flex flex-col items-center">
-          <img
-            className="my-4 rounded-full border-2 border-blue-500 w-24 md:w-36 h-24 md:h-36"
-            src={user?.photoURL}
-            alt=""
-          />
-          <h1 className="text-lg">{user?.displayName}</h1>
-          <p>{user?.email}</p>
-        </div>
-      </section>
-    );
-  }
+
 
   return (
     <section className="w-full  p-4 flex flex-col h-[calc(100vh-56px)]">
@@ -94,8 +81,8 @@ const ChatArea = ({ selectedUser }) => {
         <div className="flex items-center gap-x-2">
           <img
             className="h-12 w-12 rounded-full"
-            src={selectedUser?.photoUrl}
-            alt=""
+            src={selectedUser?.photoUrl || 'https://res.cloudinary.com/dpomtzref/image/upload/v1729587017/User_icon_2.svg_jjnimz.png'}
+            alt="photo"
           />
           <p>{selectedUser?.name}</p>
         </div>

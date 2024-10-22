@@ -40,13 +40,16 @@ const ManagUsers = () => {
       }
     })
     .then((result) => {
-      if (!result.isConfirmed) return;
+      if (!result.isConfirmed){
+        refetch()
+        return;}
 
       const newRole = isRoleChange ? (user.role === 'admin' ? 'member' : 'admin') : (user.role === 'blocked' ? 'member' : 'blocked');
       const newRoleData = { data: newRole };
 
       axiosPublic.put(`/update-user-role/${user.email}`, newRoleData)
         .then(res => {
+          refetch()
           if (res.status === 200) {
             refetch();
             Swal.fire({
@@ -64,7 +67,7 @@ const ManagUsers = () => {
           }
         })
         .catch(err => {
-          refetch()
+         
           Swal.fire({
             title: `<h2 class="text-xl font-semibold text-[#2c3e57] dark:text-white">Something went wrong!</h2>`,
             html: `<p class="text-gray-600 dark:text-gray-300">${err}</p>`,
@@ -80,6 +83,8 @@ const ManagUsers = () => {
 
   return (
     <section className="p-4">
+
+      <h1 className="text-2xl text-gray-900 dark:text-gray-100 my-4">ManageUsers</h1>
       <div className="overflow-x-auto">
         <table className="min-w-full table-auto text-left bg-white dark:bg-gray-800 rounded-lg shadow-md">
           <thead>
@@ -89,7 +94,7 @@ const ManagUsers = () => {
               <th className="p-4">User Type</th>
               <th className="p-4">Role</th>
               <th className="p-4">Change Role</th>
-              <th className="p-4">User Status</th>
+       
             </tr>
           </thead>
           <tbody>
@@ -143,14 +148,7 @@ const ManagUsers = () => {
                     {user?.role === "admin" ? "Make Member" : "Make Admin"}
                   </button>
                 </td>
-                <td className="p-4">
-                  <button
-                    className={`text-white font-bold py-2 px-4 rounded-lg transition duration-200 ease-in-out transform hover:scale-105 ${user?.role === "blocked" ? "bg-green-500 hover:bg-green-600" : "bg-red-500 hover:bg-red-600"}`}
-                    onClick={() => handleUserAction(user, 'block')}
-                  >
-                    {user?.role === "blocked" ? "Unblock User" : "Block User"}
-                  </button>
-                </td>
+              
               </tr>
             ))}
           </tbody>

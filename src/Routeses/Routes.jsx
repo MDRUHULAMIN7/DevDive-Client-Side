@@ -31,6 +31,8 @@ import PaymentFailed from "../Pages/Ruhul/UserProfile/PaymentFailed";
 import UserP from "../Pages/Ruhul/UserProfile/UserP";
 import UserPosts from "../Pages/Ruhul/UserProfile/UserPosts";
 import PaymentHistory from "../Pages/Ruhul/UserProfile/PaymentHistory";
+import ManagUsers from "../Pages/Ruhul/Admin/Component/ManageUsers/ManagUsers";
+import AllPosts from "../Pages/Ruhul/Admin/Component/AllPosts";
 
 export const router = createBrowserRouter([
   {
@@ -161,16 +163,7 @@ export const router = createBrowserRouter([
       },
 
       // for admin
-      {
-        path: "/admin-settings",
-        element: (
-          <PrivateRoute>
-            <AdminRoute>
-              <AdminSetting></AdminSetting>
-            </AdminRoute>
-          </PrivateRoute>
-        ),
-      },
+     
 
       {
         path: "/chat/:email",
@@ -206,4 +199,33 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/admin/settings",
+    element: <AdminSetting></AdminSetting>,
+    errorElement: <ErrorPage></ErrorPage>,
+    children: [
+      {
+        path: "/admin/settings/manage-users",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <ManagUsers></ManagUsers>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/admin/settings/allposts",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AllPosts></AllPosts>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+
+      
+    ],
+  }
 ]);

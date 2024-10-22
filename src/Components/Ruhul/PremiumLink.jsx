@@ -87,12 +87,8 @@ const PremiumLink = () => {
                     position: "absolute",
                     width: "8px",
                     height: "8px",
-                    backgroundColor: index % 2 === 0 ? "#fdd835" : "#ff4081",
-                    borderRadius: "50%",
-                    top: `${Math.random() * 80}%`,
-                    left: `${Math.random() * 80}%`,
-                    animation: `float 3s infinite ease-in-out`,
-                    animationDelay: `${Math.random() * 0.3}s`,
+                   
+                   
                   }}
                 />
               ))}

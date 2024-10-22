@@ -200,11 +200,7 @@ const AboutSection = () => {
           <p className="text-xl text-center text-gray-600 dark:text-gray-300 max-w-4xl mx-auto mb-12">
             Ready to take your development skills to the next level? Join our community and start collaborating with developers around the world.
           </p>
-          <div className="text-center">
-            <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition duration-300">
-              Sign Up Now
-            </button>
-          </div>
+         
         </motion.div>
       </div>
     </section>
