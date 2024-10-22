@@ -25,6 +25,7 @@ import Message from "../Pages/Ruhul/Message/Message";
 import VideoRoom from "../Pages/Ruhul/Message/VideoRoom";
 import ArchiveDetails from "../Components/Nur/ArchiveDetails";
 import CodeEditor from "../components/adnan/codeEditor/codeEditorComponents/CodeEditor";
+import CodeWeb from "../components/adnan/codeWeb/CodeWeb";
 import GetPremium from "../Pages/Ruhul/UserProfile/GetPremium";
 import PaymentSucces from "../Pages/Ruhul/UserProfile/PaymentSucces";
 import PaymentFailed from "../Pages/Ruhul/UserProfile/PaymentFailed";
@@ -66,6 +67,10 @@ export const router = createBrowserRouter([
       {
         path: "/code-editor",
         element: <CodeEditor></CodeEditor>,
+      },
+      {
+        path: "/code-web",
+        element: <CodeWeb></CodeWeb> ,
       },
       // .......for testing......../
       {
