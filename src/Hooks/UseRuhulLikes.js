@@ -16,7 +16,7 @@ const UseRuhulLikes = (userId,postId) => {
       return res.data
     },
   });
-//   console.log("likeInfo", likeInfo);
+  console.log("likeInfo", likeInfo);
    
   return [ likeInfo, isLoading,likeRefetch]
 };
