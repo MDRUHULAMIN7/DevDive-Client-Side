@@ -3,6 +3,7 @@ import { AuthContext } from "../../Providers/AuthProvider";
 import { useNavigate, useParams } from "react-router-dom";
 import useIndividualArchiveData from "../../Hooks/Nur/useIndividualArchiveData";
 import { handleUnarchive } from "./HandleUnarchive";
+import { Helmet } from "react-helmet";
 
 const ArchiveDetails = () => {
   const {testEmailWithRuhul} =useParams()
@@ -30,6 +31,9 @@ const ArchiveDetails = () => {
 
   return (
     <div className="space-y-8 text-gray-900 dark:text-gray-100">
+        <Helmet>
+        <title>DevDive | Archives</title>
+      </Helmet>
       <h1 className="text-2xl font-semibold ">Archived Posts</h1>
       {archiveData?.map((post) => (
         <div

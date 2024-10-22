@@ -15,6 +15,7 @@ import UseAuth from "../../../Hooks/UseAuth";
 import PollData from "../../../Components/Ruhul/Card-Ruhul/PollData";
 import PostActions from "../../../Components/Ruhul/Card-Ruhul/PostActions";
 import UserModal from "./UserModal";
+import { Helmet } from "react-helmet";
 
 const UserPosts = ({ user2 }) => {
   const { email } = useParams();
@@ -44,7 +45,9 @@ const UserPosts = ({ user2 }) => {
 
   return (
     <div className="p-4 mt-10 mx-auto w-full sm:w-2xl max-w-6xl ">
-
+            <Helmet>
+        <title>DevDive | UserPosts</title>
+      </Helmet>
       <h1 className="text-2xl md:text-3xl text-gray-800 dark:text-gray-100">Posts : {myPosts?.length && myPosts.length}</h1>
       {myPosts.length > 0 ? (
         myPosts.map((data, index) => (
