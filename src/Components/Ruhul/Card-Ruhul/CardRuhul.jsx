@@ -56,7 +56,7 @@ const CardRuhul = () => {
             className="mt-4 bg-white dark:bg-gray-900 shadow-md rounded-lg p-4 my-4  md:mx-auto border border-gray-200 dark:border-gray-700 ">
             <div className="flex justify-between items-center mb-3">
               <div className="flex items-center">
-                <Link to={`/users/${data?.userEmail}`}>
+                <Link to={`/users/${data?.userEmail}/profile`}>
                   <img
                     src={data.profilePicture}
                     alt="User"
