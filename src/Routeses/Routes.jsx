@@ -33,6 +33,9 @@ import UserPosts from "../Pages/Ruhul/UserProfile/UserPosts";
 import PaymentHistory from "../Pages/Ruhul/UserProfile/PaymentHistory";
 import ManagUsers from "../Pages/Ruhul/Admin/Component/ManageUsers/ManagUsers";
 import AllPosts from "../Pages/Ruhul/Admin/Component/AllPosts";
+import Followers from "../Pages/Ruhul/Admin/Component/Followers/Followers";
+import PostBlog from "../Pages/Ruhul/Admin/Component/PostBlog/PostBlog";
+import PreviewBlog from "../Pages/Ruhul/Admin/Component/PreviewBlog/PreviewBlog";
 
 export const router = createBrowserRouter([
   {
@@ -220,6 +223,36 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <AdminRoute>
               <AllPosts></AllPosts>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/admin/settings/followers",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <Followers></Followers>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/admin/settings/postsBlog",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <PostBlog></PostBlog>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/admin/settings/allBlogs",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <PreviewBlog></PreviewBlog>
             </AdminRoute>
           </PrivateRoute>
         ),

@@ -4,10 +4,13 @@ import { Link, NavLink, Outlet, } from "react-router-dom";
 
 import { AiOutlineBars } from "react-icons/ai";
 
-import { FaFileArchive, FaUsers } from "react-icons/fa";
-import { MdOutlinePostAdd, MdPayment } from "react-icons/md";
+import {  FaUsers } from "react-icons/fa";
+import { MdOutlineDarkMode, MdOutlinePostAdd } from "react-icons/md";
 import { Helmet } from "react-helmet";
 import { useState } from "react";
+import { RiUserFollowLine } from "react-icons/ri";
+import { TfiWrite } from "react-icons/tfi";
+import Switcher1 from "../../../../Components/Fardus/Switcher1/Switcher1";
 
 
 const AdminSetting = () => {
@@ -44,6 +47,8 @@ const AdminSetting = () => {
 
             <nav className="space-y-5">
               {/* ManageUSers */}
+
+              <h1 className="text-xl pl-4 text-gray-900 dark:text-gray-100">Admin Settings</h1> 
               <NavLink
                 to={`/admin/settings/manage-users`}
                 onClick={handleToggle}
@@ -66,37 +71,60 @@ const AdminSetting = () => {
                   }`
                 }>
                 <MdOutlinePostAdd className="text-lg" />
-                <span className="mx-3 font-medium text-xs">Posts</span>
+                <span className="mx-3 font-medium text-xs">AllPosts</span>
               </NavLink>
 
-              {/* Archives */}
+              {/* followers */}
               <NavLink
-                to={`/users`}
+                to={`/admin/settings/followers`}
                 onClick={handleToggle}
                 className={({ isActive }) =>
                   `text-gray-800 dark:text-gray-100 flex items-center px-4 py-2 rounded-md hover:bg-pm-color hover:text-white ${
                     isActive ? "bg-pm-color text-white" : ""
                   }`
                 }>
-                <FaFileArchive className="text-lg" />
-                <span className="mx-3 font-medium text-xs">Archives</span>
+                <RiUserFollowLine className="text-lg" />
+                <span className="mx-3 font-medium text-xs">Followers</span>
               </NavLink>
-              {/* payment history*/}
+              {/* Pots blog*/}
     
-           
-           
-           <NavLink
-                to={`/users`}
+            <NavLink
+                to={`/admin/settings/postsBlog`}
                 onClick={handleToggle}
                 className={({ isActive }) =>
                   `text-gray-800 dark:text-gray-100 flex items-center px-4 py-2 rounded-md hover:bg-pm-color hover:text-white ${
                     isActive ? "bg-pm-color text-white" : ""
                   }`
                 }>
-                <MdPayment className="text-lg" />
-                <span className="mx-3 font-medium text-xs">Payment Hisstory</span>
+                < TfiWrite className="text-md" />
+                <span className="mx-3 font-medium text-xs">Posts Blogs</span>
+              </NavLink>
+              {/* All blog*/}
+    
+            <NavLink
+                to={`/admin/settings/allBlogs`}
+                onClick={handleToggle}
+                className={({ isActive }) =>
+                  `text-gray-800 dark:text-gray-100 flex items-center px-4 py-2 rounded-md hover:bg-pm-color hover:text-white ${
+                    isActive ? "bg-pm-color text-white" : ""
+                  }`
+                }>
+                < TfiWrite className="text-md" />
+                <span className="mx-3 font-medium text-xs">All Blogs</span>
               </NavLink>
             </nav>
+            <hr className="my-10" />
+        
+          <div className="mt-10 ">
+          <div className="flex justify-between  lg:px-6 px-5 py-3 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
+                      <span className="flex items-center gap-3 text-gray-900 dark:text-gray-100">
+                        <MdOutlineDarkMode className="text-2xl" />
+                        Dark Mode
+                      </span>
+                      <Switcher1></Switcher1>
+                    </div>
+      
+           </div>
           </div>
         </div>
       </div>
