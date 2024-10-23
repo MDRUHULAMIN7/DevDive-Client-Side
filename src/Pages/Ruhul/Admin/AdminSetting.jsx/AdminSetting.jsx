@@ -3,19 +3,23 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import { AiOutlineBars } from "react-icons/ai";
 
 import { FaUsers } from "react-icons/fa";
-import { MdOutlineDarkMode, MdOutlinePostAdd } from "react-icons/md";
+import {  MdOutlineDarkMode, MdOutlinePostAdd } from "react-icons/md";
 import { Helmet } from "react-helmet";
 import { useState } from "react";
 import { RiUserFollowLine } from "react-icons/ri";
 import { TfiWrite } from "react-icons/tfi";
-import Switcher1 from "../../../../Components/Fardus/Switcher1/Switcher1";
 
+
+import Switcher1 from "../../../../Components/Fardus/Switcher1/Switcher1";
 const AdminSetting = () => {
   const [isActive, setActive] = useState(false);
-  // Sidebar Responsive Handler
+
   const handleToggle = () => {
     setActive(!isActive);
   };
+
+  
+
   return (
     <section className="min-h-screen flex bg-gray-100 dark:bg-gray-900">
       {/* Sidebar */}
@@ -28,7 +32,7 @@ const AdminSetting = () => {
           isActive ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 transition-transform duration-300 ease-in-out z-40`}>
         <div className="flex flex-col justify-between h-full">
-          {/* Logo and Navigation */}
+   
           <div>
             <Link to="/" className="flex items-center  mb-8">
               <img
@@ -113,16 +117,17 @@ const AdminSetting = () => {
             </nav>
             <hr className="my-8" />
 
-            <div className="flex items-end h-full ">
-              <div className="flex justify-between w-full lg:px-1 px-2 py-3    items-center gap-1 sm:text-sm text-xs dark:text-white">
-                <span className="flex items-center gap-1 text-gray-900 dark:text-gray-100">
-                  <MdOutlineDarkMode className="text-2xl" />
-                </span>
-                <span>Dark Mode</span>
-                <Switcher1></Switcher1>
-              </div>
-            </div>
           </div>
+
+
+         <div className="flex items-center justify-between px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded-md  transition-all duration-300">
+  <div className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
+    <MdOutlineDarkMode className="text-xl" />
+    <span className="text-sm font-medium">Dark Mode</span>
+  </div>
+  <Switcher1 />
+</div>
+
         </div>
       </div>
 

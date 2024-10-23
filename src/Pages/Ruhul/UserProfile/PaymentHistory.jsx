@@ -40,8 +40,13 @@ const PaymentHistory = () => {
     });
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(); // e.g., "10/23/2024"
+  };
+
   return (
-    <section className="max-w-6xl mx-auto p-4">
+    <section className="max-w-6xl mx-auto md:p-4 mt-20 md:mt-5">
       <h1 className="text-2xl text-gray-900 dark:text-white my-4">Payment History</h1>
       <Helmet>
         <title>DevDive | PaymentHistory</title>
@@ -55,7 +60,7 @@ const PaymentHistory = () => {
                 <th className="py-3 px-4 text-left">Date</th>
                 <th className="py-3 px-4 text-left">Transaction Id</th>
                 <th className="py-3 px-4 text-left">Amount</th>
-                <th className="py-3 px-4 text-left">Status</th>
+             
                 <th className="py-3 px-4 text-left">Delete</th>
               </tr>
             </thead>
@@ -66,14 +71,12 @@ const PaymentHistory = () => {
                   className="border-b py-5 border-gray-300 text-gray-900 dark:text-white dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600"
                 >
                   <td className="py-3 px-4">{index + 1}</td>
-                  <td className="py-3 px-4">{payment.date}</td>
+                  <td className="py-3 px-4">{formatDate(payment.date)}</td>
                   <td title={payment.tran_id} className="py-3 px-4 space-x-2">
                     {payment.tran_id?.slice(0, 10)}...
                   </td>
                   <td className="py-3 px-4 space-x-2">{payment.amount}</td>
-                  <td className="py-3 px-4 space-x-2">
-                    {payment.paymentStatus === 'false' ? 'pending' : "completed"}
-                  </td>
+             
                   <td className="py-3 px-4 space-x-2">
                     <button onClick={() => handleDelete(payment._id)}>
                       <FaTrash className="text-red-500" />

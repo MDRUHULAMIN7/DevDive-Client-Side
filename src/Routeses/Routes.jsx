@@ -193,7 +193,7 @@ export const router = createBrowserRouter([
         element: <UserPosts></UserPosts>,
       },
       {
-        path: "/users/:email/payment-hitory/:email",
+        path: "/users/:email/payment-history/:email",
         element: <PaymentHistory></PaymentHistory>,
       },
       {
