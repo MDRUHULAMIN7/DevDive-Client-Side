@@ -22,14 +22,14 @@ const ApplayforMentor =()=>{
     htmlFor="bannerImageInput"
     className="flex items-center justify-center gap-x-2 w-full px-4  py-3 text-sm text-gray-900 bg-transparent border-b-2 border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-0 focus:border-blue-500 transition-all duration-300 peer"
   >
-    <span className="material-icons text-blue-500 mr-2 text-2xl"><RiImageAddLine /></span>
+    <span className="material-icons text-blue-500 mr-2 text-2xl"></span>
   
   </label>
 
 
   <label
-    className={`absolute left-4 top-0 transform transition-all duration-300
-      ${bannerImage ? 'translate-y-[-3px] text-blue-500 text-xs' : 'top-1/2 -translate-y-1/2 text-gray-500 text-sm'}`}
+    className={`absolute left-4 top-0 transform transition-all duration-300`}
+    
   >
     Banner Image
   </label>
