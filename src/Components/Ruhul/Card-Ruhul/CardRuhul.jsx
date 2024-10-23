@@ -116,7 +116,7 @@ const CardRuhul = () => {
             >
               <div className="flex justify-between items-center mb-3">
                 <div className="flex items-center">
-                  <Link to={`/users/${data?.userEmail}`}>
+                  <Link to={`/users/${data?.userEmail}/profile`}>
                     <img
                       src={data.profilePicture}
                       alt="User"

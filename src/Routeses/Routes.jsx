@@ -179,7 +179,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/users/:email",
+    path: "/users/:email/",
     element: <UserProfile></UserProfile>,
     errorElement: <ErrorPage></ErrorPage>,
     children: [
