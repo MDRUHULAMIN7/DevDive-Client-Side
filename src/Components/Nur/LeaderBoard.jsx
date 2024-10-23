@@ -64,7 +64,7 @@ const LeaderBoard = () => {
                       <div className=" ml-2 mr-auto flex gap-2">
                         <span className="font-bold">{index + 1}.</span>
                         <p className="flex-grow">{post.title}</p>
-                        <p className="font-medium">{post.likes}</p>
+                        <p className="font-medium">{post.likesCount}</p>
                       </div>
                     </div>
                   ))}
