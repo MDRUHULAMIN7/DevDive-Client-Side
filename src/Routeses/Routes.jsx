@@ -36,7 +36,7 @@ import AllPosts from "../Pages/Ruhul/Admin/Component/AllPosts";
 import Followers from "../Pages/Ruhul/Admin/Component/Followers/Followers";
 import PostBlog from "../Pages/Ruhul/Admin/Component/PostBlog/PostBlog";
 import PreviewBlog from "../Pages/Ruhul/Admin/Component/PreviewBlog/PreviewBlog";
-
+import ApplayforMentor from "../Components/Ruhul/ApplayforMentor";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -121,6 +121,10 @@ export const router = createBrowserRouter([
       {
         path: "/ruhulcard",
         element: <CardRuhul></CardRuhul>,
+      },
+      {
+        path: "/applayformentor",
+        element: <PrivateRoute><ApplayforMentor></ApplayforMentor></PrivateRoute>,
       },
       {
         path: "/about",

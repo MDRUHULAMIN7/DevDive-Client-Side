@@ -18,6 +18,8 @@ const UserP =()=>{
         dispatch(fetchUsers(email));
       }
     }, [dispatch, email]);
+
+    if(!users?.users?.mainuser || !email || !user) return <div className="text-3xl">Loading...</div>;
     return (
 
  <section className="p-4 mx-auto mt-10  lg:mx-20 xl:mx-44  max-w-7xl">
