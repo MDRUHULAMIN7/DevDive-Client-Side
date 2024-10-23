@@ -2,7 +2,7 @@
 // import { useContext } from "react";
 // import { Navigate, useLocation } from "react-router-dom";
 // import registerAnimation2 from "../../public/Animation - 1718456224514.json"
-import loadingDots from "../../public/loadingDots.json"
+import loadingDots from "../assets/loadingDots.json"
 import Lottie from "lottie-react";
 // import { AuthContext } from "./AuthProvider";
 import UseAuth from "../Hooks/UseAuth";
@@ -17,7 +17,7 @@ const PrivateRoute = ({children}) => {
     //     return children;
     // }
 
-    
+
 
     if(loading){
         return <div>
@@ -34,16 +34,16 @@ const PrivateRoute = ({children}) => {
     if(user){
         return children;
     }
-    
+
     //,
     return (
-        <Navigate  to={'/'}></Navigate> 
-        
+        <Navigate  to={'/'}></Navigate>
+
     )
 
-    
-        
-    
+
+
+
     // return <div>
     //     <div className="mx-auto h-screen flex justify-center items-center bg-slate-50">
     //         <div className=" grid grid-cols-1 md:grid-cols-2  items-center gap-1 md:gap-4">

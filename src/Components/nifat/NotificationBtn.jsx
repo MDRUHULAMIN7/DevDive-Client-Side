@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { IoNotifications, IoNotificationsOutline } from "react-icons/io5";
+import {  IoNotificationsOutline } from "react-icons/io5";
 import useNotifications from "../../Hooks/useNotifications";
 import { axiosPublic } from "../../Hooks/useAxiosPublic";
-import NotificationCard from "./NotificationCard";
 import moment from "moment";
 import { RxCross2 } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";

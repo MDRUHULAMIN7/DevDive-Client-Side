@@ -1,5 +1,5 @@
 import { useLocation, useParams } from "react-router-dom";
-import UsePosts from "../../Hooks/UsePosts";
+// import UsePosts from "../../Hooks/UsePosts";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 // Import Swiper styles
 import "swiper/css";
@@ -24,16 +24,18 @@ import { Helmet } from "react-helmet";
 import PollData from "../../Components/Ruhul/Card-Ruhul/PollData";
 import usePost from "../../Hooks/usePost";
 import PostActions from "../../Components/Ruhul/Card-Ruhul/PostActions";
+import UsePosts from "../../Hooks/UsePosts";
 
 const DetailsWithComments = () => {
   const [data, setData] = useState(null);
   const location = useLocation();
   const [readyToScroll, setReadyToScroll] = useState(false);
-  // Trigger this effect once when data is rendered
+  const axiosPublic = useAxiosPublic();
+
   useEffect(() => {
-    // When the component mounts, set readyToScroll to true (indicating content is rendered)
+
     setReadyToScroll(true);
-  }, [data]); // Depends on content rendering
+  }, [data]); 
 
   useLayoutEffect(() => {
     if (location.hash && readyToScroll) {
@@ -47,7 +49,7 @@ const DetailsWithComments = () => {
         console.log("Element found. Scrolling now...");
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth' });
-        }, 200); // Slight delay to allow for full rendering
+        }, 200);
       } else {
         console.log("Element not found");
       }
@@ -56,7 +58,7 @@ const DetailsWithComments = () => {
   const { user } = UseAuth();
   const { id } = useParams();
   const [posts, , refetch] = UsePosts();
-  const axiosPublic = useAxiosPublic();
+
   let [comments,,commentRefetch] = UseComments(id);
   const [post, postRefetch] = usePost(id);
   const [showCommentBox, setShowCommentBox] = useState(false)
@@ -102,16 +104,19 @@ const DetailsWithComments = () => {
     setShowCommentBox(false)
   };
 
+  // useEffect(() => {
+  //   if (id) {
+  //     const newData = posts && posts?.filter((d) => d._id === id);
+  //     // setData(newData[0]);
+  //   }
+  // }, [id, posts, comments]);
+
   useEffect(() => {
-    if (id) {
-      const newData = posts && posts?.filter((d) => d._id === id);
-      setData(newData[0]);
-    }
-  }, [id, posts, comments]);
-  console.log(data);
+      axiosPublic.get(`/get-post-details/${id}`).then((result) => {setData(result.data)})
+  },[id])
 
   
-
+console.log(id);
   return (
     <section className="my-4 pb-4">
       <Helmet>

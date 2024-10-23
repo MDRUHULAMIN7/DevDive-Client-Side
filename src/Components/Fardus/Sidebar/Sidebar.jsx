@@ -5,8 +5,11 @@ import { RiUserFollowFill } from "react-icons/ri";
 import { TfiWrite } from "react-icons/tfi";
 import { FcAbout } from "react-icons/fc";
 import { NavLink } from "react-router-dom";
+import PremiumLink from "../../Ruhul/PremiumLink";
 
 const Sidebar = ({ setOpenMenu, openMenu }) => {
+
+  
   return (
     <aside
       className={`z-[100] scrollBar fixed flex flex-col w-64 xl:translate-x-0 ${
@@ -102,7 +105,9 @@ const Sidebar = ({ setOpenMenu, openMenu }) => {
             <FcAbout className="text-lg" />
             <span className="mx-3 font-medium text-xs">About</span>
           </NavLink>
-          <hr className="my-6 border-gray-200 dark:border-gray-700" />
+          <hr className="my-6 pb-5 border-gray-200 dark:border-gray-700" />
+
+         <PremiumLink></PremiumLink>
         </nav>
       </div>
     </aside>

@@ -1,73 +1,159 @@
+import { Link, NavLink, Outlet } from "react-router-dom";
 
-import  { useState } from 'react';
-import ManagUsers from '../Component/ManageUsers/ManagUsers';
-import PostBlogPage from '../PostBlogPage/PostBlogpage';
-import Followers from '../Component/Followers/Followers';
-import General from '../General/General';
+import { AiOutlineBars } from "react-icons/ai";
+
+import { FaUsers } from "react-icons/fa";
+import { MdOutlineDarkMode, MdOutlinePostAdd } from "react-icons/md";
+import { Helmet } from "react-helmet";
+import { useState } from "react";
+import { RiUserFollowLine } from "react-icons/ri";
+import { TfiWrite } from "react-icons/tfi";
+import Switcher1 from "../../../../Components/Fardus/Switcher1/Switcher1";
 
 const AdminSetting = () => {
-  const [activeTab, setActiveTab] = useState('General');
-
-  const tabs = ['General', 'User Management', 'Post Blog', 'System Settings','Follwers'];
-
+  const [isActive, setActive] = useState(false);
+  // Sidebar Responsive Handler
+  const handleToggle = () => {
+    setActive(!isActive);
+  };
   return (
-    <div className="md:p-4 p-1 w-full mx-auto">
-      {/* Tab Header */}
-      <div className="flex flex-col sm:flex-row justify-center sm:justify-start items-center space-y-2 space-x-0 sm:space-x-4 mb-6">
-        {tabs.map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`px-4 py-2 text-sm font-semibold transition-colors duration-200 rounded-lg
-              ${
-                activeTab === tab
-                  ? 'bg-blue-500 text-white dark:bg-blue-600'
-                  : 'bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600'
-              }`}
-          >
-            {tab}
-          </button>
-        ))}
+    <section className="min-h-screen flex bg-gray-100 dark:bg-gray-900">
+      {/* Sidebar */}
+
+      <Helmet>
+        <title>DevDive | AdminSetting</title>
+      </Helmet>
+      <div
+        className={`fixed top-0 left-0 h-full bg-white  border-r dark:bg-gray-900 w-64 p-5 shadow-md transform ${
+          isActive ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0 transition-transform duration-300 ease-in-out z-40`}>
+        <div className="flex flex-col justify-between h-full">
+          {/* Logo and Navigation */}
+          <div>
+            <Link to="/" className="flex items-center  mb-8">
+              <img
+                src="https://res.cloudinary.com/dpomtzref/image/upload/v1729491491/1000005962_n0vgih.png"
+                alt="logo"
+                className="h-8"
+              />
+              <h1 className="text-3xl text-gray-800 dark:text-gray-100">
+                evDive
+              </h1>
+            </Link>
+
+            <nav className="space-y-5">
+              {/* ManageUSers */}
+
+              <h1 className="text-xl pl-4 text-gray-900 dark:text-gray-100">
+                Admin Settings
+              </h1>
+              <NavLink
+                to={`/admin/settings/manage-users`}
+                onClick={handleToggle}
+                className={({ isActive }) =>
+                  `text-gray-800 dark:text-gray-100 flex items-center px-4 py-2 rounded-md hover:bg-pm-color hover:text-white ${
+                    isActive ? "bg-pm-color text-white" : ""
+                  }`
+                }>
+                <FaUsers className="text-lg" />
+                <span className="mx-3 font-medium text-xs">ManageUsers</span>
+              </NavLink>
+
+              {/* AllPosts */}
+              <NavLink
+                to={`/admin/settings/allposts`}
+                onClick={handleToggle}
+                className={({ isActive }) =>
+                  ` text-gray-800 dark:text-gray-100 flex items-center px-4 py-2 rounded-md hover:bg-pm-color hover:text-white ${
+                    isActive ? "bg-pm-color text-white" : ""
+                  }`
+                }>
+                <MdOutlinePostAdd className="text-lg" />
+                <span className="mx-3 font-medium text-xs">AllPosts</span>
+              </NavLink>
+
+              {/* followers */}
+              <NavLink
+                to={`/admin/settings/followers`}
+                onClick={handleToggle}
+                className={({ isActive }) =>
+                  `text-gray-800 dark:text-gray-100 flex items-center px-4 py-2 rounded-md hover:bg-pm-color hover:text-white ${
+                    isActive ? "bg-pm-color text-white" : ""
+                  }`
+                }>
+                <RiUserFollowLine className="text-lg" />
+                <span className="mx-3 font-medium text-xs">Followers</span>
+              </NavLink>
+              {/* Pots blog*/}
+
+              <NavLink
+                to={`/admin/settings/postsBlog`}
+                onClick={handleToggle}
+                className={({ isActive }) =>
+                  `text-gray-800 dark:text-gray-100 flex items-center px-4 py-2 rounded-md hover:bg-pm-color hover:text-white ${
+                    isActive ? "bg-pm-color text-white" : ""
+                  }`
+                }>
+                <TfiWrite className="text-md" />
+                <span className="mx-3 font-medium text-xs">Posts Blogs</span>
+              </NavLink>
+              {/* All blog*/}
+
+              <NavLink
+                to={`/admin/settings/allBlogs`}
+                onClick={handleToggle}
+                className={({ isActive }) =>
+                  `text-gray-800 dark:text-gray-100 flex items-center px-4 py-2 rounded-md hover:bg-pm-color hover:text-white ${
+                    isActive ? "bg-pm-color text-white" : ""
+                  }`
+                }>
+                <TfiWrite className="text-md" />
+                <span className="mx-3 font-medium text-xs">All Blogs</span>
+              </NavLink>
+            </nav>
+            <hr className="my-8" />
+
+            <div className="flex items-end h-full ">
+              <div className="flex justify-between w-full lg:px-1 px-2 py-3    items-center gap-1 sm:text-sm text-xs dark:text-white">
+                <span className="flex items-center gap-1 text-gray-900 dark:text-gray-100">
+                  <MdOutlineDarkMode className="text-2xl" />
+                </span>
+                <span>Dark Mode</span>
+                <Switcher1></Switcher1>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Tab Content */}
-      <div className="bg-transparent p-6 rounded-lg shadow-md">
-        {activeTab === 'General' && (
-          <div>
-            <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">General Settings</h2>
-           <General></General>
-          </div>
-        )}
-        {activeTab === 'User Management' && (
-          <div>
-            <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">User Management</h2>
-            <section className="text-gray-700 dark:text-gray-300">
-              Manage users, assign roles, and view user activity.
-
-              <ManagUsers></ManagUsers>
-            </section>
-          </div>
-        )}
-        {activeTab === 'Post Blog' && (
-          <div>
-           <PostBlogPage></PostBlogPage>
-          </div>
-        )}
-        {activeTab === 'System Settings' && (
-          <div>
-            <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">System Settings</h2>
-            <p className="text-gray-700 dark:text-gray-300">
-              Configure system-wide settings, including performance and security.
-            </p>
-          </div>
-        )}
-        {activeTab === 'Follwers' && (
-          <div>
-            <Followers></Followers>
-          </div>
-        )}
+      {/* Mobile Navbar */}
+      <div className="lg:hidden fixed top-0 left-0 w-full flex justify-between items-center bg-gray-100 dark:bg-gray-900 p-4 shadow-md z-30">
+        <Link to="/" className="flex items-center ">
+          <img
+            src="https://res.cloudinary.com/dpomtzref/image/upload/v1729491491/1000005962_n0vgih.png"
+            alt="logo"
+            className="h-8"
+          />
+          <h1 className="text-3xl text-gray-900 dark:text-gray-100">evDive</h1>
+        </Link>
+        <button onClick={handleToggle} className="p-2 focus:outline-none">
+          <AiOutlineBars className="h-6 w-6 text-gray-900 dark:text-gray-100" />
+        </button>
       </div>
-    </div>
+
+      {/* Main Content */}
+      <div
+        className={`flex-1 min-h-screen transition-all duration-300 ${
+          isActive ? "opacity-100" : "opacity-100"
+        } md:ml-64 p-5`}>
+        <Outlet />
+      </div>
+
+      {/* Overlay for Small Screens */}
+      {isActive && (
+        <div className="fixed  z-20 lg:hidden" onClick={handleToggle}></div>
+      )}
+    </section>
   );
 };
 

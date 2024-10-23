@@ -2,9 +2,9 @@ import { useState } from "react";
 import { FaThumbsUp } from "react-icons/fa";
 import './LikeButton.css'; 
 
-const LikeButton = ({ handleLike, isLiked, data, isLoading }) => {
+const LikeButton = ({ handleLike,  data, isLoading ,likeInfo}) => {
   const [animate, setAnimate] = useState(false);
-
+// console.log("response from use ruhul like",likeInfo);
   const handleClick = () => {
     if (!isLoading) {
 
@@ -23,7 +23,7 @@ const LikeButton = ({ handleLike, isLiked, data, isLoading }) => {
     <button
       onClick={handleClick}
       className={`flex items-center space-x-1 transition duration-500 transform ${
-        isLiked ? "text-blue-500" : "text-gray-600"
+        likeInfo?.isLiked ? "text-blue-500" : "text-gray-600"
       } ${animate ? 'animate-bounce' : ''}`}
       disabled={isLoading}
     >
@@ -32,7 +32,7 @@ const LikeButton = ({ handleLike, isLiked, data, isLoading }) => {
           animate ? 'rotate-12 scale-125' : 'scale-100'
         }`} 
       />
-      <span className="text-sm">{data?.likes || 0}</span>
+      <span className="text-sm">{likeInfo?.likesCount}</span>
     </button>
   );
 };

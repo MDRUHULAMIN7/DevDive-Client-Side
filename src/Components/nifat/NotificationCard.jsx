@@ -1,6 +1,6 @@
 
 
-const NotificationCard = ({notifications}) => {
+const NotificationCard = () => {
     return (
         <div className="">
            <div className="min-h-screen md:min-h-fit grid place-items-center my-8">

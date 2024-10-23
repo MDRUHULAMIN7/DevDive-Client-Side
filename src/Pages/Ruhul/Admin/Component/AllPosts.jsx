@@ -1,19 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaTrash } from "react-icons/fa6";
-import UsePosts from "../../../../Hooks/UsePosts";
-import AllPostModal from './AllPostModal';
+import AllPostModal from './AllPostModal'
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
+import UsePosts from '../../../../Hooks/UsePosts';
 import { axiosPublic } from '../../../../Hooks/useAxiosPublic';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUsers } from '../../../../Features/Users/UsersSlices';
+import UseAuth from '../../../../Hooks/UseAuth';
 function AllPosts() {
     const [posts, isLoading, refetch] = UsePosts(); // Fetch posts
     const [selectedPost, setSelectedPost] = useState(null); // State for selected post
     const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
-
-    
+      const { user } = UseAuth();
+    const users = useSelector((state) => state.users);
+  
+  
+    const dispatch = useDispatch();
+    useEffect(() => {
+      if (user.email) {
+        dispatch(fetchUsers(user.email));
+      }
+    }, [dispatch, user.email]);
     const [currentPage, setCurrentPage] = useState(1);
-    const postsPerPage = 5; 
+    const postsPerPage = 10; 
 
     // Calculate the current posts to display based on pagination
     const indexOfLastPost = currentPage * postsPerPage;
@@ -102,7 +112,7 @@ function AllPosts() {
       }
 
     return (
-        <section>
+        <section className='text-gray-800 dark:text-gray-100'>
             <div className="container mx-auto md:p-4 p-1">
                 <h2 className="text-2xl font-bold mb-4">Post List</h2>
                 <div className="overflow-x-auto rounded-lg">
@@ -120,7 +130,7 @@ function AllPosts() {
                             {
                                 currentPosts && currentPosts.map((post, index) => (
                                     <tr
-                                        key={post.id} // Ensure each row has a unique key
+                                        key={post.id} 
                                         className="border-b py-5 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600"
                                     >
                                         <td className="py-3 px-4">{indexOfFirstPost + index + 1}</td>
@@ -128,7 +138,7 @@ function AllPosts() {
                                     
                                         <td className="py-3 px-4  space-x-2">
                                             <button 
-                                                onClick={() => openModal(post)} // Open modal on button click
+                                                onClick={() => openModal(post)} 
                                                 className="bg-blue-500 text-white px-2 py-1 rounded">
                                                 See..
                                             </button>
@@ -136,7 +146,7 @@ function AllPosts() {
                                         </td>
                                         <td className="py-3 px-4  space-x-2">
                                             <button 
-                                                onClick={() => openModal(post)} // Open modal on button click
+                                                onClick={() => openModal(post)}
                                                 className="bg-blue-500 text-white px-2 py-1 rounded">
                                                 View
                                             </button>
@@ -155,25 +165,25 @@ function AllPosts() {
                     </table>
                 </div>
 
-                {/* Pagination Controls */}
+           
                 <div className="flex justify-center space-x-2 mt-4">
                     {/* Show previous button */}
                     <button 
                         onClick={previousPage} 
-                        disabled={currentPage === 1} // Disable if on the first page
+                        disabled={currentPage === 1} 
                         className={`px-4 py-2 rounded ${currentPage === 1 ? 'bg-gray-300 dark:bg-gray-700 cursor-not-allowed' : 'bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600'}`}>
                         Previous
                     </button>
                     {/* Show next button */}
                     <button 
                         onClick={nextPage} 
-                        disabled={currentPage >= Math.ceil(posts.length / postsPerPage)} // Disable if on the last page
+                        disabled={currentPage >= Math.ceil(posts.length / postsPerPage)} 
                         className={`px-4 py-2 rounded ${currentPage >= Math.ceil(posts.length / postsPerPage) ? 'bg-gray-300 dark:bg-gray-700 cursor-not-allowed' : 'bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600'}`}>
                         Next
                     </button>
                 </div>
 
-                {isModalOpen && <AllPostModal data={selectedPost} onClose={closeModal} />} {/* Render modal if open */}
+                {isModalOpen && <AllPostModal user={users.users.mainuser}  data={selectedPost} onClose={closeModal}></AllPostModal>} 
             </div>
         </section>
     );

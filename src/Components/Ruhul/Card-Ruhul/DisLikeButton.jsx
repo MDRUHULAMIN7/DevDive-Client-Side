@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaThumbsDown } from "react-icons/fa";
 import './DisLikeButton.css';
 
-export default function DisLikeButton({ data, handleDislike, isDisliked, isLoading }) {
+export default function DisLikeButton({ data, handleDislike,  dislikesInfo, isLoading }) {
   const [animate, setAnimate] = useState(false); 
 
   const handleClick = () => {
@@ -22,7 +22,7 @@ export default function DisLikeButton({ data, handleDislike, isDisliked, isLoadi
     <button
       onClick={handleClick}
       className={`flex items-center space-x-1 transition duration-500 transform ${
-        isDisliked ? "text-red-500" : "text-gray-600"
+        dislikesInfo?.isDisLiked ? "text-red-500" : "text-gray-600"
       } ${animate ? 'animate-bounce' : ''}`}
       disabled={isLoading} 
     >
@@ -31,7 +31,7 @@ export default function DisLikeButton({ data, handleDislike, isDisliked, isLoadi
           animate ? 'rotate-12 scale-125' : 'scale-100'
         }`} 
       />
-      <span className="text-sm">{data?.dislikes || 0}</span>
+      <span className="text-sm">{ dislikesInfo?.dislikesCount}</span>
     </button>
   );
 }

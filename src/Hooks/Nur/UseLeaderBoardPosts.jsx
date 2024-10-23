@@ -22,7 +22,7 @@ const UseLeaderBoardPosts = (loadAllPosts) => {
     },
   });
 
-  console.log("leaderBoardPosts", leaderBoardPosts);
+  // console.log("leaderBoardPosts", leaderBoardPosts);
 
   return [leaderBoardPosts, isLoading, refetch];
 };

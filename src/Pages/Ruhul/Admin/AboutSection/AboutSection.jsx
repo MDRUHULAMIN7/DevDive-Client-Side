@@ -116,17 +116,19 @@ const AboutSection = () => {
           </div>
         </motion.div>
 
-        {/* Our Teams Section */}
-        <motion.div
-      className="relative mb-24 rounded-lg overflow-hidden bg-gradient-to-r from-[#6a11cb] to-[#2575fc] p-10"
+
+<div>
+<h2 className="text-4xl font-bold text-blue-500 text-center mb-12">
+      DevDive Developer Team
+      </h2>
+    {/* Our Teams Section */}
+    <motion.div
+      className="relative mb-24 rounded-lg overflow-hidden bg-transparent p-10"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
     >
-      <h2 className="text-4xl font-bold text-white text-center mb-12">
-        Our Teams
-      </h2>
-
+     
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 z-10 relative">
         {[
           {
@@ -190,17 +192,15 @@ const AboutSection = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-50 animate-pulse"></div>
     </motion.div>
 
+</div>
+    
         {/* Join Us Section */}
         <motion.div className="mb-24" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.8 }}>
           <h2 className="text-4xl font-bold text-center mb-12">Join Us</h2>
           <p className="text-xl text-center text-gray-600 dark:text-gray-300 max-w-4xl mx-auto mb-12">
             Ready to take your development skills to the next level? Join our community and start collaborating with developers around the world.
           </p>
-          <div className="text-center">
-            <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition duration-300">
-              Sign Up Now
-            </button>
-          </div>
+         
         </motion.div>
       </div>
     </section>

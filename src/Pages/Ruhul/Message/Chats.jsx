@@ -11,7 +11,7 @@ const Chats = ({ reciver, sender, response }) => {
   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
-  const [hoveredMessageId, setHoveredMessageId] = useState(null); // Track hovered message
+  const [hoveredMessageId, setHoveredMessageId] = useState(null); 
 
   useEffect(() => {
     if (messagesData?.length || response || isLoading) {
@@ -96,7 +96,7 @@ const Chats = ({ reciver, sender, response }) => {
               >
                 <img
                   className="h-8 w-8 rounded-full object-cover md:h-10 md:w-10"
-                  src={message.senderPhoto}
+                  src={message.senderPhoto || 'https://res.cloudinary.com/dpomtzref/image/upload/v1729587017/User_icon_2.svg_jjnimz.png'}
                   alt={message.senderEmail}
                 />
                 <div className="flex flex-col">

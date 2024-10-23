@@ -1,65 +1,84 @@
 import { Link } from "react-router-dom";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
+import { useState } from "react";
+import PaymentModal from "./PaymentModal";
 
 const GetPremium = () => {
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPrice, setSelectedPrice] = useState(null);
+
+  const openModal = (price) => {
+    setSelectedPrice(price);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const completePayment = () => {
+
+    closeModal();
+  };
   return (
     <section className="bg-gradient-to-br from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 py-16">
-      <style>{`
-        @keyframes glow {
-          0% {
-            text-shadow: 0 0 2px #00bfff, 0 0 5px #00bfff;
-          }
-          50% {
-            text-shadow: 0 0 5px #00bfff, 0 0 10px #00bfff;
-          }
-          100% {
-            text-shadow: 0 0 2px #00bfff, 0 0 5px #00bfff;
-          }
-        }
-
-        .glow-text:hover {
-          animation: glow 2s infinite alternate;
-        }
-
-        .glow-button {
-          box-shadow: 0 0 5px #00bfff, 0 0 10px #00bfff;
-          transition: box-shadow 0.3s;
-        }
-
-        .glow-button:hover {
-          box-shadow: 0 0 10px #00bfff, 0 0 20px #00bfff;
-        }
-
-        .glow-image {
-          box-shadow: 0 0 5px #00bfff, 0 0 10px #00bfff;
-        }
-           @keyframes gradientGlow {
-      0% {
-        border-color: #4ade80;
-        box-shadow: 0 0 4px #4ade80;
-      }
-      50% {
-        border-color: #60a5fa;
-        box-shadow: 0 0 4px #60a5fa, 0 0 30px #60a5fa;
-      }
-      100% {
-        border-color: #4ade80;
-        box-shadow: 0 0 4px #4ade80;
-      }
+  <style>{`
+  @keyframes glow {
+    0% {
+      text-shadow: 0 0 1px #00bfff, 0 0 3px #00bfff;
     }
-
-    .glow-border {
-      animation: gradientGlow 5s infinite ;
+    50% {
+      text-shadow: 0 0 3px #00bfff, 0 0 7px #00bfff;
     }
-      `}</style>
+    100% {
+      text-shadow: 0 0 1px #00bfff, 0 0 3px #00bfff;
+    }
+  }
+
+  .glow-text:hover {
+    animation: glow 2s infinite alternate;
+  }
+
+  .glow-button {
+    box-shadow: 0 0 3px #00bfff, 0 0 5px #00bfff;
+    transition: box-shadow 0.2s;
+  }
+
+  .glow-button:hover {
+    box-shadow: 0 0 5px #00bfff, 0 0 10px #00bfff;
+  }
+
+  .glow-image {
+    box-shadow: 0 0 2px #00bfff, 0 0 4px #00bfff;
+  }
+
+  @keyframes gradientGlow {
+    0% {
+      border-color: #4ade80;
+      box-shadow: 0 0 2px #4ade80;
+    }
+    50% {
+      border-color: #60a5fa;
+      box-shadow: 0 0 2px #60a5fa, 0 0 15px #60a5fa;
+    }
+    100% {
+      border-color: #4ade80;
+      box-shadow: 0 0 2px #4ade80;
+    }
+  }
+
+  .glow-border {
+    animation: gradientGlow 5s infinite;
+  }
+`}</style>
 
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center px-6 md:px-12 lg:px-24">
 
 
         <div className="space-y-6">
-          <h1 className="text-4xl flex justify-center items-center lg:text-5xl font-extrabold tracking-tight text-blue-500">
-            <img className="h-20 mr-2" src="https://res.cloudinary.com/dpomtzref/image/upload/v1729342679/logo_gxujbv.png" alt="Logo" />
-            DevDive Premium
+          <h1 className="text-4xl flex justify-center space-x-0 items-center lg:text-5xl font-extrabold tracking-tight text-blue-500">
+            <img className="h-12 mr-2" src="https://res.cloudinary.com/dpomtzref/image/upload/v1729491491/1000005962_n0vgih.png" alt="Logo" />evDive Premium
           </h1>
 
           <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -78,14 +97,9 @@ const GetPremium = () => {
 
          
           <div className="flex flex-col md:flex-row space-x-0 md:space-x-4 mt-8">
-            <Link to="/premium" className="w-full md:w-auto">
-              <button className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg glow-button transition duration-300 w-full">
-                <FaBangladeshiTakaSign className="text-xl" />
-                <span>499 / month</span>
-              </button>
-            </Link>
-            <Link to="/premium" className="w-full md:w-auto mt-2 md:mt-0">
-              <button className="flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-semibold px-6 py-3 rounded-lg glow-button transition duration-300 w-full">
+          
+            <Link  className="w-full md:w-2/3 mt-2 md:mt-0">
+              <button   onClick={() => openModal(3999)} className="flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-semibold px-6 py-3 rounded-lg glow-button transition duration-300 w-full">
                 <FaBangladeshiTakaSign className="text-xl" />
                 <span>3999 / year (Save 40%)</span>
               </button>
@@ -157,16 +171,11 @@ const GetPremium = () => {
 
   </div>
   <div className="flex flex-col md:flex-row w-fit lg:w-1/2 md:w-2/3 mx-auto space-x-0 md:items-center md:justify-center md:space-x-4 mt-16">
-            <Link to="/premium" className="w-full md:w-1/2">
-              <button className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg glow-button transition duration-300 w-full">
-                <FaBangladeshiTakaSign className="text-xl" />
-                <span>499 / month</span>
-              </button>
-            </Link>
-            <Link to="/premium" className="w-full md:w-1/2 mt-2 md:mt-0">
+           
+            <Link  onClick={() => openModal(3999)}  className="w-full md:w-1/2 mt-2 md:mt-0">
               <button className="flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-semibold px-6 py-3 rounded-lg glow-button transition duration-300 w-full">
                 <FaBangladeshiTakaSign className="text-xl" />
-                <span>4999 / year (Save 40%)</span>
+                <span>3999 / year (Save 40%)</span>
               </button>
             </Link>
           </div>
@@ -176,7 +185,14 @@ const GetPremium = () => {
 
 * Custom app icons are only available through a paid DevDive Premium subscription.</p>
 
+  
 
+<PaymentModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onCompletePayment={completePayment}
+        price={selectedPrice}
+      />
     </section>
   );
 };

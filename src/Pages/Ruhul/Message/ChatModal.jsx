@@ -37,15 +37,15 @@ const ChatModal = ({ message, sender, openModalId, setOpenModalId, refetch }) =>
 
   return (
     <>
-      <section className="relative ">
+      <section className="relative text-gray-900 dark:text-gray-100">
      
-        <button onClick={() => toggleModal(message._id)}>
+        <button className="" onClick={() => toggleModal(message._id)}>
           <BsThreeDotsVertical />
         </button>
 
         {openModalId === message._id && (
           <div
-            className={`absolute shadow-lg rounded-lg p-2 space-y-2 z-20 bg-white dark:bg-gray-700 
+            className={`absolute text-gray-900 dark:text-gray-100 shadow-lg rounded-lg p-2 space-y-2 z-20 bg-white dark:bg-gray-700 
               mt-2 w-40
               ${
                 message.senderEmail === sender.email
@@ -72,7 +72,7 @@ const ChatModal = ({ message, sender, openModalId, setOpenModalId, refetch }) =>
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-80 space-y-4">
             <h2 className="text-xl font-semibold text-center">Edit Message</h2>
             <textarea
-              className="w-full p-2 border rounded-lg dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-2 border text-gray-900 rounded-lg dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={editedMessage}
               onChange={(e) => setEditedMessage(e.target.value)}
               rows={4}
@@ -80,7 +80,7 @@ const ChatModal = ({ message, sender, openModalId, setOpenModalId, refetch }) =>
             <div className="flex justify-end gap-2">
               <button
                 onClick={() => setIsEditModalOpen(false)}
-                className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-700"
+                className="px-4 py-2 text-gray-900 dark:text-gray-100 bg-gray-300 rounded-lg hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-700"
               >
                 Cancel
               </button>
