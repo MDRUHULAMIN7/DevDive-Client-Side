@@ -28,10 +28,12 @@ const FollowButton = ({ user, data }) => {
 
     const newNotification={
       userEmail: data.userEmail,
-      message: `${user.email} following you`,
+      message: `${user?.displayName} is following you`,
       isRead: false,
       relatedPostId: null,
       relatedUserEmail: user.email,
+      relatedUserName: user?.displayName,
+      relatedUserPhoto: user?.photoURL,
       type: "follow"
 
     }
