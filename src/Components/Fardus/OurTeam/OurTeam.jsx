@@ -4,7 +4,7 @@ import { FaLinkedinIn } from "react-icons/fa";
 
 const OurTeam = ({ member }) => {
   return (
-    <div className="relative group p-[2px] rounded-xl bg-gradient-to-r from-[#6a11cb] to-[#2575fc] transition-all duration-300 hover:shadow-[0_0_15px_#6a11cb]">
+    <div className="relative group p-[2px] rounded-xl bg-gradient-to-r from-[#65e2f8] to-[#2575fc] transition-all duration-300 hover:shadow-[0_0_15px_#65e2f8]">
       {/* Inner White Card */}
       <div className="bg-white dark:bg-black rounded-xl overflow-hidden">
         <div className="overflow-hidden rounded-t-xl">
@@ -46,7 +46,7 @@ const SocialIcon = ({ href, children }) => {
       rel="noopener noreferrer"
       className="p-2 rounded-full border-2 border-transparent inline-block text-white 
                  transition-all duration-300 hover:scale-110 
-                 bg-gradient-to-r from-[#6a11cb] to-[#2575fc]
+                 bg-gradient-to-r from-[#65e2f8] to-[#2575fc]
                  hover:shadow-[0_0_15px_#6a11cb]"
       style={{
         backgroundClip: "border-box",

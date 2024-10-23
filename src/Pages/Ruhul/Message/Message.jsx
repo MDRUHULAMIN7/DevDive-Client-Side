@@ -16,9 +16,9 @@ const Message = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [selectedRole, setSelectedRole] = useState("member"); // Default role filter
-  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
-  const { user } = UseAuth(); // Logged-in user data
+  const [selectedRole, setSelectedRole] = useState("member");
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const { user } = UseAuth(); 
   const { email } = useParams();
  
 
@@ -33,14 +33,14 @@ const Message = () => {
 
 
 
-  // Filter users based on role and search term
+  
   useEffect(() => {
     const filtered = Array.isArray(users) ? users.filter(
       (user2) =>
         user2.email !== user.email &&
         user2.role === selectedRole &&
         user2.name.toLowerCase().includes(searchTerm.toLowerCase())
-    ) : []; // Ensure we are filtering only if 'users' is an array
+    ) : []; 
   
     setFilteredUsers(filtered);
   }, [searchTerm, users, user.email, selectedRole]);
@@ -53,8 +53,8 @@ const Message = () => {
     users2 &&
     (users2.users?.mainuser?.role !== "member" || users2?.users?.mainuser?.userType !== "normal");
 
-  const openModal = () => setIsModalOpen(true); // Open modal
-  const closeModal = () => setIsModalOpen(false); // Close modal
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false); 
 
   if (!users) {
     return (
@@ -77,7 +77,6 @@ const Message = () => {
         <FaArrowLeft className="text-xl font-bold" />
       </button>
 
-      {/* Full-screen Drawer for Mobile */}
       <div
         className={`lg:hidden fixed inset-0 pt-16 bg-white dark:bg-gray-900 overflow-y-auto hide-scrollbar transition-transform z-40 ${
           drawerOpen ? "translate-x-0" : "translate-x-full"
@@ -125,7 +124,7 @@ const Message = () => {
 
       </div>
 
-      {/* Sidebar for Larger Screens */}
+      
       <div className="w-full hidden lg:flex flex-col lg:w-1/4 border-r p-4 bg-gray-100 dark:bg-gray-900 overflow-y-auto hide-scrollbar h-[calc(100vh-56px)]">
         <div
         
@@ -140,7 +139,7 @@ const Message = () => {
             onChange={(e) => setSelectedRole(e.target.value)}
             className="p-2 border rounded bg-white dark:bg-gray-800"
             disabled={!canUseDropdown}
-           // Open modal on click
+         
          
           >
             <option value="member">Member</option>
@@ -148,7 +147,7 @@ const Message = () => {
             <option value="mentor">Mentor</option>
           </select>
 
-          {/* Conditional Icon Rendering */}
+        
           {!canUseDropdown && (
             <FaCrown  onClick={openModal} className="text-blue-500 text-xl ml-2" title="Premium User" />
           ) }
@@ -193,7 +192,7 @@ const Message = () => {
         <ChatArea email={email} selectedUser={selectedUser} />
       </div>
 
-      {/* Modal */}
+    
       {isModalOpen && (
        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
 
