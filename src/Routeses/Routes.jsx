@@ -9,7 +9,7 @@ import All from "../Pages/All/All";
 import CreatePost from "../components/adnan/CreatePost";
 import AdminSetting from "../Pages/Ruhul/Admin/AdminSetting.jsx/AdminSetting";
 import SignModal from "../Components/Nur/SignModal";
-
+import ApplayforMentor from "../Components/Ruhul/ApplayforMentor";
 import AboutSection from "../Pages/Ruhul/Admin/AboutSection/AboutSection";
 import BlogCard from "../Components/Sanjida/BlogCard";
 import ReadMore from "../Components/Sanjida/ReadMore";
@@ -37,7 +37,8 @@ import AllPosts from "../Pages/Ruhul/Admin/Component/AllPosts";
 import Followers from "../Pages/Ruhul/Admin/Component/Followers/Followers";
 import PostBlog from "../Pages/Ruhul/Admin/Component/PostBlog/PostBlog";
 import PreviewBlog from "../Pages/Ruhul/Admin/Component/PreviewBlog/PreviewBlog";
-import ApplayforMentor from "../Components/Ruhul/ApplayforMentor";
+import ManageMentors from "../Pages/Sanjida/ManageMentors";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -223,6 +224,16 @@ export const router = createBrowserRouter([
             <AdminRoute>
               <ManagUsers></ManagUsers>
             </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/admin/settings/manage-mentors",
+        element: (
+          <PrivateRoute>
+            
+              <ManageMentors></ManageMentors>
+            
           </PrivateRoute>
         ),
       },
