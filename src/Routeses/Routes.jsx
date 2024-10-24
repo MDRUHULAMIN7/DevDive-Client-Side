@@ -37,6 +37,7 @@ import AllPosts from "../Pages/Ruhul/Admin/Component/AllPosts";
 import Followers from "../Pages/Ruhul/Admin/Component/Followers/Followers";
 import PostBlog from "../Pages/Ruhul/Admin/Component/PostBlog/PostBlog";
 import PreviewBlog from "../Pages/Ruhul/Admin/Component/PreviewBlog/PreviewBlog";
+import ManageMentors from "../Pages/Sanjida/ManageMentors";
 
 export const router = createBrowserRouter([
   {
@@ -219,6 +220,16 @@ export const router = createBrowserRouter([
             <AdminRoute>
               <ManagUsers></ManagUsers>
             </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/admin/settings/manage-mentors",
+        element: (
+          <PrivateRoute>
+            
+              <ManageMentors></ManageMentors>
+            
           </PrivateRoute>
         ),
       },
