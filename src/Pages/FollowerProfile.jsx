@@ -50,7 +50,7 @@ const FollowerProfile = () => {
             </div>
           ) : ( */}
             <Link to={`/chat/${user?.email}`}>
-              <button className="bg-blue-500 px-3 py-2 rounded-lg hover:bg-blue-600 font-semibold text-xl">
+              <button className="bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600 font-semibold text-xl">
                 Message
               </button>
             </Link>

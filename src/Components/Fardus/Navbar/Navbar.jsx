@@ -366,10 +366,12 @@ const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
 
         <hr className="mt-1 border-gray-200 dark:border-gray-700" />
 
-        <span className="flex justify-start lg:px-6 px-5 py-4 my-1 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
-          <MdOutlineWorkspacePremium className="text-2xl" />
-          Premium
-        </span>
+        <Link to={"/get-premium"}>
+                      <span className="flex justify-start lg:px-6 px-5 py-4 my-1 dark:hover:text-gray-50 dark:hover:bg-opacity-30 dark:hover:bg-gray-700 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
+                        <MdOutlineWorkspacePremium className="text-2xl" />
+                        Get Premium
+                      </span>
+                    </Link>
       </div>
 
       <div

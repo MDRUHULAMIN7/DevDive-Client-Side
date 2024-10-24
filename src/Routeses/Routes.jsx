@@ -9,7 +9,7 @@ import All from "../Pages/All/All";
 import CreatePost from "../components/adnan/CreatePost";
 import AdminSetting from "../Pages/Ruhul/Admin/AdminSetting.jsx/AdminSetting";
 import SignModal from "../Components/Nur/SignModal";
-
+import ApplayforMentor from "../Components/Ruhul/ApplayforMentor";
 import AboutSection from "../Pages/Ruhul/Admin/AboutSection/AboutSection";
 import BlogCard from "../Components/Sanjida/BlogCard";
 import ReadMore from "../Components/Sanjida/ReadMore";
@@ -25,6 +25,7 @@ import Message from "../Pages/Ruhul/Message/Message";
 import VideoRoom from "../Pages/Ruhul/Message/VideoRoom";
 import ArchiveDetails from "../Components/Nur/ArchiveDetails";
 import CodeEditor from "../components/adnan/codeEditor/codeEditorComponents/CodeEditor";
+import CodeWeb from "../components/adnan/codeWeb/CodeWeb";
 import GetPremium from "../Pages/Ruhul/UserProfile/GetPremium";
 import PaymentSucces from "../Pages/Ruhul/UserProfile/PaymentSucces";
 import PaymentFailed from "../Pages/Ruhul/UserProfile/PaymentFailed";
@@ -37,6 +38,8 @@ import Followers from "../Pages/Ruhul/Admin/Component/Followers/Followers";
 import PostBlog from "../Pages/Ruhul/Admin/Component/PostBlog/PostBlog";
 import PreviewBlog from "../Pages/Ruhul/Admin/Component/PreviewBlog/PreviewBlog";
 import FollowerProfile from "../Pages/FollowerProfile";
+import ManageMentors from "../Pages/Sanjida/ManageMentors";
+import AllPayments from "../Pages/Ruhul/Admin/Component/AllPayments";
 
 export const router = createBrowserRouter([
   {
@@ -72,6 +75,10 @@ export const router = createBrowserRouter([
       {
         path: "/code-editor",
         element: <CodeEditor></CodeEditor>,
+      },
+      {
+        path: "/code-web",
+        element: <CodeWeb></CodeWeb> ,
       },
       // .......for testing......../
       {
@@ -122,6 +129,10 @@ export const router = createBrowserRouter([
       {
         path: "/ruhulcard",
         element: <CardRuhul></CardRuhul>,
+      },
+      {
+        path: "/applayformentor",
+        element: <PrivateRoute><ApplayforMentor></ApplayforMentor></PrivateRoute>,
       },
       {
         path: "/about",
@@ -180,7 +191,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/users/:email",
+    path: "/users/:email/",
     element: <UserProfile></UserProfile>,
     errorElement: <ErrorPage></ErrorPage>,
     children: [
@@ -197,7 +208,7 @@ export const router = createBrowserRouter([
         element: <UserPosts></UserPosts>,
       },
       {
-        path: "/users/:email/payment-hitory/:email",
+        path: "/users/:email/payment-history/:email",
         element: <PaymentHistory></PaymentHistory>,
       },
       {
@@ -218,6 +229,27 @@ export const router = createBrowserRouter([
             <AdminRoute>
               <ManagUsers></ManagUsers>
             </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      
+      {
+        path: "/admin/settings/allpayments",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AllPayments></AllPayments>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/admin/settings/manage-mentors",
+        element: (
+          <PrivateRoute>
+            
+              <ManageMentors></ManageMentors>
+            
           </PrivateRoute>
         ),
       },
