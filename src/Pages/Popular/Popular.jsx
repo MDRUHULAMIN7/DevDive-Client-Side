@@ -18,6 +18,8 @@ import DropDown from '../../Components/Ruhul/Card-Ruhul/DropDown';
 import PostActions from '../../Components/Ruhul/Card-Ruhul/PostActions';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import RecentPostCard from '../../Components/Fardus/RecentPostCard/RecentPostCard';
+import Chatbot from '../../Components/Ruhul/Cahtbot/Chatbot';
 
 const Popular = () => {
     const { user } = UseAuth();
@@ -25,16 +27,48 @@ const Popular = () => {
     const [popularPosts, setPopularPosts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
+    const [posts, setPosts] = useState([]);
+    const [hasMore2, setHasMore2] = useState(true);
+    const [page, setPage] = useState(1);
 
-    const postsPerPage = 5; // Number of posts per fetch
+    console.log(posts);
+
+    // Fetch posts from API in batches
+    const fetchPosts = async () => {
+        console.log("Fetching posts..."); // Debug log
+        try {
+            const res = await axiosPublic.get(`/main-posts?page=${page}&limit=5`);
+            const newPosts = res.data;
+
+            setPosts(prevPosts => {
+                const uniquePosts = [...prevPosts, ...newPosts];
+                // Remove duplicates by using Set
+                return [...new Map(uniquePosts.map(post => [post._id, post])).values()];
+            });
+
+            if (newPosts.length < 5) {
+                setHasMore2(false);
+            } else {
+                setPage(prevPage => prevPage + 1); // Move this inside else to avoid incrementing if less than 5
+            }
+
+
+        } catch (error) {
+            console.error("Error fetching posts:", error);
+        }
+    };
+
+    const postsPerPage = 10; // Number of posts per fetch
 
     const fetchPopularPosts = async () => {
         try {
             const { data } = await axiosPublic.get(`/get-popular-posts?page=${currentPage}&limit=${postsPerPage}`);
-            setPopularPosts((prevPosts) => [...prevPosts, ...data]);
-
-            // If the data length is less than the limit, we have no more posts to load
-            if (data.length < postsPerPage) {
+            const { posts, totalPosts } = data;
+    
+            setPopularPosts((prevPosts) => [...prevPosts, ...posts]);
+    
+            // যদি সব পোস্ট লোড করা হয়ে যায়, তাহলে আর ডাটা নেই
+            if (popularPosts.length + posts.length >= totalPosts) {
                 setHasMore(false);
             }
         } catch (error) {
@@ -44,20 +78,21 @@ const Popular = () => {
 
     useEffect(() => {
         fetchPopularPosts(); // Fetch posts on component mount
+        fetchPosts(); // Fetch posts on component mount
     }, [currentPage]);
 
     const loadMorePosts = () => {
         setCurrentPage((prevPage) => prevPage + 1); // Increment page number to load more posts
     };
 
-    if (!popularPosts.length) {
-        return (
-            <div className="text-2xl text-center my-10">
-                <SkeletonLoader value={"PostCard"} />
-                <SkeletonLoader value={"PostCard"} />
-            </div>
-        );
-    }
+    // if (!popularPosts.length) {
+    //     return (
+    //         <div className="text-2xl text-center my-10">
+    //             <SkeletonLoader value={"PostCard"} />
+    //             <SkeletonLoader value={"PostCard"} />
+    //         </div>
+    //     );
+    // }
 
     return (
         <div className='mx-auto max-w-[1090px] pb-10 w-[95%]'>
@@ -65,7 +100,9 @@ const Popular = () => {
                 <title>DevDive | Popular</title>
             </Helmet>
 
-            <InfiniteScroll
+            <div className="flex justify-between mx-auto mt-5">
+                <div className="lg:w-[68%] max-w-full space-y-5">
+                <InfiniteScroll
                 dataLength={popularPosts.length} // Length of data to monitor scroll position
                 next={loadMorePosts} // Function to load more posts
                 hasMore={hasMore} // Whether more posts are available
@@ -95,11 +132,11 @@ const Popular = () => {
                                         <FollowButton user={user} data={data}></FollowButton>
                                     </div>
                                 </div>
-                                <div className="relative flex items-center gap-2">
+                                {/* <div className="relative flex items-center gap-2">
                                     <DropDown id={data._id}
                                         isOpen={openDropdownId === data._id}
                                         toggleDropdown={toggleDropdown}></DropDown>
-                                </div>
+                                </div> */}
                             </div>
 
                             <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-2">
@@ -170,6 +207,31 @@ const Popular = () => {
                     ))}
                 </section>
             </InfiniteScroll>
+                </div>
+
+                {/* Infinite Scroll for Recent Posts */}
+                <div id="scrollableDiv" className="sticky top-[68px] scrollBar h-[calc(100vh-80px)] overflow-y-auto lg:w-[28%] w-[32%] border dark:border-gray-800 rounded-xl py-5 px-3 lg:block hidden">
+                    <h2 className="font-semibold text-black dark:text-white mb-5 px-3">Recent Posts</h2>
+
+                    <InfiniteScroll
+                        dataLength={posts.length} // Length of the posts array
+                        next={fetchPosts} // Function to load more posts
+                        hasMore={hasMore2} // Check if more posts are available
+                        loader={<SkeletonLoader value={"SideBar"}/>} // Loader when fetching
+                        scrollableTarget="scrollableDiv"
+                    >
+                        <div className="space-y-5">
+                            {posts.map((post) => (
+                                <div key={post._id}>
+                                    <RecentPostCard post={post} />
+                                </div>
+                            ))}
+                        </div>
+                    </InfiniteScroll>
+                </div>
+
+                <Chatbot />
+            </div>
         </div>
     );
 };

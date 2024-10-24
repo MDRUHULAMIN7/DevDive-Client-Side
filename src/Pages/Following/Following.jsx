@@ -130,7 +130,7 @@ const Following = () => {
                                         </div>
                                         <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-2">{data?.title}</h2>
                                         {data.body && (
-                                            <div className="text-gray-700 dark:text-gray-300">
+                                            <div className="text-gray-700 dark:text-gray-300 mb-3">
                                                 <p>
                                                     <span dangerouslySetInnerHTML={{ __html: data.body?.slice(0, 200) }} />
                                                     <Link className="text-blue-600 mt-1 block" to={`/post-details/${data._id}`}>See more...</Link>
@@ -148,7 +148,7 @@ const Following = () => {
                                                 ))}
                                             </Swiper>
                                         )}
-                                        <div className="flex justify-between items-center text-gray-500 dark:text-gray-400 text-sm">
+                                        <div className="flex justify-between items-center text-gray-500 dark:text-gray-400 text-sm mt-3">
                                             <div className="flex items-center space-x-4">
                                                 <PostActions data={data} user={user} />
                                             </div>
@@ -164,7 +164,7 @@ const Following = () => {
                                             </div>
                                         </div>
                                     </div>
-                                )) : <div className='text-2xl text-center mt-10'>No Following Post</div>}
+                                )) : <SkeletonLoader value={"PostCard"} />}
                             </InfiniteScroll>
                         )}
                     </section>

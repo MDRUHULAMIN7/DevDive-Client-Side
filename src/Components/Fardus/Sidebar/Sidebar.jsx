@@ -10,7 +10,7 @@ import { FaCodepen } from "react-icons/fa";
 
 const Sidebar = ({ setOpenMenu, openMenu }) => {
   return (
-    <aside
+    <aside onClick={()=>setOpenMenu(false)}
       className={`z-[100] scrollBar fixed flex flex-col w-64 xl:translate-x-0 ${
         openMenu
           ? "translate-x-0 duration-200 ease-in-out"
