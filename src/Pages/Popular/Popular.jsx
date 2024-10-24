@@ -35,7 +35,6 @@ const Popular = () => {
 
     // Fetch posts from API in batches
     const fetchPosts = async () => {
-        console.log("Fetching posts..."); // Debug log
         try {
             const res = await axiosPublic.get(`/main-posts?page=${page}&limit=5`);
             const newPosts = res.data;
@@ -47,7 +46,7 @@ const Popular = () => {
             });
 
             if (newPosts.length < 5) {
-                setHasMore2(false);
+                setHasMore(false);
             } else {
                 setPage(prevPage => prevPage + 1); // Move this inside else to avoid incrementing if less than 5
             }
@@ -58,41 +57,40 @@ const Popular = () => {
         }
     };
 
-    const postsPerPage = 10; // Number of posts per fetch
 
     const fetchPopularPosts = async () => {
         try {
-            const { data } = await axiosPublic.get(`/get-popular-posts?page=${currentPage}&limit=${postsPerPage}`);
-            const { posts, totalPosts } = data;
-    
-            setPopularPosts((prevPosts) => [...prevPosts, ...posts]);
-    
-            // যদি সব পোস্ট লোড করা হয়ে যায়, তাহলে আর ডাটা নেই
-            if (popularPosts.length + posts.length >= totalPosts) {
+            const res = await axiosPublic.get(`/get-popular-posts?page=${page}&limit=10`);
+            const { posts: newPosts, totalPosts } = res.data;
+
+            // Set posts without duplicates
+            setPopularPosts((prevPosts) => {
+                const uniquePosts = [...prevPosts, ...newPosts];
+                return [...new Map(uniquePosts.map(post => [post._id, post])).values()];
+            });
+
+            // Update hasMore if all posts are loaded
+            if (popularPosts.length + newPosts.length >= totalPosts) {
                 setHasMore(false);
             }
+
+            // Increase page for next fetch
+            setPage((prevPage) => prevPage + 1);
+
         } catch (error) {
-            console.error("Error fetching popular posts:", error);
+            console.error("Error fetching posts:", error);
         }
     };
 
     useEffect(() => {
         fetchPopularPosts(); // Fetch posts on component mount
         fetchPosts(); // Fetch posts on component mount
-    }, [currentPage]);
+    }, [currentPage, page]);
 
     const loadMorePosts = () => {
         setCurrentPage((prevPage) => prevPage + 1); // Increment page number to load more posts
     };
 
-    // if (!popularPosts.length) {
-    //     return (
-    //         <div className="text-2xl text-center my-10">
-    //             <SkeletonLoader value={"PostCard"} />
-    //             <SkeletonLoader value={"PostCard"} />
-    //         </div>
-    //     );
-    // }
 
     return (
         <div className='mx-auto max-w-[1090px] pb-10 w-[95%]'>
@@ -100,8 +98,8 @@ const Popular = () => {
                 <title>DevDive | Popular</title>
             </Helmet>
 
-            <div className="flex justify-between mx-auto mt-5">
-                <div className="lg:w-[68%] max-w-full space-y-5">
+            <div className="flex justify-between lg:mx-auto mt-5">
+                <div className="lg:w-[68%] w-full space-y-5">
                 <InfiniteScroll
                 dataLength={popularPosts.length} // Length of data to monitor scroll position
                 next={loadMorePosts} // Function to load more posts

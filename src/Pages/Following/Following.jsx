@@ -22,40 +22,40 @@ import RecentPostCard from '../../Components/Fardus/RecentPostCard/RecentPostCar
 import Slider from '../../Components/Fardus/Slider/Slider';
 
 const Following = () => {
-    const { user } = UseAuth(); // Get user info from auth hook
+    const { user } = UseAuth();
     const axiosPublic = useAxiosPublic();
     const [followingPosts, setFollowingPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [openDropdownId, setOpenDropdownId] = useState(null); // Track which dropdown is open
+    const [openDropdownId, setOpenDropdownId] = useState(null);
     const [hasMoreFollowing, setHasMoreFollowing] = useState(true);
     const [page, setPage] = useState(1);
     const [page2, setPage2] = useState(1);
     const [recentPosts, setRecentPosts] = useState([]);
     const [hasMoreRecent, setHasMoreRecent] = useState(true);
     
-    console.log(followingPosts);
 
-    // Fetch following posts from API
     const fetchFollowingPosts = async () => {
-        try {
-            const res = await axiosPublic.get(`/get-following-posts/${user?.email}?page=${page2}&limit=5`);
-            const newPosts = res.data;
+      try {
+          const res = await axiosPublic.get(`/get-following-posts/${user?.email}?page=${page2}&limit=5`);
+          const newPosts = res.data;
+  
+          setFollowingPosts(prevPosts => {
+              const uniquePosts = [...prevPosts, ...newPosts];
 
-            setFollowingPosts(prevPosts => {
-                const uniquePosts = [...prevPosts, ...newPosts];
-                // Remove duplicates by using Set
-                return [...new Map(uniquePosts.map(post => [post._id, post])).values()];
-            });
+              return [...new Map(uniquePosts.map(post => [post._id, post])).values()];
+          });
+  
 
-            if (newPosts.length < 5) {
-                setHasMoreFollowing(false);
-            } else {
-                setPage2(prevPage => prevPage + 1);
-            }
-        } catch (error) {
-            console.error("Error fetching following posts:", error);
-        }
-    };
+          if (newPosts.length < 5) {
+              setHasMoreFollowing(false);
+          } else {
+              setPage2(prevPage => prevPage + 1);
+          }
+      } catch (error) {
+          console.error("Error fetching following posts:", error);
+      }
+  };
+  
 
     // Fetch recent posts
     const fetchRecentPosts = async () => {
@@ -78,14 +78,20 @@ const Following = () => {
         }
     };
 
+
+    useEffect(() => {
+        fetchFollowingPosts();
+        setIsLoading(false);
+    }, []);
+
     useEffect(() => {
         fetchFollowingPosts();
         fetchRecentPosts();
         setIsLoading(false);
-    }, [user?.email]); // Initial fetch on component mount
+    }, [user?.email]);
 
     const toggleDropdown = (id) => {
-        setOpenDropdownId(prevId => (prevId === id ? null : id)); // Toggle the same ID or close it
+        setOpenDropdownId(prevId => (prevId === id ? null : id)); 
     };
 
     console.log(user?.email);
@@ -98,8 +104,8 @@ const Following = () => {
             <div className='mt-3'>
             <Slider/>
             </div>
-            <div className="flex justify-between mx-auto mt-5">
-                <div className="lg:w-[68%] max-w-full space-y-5">
+            <div className="flex justify-between lg:mx-auto mt-5">
+                <div className="lg:w-[68%] w-full space-y-5">
                     <section className="">
                         {isLoading ? (
                             <div className="text-2xl text-center my-10">
@@ -108,10 +114,10 @@ const Following = () => {
                             </div>
                         ) : (
                             <InfiniteScroll
-                                dataLength={followingPosts.length} // Length of the posts array
-                                next={fetchFollowingPosts} // Function to load more posts
-                                hasMore={hasMoreFollowing} // Check if more posts are available
-                                loader={<SkeletonLoader value={"PostCard"} />} // Loader when fetching
+                                dataLength={followingPosts.length}
+                                next={fetchFollowingPosts} 
+                                hasMore={hasMoreFollowing} 
+                                loader={<SkeletonLoader value={"PostCard"} />}
                                 scrollableTarget="scrollableDiv"
                             >
                                 {followingPosts.length > 0 ? followingPosts.map((data, index) => (
@@ -175,10 +181,10 @@ const Following = () => {
                     <h2 className="font-semibold text-black dark:text-white mb-5 px-3">Recent Posts</h2>
 
                     <InfiniteScroll
-                        dataLength={recentPosts.length} // Length of the posts array
-                        next={fetchRecentPosts} // Function to load more posts
-                        hasMore={hasMoreRecent} // Check if more posts are available
-                        loader={<SkeletonLoader value={"SideBar"} />} // Loader when fetching
+                        dataLength={recentPosts.length} 
+                        next={fetchRecentPosts}
+                        hasMore={hasMoreRecent}
+                        loader={<SkeletonLoader value={"SideBar"} />}
                         scrollableTarget="scrollableDiv"
                     >
                         <div className="space-y-5">

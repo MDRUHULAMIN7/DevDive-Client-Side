@@ -39,7 +39,7 @@ const BodyInput = ({ setValue, value }) => {
                 onChange={setValue}
                 modules={{ toolbar: toolbarOptions }}
             />
-            <span className='text-xs absolute -bottom-7 left-2 text-red-300'>"Make sure your content is properly visible in dark and light both theme"</span>
+            <span className='text-xs absolute sm:-bottom-7 -bottom-10 left-2 text-red-300'>"Make sure your content is properly visible in dark and light both theme"</span>
         </div>
 
     );
