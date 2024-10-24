@@ -23,7 +23,7 @@ const UsePopularPosts = () => {
 
  
 
-
+console.log(popularPosts);
 
 
   return [popularPosts,isLoading,refetch];
