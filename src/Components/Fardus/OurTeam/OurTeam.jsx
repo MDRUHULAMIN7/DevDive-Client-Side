@@ -47,7 +47,7 @@ const SocialIcon = ({ href, children }) => {
       className="p-2 rounded-full border-2 border-transparent inline-block text-white 
                  transition-all duration-300 hover:scale-110 
                  bg-gradient-to-r from-[#65e2f8] to-[#2575fc]
-                 hover:shadow-[0_0_15px_#6a11cb]"
+                 hover:shadow-[0_0_15px_#2575fc]"
       style={{
         backgroundClip: "border-box",
       }}

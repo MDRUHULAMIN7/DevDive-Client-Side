@@ -63,9 +63,9 @@ const AboutSection = () => {
           <h2 className="text-4xl font-bold text-center mb-12">How It Works</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
             {[
-              { icon: FaRegClipboard, title: "Create Projects", desc: "Start new projects and invite collaborators." },
+              { icon: FaRegClipboard, title: "Create Posts", desc: "Start new projects and invite collaborators." },
               { icon: FaCode, title: "Collaborate", desc: "Work together on code in real-time." },
-              { icon: FaRegStar, title: "Achieve Success", desc: "Celebrate milestones with the community." },
+              { icon: FaRegStar, title: "Achieve Solutions", desc: "Celebrate milestones with the community." },
             ].map(({ icon: Icon, title, desc }, idx) => (
               <motion.div key={idx} whileHover={{ scale: 1.05 }} className="bg-gray-300 dark:bg-gray-800 rounded-lg p-8 shadow-lg text-center relative z-10">
                 <Icon className="text-5xl text-blue-400 mx-auto mb-4" />
@@ -77,21 +77,21 @@ const AboutSection = () => {
         </motion.div>
 
         {/* Our Success Section */}
-        <motion.div className="relative py-20 mb-20 bg-gray-800 dark:bg-gray-700 rounded-xl shadow-2xl">
-          <div className="absolute -top-14 left-0 w-full h-20 bg-gradient-to-r from-indigo-600 to-pink-500" />
-          <motion.h2 initial={{ opacity: 0, y: -30 }} whileInView={{ opacity: 1, y: 0 }} className="text-5xl font-bold text-center text-white mb-10">
+        <motion.div className="relative py-20 mb-20  rounded-xl shadow-2xl">
+          <div className="absolute -top-14 left-0 w-full h-20 bg-gradient-to-r from-indigo-600 to-blue-500 dark:bg-gradient-to-r dark:from-indigo-300 dark:to-blue-300" />
+          <motion.h2 initial={{ opacity: 0, y: -30 }} whileInView={{ opacity: 1, y: 0 }} className="text-5xl font-bold text-center text-gray-700 dark:text-white mb-10">
             Our Success
           </motion.h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 px-6">
             {[
-              { icon: FaUsers, title: "5000+ Members", desc: "Our growing community of developers." },
-              { icon: FaRegStar, title: "1000+ Projects", desc: "Collaborations across the globe." },
+              { icon: FaUsers, title: "5000+ Users", desc: "Our growing community of developers." },
+              { icon: FaRegStar, title: "100+ Posts", desc: "Collaborations across the globe." },
               { icon: FaGlobe, title: "50+ Countries", desc: "Impacting developers worldwide." },
             ].map(({ icon: Icon, title, desc }, idx) => (
-              <motion.div key={idx} initial={{ y: 50, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ delay: idx * 0.2 }} className="p-8 bg-gray-700 dark:bg-gray-600 rounded-lg shadow-lg text-center">
-                <Icon className="text-5xl text-indigo-500 mx-auto mb-4" />
-                <h3 className="text-3xl font-semibold text-gray-300 mb-2">{title}</h3>
-                <p className="dark:text-gray-400 text-gray-200">{desc}</p>
+              <motion.div key={idx} initial={{ y: 50, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ delay: idx * 0.2 }} className="p-8 bg-gray-300 dark:bg-gray-800 rounded-lg shadow-lg text-center">
+                <Icon className="text-5xl text-blue-500 mx-auto mb-4" />
+                <h3 className="text-3xl font-semibold  mb-2">{title}</h3>
+                <p className="dark:text-gray-400 ">{desc}</p>
               </motion.div>
             ))}
           </div>
@@ -191,8 +191,7 @@ const AboutSection = () => {
         ))}
       </div>
 
-      {/* Animated Background Layer */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-50 animate-pulse"></div>
+     
     </motion.div>
 
 </div>
