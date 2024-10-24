@@ -70,6 +70,7 @@ const SignModal = () => {
     gitHubLogin().then(async (result) => {
       const userInfo = {
         name: result.user?.reloadUserInfo?.screenName,
+        email: `${result.user?.reloadUserInfo?.screenName}.github.test`,
         githubProfile: `https://github.com/${result.user?.reloadUserInfo?.screenName}`,
         photoUrl: result.user?.photoURL,
         role: "member",
