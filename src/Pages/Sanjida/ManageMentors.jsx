@@ -16,11 +16,11 @@ const ManageMentors = () => {
                 const { data } = await axiosPublic.get("/get-apply-mentor");
                 setMentor(data);
             } catch (error) {
-                Swal.fire("Error", "Failed to fetch mentor data", "error");
+                Swal.fire("Error", "Failed to fetch mentor data", "error",error);
             }
         };
         fetchMentor();
-    }, [fetchNewData]);
+    }, [fetchNewData,axiosPublic]);
 
     const handleMakeMentor = (useremail) => {
         Swal.fire({
