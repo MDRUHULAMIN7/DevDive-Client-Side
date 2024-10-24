@@ -37,6 +37,7 @@ import AllPosts from "../Pages/Ruhul/Admin/Component/AllPosts";
 import Followers from "../Pages/Ruhul/Admin/Component/Followers/Followers";
 import PostBlog from "../Pages/Ruhul/Admin/Component/PostBlog/PostBlog";
 import PreviewBlog from "../Pages/Ruhul/Admin/Component/PreviewBlog/PreviewBlog";
+import FollowerProfile from "../Pages/FollowerProfile";
 import ManageMentors from "../Pages/Sanjida/ManageMentors";
 import AllPayments from "../Pages/Ruhul/Admin/Component/AllPayments";
 
@@ -198,7 +199,10 @@ export const router = createBrowserRouter([
         path: "/users/:email/profile",
         element: <UserP></UserP>,
       },
-
+      {
+        path: "/users/:email/followerProfile",
+        element: <FollowerProfile></FollowerProfile>
+      },
       {
         path: "/users/:email/posts",
         element: <UserPosts></UserPosts>,
