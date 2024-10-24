@@ -2,11 +2,14 @@ import { FaUsers, FaGlobe, FaCode, FaRegClipboard, FaRegStar, FaTools, FaHandsHe
 import { motion } from 'framer-motion';
 import { MdStorage } from 'react-icons/md';
 import OurTeam from '../../../../Components/Fardus/OurTeam/OurTeam';
+import { Helmet } from 'react-helmet';
 
 const AboutSection = () => {
   return (
     <section className="relative text-gray-800 dark:text-gray-200 py-20 px-6 bg-gray-100 dark:bg-gray-900">
       {/* Background Shapes */}
+
+      <Helmet> <title>DevDive | About</title> </Helmet>
       <div className="absolute top-5 left-0 w-full h-full overflow-hidden">
         <div className="absolute bg-blue-700 opacity-30 rounded-full h-72 w-72 top-1/4 left-1/3 transform -translate-x-1/2" />
         <div className="absolute bg-blue-600 opacity-30 rounded-full h-36 w-36 top-3/4 right-1/4 transform -translate-x-1/2" />

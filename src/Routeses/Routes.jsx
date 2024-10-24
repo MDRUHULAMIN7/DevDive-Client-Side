@@ -38,6 +38,7 @@ import Followers from "../Pages/Ruhul/Admin/Component/Followers/Followers";
 import PostBlog from "../Pages/Ruhul/Admin/Component/PostBlog/PostBlog";
 import PreviewBlog from "../Pages/Ruhul/Admin/Component/PreviewBlog/PreviewBlog";
 import ManageMentors from "../Pages/Sanjida/ManageMentors";
+import AllPayments from "../Pages/Ruhul/Admin/Component/AllPayments";
 
 export const router = createBrowserRouter([
   {
@@ -223,6 +224,17 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <AdminRoute>
               <ManagUsers></ManagUsers>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      
+      {
+        path: "/admin/settings/allpayments",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AllPayments></AllPayments>
             </AdminRoute>
           </PrivateRoute>
         ),

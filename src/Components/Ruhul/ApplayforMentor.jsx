@@ -5,6 +5,7 @@ import UseAuth from "../../Hooks/UseAuth";
 import { fetchUsers } from "../../Features/Users/UsersSlices";
 import { axiosPublic } from "../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet";
 
 const ApplyForMentor = () => {
   const { user } = UseAuth();
@@ -118,6 +119,8 @@ const ApplyForMentor = () => {
   if(isApplied) {
     return (
       <div className="flex flex-col mx-auto space-y-2  justify-center items-center mt-10">
+
+        <Helmet> <title>DevDive | Applay for Mentor</title> </Helmet>
         <h1 className="text-2xl font-semibold">You have already a Appleid!</h1>
         <p>Your application is in pending . Please wait for admin approvel.</p>
         <p>Best wishes for you!</p>
@@ -128,6 +131,7 @@ const ApplyForMentor = () => {
   if (userRole === "mentor") {
     return (
       <div className="flex flex-col mx-auto space-y-2  justify-center items-center mt-10">
+         <Helmet> <title>DevDive | Applay for Mentor</title> </Helmet>
         <h1 className="text-2xl font-semibold">You are already a Mentor!</h1>
         <p>Thanks for your hard work and contribution to the DevDive mentor panel.</p>
         <p>Best wishes for you!</p>
@@ -137,6 +141,7 @@ const ApplyForMentor = () => {
   if (userRole === "admin") {
     return (
       <div className="flex flex-col justify-center items-center mt-10 mx-auto space-y-2">
+         <Helmet> <title>DevDive | Applay for Mentor</title> </Helmet>
         <h1 className="text-2xl font-semibold">You are  a Admin!</h1>
         <p>Only normal member can applay for Mentor</p>
         <p>Thanks for your hard work and contribution to the DevDive Admin panel.</p>
@@ -147,6 +152,7 @@ const ApplyForMentor = () => {
 
   return (
     <section className="mt-10 mx-auto p-8 max-w-md bg-white dark:bg-gray-900 shadow-lg rounded-lg">
+       <Helmet> <title>DevDive | Applay for Mentor</title> </Helmet>
       <h1 className="text-2xl font-semibold text-center mb-8">Apply to Become a DevDive Mentor</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
         {["name", "address", "phone", "linkedin", "github"].map((field) => (

@@ -5,6 +5,7 @@ import { TiSocialTumblerCircular } from "react-icons/ti";
 import { AiOutlinePinterest } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import UseBlogs from "../../Hooks/UseBlogs";
+import { Helmet } from "react-helmet";
 
 
 const BlogCard = () => {
@@ -14,6 +15,7 @@ const BlogCard = () => {
     return (
 
         <section className="">
+             <Helmet> <title>DevDive | Blogs</title> </Helmet>
             <div className="space-y-4 flex flex-col justify-center mx-auto my-14">
                 {
                     blogs && blogs?.map((data, index) => <div key={index} className=" w-full lg:w-8/12 mx-auto bg-white dark:bg-gray-900 rounded-xl shadow-xl transition-all duration-300 ease-in-out transform">
