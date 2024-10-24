@@ -78,7 +78,12 @@ const AboutSection = () => {
 
         {/* Our Success Section */}
         <motion.div className="relative py-20 mb-20  rounded-xl shadow-2xl">
-          <div className="absolute -top-14 left-0 w-full h-20 bg-gradient-to-r from-indigo-600 to-blue-500 dark:bg-gradient-to-r dark:from-indigo-300 dark:to-blue-300" />
+        <div 
+  className="absolute -top-14 left-0 w-full h-20 
+             bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-500 
+             dark:bg-gradient-to-r dark:from-indigo-300 dark:via-purple-400 dark:to-blue-400"
+/>
+
           <motion.h2 initial={{ opacity: 0, y: -30 }} whileInView={{ opacity: 1, y: 0 }} className="text-5xl font-bold text-center text-gray-700 dark:text-white mb-10">
             Our Success
           </motion.h2>

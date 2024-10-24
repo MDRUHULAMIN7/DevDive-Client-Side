@@ -39,7 +39,7 @@ const BlogCard = () => {
                                 </Link>
 
                                 <div className="flex gap-4 items-center mt-4 lg:mt-0">
-                                    <p className="text-gray-400">SHARE</p>
+                                   
                                     <a href="https://www.facebook.com/"><PiFacebookLogoBold className="h-8 w-8 text-blue-500 hover:text-blue-600"></PiFacebookLogoBold></a>
                                     <a href="https://twitter.com/i/flow/single_sign_on"><TiSocialTwitterCircular className="h-10 w-10 text-blue-500 hover:text-blue-600"></TiSocialTwitterCircular></a>
                                     <a href="https://www.pinterest.com/"><AiOutlinePinterest className="h-8 w-8 font-bold text-blue-500 hover:text-blue-600"></AiOutlinePinterest></a>

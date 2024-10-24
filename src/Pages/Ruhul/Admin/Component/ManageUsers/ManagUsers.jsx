@@ -1,12 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UseUser from "../../../../../Hooks/UseUser";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../../../../Hooks/useAxiosPublic";
 
 const ManageUsers = () => {
   const [showModal, setShowModal] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage] = useState(5);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [users, , refetch] = UseUser();
   const axiosPublic = useAxiosPublic();
+
+  useEffect(() => {
+    const filtered = users.filter(user =>
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.userType.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.role.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredUsers(filtered);
+  }, [searchTerm, users]);
 
   const handleMouseEnter = (index) => setShowModal(index);
   const handleMouseLeave = () => setShowModal(null);
@@ -46,6 +59,7 @@ const ManageUsers = () => {
 
       axiosPublic.put(`/update-user-role/${user.email}`, newRoleData)
         .then((res) => {
+          refetch();
           if (res.status === 200) {
             refetch();
             Swal.fire({
@@ -76,9 +90,26 @@ const ManageUsers = () => {
     });
   };
 
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+
+  const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+
   return (
     <section className="p-2 sm:p-4">
       <h1 className="text-xl sm:text-2xl text-gray-900 dark:text-gray-100 my-2 sm:my-4">Manage Users</h1>
+
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Search users..."
+          className="w-full md:w-1/2 lg:w-1/4 p-2 border rounded-lg shadow-sm dark:bg-gray-700 dark:text-white"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+
       <div className="overflow-x-auto">
         <table className="w-full table-auto text-left bg-white dark:bg-gray-800 rounded-lg shadow-md">
           <thead>
@@ -91,7 +122,7 @@ const ManageUsers = () => {
             </tr>
           </thead>
           <tbody>
-            {users && users.map((user, index) => (
+            {currentUsers && currentUsers.map((user, index) => (
               <tr key={index} className="border-b dark:border-gray-600">
                 <td className="p-2 sm:p-4 relative">
                   <img
@@ -145,6 +176,33 @@ const ManageUsers = () => {
             ))}
           </tbody>
         </table>
+
+        {/* Pagination */}
+        <div className="flex justify-center mt-4">
+          <button
+            onClick={() => setCurrentPage(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="px-4 py-2 mx-1 bg-gray-200 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-white disabled:opacity-50"
+          >
+            Previous
+          </button>
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentPage(i + 1)}
+              className={`px-4 py-2 mx-1 rounded-lg ${currentPage === i + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white'}`}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button
+            onClick={() => setCurrentPage(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 mx-1 bg-gray-200 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-white disabled:opacity-50"
+          >
+            Next
+          </button>
+        </div>
       </div>
     </section>
   );
