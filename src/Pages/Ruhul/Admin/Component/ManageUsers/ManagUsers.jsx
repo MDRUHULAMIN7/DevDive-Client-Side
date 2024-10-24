@@ -13,7 +13,7 @@ const ManageUsers = () => {
   const axiosPublic = useAxiosPublic();
 
   useEffect(() => {
-    const filtered = users.filter(user =>
+    const filtered =users && users?.filter(user =>
       user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.userType.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.role.toLowerCase().includes(searchTerm.toLowerCase())
@@ -92,7 +92,7 @@ const ManageUsers = () => {
 
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+  const currentUsers =filteredUsers && filteredUsers?.slice(indexOfFirstUser, indexOfLastUser);
 
   const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
 
@@ -186,7 +186,7 @@ const ManageUsers = () => {
           >
             Previous
           </button>
-          {[...Array(totalPages)].map((_, i) => (
+          {   [ ...Array(totalPages)] ?.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrentPage(i + 1)}
