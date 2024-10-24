@@ -9,7 +9,7 @@ import All from "../Pages/All/All";
 import CreatePost from "../components/adnan/CreatePost";
 import AdminSetting from "../Pages/Ruhul/Admin/AdminSetting.jsx/AdminSetting";
 import SignModal from "../Components/Nur/SignModal";
-
+import ApplayforMentor from "../Components/Ruhul/ApplayforMentor";
 import AboutSection from "../Pages/Ruhul/Admin/AboutSection/AboutSection";
 import BlogCard from "../Components/Sanjida/BlogCard";
 import ReadMore from "../Components/Sanjida/ReadMore";
@@ -37,7 +37,9 @@ import AllPosts from "../Pages/Ruhul/Admin/Component/AllPosts";
 import Followers from "../Pages/Ruhul/Admin/Component/Followers/Followers";
 import PostBlog from "../Pages/Ruhul/Admin/Component/PostBlog/PostBlog";
 import PreviewBlog from "../Pages/Ruhul/Admin/Component/PreviewBlog/PreviewBlog";
+import FollowerProfile from "../Pages/FollowerProfile";
 import ManageMentors from "../Pages/Sanjida/ManageMentors";
+import AllPayments from "../Pages/Ruhul/Admin/Component/AllPayments";
 
 export const router = createBrowserRouter([
   {
@@ -129,6 +131,10 @@ export const router = createBrowserRouter([
         element: <CardRuhul></CardRuhul>,
       },
       {
+        path: "/applayformentor",
+        element: <PrivateRoute><ApplayforMentor></ApplayforMentor></PrivateRoute>,
+      },
+      {
         path: "/about",
         element: <AboutSection></AboutSection>,
       },
@@ -185,7 +191,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/users/:email",
+    path: "/users/:email/",
     element: <UserProfile></UserProfile>,
     errorElement: <ErrorPage></ErrorPage>,
     children: [
@@ -193,13 +199,16 @@ export const router = createBrowserRouter([
         path: "/users/:email/profile",
         element: <UserP></UserP>,
       },
-
+      {
+        path: "/users/:email/followerProfile",
+        element: <FollowerProfile></FollowerProfile>
+      },
       {
         path: "/users/:email/posts",
         element: <UserPosts></UserPosts>,
       },
       {
-        path: "/users/:email/payment-hitory/:email",
+        path: "/users/:email/payment-history/:email",
         element: <PaymentHistory></PaymentHistory>,
       },
       {
@@ -219,6 +228,17 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <AdminRoute>
               <ManagUsers></ManagUsers>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      
+      {
+        path: "/admin/settings/allpayments",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AllPayments></AllPayments>
             </AdminRoute>
           </PrivateRoute>
         ),

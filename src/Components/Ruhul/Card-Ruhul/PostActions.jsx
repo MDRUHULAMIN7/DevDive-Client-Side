@@ -10,7 +10,7 @@ import UseRuhuldisLikes from "../../../Hooks/UseRuhuldislike";
 import { useEffect } from "react";
 
 export default function PostActions({ data, user }) {
- console.log(data, user);
+//  console.log(data, user);
   const axiosPublic = useAxiosPublic();
 
 
@@ -31,7 +31,7 @@ export default function PostActions({ data, user }) {
   // if(userId) {
   //   console.log(likeInfo,dislikesInfo)
   // }
- 
+
 
   const handleLike = async (postId) => {
     console.log(postId);
@@ -43,13 +43,13 @@ export default function PostActions({ data, user }) {
       console.log(res);
       likeRefetch()
       dislikeRefetch()
-      
+
     })
     .catch((err)=>{
       console.log(err);
     })
    }
-  
+
   };
   const  handleDislike = async (postId) => {
     console.log(postId);
@@ -62,13 +62,13 @@ export default function PostActions({ data, user }) {
       likeRefetch()
       dislikeRefetch()
       console.log(res.data);
-      
+
     })
     .catch((err)=>{
       console.log(err);
     })
    }
-  
+
   };
 
   useEffect(()=>{

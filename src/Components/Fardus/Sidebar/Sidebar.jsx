@@ -1,15 +1,14 @@
 import { FaArrowTrendUp, FaCode } from "react-icons/fa6";
-import { IoMdHome } from "react-icons/io";
+import { IoIosInformationCircleOutline, IoMdHome } from "react-icons/io";
 import { MdBarChart } from "react-icons/md";
 import { RiUserFollowFill } from "react-icons/ri";
 import { TfiWrite } from "react-icons/tfi";
-import { FcAbout } from "react-icons/fc";
 import { NavLink } from "react-router-dom";
 import PremiumLink from "../../Ruhul/PremiumLink";
+import { PiChalkboardTeacher } from "react-icons/pi";
+import { FaCodepen } from "react-icons/fa";
 
 const Sidebar = ({ setOpenMenu, openMenu }) => {
-
-  
   return (
     <aside
       className={`z-[100] scrollBar fixed flex flex-col w-64 xl:translate-x-0 ${
@@ -76,6 +75,16 @@ const Sidebar = ({ setOpenMenu, openMenu }) => {
             <span className="mx-3 font-medium text-xs">DevStudio</span>
           </NavLink>
           <NavLink
+            to="/code-web"
+            className={({ isActive }) =>
+              `flex items-center px-4 py-2 rounded-md duration-200 hover:bg-pm-color hover:text-white ${
+                isActive ? "bg-pm-color text-white" : ""
+              }`
+            }>
+            <FaCodepen />
+            <span className="mx-3 font-medium text-xs">WebStudio</span>
+          </NavLink>
+          <NavLink
             to="/blogCard"
             className={({ isActive }) =>
               `flex items-center px-4 py-2 rounded-md duration-200 hover:bg-pm-color hover:text-white ${
@@ -84,6 +93,16 @@ const Sidebar = ({ setOpenMenu, openMenu }) => {
             }>
             <TfiWrite className="" />
             <span className="mx-3 font-medium text-xs">Blogs</span>
+          </NavLink>
+          <NavLink
+            to="/ApplayforMentor"
+            className={({ isActive }) =>
+              `flex items-center px-4 py-2 rounded-md duration-200 hover:bg-pm-color hover:text-white ${
+                isActive ? "bg-pm-color text-white" : ""
+              }`
+            }>
+            <PiChalkboardTeacher className="" />
+            <span className="mx-3 font-medium text-xs">Become A Mentor </span>
           </NavLink>
           <NavLink
             to="/leaderBoard"
@@ -99,15 +118,17 @@ const Sidebar = ({ setOpenMenu, openMenu }) => {
             to="/about"
             className={({ isActive }) =>
               `flex items-center px-4 py-2 rounded-md duration-200 hover:bg-pm-color hover:text-white ${
-                isActive ? "bg-pm-color text-white" : ""
+                isActive ? "bg-pm-color text-white " : ""
               }`
             }>
-            <FcAbout className="text-lg" />
-            <span className="mx-3 font-medium text-xs">About</span>
+            <IoIosInformationCircleOutline className="text-lg" />
+            <span className="mx-3 font-medium text-xs">
+              About
+            </span>
           </NavLink>
           <hr className="my-6 pb-5 border-gray-200 dark:border-gray-700" />
 
-         <PremiumLink></PremiumLink>
+          <PremiumLink></PremiumLink>
         </nav>
       </div>
     </aside>

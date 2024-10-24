@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import UseAuth from "./UseAuth";
 import useAxiosPublic from "./useAxiosPublic";
 
-const UsePosts = () => {
+const UseAllPosts = () => {
   const { user } = UseAuth();
   const axiosPublic = useAxiosPublic();
   const ruhul = true;
@@ -15,7 +15,7 @@ const UsePosts = () => {
     queryKey: ["posts", user?.email],
     enabled: ruhul,
     queryFn: async () => {
-      const res = await axiosPublic.get(`/main-posts`);
+      const res = await axiosPublic.get(`/get-posts`);
       return res.data;
     },
   });
@@ -27,4 +27,4 @@ const UsePosts = () => {
 
 };
 
-export default UsePosts;
+export default UseAllPosts;
