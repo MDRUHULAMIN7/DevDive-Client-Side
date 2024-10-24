@@ -2,7 +2,7 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 
 import { AiOutlineBars } from "react-icons/ai";
 
-import { FaUsers } from "react-icons/fa";
+import { FaChalkboardTeacher, FaUsers } from "react-icons/fa";
 import {  MdOutlineDarkMode, MdOutlinePostAdd } from "react-icons/md";
 import { Helmet } from "react-helmet";
 import { useState } from "react";
@@ -61,6 +61,17 @@ const AdminSetting = () => {
                 }>
                 <FaUsers className="text-lg" />
                 <span className="mx-3 font-medium text-xs">ManageUsers</span>
+              </NavLink>
+              <NavLink
+                to={`/admin/settings/manage-mentors`}
+                onClick={handleToggle}
+                className={({ isActive }) =>
+                  `text-gray-800 dark:text-gray-100 flex items-center px-4 py-2 rounded-md hover:bg-pm-color hover:text-white ${
+                    isActive ? "bg-pm-color text-white" : ""
+                  }`
+                }>
+                <FaChalkboardTeacher className="text-lg" />
+                <span className="mx-3 font-medium text-xs">Approved Mentors</span>
               </NavLink>
 
               {/* AllPosts */}

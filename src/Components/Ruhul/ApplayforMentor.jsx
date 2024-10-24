@@ -90,9 +90,19 @@ const ApplyForMentor = () => {
 
   if (userRole === "mentor") {
     return (
-      <div className="flex flex-col mx-auto space-y-2">
+      <div className="flex flex-col mx-auto space-y-2  justify-center items-center mt-10">
         <h1 className="text-2xl font-semibold">You are already a Mentor!</h1>
         <p>Thanks for your hard work and contribution to the DevDive mentor panel.</p>
+        <p>Best wishes for you!</p>
+      </div>
+    );
+  }
+  if (userRole === "admin") {
+    return (
+      <div className="flex flex-col justify-center items-center mt-10 mx-auto space-y-2">
+        <h1 className="text-2xl font-semibold">You are  a Admin!</h1>
+        <p>Only normal member can applay for Mentor</p>
+        <p>Thanks for your hard work and contribution to the DevDive Admin panel.</p>
         <p>Best wishes for you!</p>
       </div>
     );

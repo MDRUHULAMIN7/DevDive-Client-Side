@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaCommentAlt, FaShare } from "react-icons/fa";
+import { FaCommentAlt} from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -18,6 +18,7 @@ import PollData from "./PollData";
 import FollowButton from "./FollowButton";
 import DropDown from "./DropDown";
 import PostActions from "./PostActions";
+import ShareButton from "./ShareButton";
 
 const CardRuhul = () => {
   const { user } = UseAuth();
@@ -210,10 +211,7 @@ const CardRuhul = () => {
                     <FaCommentAlt className="h-5 w-5" />
                     <span className="text-md">{data?.comments || 0}</span>
                   </Link>
-                  <button className="flex items-center space-x-1 hover:text-gray-800">
-                    <FaShare className="h-5 w-5" />
-                    <span>Share</span>
-                  </button>
+               <ShareButton data={data}></ShareButton>
                 </div>
               </div>
             </div>
