@@ -6,6 +6,8 @@ import { TfiWrite } from "react-icons/tfi";
 import { FcAbout } from "react-icons/fc";
 import { NavLink } from "react-router-dom";
 import PremiumLink from "../../Ruhul/PremiumLink";
+import { PiChalkboardTeacher } from "react-icons/pi";
+import { FaCodepen } from "react-icons/fa";
 
 const Sidebar = ({ setOpenMenu, openMenu }) => {
 
@@ -76,6 +78,16 @@ const Sidebar = ({ setOpenMenu, openMenu }) => {
             <span className="mx-3 font-medium text-xs">DevStudio</span>
           </NavLink>
           <NavLink
+            to="/code-web"
+            className={({ isActive }) =>
+              `flex items-center px-4 py-2 rounded-md duration-200 hover:bg-pm-color hover:text-white ${
+                isActive ? "bg-pm-color text-white" : ""
+              }`
+            }>
+           <FaCodepen />
+            <span className="mx-3 font-medium text-xs">WebStudio</span>
+          </NavLink>
+          <NavLink
             to="/blogCard"
             className={({ isActive }) =>
               `flex items-center px-4 py-2 rounded-md duration-200 hover:bg-pm-color hover:text-white ${
@@ -84,6 +96,16 @@ const Sidebar = ({ setOpenMenu, openMenu }) => {
             }>
             <TfiWrite className="" />
             <span className="mx-3 font-medium text-xs">Blogs</span>
+          </NavLink>
+          <NavLink
+            to="/ApplayforMentor"
+            className={({ isActive }) =>
+              `flex items-center px-4 py-2 rounded-md duration-200 hover:bg-pm-color hover:text-white ${
+                isActive ? "bg-pm-color text-white" : ""
+              }`
+            }>
+            <PiChalkboardTeacher  className="" />
+            <span className="mx-3 font-medium text-xs">Become A Mentor </span>
           </NavLink>
           <NavLink
             to="/leaderBoard"

@@ -3,13 +3,14 @@ import { FaTrash } from "react-icons/fa6";
 import AllPostModal from './AllPostModal'
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
-import UsePosts from '../../../../Hooks/UsePosts';
+
 import { axiosPublic } from '../../../../Hooks/useAxiosPublic';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from '../../../../Features/Users/UsersSlices';
 import UseAuth from '../../../../Hooks/UseAuth';
+import UseAllPosts from '../../../../Hooks/UseAllPosts';
 function AllPosts() {
-    const [posts, isLoading, refetch] = UsePosts(); // Fetch posts
+    const [posts, isLoading, refetch] = UseAllPosts(); // Fetch posts
     const [selectedPost, setSelectedPost] = useState(null); // State for selected post
     const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
       const { user } = UseAuth();
