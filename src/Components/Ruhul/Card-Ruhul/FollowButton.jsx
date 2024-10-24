@@ -50,6 +50,15 @@ const FollowButton = ({ user, data }) => {
 
         if (message === "Unfollowed successfully") {
           toast(`Unfollowed ${postUsername}`);
+          try{
+            const res2= await axiosPublic.delete(`/deleteUnfollowNotification?userEmail=${data.userEmail}&relatedUserEmail=${user.email}`)
+            console.log(data.userEmail, user.email)
+            console.log(res2.data)
+          }
+          catch(err){
+            console.error("Error:", err);
+          }
+
         } else if (message === "Followed successfully") {
           try{
             const res1= await axiosPublic.post('/postNotification', newNotification)

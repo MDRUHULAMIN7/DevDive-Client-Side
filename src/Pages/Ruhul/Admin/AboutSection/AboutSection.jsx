@@ -171,7 +171,7 @@ const AboutSection = () => {
             title: "Md. Nifat Hossain",
             role: "MERN Stack Developer",
             facebook: "https://www.facebook.com/mdnifat.hossain.9",
-            linkedin: "www.linkedin.com/in/nifat-hossain",
+            linkedin: "https://www.linkedin.com/in/nifat-hossain",
             github: "https://github.com/NifatHossain",
           },
           {
@@ -179,7 +179,7 @@ const AboutSection = () => {
             title: "Md. Firoz Mahmud Nur",
             role: "MERN Stack Developer",
             facebook: "https://www.facebook.com/firoz.nur",
-            linkedin: "linkedin.com/in/md-firoz-mahmud-nur",
+            linkedin: "https://www.linkedin.com/in/md-firoz-mahmud-nur",
             github: "https://github.com/Md-Firoz-Mahmud-Nur",
           },
           {
