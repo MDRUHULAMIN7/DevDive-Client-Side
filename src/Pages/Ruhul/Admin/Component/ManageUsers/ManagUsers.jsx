@@ -13,7 +13,7 @@ const ManageUsers = () => {
   const axiosPublic = useAxiosPublic();
 
   useEffect(() => {
-    const filtered = users.filter(user =>
+    const filtered = users?.filter(user =>
       user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.userType.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.role.toLowerCase().includes(searchTerm.toLowerCase())
