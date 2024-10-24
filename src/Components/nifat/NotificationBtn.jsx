@@ -80,8 +80,8 @@ const NotificationBtn = () => {
         } w-[250px] pt-5 shadow-2xl absolute top-14 right-1 rounded-lg bg-white dark:bg-themeColor2`}
       >
         {notifications.length>0 ? (
-          <div>
-            <div className=" bg-gray-100 dark:bg-gray-800 rounded-xl mx-auto border p-3 shadow-sm">
+          <div className="dark:border-white border rounded-xl">
+            <div className=" bg-gray-100 dark:bg-gray-800 rounded-t-xl mx-auto   p-3 shadow-sm">
               <div className="inline-flex items-center gap-5 justify-between w-full">
                 <h3 className="font-bold text-xl sm:text-2xl text-gray-800 dark:text-white">
                   Notifications
@@ -91,7 +91,7 @@ const NotificationBtn = () => {
                         setshowNotificationModal(!showNotificationModal);
                       }}
                   className="inline-flex text-xs sm:text-sm bg-white px-2 sm:px-3 py-2 text-blue-500 items-center rounded font-medium
-                        shadow border focus:outline-none transform active:scale-75 transition-transform duration-700 hover:bg-blue-500
+                        shadow border focus:outline-none transform active:scale-75 transition-transform duration-700 hover:bg-blue-500 
                         hover:text-white  dark:text-gray-800 dark:hover:bg-gray-100"
                 >
                   <svg
@@ -107,40 +107,41 @@ const NotificationBtn = () => {
               </div>
               {notifications.map((notification) => (
                 <div
-                onClick={()=>{
-                    navigate(`/users/${notification?.relatedUserEmail}`)
-                }}
+                
                   key={notification._id}
-                  className="mt-2 px-6 py-4 min-w-full md:min-w-80 bg-white rounded-lg shadow w-full cursor-pointer "
+                  className="mt-2 px-6 py-4 min-w-full md:min-w-80 bg-white rounded-lg shadow w-full  dark:bg-themeColor dark:text-white "
                 >
-                  <div className=" inline-flex items-center justify-between w-full">
-                    <div className="inline-flex items-center">
-                    <img
-                    src={notification.relatedUserPhoto || basicUser}
-                    alt={'/public/BasicUser.jpg'}
-                    className="rounded-full border border-primary h-10 w-10 object-cover"
-                  />
-                      {/* <h3 className="font-bold text-base text-gray-800">
-                        {notification?.type}
-                      </h3> */}
-                      <p className="text-xs text-gray-500 ml-4">
-                        {moment(notification?.createdAt).fromNow()}
-                      </p>
+                  <div className=" inline-flex items-center justify-between w-full  dark:bg-themeColor dark:text-white ">
+                    <div className="inline-flex items-center cursor-pointer hover:bg-blue-50 dark:hover:bg-black  dark:bg-themeColor dark:text-white"
+                      onClick={()=>{
+                            navigate(`/users/${notification?.relatedUserEmail}/followerProfile`)
+                      }}>
+                      <img
+                      src={notification.relatedUserPhoto || basicUser}
+                      alt={'/public/BasicUser.jpg'}
+                      className="rounded-full border border-primary h-10 w-10 object-cover"
+                    />
+                        <h3 className="font-medium ml-2 text-base text-gray-800  dark:bg-themeColor dark:text-white">
+                          {notification?.relatedUserName}
+                        </h3>
+                        <p className="text-xs text-gray-500 ml-4  dark:bg-themeColor dark:text-white">
+                          {moment(notification?.createdAt).fromNow()}
+                        </p>
                     </div>
                         <RxCross2 onClick={()=>{
                             handleNotificationDelete(notification._id)
-                        }} className="hover:text-red-500 text-xl" />
+                        }} className="hover:text-red-500 text-xl  dark:bg-themeColor dark:text-white" />
                   </div>
-                  <p className="mt-1 text-sm">{notification?.message}</p>
+                  <p className="mt-1 text-sm  dark:bg-themeColor dark:text-white">{notification?.message}</p>
                 </div>
               ))}
               {/* <p className="mt-8 font-medium text-gray-500 dark:text-white text-sm sm:text-base">Yesterday</p> */}
             </div>
             <button
                 onClick={()=>handleDeleteAllNotifications()}
-              className="inline-flex text-sm bg-white justify-center px-4 py-2 mt-12 w-full text-red-500 items-center rounded font-medium
-                    shadow border focus:outline-none transform active:scale-75 transition-transform duration-700 hover:bg-red-500
-                    hover:text-white   dark:hover:bg-white dark:text-gray-800 dark:hover:text-gray-800"
+              className="inline-flex text-sm bg-white justify-center px-4 py-2  w-full text-red-500 items-center font-medium
+                    shadow rounded-xl focus:outline-none transform active:scale-75 transition-transform duration-700 hover:bg-red-500
+                    hover:text-white  dark:hover:bg-themeColor  dark:bg-themeColor dark:text-white"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -155,7 +156,7 @@ const NotificationBtn = () => {
             </button>
           </div>
         ) : (
-          <div className="min-h-60 bg-gray-100 -pt-5 flex items-center justify-center">
+          <div className="min-h-60 bg-gray-100 -pt-5 flex items-center justify-center  dark:bg-themeColor dark:text-white">
             <h2 className=" text-xl  font-medium">no new notifications</h2>
           </div>
         )}
