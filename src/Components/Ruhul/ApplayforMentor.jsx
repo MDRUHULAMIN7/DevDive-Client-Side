@@ -11,6 +11,12 @@ const ApplyForMentor = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
 
+ 
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  const useremail = users?.users?.mainuser?.email;
+
   const [mentorInfo, setMentorInfo] = useState({
     name: "",
     address: "",
@@ -21,20 +27,15 @@ const ApplyForMentor = () => {
   useremail: "",
   });
 
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-
-  const useremail = users?.users?.mainuser?.email;
   const userRole = users?.users?.mainuser?.role;
 
-  // Fetch user data if email exists
+
   useEffect(() => {
     if (user?.email) {
       dispatch(fetchUsers(user?.email));
     }
   }, [dispatch, user?.email]);
 
-  // Update mentorInfo with useremail when available
   useEffect(() => {
     if (useremail) {
       setMentorInfo((prev) => ({ ...prev,
@@ -77,8 +78,9 @@ const ApplyForMentor = () => {
       const response = await axiosPublic.post("/applay-mentor", mentorInfo);
       if (response.data.insertedId) {
         toast.success("Successfully applied for mentorship! Await admin approval.");
-      } else {
-        toast.error("Failed to submit application. Please try again.");
+      } 
+      else {
+        toast("You have already applied. Please wait fo admin approval.");
       }
     } catch (error) {
       console.error(error);
@@ -88,6 +90,41 @@ const ApplyForMentor = () => {
     }
   };
 
+  const [isApplied, setIsApplied] = useState(false);
+
+ 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log('Fetching mentor data...');
+        const response = await axiosPublic.get(`/get-mentor/${user.email}`);
+
+        if (response.data.message === "You have already applied") {
+        setIsApplied(true);
+        }
+      } catch (error) {
+        toast.error("something went wrong please try again later", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (user?.email) {
+      fetchData();
+    }
+  }, [user.email]);
+
+
+  if(isApplied) {
+    return (
+      <div className="flex flex-col mx-auto space-y-2  justify-center items-center mt-10">
+        <h1 className="text-2xl font-semibold">You have already a Appleid!</h1>
+        <p>Your application is in pending . Please wait for admin approvel.</p>
+        <p>Best wishes for you!</p>
+      </div>
+    );
+   
+  }
   if (userRole === "mentor") {
     return (
       <div className="flex flex-col mx-auto space-y-2  justify-center items-center mt-10">

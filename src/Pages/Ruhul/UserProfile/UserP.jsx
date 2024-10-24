@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { fetchUsers } from "../../../Features/Users/UsersSlices";
 import ProfileTab from "./ProfileTab";
 import { Helmet } from "react-helmet";
+import SkeletonLoader from "../../../Components/Ruhul/Card-Ruhul/SkeletonLoader";
 
 const UserP =()=>{
     const { email } = useParams();
@@ -19,7 +20,9 @@ const UserP =()=>{
       }
     }, [dispatch, email]);
 
-    if(!users?.users?.mainuser || !email || !user) return <div className="text-3xl">Loading...</div>;
+    if(!users?.users?.mainuser || !email || !user) return <div className="text-3xl">
+      <SkeletonLoader></SkeletonLoader>
+    </div>;
     return (
 
  <section className="p-4 mx-auto mt-10  lg:mx-20 xl:mx-44  max-w-7xl">
