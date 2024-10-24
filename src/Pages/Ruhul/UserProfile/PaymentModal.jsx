@@ -50,10 +50,12 @@ const PaymentModal = ({ isOpen, onClose,  price }) => {
     }
    const date = new Date().toISOString();
 
+
+
     const paymentInfo = {
       ...formData,
       amount: price,
-      date
+      date,
     };
 
     console.log("Payment Info:", paymentInfo);
