@@ -19,7 +19,7 @@ const UseLeaderBoardComments = () => {
     },
   });
 
-  console.log("leaderBoardComments", leaderBoardComments);
+  // console.log("leaderBoardComments", leaderBoardComments);
 
   return [leaderBoardComments, isLoading, refetch];
 };

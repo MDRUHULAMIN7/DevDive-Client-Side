@@ -19,6 +19,9 @@ const PostDetails = () => {
     const [data,setData]=useState(null)
     const [posts]=UsePosts()
 
+
+    console.log(id);
+
     useEffect(()=>{
          if(id){
             const newData = posts && posts?.filter((d)=> d._id === id)

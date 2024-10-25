@@ -175,7 +175,7 @@ const CreatePost = () => {
       <div className="mx-auto flex justify-center gap-12 py-7">
         <div className="w-[690px]">
           <div className="w-full flex justify-end">
-            <button className="text-xs font-bold bg-pm-color text-white px-2 rounded-2xl py-1">Draft</button>
+            {/* <button className="text-xs font-bold bg-pm-color text-white px-2 rounded-2xl py-1">Draft</button> */}
           </div>
           <h2 className="text-xl font-bold mb-5">Create Post</h2>
 
@@ -222,7 +222,7 @@ const CreatePost = () => {
 
           <Tags tags={tags} emptyTags={emptyTags} setTags={setTags} onTagsUpdate={handleTagsUpdate}></Tags>
 
-          <div className="mt-10 mb-5">
+          <div className="mt-10 sm:mb-5 mb-8">
             {location.pathname == "/create-post/text-post" && <BodyInput setValue={setValue} value={value}></BodyInput>}
             {location.pathname == "/create-post/image-post" && <ImagePost files={files} setFiles={setFiles}></ImagePost>}
             {location.pathname == "/create-post/link-post" && <LinkPost linkValue={linkValue} handleLinkChange={handleLinkChange}></LinkPost>}
@@ -231,7 +231,7 @@ const CreatePost = () => {
 
           <div className="w-full">
             <div className="flex justify-end gap-5">
-              <button className="bg-pm-color text-white px-3 py-2 rounded-3xl text-xs font-semibold">Save Draft</button>
+              {/* <button className="bg-pm-color text-white px-3 py-2 rounded-3xl text-xs font-semibold">Save Draft</button> */}
               {
                 imageLoader ? <button className={`${imageLoader ? "cursor-not-allowed" : ""} bg-pm-color text-white px-3 py-2 rounded-3xl font-semibold`}><LuLoader className="animate-spin" /></button> : <button onClick={handlePost} className={` bg-pm-color text-white px-3 py-2 rounded-3xl text-xs font-semibold`}>Post</button>
               }

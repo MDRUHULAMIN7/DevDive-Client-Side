@@ -1,19 +1,30 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaTrash } from "react-icons/fa6";
-import UsePosts from "../../../../Hooks/UsePosts";
-import AllPostModal from './AllPostModal';
+import AllPostModal from './AllPostModal'
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
-import { axiosPublic } from '../../../../Hooks/useAxiosPublic';
 
+import { axiosPublic } from '../../../../Hooks/useAxiosPublic';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUsers } from '../../../../Features/Users/UsersSlices';
+import UseAuth from '../../../../Hooks/UseAuth';
+import UseAllPosts from '../../../../Hooks/UseAllPosts';
 function AllPosts() {
-    const [posts, isLoading, refetch] = UsePosts(); // Fetch posts
+    const [posts, isLoading, refetch] = UseAllPosts(); // Fetch posts
     const [selectedPost, setSelectedPost] = useState(null); // State for selected post
     const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
-
-    
+      const { user } = UseAuth();
+    const users = useSelector((state) => state.users);
+  
+  
+    const dispatch = useDispatch();
+    useEffect(() => {
+      if (user.email) {
+        dispatch(fetchUsers(user.email));
+      }
+    }, [dispatch, user.email]);
     const [currentPage, setCurrentPage] = useState(1);
-    const postsPerPage = 5; 
+    const postsPerPage = 10; 
 
     // Calculate the current posts to display based on pagination
     const indexOfLastPost = currentPage * postsPerPage;
@@ -96,13 +107,16 @@ function AllPosts() {
 
       }
 
-      if(isLoading) {
-
-        <p>Posts is Loading...</p>
+      if (isLoading) {
+        return (
+          <div className="flex justify-center items-center h-screen">
+            <div className="w-16 h-16 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        );
       }
 
     return (
-        <section>
+        <section className='text-gray-800 dark:text-gray-100'>
             <div className="container mx-auto md:p-4 p-1">
                 <h2 className="text-2xl font-bold mb-4">Post List</h2>
                 <div className="overflow-x-auto rounded-lg">
@@ -173,7 +187,7 @@ function AllPosts() {
                     </button>
                 </div>
 
-                {isModalOpen && <AllPostModal data={selectedPost} onClose={closeModal} />} 
+                {isModalOpen && <AllPostModal user={users.users.mainuser}  data={selectedPost} onClose={closeModal}></AllPostModal>} 
             </div>
         </section>
     );

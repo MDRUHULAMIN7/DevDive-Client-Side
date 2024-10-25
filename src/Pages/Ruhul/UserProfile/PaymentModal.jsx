@@ -4,6 +4,7 @@ import { useState } from "react";
 import UseAuth from "../../../Hooks/UseAuth";
 import { axiosPublic } from "../../../Hooks/useAxiosPublic";
 
+
 const PaymentModal = ({ isOpen, onClose,  price }) => {
   const { user } = UseAuth();
   const [formData, setFormData] = useState({
@@ -47,11 +48,14 @@ const PaymentModal = ({ isOpen, onClose,  price }) => {
       console.log("Validation failed.");
       return;
     }
+   const date = new Date().toISOString();
+
+
 
     const paymentInfo = {
       ...formData,
       amount: price,
-      date: Date.now(),
+      date,
     };
 
     console.log("Payment Info:", paymentInfo);

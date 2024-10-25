@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion"; // Import Framer Motion
 
 const PreviewBlog = () => {
-  const [blogs] = UseBlogs();
+  const [blogs,isLoading] = UseBlogs();
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,13 +32,21 @@ const PreviewBlog = () => {
   const currentItems =
     blogs &&
     blogs?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-
+    if (isLoading) {
+      return (
+        <div className="flex justify-center items-center h-screen">
+          <div className="w-16 h-16 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      );
+    }
   return (
-    <div className="h-full">
+    <div className="h-full text-gray-900 dark:text-gray-100">
+
+<h2 className="text-2xl font-bold mb-4">All Blogs</h2>
       <div className="overflow-x-auto">
         <table className="min-w-full table-auto text-left">
           <thead>
-            <tr className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+            <tr className="">
               <th className="p-4">Banner</th>
               <th className="p-4">Headline</th>
               <th className="p-4 hidden md:flex">Post Date</th>
@@ -61,7 +69,7 @@ const PreviewBlog = () => {
                       {user?.headline?.slice(0, 30)}...
                     </div>
                   </td>
-                  <td className="text-sm hidden md:flex">{user?.dateTime}</td>
+                  <td className="text-sm hidden md:flex  mt-8">{user?.dateTime}</td>
                   <td>
                     <button
                       onClick={() => {
@@ -80,11 +88,11 @@ const PreviewBlog = () => {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-between mt-4">
+      <div className="flex justify-center space-x-3 items-center mt-4 mx-4">
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md disabled:bg-gray-400"
+          className="px-4 py-2 bg-blue-600 disabled:text-white text-gray-900 dark:text-white rounded-md disabled:bg-gray-800"
         >
           Previous
         </button>
@@ -96,7 +104,7 @@ const PreviewBlog = () => {
             setCurrentPage((prev) => Math.min(prev + 1, totalPages))
           }
           disabled={currentPage === totalPages}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md disabled:bg-gray-400"
+          className="px-4 py-2  bg-blue-600 text-white disabled:text-white rounded-md disabled:bg-gray-800"
         >
           Next
         </button>

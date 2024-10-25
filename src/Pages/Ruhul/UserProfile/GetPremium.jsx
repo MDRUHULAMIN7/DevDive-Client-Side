@@ -77,9 +77,8 @@ const GetPremium = () => {
 
 
         <div className="space-y-6">
-          <h1 className="text-4xl flex justify-center items-center lg:text-5xl font-extrabold tracking-tight text-blue-500">
-            <img className="h-20 mr-2" src="https://res.cloudinary.com/dpomtzref/image/upload/v1729342679/logo_gxujbv.png" alt="Logo" />
-            DevDive Premium
+          <h1 className="text-4xl flex justify-center space-x-0 items-center lg:text-5xl font-extrabold tracking-tight text-blue-500">
+            <img className="h-12 mr-2" src="https://res.cloudinary.com/dpomtzref/image/upload/v1729491491/1000005962_n0vgih.png" alt="Logo" />evDive Premium
           </h1>
 
           <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">

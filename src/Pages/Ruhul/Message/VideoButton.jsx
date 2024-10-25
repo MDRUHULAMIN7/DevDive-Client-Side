@@ -11,16 +11,16 @@ const VideoButton = ({meetingLink,setMeetingLink}) => {
 
   const toggleModal = () => setIsModalOpen((prev) => !prev);
 
-  // Generate a meeting link when the modal opens
+
   useEffect(() => {
     if (isModalOpen) {
-      const roomId = Math.random().toString(36).substring(2, 10); // Generate random room ID
+      const roomId = Math.random().toString(36).substring(2, 10);
       const link = `${window.location.origin}/room/${roomId}`;
-      setMeetingLink(link); // Store the generated link
+      setMeetingLink(link); 
     }
   }, [isModalOpen,setMeetingLink]);
 
-  // Close the modal when clicking outside of it
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -35,12 +35,12 @@ const VideoButton = ({meetingLink,setMeetingLink}) => {
     (e) => {
       e.preventDefault();
       const form = e.target;
-      const roomId = meetingLink.split("/room/")[1]; // Extract room ID from link
+      const roomId = meetingLink.split("/room/")[1];
 
       if (roomId) {
-        navigate(`/room/${roomId}`); // Navigate to the room
-        setIsModalOpen(false); // Close the modal
-        form.reset(); // Reset the form
+        navigate(`/room/${roomId}`); 
+        setIsModalOpen(false); 
+        form.reset(); 
       }
     },
     [meetingLink, navigate]

@@ -1,6 +1,6 @@
 import Lottie from "lottie-react";
 import { Link, useRouteError } from "react-router-dom";
-import Error from "../../public/AnimationCatError.json";
+import Error from "../assets/AnimationCatError.json";
 import { Helmet } from "react-helmet";
 
 const ErrorPage = () => {

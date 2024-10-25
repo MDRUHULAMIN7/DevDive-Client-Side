@@ -82,9 +82,9 @@ const PostBlog = () => {
   
 
   return (
-    <div className="flex flex-col md:flex-row  bg-transparent space-y-4 md:space-y-0 lg:space-x-4">
-      <form onSubmit={handleSubmit} className="w-full lg:w-1/2 bg-white dark:bg-gray-900 p-2 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Post a Blog</h2>
+    <div className="flex flex-col md:flex-row justify-center mx-auto mt-20  bg-transparent space-y-4 md:space-y-0 lg:space-x-4">
+      <form onSubmit={handleSubmit} className="w-full lg:w-1/2 bg-white dark:bg-gray-800 p-2 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">Post a Blog</h2>
 
         {/* Banner Image Input */}
         <div className="mb-6 relative">
@@ -184,8 +184,9 @@ const PostBlog = () => {
 
       {/* Preview Section */}
       <div className="w-full lg:w-1/2 md:pl-4 mt-4 md:mt-0">
+       
+        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
         <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Preview</h3>
-        <div className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-lg">
           {  bannerImage && (
           <div className="w-full h-64 overflow-hidden rounded-lg shadow border-2 border-gray-300 dark:border-gray-700">
           <img

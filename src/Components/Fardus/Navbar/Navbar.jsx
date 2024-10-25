@@ -11,7 +11,6 @@ import {
   IoAdd,
   IoArrowBackOutline,
   IoChatboxEllipsesOutline,
-  IoNotificationsOutline,
   IoSettingsOutline,
 } from "react-icons/io5";
 import Switcher1 from "../Switcher1/Switcher1";
@@ -22,6 +21,7 @@ import { Link } from "react-router-dom";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import PostComponent from "../../Ruhul/Card-Ruhul/PostComponent";
 import UseAdmin from "../../../Hooks/Admin/UseAdmin";
+import NotificationBtn from "../../nifat/NotificationBtn";
 
 const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
   const axiosPublic = useAxiosPublic();
@@ -45,7 +45,7 @@ const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
     setSearchData(data);
   };
 
-  const notification = <IoNotificationsOutline className="text-[22px] " />;
+//   const notification = <IoNotificationsOutline className="text-[22px] " />;
   const add = <IoAdd className="text-[22px]" />;
 
   return (
@@ -155,9 +155,10 @@ const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
             </svg>
             {user ? (
               <div className="flex justify-between items-center">
-                <button className="p-2 rounded-full  dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100  duration-200 lg:ml-0 ml-3">
+                {/* <button className="p-2 rounded-full  dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100  duration-200 lg:ml-0 ml-3">
                   {notification}
-                </button>
+                </button> */}
+                <NotificationBtn></NotificationBtn>
                 <Link
                   to="/create-post/text-post"
                   className="flex items-center gap-1 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 sm:px-3 px-2 py-2 sm:rounded-2xl rounded-full duration-200 mr-3">
@@ -223,10 +224,10 @@ const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
 
                     {isAdmin && (
                       <Link
-                        to={"/admin-settings"}
+                        to={"/admin/settings/manage-users"}
                         className="flex justify-start lg:px-6 px-5 py-4 my-1 dark:hover:text-gray-50 dark:hover:bg-opacity-30 dark:hover:bg-gray-700 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
                         <IoSettingsOutline className="text-2xl" />
-                        Setting
+                        Admin Setting
                       </Link>
                     )}
                     <Link
@@ -350,11 +351,11 @@ const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
 
         {isAdmin && (
           <Link
-            to={"/admin-settings"}
-            className="flex justify-start lg:px-6 px-5 py-4 my-1 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
-            <IoSettingsOutline className="text-2xl" />
-            Setting
-          </Link>
+          to={"/admin/settings/manage-users"}
+          className="flex justify-start lg:px-6 px-5 py-4 my-1 dark:hover:text-gray-50 dark:hover:bg-opacity-30 dark:hover:bg-gray-700 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
+          <IoSettingsOutline className="text-2xl" />
+          Admin Setting
+        </Link>
         )}
         <Link
           to={`/chat/${user?.email}`}
@@ -365,10 +366,12 @@ const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
 
         <hr className="mt-1 border-gray-200 dark:border-gray-700" />
 
-        <span className="flex justify-start lg:px-6 px-5 py-4 my-1 dark:hover:text-gray-50 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
-          <MdOutlineWorkspacePremium className="text-2xl" />
-          Premium
-        </span>
+        <Link to={"/get-premium"}>
+                      <span className="flex justify-start lg:px-6 px-5 py-4 my-1 dark:hover:text-gray-50 dark:hover:bg-opacity-30 dark:hover:bg-gray-700 hover:bg-gray-100 items-center gap-4 sm:text-sm text-xs">
+                        <MdOutlineWorkspacePremium className="text-2xl" />
+                        Get Premium
+                      </span>
+                    </Link>
       </div>
 
       <div

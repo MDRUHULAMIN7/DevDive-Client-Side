@@ -32,7 +32,7 @@ const Card = () => {
     .then((response) => response.json())
     .then((data) => setComments(data))
     .catch((error) => console.error('Error fetching the comments:', error));
-    
+
   }
 
   const toggleShowMore = () => {
@@ -207,7 +207,7 @@ const Card = () => {
       {
         showComments &&  <CommentsSection comments={comments}></CommentsSection>
       }
-      
+
 
     </div>
 
