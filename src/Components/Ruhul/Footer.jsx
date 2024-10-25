@@ -3,7 +3,7 @@ import Logo from "../Fardus/Logo/Logo";
 
 const Footer = () => {
   return (
-    <footer className="relative bg-white dark:bg-black text-gray-800 dark:text-gray-200 py-12">
+    <footer className="relative bg-transparent text-gray-800 dark:text-gray-200 py-12">
       <div className="container relative mx-auto px-6 md:px-12 lg:px-20">
         {/* Footer Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">

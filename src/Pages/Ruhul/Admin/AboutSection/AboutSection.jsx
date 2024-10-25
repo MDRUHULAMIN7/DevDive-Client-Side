@@ -7,7 +7,7 @@ import Footer from '../../../../Components/Ruhul/Footer';
 
 const AboutSection = () => {
   return (
-    <section className="relative text-gray-800 dark:text-gray-200 py-20 px-2 md:px-6 bg-gray-100 dark:bg-gray-900">
+    <section className="relative text-gray-900  dark:text-gray-200 py-20 px-2 md:px-6 bg-gray-100 dark:bg-gray-900 ">
       {/* Background Shapes */}
 
       <Helmet> <title>DevDive | About</title> </Helmet>
@@ -49,7 +49,7 @@ const AboutSection = () => {
               <motion.div
                 key={idx}
                 whileHover={{ scale: 1.05 }}
-                className="bg-gray-200 dark:bg-gray-800 rounded-lg p-8 shadow-lg text-center relative z-10"
+                className="bg-gray-200 dark:bg-themeColor3  rounded-lg p-8 shadow-xl text-center relative z-10"
               >
                 <Icon className="text-5xl text-blue-400 mx-auto mb-4" />
                 <h3 className="text-2xl font-semibold mb-2">{title}</h3>
@@ -68,7 +68,7 @@ const AboutSection = () => {
               { icon: FaCode, title: "Collaborate", desc: "Work together on code in real-time." },
               { icon: FaRegStar, title: "Achieve Solutions", desc: "Celebrate milestones with the community." },
             ].map(({ icon: Icon, title, desc }, idx) => (
-              <motion.div key={idx} whileHover={{ scale: 1.05 }} className="bg-gray-200 dark:bg-gray-800 rounded-lg p-8 shadow-lg text-center relative z-10">
+              <motion.div key={idx} whileHover={{ scale: 1.05 }} className="bg-gray-200 dark:bg-themeColor3  rounded-lg p-8 shadow-xl text-center relative z-10">
                 <Icon className="text-5xl text-blue-400 mx-auto mb-4" />
                 <h3 className="text-2xl font-semibold mb-2">{title}</h3>
                 <p className="dark:text-gray-400">{desc}</p>
@@ -90,7 +90,7 @@ const AboutSection = () => {
               { icon: FaRegStar, title: "100+ Posts", desc: "Collaborations across the globe." },
               { icon: FaGlobe, title: "50+ Countries", desc: "Impacting developers worldwide." },
             ].map(({ icon: Icon, title, desc }, idx) => (
-              <motion.div key={idx} initial={{ y: 50, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ delay: idx * 0.2 }} className="p-8 bg-gray-200 dark:bg-gray-800 rounded-lg shadow-lg text-center">
+              <motion.div key={idx} initial={{ y: 50, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ delay: idx * 0.2 }} className="p-8 bg-gray-200 dark:bg-themeColor3  rounded-lg shadow-xl text-center">
                 <Icon className="text-5xl text-blue-500 mx-auto mb-4" />
                 <h3 className="text-3xl font-semibold  mb-2">{title}</h3>
                 <p className="dark:text-gray-400 ">{desc}</p>
@@ -111,7 +111,7 @@ const AboutSection = () => {
               <motion.div
                 key={idx}
                 whileHover={{ scale: 1.05 }}
-                className="bg-gray-200 dark:bg-gray-800 rounded-lg p-8 shadow-lg text-center relative z-10"
+                className="bg-gray-200 dark:bg-themeColor3  rounded-lg p-8 shadow-xl text-center relative z-10"
               >
                 <Icon className="text-5xl text-blue-400 mx-auto mb-4" />
                 <h3 className="text-2xl font-semibold mb-2">{title}</h3>
