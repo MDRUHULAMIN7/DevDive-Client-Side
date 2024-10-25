@@ -52,7 +52,7 @@ const UserProfile = () => {
         <div className="flex flex-col justify-between h-full">
           {/* Logo and Navigation */}
           <div>
-      <div className="mb-3">
+      <div className="mb-5">
       <Logo></Logo>
       </div>
 
