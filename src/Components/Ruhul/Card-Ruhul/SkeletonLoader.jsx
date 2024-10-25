@@ -35,9 +35,9 @@ const SkeletonLoader = ({ value }) => (
           </div>
       </div>
     </div>}
-    {value == "PostCard" && <div className="bg-white dark:bg-gray-900 shadow-md rounded-lg">
+    {value == "PostCard" && <div className="bg-white dark:bg-gray-900 shadow-md rounded-lg min-w-full">
 
-      <div className="animate-pulse flex flex-col space-y-4 p-4">
+      <div className="animate-pulse flex flex-col space-y-4 p-4 w-full">
         <div className="flex justify-center items-start w-full space-x-4">
 
           <div className="rounded-full bg-gray-300 dark:bg-gray-700 h-12 min-w-12 "></div>
