@@ -6,6 +6,7 @@ import { AiOutlinePinterest } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import UseBlogs from "../../Hooks/UseBlogs";
 import { Helmet } from "react-helmet";
+import Footer from "../Ruhul/Footer";
 
 
 const BlogCard = () => {
@@ -51,6 +52,8 @@ const BlogCard = () => {
                     )
                 }
             </div>
+
+            <Footer></Footer>
         </section>
 
 

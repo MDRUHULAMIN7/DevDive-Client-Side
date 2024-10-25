@@ -3,10 +3,11 @@ import { motion } from 'framer-motion';
 import { MdStorage } from 'react-icons/md';
 import OurTeam from '../../../../Components/Fardus/OurTeam/OurTeam';
 import { Helmet } from 'react-helmet';
+import Footer from '../../../../Components/Ruhul/Footer';
 
 const AboutSection = () => {
   return (
-    <section className="relative text-gray-800 dark:text-gray-200 py-20 px-6 bg-gray-100 dark:bg-gray-900">
+    <section className="relative text-gray-800 dark:text-gray-200 py-20 px-2 md:px-6 bg-gray-100 dark:bg-gray-900">
       {/* Background Shapes */}
 
       <Helmet> <title>DevDive | About</title> </Helmet>
@@ -199,13 +200,14 @@ const AboutSection = () => {
     
         {/* Join Us Section */}
         <motion.div className="mb-24" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.8 }}>
-          <h2 className="text-4xl font-bold text-center mb-12">Join Us</h2>
+          
           <p className="text-xl text-center text-gray-600 dark:text-gray-200 max-w-4xl mx-auto mb-12">
             Ready to take your development skills to the next level? Join our community and start collaborating with developers around the world.
           </p>
          
         </motion.div>
       </div>
+      <Footer></Footer>
     </section>
   );
 };
