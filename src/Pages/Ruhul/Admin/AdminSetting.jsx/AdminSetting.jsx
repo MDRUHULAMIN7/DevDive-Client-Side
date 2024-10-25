@@ -11,6 +11,7 @@ import { TfiWrite } from "react-icons/tfi";
 
 
 import Switcher1 from "../../../../Components/Fardus/Switcher1/Switcher1";
+import Logo from "../../../../Components/Fardus/Logo/Logo";
 const AdminSetting = () => {
   const [isActive, setActive] = useState(false);
 
@@ -34,16 +35,9 @@ const AdminSetting = () => {
         <div className="flex flex-col justify-between h-full">
    
           <div>
-            <Link to="/" className="flex items-center  mb-8">
-              <img
-                src="https://res.cloudinary.com/dpomtzref/image/upload/v1729491491/1000005962_n0vgih.png"
-                alt="logo"
-                className="h-8"
-              />
-              <h1 className="text-3xl text-gray-800 dark:text-gray-100">
-                evDive
-              </h1>
-            </Link>
+          <div className="mb-5">
+      <Logo></Logo>
+      </div>
 
             <nav className="space-y-5">
               {/* ManageUSers */}

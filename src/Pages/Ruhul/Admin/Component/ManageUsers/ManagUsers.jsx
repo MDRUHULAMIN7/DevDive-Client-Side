@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import UseUser from "../../../../../Hooks/UseUser";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../../../../Hooks/useAxiosPublic";
+import { Link } from "react-router-dom";
 
 const ManageUsers = () => {
   const [showModal, setShowModal] = useState(null);
@@ -73,6 +74,7 @@ const ManageUsers = () => {
       axiosPublic
         .put(`/update-user-role/${user.email}`, newRoleData)
         .then((res) => {
+          refetch()
           if (res.status === 200) {
             refetch();
             Swal.fire({
@@ -122,7 +124,7 @@ const ManageUsers = () => {
   const totalPages = Math.max(1, Math.ceil(filteredUsers.length / usersPerPage));
 
   return (
-    <section className="p-2 sm:p-4">
+    <section className="p-2 sm:p-4 mt-12 md:mt-4">
       <h1 className="text-xl sm:text-2xl text-gray-900 dark:text-gray-100 my-2 sm:my-4">
         Manage Users
       </h1>
@@ -151,7 +153,8 @@ const ManageUsers = () => {
           <tbody>
             {currentUsers &&
               currentUsers.map((user, index) => (
-                <tr key={index} className="border-b dark:border-gray-600">
+                <tr key={index} className="border-b dark:border-gray-600 text-gray-900 dark:text-gray-100">
+                  <Link to={`/users/${user?.email}/profile`}>
                   <td className="p-2 sm:p-4 relative">
                     <img
                       src={user?.photoUrl}
@@ -161,12 +164,18 @@ const ManageUsers = () => {
                       onMouseLeave={handleMouseLeave}
                     />
                   </td>
+                  </Link>
+                  
                   <td className="p-2 sm:p-4">{user.name}</td>
-                  <td className="p-2 sm:p-4">{user.userType}</td>
-                  <td className="p-2 sm:p-4">{user.role}</td>
+                  <td className="p-2 sm:p-4">
+                  <p className={` ${user.userType === 'premium'? "bg-blue-500 ": "bg-green-500 "} w-fit p-2 rounded-lg`}>
+                  {user.userType}</p>
+                    </td>
+                  <td className=""> <p className={` ${user.role === 'admin'? "bg-blue-500 ": "bg-green-500 "} w-fit p-2 rounded-lg`}>
+                  {user.role}  </p></td>
                   <td className="p-2 sm:p-4">
                     <button
-                      className="bg-blue-500 text-white px-4 py-2 rounded"
+                      className="bg-blue-500 text-white text-xs md:text-sm  p-2 rounded"
                       onClick={() => handleUserAction(user, "roleChange")}
                     >
                       Change Role
