@@ -31,7 +31,7 @@ const AboutSection = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-xl text-center text-gray-600 dark:text-gray-300 max-w-4xl mx-auto mb-12"
+          className="text-xl text-center text-gray-600 dark:text-gray-200 max-w-4xl mx-auto mb-12"
         >
           At DevDive, we are committed to fostering a collaborative environment where developers of all levels can grow, share knowledge, and build projects together. Our platform serves as a central hub for problem-solving, professional growth, and community-building for developers across the globe.
         </motion.p>
@@ -48,7 +48,7 @@ const AboutSection = () => {
               <motion.div
                 key={idx}
                 whileHover={{ scale: 1.05 }}
-                className="bg-gray-300 dark:bg-gray-800 rounded-lg p-8 shadow-lg text-center relative z-10"
+                className="bg-gray-200 dark:bg-gray-800 rounded-lg p-8 shadow-lg text-center relative z-10"
               >
                 <Icon className="text-5xl text-blue-400 mx-auto mb-4" />
                 <h3 className="text-2xl font-semibold mb-2">{title}</h3>
@@ -67,7 +67,7 @@ const AboutSection = () => {
               { icon: FaCode, title: "Collaborate", desc: "Work together on code in real-time." },
               { icon: FaRegStar, title: "Achieve Solutions", desc: "Celebrate milestones with the community." },
             ].map(({ icon: Icon, title, desc }, idx) => (
-              <motion.div key={idx} whileHover={{ scale: 1.05 }} className="bg-gray-300 dark:bg-gray-800 rounded-lg p-8 shadow-lg text-center relative z-10">
+              <motion.div key={idx} whileHover={{ scale: 1.05 }} className="bg-gray-200 dark:bg-gray-800 rounded-lg p-8 shadow-lg text-center relative z-10">
                 <Icon className="text-5xl text-blue-400 mx-auto mb-4" />
                 <h3 className="text-2xl font-semibold mb-2">{title}</h3>
                 <p className="dark:text-gray-400">{desc}</p>
@@ -77,12 +77,8 @@ const AboutSection = () => {
         </motion.div>
 
         {/* Our Success Section */}
-        <motion.div className="relative py-20 mb-20  rounded-xl shadow-2xl">
-        <div 
-  className="absolute -top-14 left-0 w-full h-20 
-             bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-500 
-             dark:bg-gradient-to-r dark:from-indigo-300 dark:via-purple-400 dark:to-blue-400"
-/>
+        <motion.div className="relative py-20 mb-20  rounded-xl ">
+
 
           <motion.h2 initial={{ opacity: 0, y: -30 }} whileInView={{ opacity: 1, y: 0 }} className="text-5xl font-bold text-center text-gray-700 dark:text-white mb-10">
             Our Success
@@ -93,7 +89,7 @@ const AboutSection = () => {
               { icon: FaRegStar, title: "100+ Posts", desc: "Collaborations across the globe." },
               { icon: FaGlobe, title: "50+ Countries", desc: "Impacting developers worldwide." },
             ].map(({ icon: Icon, title, desc }, idx) => (
-              <motion.div key={idx} initial={{ y: 50, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ delay: idx * 0.2 }} className="p-8 bg-gray-300 dark:bg-gray-800 rounded-lg shadow-lg text-center">
+              <motion.div key={idx} initial={{ y: 50, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ delay: idx * 0.2 }} className="p-8 bg-gray-200 dark:bg-gray-800 rounded-lg shadow-lg text-center">
                 <Icon className="text-5xl text-blue-500 mx-auto mb-4" />
                 <h3 className="text-3xl font-semibold  mb-2">{title}</h3>
                 <p className="dark:text-gray-400 ">{desc}</p>
@@ -114,7 +110,7 @@ const AboutSection = () => {
               <motion.div
                 key={idx}
                 whileHover={{ scale: 1.05 }}
-                className="bg-gray-300 dark:bg-gray-800 rounded-lg p-8 shadow-lg text-center relative z-10"
+                className="bg-gray-200 dark:bg-gray-800 rounded-lg p-8 shadow-lg text-center relative z-10"
               >
                 <Icon className="text-5xl text-blue-400 mx-auto mb-4" />
                 <h3 className="text-2xl font-semibold mb-2">{title}</h3>
@@ -204,7 +200,7 @@ const AboutSection = () => {
         {/* Join Us Section */}
         <motion.div className="mb-24" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.8 }}>
           <h2 className="text-4xl font-bold text-center mb-12">Join Us</h2>
-          <p className="text-xl text-center text-gray-600 dark:text-gray-300 max-w-4xl mx-auto mb-12">
+          <p className="text-xl text-center text-gray-600 dark:text-gray-200 max-w-4xl mx-auto mb-12">
             Ready to take your development skills to the next level? Join our community and start collaborating with developers around the world.
           </p>
          
