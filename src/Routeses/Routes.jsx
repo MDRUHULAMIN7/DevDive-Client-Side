@@ -40,6 +40,7 @@ import PreviewBlog from "../Pages/Ruhul/Admin/Component/PreviewBlog/PreviewBlog"
 import FollowerProfile from "../Pages/FollowerProfile";
 import ManageMentors from "../Pages/Sanjida/ManageMentors";
 import AllPayments from "../Pages/Ruhul/Admin/Component/AllPayments";
+import SeeReports from "../Components/Nur/SeeReports";
 
 export const router = createBrowserRouter([
   {
@@ -178,7 +179,7 @@ export const router = createBrowserRouter([
       },
 
       // for admin
-     
+
 
       {
         path: "/chat/:email",
@@ -232,7 +233,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      
+
       {
         path: "/admin/settings/allpayments",
         element: (
@@ -247,9 +248,9 @@ export const router = createBrowserRouter([
         path: "/admin/settings/manage-mentors",
         element: (
           <PrivateRoute>
-            
+
               <ManageMentors></ManageMentors>
-            
+
           </PrivateRoute>
         ),
       },
@@ -293,8 +294,18 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "/admin/settings/reports",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <SeeReports></SeeReports>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
 
-      
+
     ],
   }
 ]);
