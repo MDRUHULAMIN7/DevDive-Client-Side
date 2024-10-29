@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaCommentAlt, FaShare } from "react-icons/fa";
+import { FaCommentAlt } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -18,6 +18,8 @@ import PollData from "./PollData";
 import FollowButton from "./FollowButton";
 import DropDown from "./DropDown";
 import PostActions from "./PostActions";
+import ShareButton from "./ShareButton";
+import useMyLikedPosts from "../../../Hooks/Nur/useMyLikedPosts";
 
 const CardRuhul = () => {
   const { user } = UseAuth();
@@ -45,7 +47,9 @@ const CardRuhul = () => {
       const fetchedPosts = res.data;
       setPosts((prevPosts) => {
         const uniquePosts = [...prevPosts, ...fetchedPosts];
-        return [...new Map(uniquePosts.map((post) => [post._id, post])).values()];
+        return [
+          ...new Map(uniquePosts.map((post) => [post._id, post])).values(),
+        ];
       });
       setNewPosts((prevPosts) => [...prevPosts, ...fetchedPosts]);
       setPage((prevPage) => prevPage + 1);
@@ -63,13 +67,14 @@ const CardRuhul = () => {
     fetchPosts();
   }, []);
 
+  // console.log("User email before hook call:", user?.email);
+  const [data] = useMyLikedPosts(user?.email);
+  // console.log("Liked posts from hook:", data);
+
   useEffect(() => {
     let filteredPosts = posts;
     if (sortOption === "my-liked-posts") {
-      const likedPostIds = likes
-        .filter((like) => like?.email === user?.email)
-        .map((like) => like.postId);
-      filteredPosts = posts.filter((post) => likedPostIds.includes(post._id));
+      filteredPosts = data;
     } else if (sortOption === "my-commented-posts") {
       const commentedPostIds = comments
         .filter((comment) => comment?.userName === user?.displayName)
@@ -79,11 +84,12 @@ const CardRuhul = () => {
       );
     }
     setNewPosts(filteredPosts);
-  }, [sortOption, posts, likes, comments, user]);
+  }, [sortOption, posts, likes, comments, user,data]);
 
   const handleChange = (event) => {
     setSortOption(event.target.value);
   };
+
   return (
     <section>
       {/* Filter component */}
@@ -91,8 +97,7 @@ const CardRuhul = () => {
         <select
           className="w-36 p-1 border dark:border-themeColor3 rounded-md outline-none bg-white text-black dark:bg-themeColor dark:text-white"
           onChange={handleChange}
-          defaultValue=""
-        >
+          defaultValue="">
           <option value="" disabled selected>
             Filter
           </option>
@@ -108,15 +113,14 @@ const CardRuhul = () => {
         hasMore={hasMore} // Check if more posts are available
         loader={<SkeletonLoader value={"PostCard"} />} // Loading skeleton
       >
-        {newPosts?.length > 0 && (
+        {newPosts?.length > 0 &&
           newPosts?.map((data) => (
             <div
               key={data._id}
-              className="mt-4 bg-white dark:bg-gray-900 shadow-md rounded-lg p-4 my-4 md:mx-auto border border-gray-200 dark:border-gray-700"
-            >
+              className="mt-4 bg-white dark:bg-gray-900 shadow-md rounded-lg p-4 my-4 md:mx-auto border border-gray-200 dark:border-gray-700">
               <div className="flex justify-between items-center mb-3">
                 <div className="flex items-center">
-                  <Link to={`/users/${data?.userEmail}`}>
+                  <Link to={`/users/${data?.userEmail}/profile`}>
                     <img
                       src={data.profilePicture}
                       alt="User"
@@ -140,8 +144,7 @@ const CardRuhul = () => {
                     id={data._id}
                     isOpen={openDropdownId === data._id}
                     toggleDropdown={toggleDropdown}
-                    archiveData={data}
-                  ></DropDown>
+                    archiveData={data}></DropDown>
                 </div>
               </div>
 
@@ -158,8 +161,7 @@ const CardRuhul = () => {
                     />
                     <Link
                       className="text-blue-600 mt-1 block"
-                      to={`/post-details/${data._id}`}
-                    >
+                      to={`/post-details/${data._id}`}>
                       See more....
                     </Link>
                   </p>
@@ -180,8 +182,7 @@ const CardRuhul = () => {
                       clickable: true,
                     }}
                     modules={[Pagination]}
-                    className="mySwiper h-[300px] md:h-[400px] rounded-lg"
-                  >
+                    className="mySwiper h-[300px] md:h-[400px] rounded-lg">
                     {data?.images?.map((image, index) => (
                       <SwiperSlide key={index}>
                         <div className="h-[300px] md:h-[400px] w-full flex justify-center items-center overflow-hidden rounded-lg">
@@ -205,20 +206,15 @@ const CardRuhul = () => {
                 <div className="flex items-center space-x-4">
                   <Link
                     to={`/detailsWithComments/${data._id}#commentSection`}
-                    className="flex items-center space-x-1 hover:text-blue-500"
-                  >
+                    className="flex items-center space-x-1 hover:text-blue-500">
                     <FaCommentAlt className="h-5 w-5" />
                     <span className="text-md">{data?.comments || 0}</span>
                   </Link>
-                  <button className="flex items-center space-x-1 hover:text-gray-800">
-                    <FaShare className="h-5 w-5" />
-                    <span>Share</span>
-                  </button>
+                  <ShareButton data={data}></ShareButton>
                 </div>
               </div>
             </div>
-          ))
-        )}
+          ))}
       </InfiniteScroll>
     </section>
   );

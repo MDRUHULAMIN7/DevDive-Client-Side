@@ -1,11 +1,8 @@
 import PostComponent from "../../../Components/Ruhul/Card-Ruhul/PostComponent";
-import UsePosts from "../../../Hooks/UsePosts";
-import { FaCommentAlt, FaShare } from "react-icons/fa";
-import UseLikes from "../../../Hooks/UseLikes";
-import UseDisLikes from "../../../Hooks/UseDisLike";
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
 
+import { FaCommentAlt, FaShare } from "react-icons/fa";
+import {  useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -16,20 +13,17 @@ import PollData from "../../../Components/Ruhul/Card-Ruhul/PollData";
 import PostActions from "../../../Components/Ruhul/Card-Ruhul/PostActions";
 import UserModal from "./UserModal";
 import { Helmet } from "react-helmet";
+import UseUserPost from "../../../Hooks/UseUserPost";
 
-const UserPosts = ({ user2 }) => {
+
+const UserPosts = () => {
   const { email } = useParams();
-  const [posts, isLoading, refetch] = UsePosts(); // Fetch posts
-  const [likes] = UseLikes();
-  const [dislikes] = UseDisLikes();
+  const [posts, isLoading, refetch] = UseUserPost(email); // Fetch posts
+ 
   const { user } = UseAuth();
-  const [myPosts, setMyPosts] = useState([]);
+ 
   const [openDropdownId, setOpenDropdownId] = useState(null);
   
-  useEffect(() => {
-    const myPost = posts?.filter((data) => data?.userEmail === email);
-    setMyPosts(myPost || []);
-  }, [user2, dislikes, posts, likes, email]);
 
   const toggleDropdown = (id) => {
     setOpenDropdownId((prevId) => (prevId === id ? null : id));
@@ -48,9 +42,9 @@ const UserPosts = ({ user2 }) => {
             <Helmet>
         <title>DevDive | UserPosts</title>
       </Helmet>
-      <h1 className="text-2xl md:text-3xl text-gray-800 dark:text-gray-100">Posts : {myPosts?.length && myPosts.length}</h1>
-      {myPosts.length > 0 ? (
-        myPosts.map((data, index) => (
+      <h1 className="text-2xl md:text-3xl text-gray-800 dark:text-gray-100">Posts : {posts?.length && posts.length}</h1>
+      {posts.length > 0 ? (
+        posts.map((data, index) => (
           <div
             key={index}
             className="mt-4 bg-white dark:bg-gray-900 shadow-md rounded-lg p-4 border border-gray-200 dark:border-gray-700 w-full"
@@ -150,7 +144,7 @@ const UserPosts = ({ user2 }) => {
           </div>
         ))
       ) : (
-        <p className="text-2xl text-center my-10">No Posts Found</p>
+        <p className="text-2xl text-gray-900 dark:text-gray-100 text-center my-10">No Posts Found</p>
       )}
     </div>
   );

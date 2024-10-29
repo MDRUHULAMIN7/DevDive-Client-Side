@@ -12,173 +12,192 @@ import { Pagination } from "swiper/modules";
 import { Link } from "react-router-dom";
 import UseAuth from '../../Hooks/UseAuth';
 import PostComponent from '../../Components/Ruhul/Card-Ruhul/PostComponent';
-
 import SkeletonLoader from '../../Components/Ruhul/Card-Ruhul/SkeletonLoader';
-
 import DropDown from '../../Components/Ruhul/Card-Ruhul/DropDown';
 import PostActions from '../../Components/Ruhul/Card-Ruhul/PostActions';
-import UsefollowingPosts from '../../Hooks/UseFollowingPosts';
+import Chatbot from '../../Components/Ruhul/Cahtbot/Chatbot';
+import useAxiosPublic from '../../Hooks/useAxiosPublic';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import RecentPostCard from '../../Components/Fardus/RecentPostCard/RecentPostCard';
+import Slider from '../../Components/Fardus/Slider/Slider';
 
 const Following = () => {
-    const { user } = UseAuth(); // Get user info from auth hook
-    const [followingPosts,isLoading]= UsefollowingPosts()
-    const [openDropdownId, setOpenDropdownId] = useState(null); // Track which dropdown is open
-    const toggleDropdown = (id) => {
-      setOpenDropdownId((prevId) => (prevId === id ? null : id)); // Toggle the same ID or close it
+    const { user } = UseAuth();
+    const axiosPublic = useAxiosPublic();
+    const [followingPosts, setFollowingPosts] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [openDropdownId, setOpenDropdownId] = useState(null);
+    const [hasMoreFollowing, setHasMoreFollowing] = useState(true);
+    const [page, setPage] = useState(1);
+    const [page2, setPage2] = useState(1);
+    const [recentPosts, setRecentPosts] = useState([]);
+    const [hasMoreRecent, setHasMoreRecent] = useState(true);
+    
+
+    const fetchFollowingPosts = async () => {
+      try {
+          const res = await axiosPublic.get(`/get-following-posts/${user?.email}?page=${page2}&limit=5`);
+          const newPosts = res.data;
+  
+          setFollowingPosts(prevPosts => {
+              const uniquePosts = [...prevPosts, ...newPosts];
+
+              return [...new Map(uniquePosts.map(post => [post._id, post])).values()];
+          });
+  
+
+          if (newPosts.length < 5) {
+              setHasMoreFollowing(false);
+          } else {
+              setPage2(prevPage => prevPage + 1);
+          }
+      } catch (error) {
+          console.error("Error fetching following posts:", error);
+      }
+  };
+  
+
+    // Fetch recent posts
+    const fetchRecentPosts = async () => {
+        try {
+            const res = await axiosPublic.get(`/main-posts?page=${page}&limit=5`);
+            const newPosts = res.data;
+
+            setRecentPosts(prevPosts => {
+                const uniquePosts = [...prevPosts, ...newPosts];
+                return [...new Map(uniquePosts.map(post => [post._id, post])).values()];
+            });
+
+            if (newPosts.length < 5) {
+                setHasMoreRecent(false);
+            } else {
+                setPage(prevPage => prevPage + 1);
+            }
+        } catch (error) {
+            console.error("Error fetching recent posts:", error);
+        }
     };
-     console.log(followingPosts)
-     console.log(isLoading)
-   
 
-
-    const [currentPage, setCurrentPage] = useState(1);
-    const postsPerPage = 5; // Adjust the number of posts per page
 
     useEffect(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' }); // Smooth scroll to top on page change
-    }, [currentPage]);
+        fetchFollowingPosts();
+        setIsLoading(false);
+    }, []);
 
-    const indexOfLastPost = currentPage * postsPerPage;
-    const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentPosts =followingPosts && followingPosts?.slice(indexOfFirstPost, indexOfLastPost);
+    useEffect(() => {
+        fetchFollowingPosts();
+        fetchRecentPosts();
+        setIsLoading(false);
+    }, [user?.email]);
 
-
-    const paginate = (pageNumber) => {
-      setCurrentPage(pageNumber);
+    const toggleDropdown = (id) => {
+        setOpenDropdownId(prevId => (prevId === id ? null : id)); 
     };
 
-    if (isLoading) {
-      return (
-        <div className=" text-2xl text-center my-10 ">
-          <SkeletonLoader value={"PostCard"}/>
-          <SkeletonLoader value={"PostCard"}/>
-        
-        </div>
-      );
-    }
+    console.log(user?.email);
 
     return (
         <div className='mx-auto max-w-[1090px] pb-10 w-[95%]'>
             <Helmet>
                 <title>DevDive | Following</title>
             </Helmet>
-         
-            <section className="">
-      {currentPosts && currentPosts.length > 0  ?
-        currentPosts?.map((data, index) => 
-          <div
-            key={index}
-            className="mt-4 bg-white dark:bg-gray-900 shadow-md mx-1 rounded-lg p-4 my-4  md:mx-auto border border-gray-200 dark:border-gray-700 ">
-            <div className="flex justify-between items-center mb-3">
-              <div className="flex items-center">
-                <img
-                  src={data.profilePicture}
-                  alt="User"
-                  className="rounded-full h-10 w-10 object-cover"
-                />
-                <div className="ml-3">
-                  <h3 className="font-semibold text-gray-800 dark:text-gray-200">
-                    {data.username}
-                  </h3>
-
-                  <PostComponent data={data} />
+            <div className='mt-3'>
+            <Slider/>
+            </div>
+            <div className="flex justify-between lg:mx-auto mt-5">
+                <div className="lg:w-[68%] w-full space-y-5">
+                    <section className="">
+                        {isLoading ? (
+                            <div className="text-2xl text-center my-10">
+                                <SkeletonLoader value={"PostCard"} />
+                                <SkeletonLoader value={"PostCard"} />
+                            </div>
+                        ) : (
+                            <InfiniteScroll
+                                dataLength={followingPosts.length}
+                                next={fetchFollowingPosts} 
+                                hasMore={hasMoreFollowing} 
+                                loader={<SkeletonLoader value={"PostCard"} />}
+                                scrollableTarget="scrollableDiv"
+                            >
+                                {followingPosts.length > 0 ? followingPosts.map((data, index) => (
+                                    <div key={index} className="mt-4 bg-white dark:bg-gray-900 shadow-md mx-1 rounded-lg p-4 my-4 md:mx-auto border border-gray-200 dark:border-gray-700">
+                                        <div className="flex justify-between items-center mb-3">
+                                            <div className="flex items-center">
+                                                <img src={data.profilePicture} alt="User" className="rounded-full h-10 w-10 object-cover" />
+                                                <div className="ml-3">
+                                                    <h3 className="font-semibold text-gray-800 dark:text-gray-200">{data.username}</h3>
+                                                    <PostComponent data={data} />
+                                                </div>
+                                            </div>
+                                            <div className="relative flex items-center gap-2">
+                                                <DropDown id={data._id} isOpen={openDropdownId === data._id} toggleDropdown={toggleDropdown} />
+                                            </div>
+                                        </div>
+                                        <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-2">{data?.title}</h2>
+                                        {data.body && (
+                                            <div className="text-gray-700 dark:text-gray-300 mb-3">
+                                                <p>
+                                                    <span dangerouslySetInnerHTML={{ __html: data.body?.slice(0, 200) }} />
+                                                    <Link className="text-blue-600 mt-1 block" to={`/post-details/${data._id}`}>See more...</Link>
+                                                </p>
+                                            </div>
+                                        )}
+                                        {data.images[0] && (
+                                            <Swiper spaceBetween={30} pagination={{ clickable: true }} modules={[Pagination]} className="mySwiper h-[300px] md:h-[400px] rounded-lg">
+                                                {data.images.map((image, index) => (
+                                                    <SwiperSlide key={index}>
+                                                        <div className="h-[300px] md:h-[400px] w-full flex justify-center items-center overflow-hidden rounded-lg">
+                                                            <img src={image} alt="Post" className="w-full h-full object-cover" />
+                                                        </div>
+                                                    </SwiperSlide>
+                                                ))}
+                                            </Swiper>
+                                        )}
+                                        <div className="flex justify-between items-center text-gray-500 dark:text-gray-400 text-sm mt-3">
+                                            <div className="flex items-center space-x-4">
+                                                <PostActions data={data} user={user} />
+                                            </div>
+                                            <div className="flex items-center space-x-4">
+                                                <Link to={`/detailsWithComments/${data._id}#commentSection`} className="flex items-center space-x-1 hover:text-blue-500">
+                                                    <FaCommentAlt className="h-5 w-5" />
+                                                    <span className="text-md">{data?.comments || 0}</span>
+                                                </Link>
+                                                <button className="flex items-center space-x-1 hover:text-gray-800">
+                                                    <FaShare className="h-5 w-5" />
+                                                    <span>Share</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )) : <SkeletonLoader value={"PostCard"} />}
+                            </InfiniteScroll>
+                        )}
+                    </section>
                 </div>
-                <div className="ml-5">
-                
-                </div>
-              </div>
-              <div className="relative flex items-center gap-2">
-              <DropDown id={data._id}
-              isOpen={openDropdownId === data._id} 
-              toggleDropdown={toggleDropdown} ></DropDown>
-              </div>
-            </div>
 
-            <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-2">
-              {data?.title}
-            </h2>
+                {/* Infinite Scroll for Recent Posts */}
+                <div id="scrollableDiv" className="sticky top-[68px] scrollBar h-[calc(100vh-80px)] overflow-y-auto lg:w-[28%] w-[32%] border dark:border-gray-800 rounded-xl py-5 px-3 lg:block hidden">
+                    <h2 className="font-semibold text-black dark:text-white mb-5 px-3">Recent Posts</h2>
 
-            {data.body && (
-              <div className="text-gray-700 dark:text-gray-300 ">
-                <p>
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html: data.body && data?.body?.slice(0, 200),
-                    }}
-                  />
-                  <Link
-                    className="text-blue-600 mt-1 block"
-                    to={`/post-details/${data._id}`}>
-                    See more...
-                  </Link>
-                </p>
-              </div>
-            )}
-
-            <div className="my-4">
-              {data.images[0] && (
-                <Swiper
-                  spaceBetween={30}
-                  pagination={{
-                    clickable: true,
-                  }}
-                  modules={[Pagination]}
-                  className="mySwiper h-[300px] md:h-[400px]  rounded-lg">
-                  {data &&
-                    data?.images?.map((image, index) => (
-                      <SwiperSlide key={index}>
-                        <div className="h-[300px] md:h-[400px]  w-full flex justify-center items-center overflow-hidden rounded-lg">
-                          <img
-                            src={image}
-                            alt="Post"
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      </SwiperSlide>
-                    ))}
-                </Swiper>
-              )}
-            </div>
-
-            <div className="flex flex-wrap justify-between items-center text-gray-500 dark:text-gray-400 text-sm">
-            <div className="flex items-center space-x-4">
-                {/* Like */}
-               <PostActions data={data} user={user}></PostActions>
-              </div>
-
-              <div className="flex items-center space-x-4">
-                <Link
-                  to={`/detailsWithComments/${data._id}#commentSection`}
-                  className="flex items-center space-x-1 hover:text-blue-500"
-                >
-                  <FaCommentAlt className="h-5 w-5" />
-                  <span className="text-md">{data?.comments || 0}</span>
-                </Link>
-                <button className="flex items-center space-x-1 hover:text-gray-800">
-                  <FaShare className="h-5 w-5" />
-                  <span>Share</span>
-                </button>
-              </div>
-            </div>
-          </div>)
-   
-     
-     
-     : <div className='text-2xl text-center mt-10'>
-         No Following Post </div>   }
-    </section>
-
-            {/* Pagination */}
-            <div className="pagination flex justify-center mt-4">
-                {Array.from({ length: Math.ceil(followingPosts?.length / postsPerPage) }, (_, index) => (
-                    <button
-                        key={index + 1}
-                        onClick={() => paginate(index + 1)}
-                        className={`px-3 py-2 mx-1 rounded ${index + 1 === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-800'}`}
+                    <InfiniteScroll
+                        dataLength={recentPosts.length} 
+                        next={fetchRecentPosts}
+                        hasMore={hasMoreRecent}
+                        loader={<SkeletonLoader value={"SideBar"} />}
+                        scrollableTarget="scrollableDiv"
                     >
-                        {index + 1}
-                    </button>
-                ))}
+                        <div className="space-y-5">
+                            {recentPosts.map((post) => (
+                                <div key={post._id}>
+                                    <RecentPostCard post={post} />
+                                </div>
+                            ))}
+                        </div>
+                    </InfiniteScroll>
+                </div>
+
+                <Chatbot />
             </div>
         </div>
     );
