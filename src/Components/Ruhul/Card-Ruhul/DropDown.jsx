@@ -7,30 +7,18 @@ import useCheckArchiveStatus from "../../../Hooks/Nur/useCheckArchiveStatus";
 import useCheckReportStatus from "../../../Hooks/Nur/useCheckReportStatus";
 
 const DropDown = ({ id, isOpen, toggleDropdown, archiveData }) => {
-  // console.log("archiveData from dropdown", archiveData);
-  // check archiveData._id === post_id and archivedBy.email === user.email the show already archived
   const { user } = useContext(AuthContext);
 
-  // const { archived, isLoading, error, refetch } = useCheckArchiveStatus(
   const { archived, refetch } = useCheckArchiveStatus(
     archiveData?._id,
     user?.email
   );
-  // console.log("is archived from dropdown", archived, isLoading, error);
 
   const {
     reported,
-    // isLoading: isReportLoading,
-    // error: reportError,
     refetch: refetchReport,
   } = useCheckReportStatus(archiveData?._id, user?.email);
 
-  // console.log(
-  //   "is reported from dropdown",
-  //   reported,
-  //   isReportLoading,
-  //   reportError
-  // );
 
   const handleArchiveClick = async () => {
     if (archived) return;
