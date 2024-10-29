@@ -1,82 +1,170 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState, useRef, useEffect } from "react";
+import axios from "axios";
+import ReactMarkdown from "react-markdown";
 
 const Bot2 = () => {
-  const [prompt, setPrompt] = useState('');
-  const [response, setResponse] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [chatHistory, setChatHistory] = useState([]);
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+  const [generatingAnswer, setGeneratingAnswer] = useState(false);
+  const [isUserScrolling, setIsUserScrolling] = useState(false);
 
-  const handleAskZini = async () => {
-    if (!prompt) return;
+  const chatContainerRef = useRef(null);
 
-    setLoading(true);
-    try {
-      const { data } = await axios.post('http://localhost:5000/zini/api/gemini', { prompt });
-      setResponse(formatResponse(data.response));
-    } catch (error) {
-      console.error('Error fetching AI response:', error);
-      setResponse("Sorry, I couldn't generate a response. Please try again.");
-    } finally {
-      setLoading(false);
+ 
+  const handleScroll = () => {
+    if (!chatContainerRef.current) return;
+    const { scrollTop, scrollHeight, clientHeight } = chatContainerRef.current;
+
+    setIsUserScrolling(scrollHeight - scrollTop > clientHeight + 10);
+  };
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.addEventListener("scroll", handleScroll);
     }
-  };
+    return () => {
+      if (chatContainerRef.current) {
+        chatContainerRef.current.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, []);
 
-  const formatResponse = (text) => {
-    return text
-      .replace(/^## (.*?)$/gm, '<h2>$1</h2>') // H2 headings
-      .replace(/^### (.*?)$/gm, '<h3>$1</h3>') // H3 headings
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold text
-      .replace(/_(.*?)_/g, '<em>$1</em>') // Italic text
-      .replace(/^\* (.*?)$/gm, '<ul><li>$1</li></ul>') // Unordered lists
-      .replace(/^- (.*?)$/gm, '<ul><li>$1</li></ul>') // Alt unordered lists
-      .replace(/^\d+\.\s(.*?)$/gm, '<ol><li>$1</li></ol>') // Ordered lists
-      .replace(/^> (.*?)$/gm, '<blockquote>$1</blockquote>') // Blockquotes
-      .replace(/(?:\r\n|\r|\n)/g, '<br />'); // Line breaks
-  };
+ 
+  useEffect(() => {
+    if (!isUserScrolling && chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [chatHistory, generatingAnswer,isUserScrolling]);
+
+  async function generateAnswer(e) {
+    e.preventDefault();
+    if (!question.trim()) return;
+
+    setGeneratingAnswer(true);
+    const currentQuestion = question;
+    setQuestion(""); 
+    setChatHistory((prev) => [...prev, { type: "question", content: currentQuestion }]);
+
+    try {
+      const response = await axios({
+        url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${import.meta.env.VITE_AIAPI}`,
+        method: "post",
+        data: {
+          contents: [{ parts: [{ text: question }] }],
+        },
+      });
+
+      const aiResponse = response["data"]["candidates"][0]["content"]["parts"][0]["text"];
+      setChatHistory((prev) => [...prev, { type: "answer", content: aiResponse }]);
+      setAnswer(aiResponse);
+    } catch (error) {
+      console.log(error);
+      setAnswer("Sorry - Something went wrong. Please try again!");
+    }
+    setGeneratingAnswer(false);
+    setIsUserScrolling(false); 
+  }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 text-white p-4">
-      <header className="mb-8 text-center">
-        <h1 className="text-5xl font-bold mb-2">Welcome to Zini AI</h1>
-        <p className="mt-2 text-lg max-w-lg mx-auto">
-          Your intelligent assistant for all queries!
-        </p>
-      </header>
+    <div className="bg-gradient-to-r h-[calc(100vh-56px)] from-blue-50 to-blue-100 dark:from-gray-800 dark:to-gray-900">
+      <div className="h-full max-w-4xl mx-auto flex flex-col p-3">
+       
+        <header className="text-center py-4">
+          <a
+            href="https://github.com/Vishesh-Pandey/chat-ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block"
+          >
+            <h1 className="text-4xl font-bold text-blue-500 hover:text-blue-600 dark:text-blue-300 transition-colors">
+              Dev AI
+            </h1>
+          </a>
+        </header>
 
-      <div className="bg-white text-gray-800 rounded-lg shadow-lg p-8 w-full max-w-3xl mx-auto">
-        <h2 className="text-3xl font-semibold mb-4">Get Started</h2>
-        <p className="mb-6">
-          Ask Zini anything! Whether it's generating stories, answering questions, or just having a chat, Zini is here to help.
-        </p>
-
-        <input
-          type="text"
-          placeholder="Type your prompt here..."
-          className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 text-gray-700"
-          value={prompt}
-          onChange={(e) => setPrompt(e.target.value)}
-        />
-
-        <button
-          className={`w-full mt-4 ${loading ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'} text-white font-semibold py-3 rounded-lg transition duration-300`}
-          onClick={handleAskZini}
-          disabled={loading}
+        
+        <div
+          ref={chatContainerRef}
+          className="flex-1 overflow-y-auto mb-4 rounded-lg bg-white shadow-lg p-1 md:p-4 dark:bg-gray-800 hide-scrollbar"
         >
-          {loading ? 'Thinking...' : 'Ask Zini'}
-        </button>
+          {chatHistory.length === 0 ? (
+            <div className="h-full flex flex-col items-center justify-center text-center p-6">
+              <div className="bg-blue-50 rounded-xl p-8 max-w-2xl dark:bg-gray-700">
+                <h2 className="text-2xl font-bold text-blue-600 mb-4 dark:text-blue-300">
+                  Welcome to Dev AI! 
+                </h2>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                  Iam here to help you with anything you would like to know. You can ask me about:
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                  <div className="bg-white p-4 rounded-lg shadow-sm dark:bg-gray-600">
+                    <span className="text-blue-500"></span> General knowledge
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow-sm dark:bg-gray-600">
+                    <span className="text-blue-500"></span> Technical questions
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow-sm dark:bg-gray-600">
+                    <span className="text-blue-500"></span> Writing assistance
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow-sm dark:bg-gray-600">
+                    <span className="text-blue-500"></span> Problem solving
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            chatHistory.map((chat, index) => (
+              <div key={index} className={`mb-4 ${chat.type === "question" ? "text-right" : "text-left"}`}>
+                <div
+                  className={`inline-block max-w-[80%] p-3 rounded-lg overflow-auto hide-scrollbar ${
+                    chat.type === "question"
+                      ? "bg-blue-500 text-white rounded-br-none"
+                      : "bg-gray-100 text-gray-800 rounded-bl-none dark:bg-gray-700 dark:text-white"
+                  }`}
+                >
+                  <ReactMarkdown className="overflow-auto hide-scrollbar">{chat.content}</ReactMarkdown>
+                </div>
+              </div>
+            ))
+          )}
+          {generatingAnswer && (
+            <div className="text-left">
+              <div className="inline-block bg-gray-100 dark:bg-gray-700 p-3 rounded-lg animate-pulse">
+              DevAI Thinking...
+              </div>
+            </div>
+          )}
+        </div>
 
-        {response && (
-          <div className="mt-6 p-6 bg-gray-100 text-gray-800 rounded-lg shadow-md transition duration-300">
-            <h3 className="font-semibold text-lg">Zini's Response:</h3>
-            <div className="mt-4 prose prose-indigo max-w-none" dangerouslySetInnerHTML={{ __html: response }} />
+        <form onSubmit={generateAnswer} className="bg-white rounded-lg shadow-lg p-2 md:p-4 dark:bg-gray-800">
+          <div className="flex gap-2">
+            <textarea
+              required
+              className="flex-1 border border-gray-300 rounded  p-2  focus:border-blue-400 focus:ring-1 focus:ring-blue-400 resize-none dark:bg-gray-700 dark:border-gray-600 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+              placeholder="Ask DevAI Anything..."
+              rows="1"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  generateAnswer(e);
+                }
+              }}
+            ></textarea>
+            <button
+              type="submit"
+              className={`px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors dark:bg-blue-600 dark:hover:bg-blue-700 ${
+                generatingAnswer ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={generatingAnswer}
+            >
+              Send
+            </button>
           </div>
-        )}
+        </form>
       </div>
-
-      <footer className="mt-8 text-center">
-        <p className="text-sm">Powered by DevQuery</p>
-        <p className="text-xs">© {new Date().getFullYear()} DevQuery Inc.</p>
-      </footer>
     </div>
   );
 };

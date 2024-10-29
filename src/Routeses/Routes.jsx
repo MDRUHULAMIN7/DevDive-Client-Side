@@ -40,6 +40,7 @@ import PreviewBlog from "../Pages/Ruhul/Admin/Component/PreviewBlog/PreviewBlog"
 import FollowerProfile from "../Pages/FollowerProfile";
 import ManageMentors from "../Pages/Sanjida/ManageMentors";
 import AllPayments from "../Pages/Ruhul/Admin/Component/AllPayments";
+import Bot2 from "../Components/Ruhul/Cahtbot/Bot2";
 
 export const router = createBrowserRouter([
   {
@@ -137,6 +138,10 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         element: <AboutSection></AboutSection>,
+      },
+      {
+        path: "/ai",
+        element:<Bot2></Bot2>,
       },
       {
         path: "/post-details/:id",
