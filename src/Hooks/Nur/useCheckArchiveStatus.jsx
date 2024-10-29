@@ -3,7 +3,6 @@ import useAxiosPublic from "../useAxiosPublic";
 
 const useCheckArchiveStatus = (post_id, email) => {
   const axiosPublic = useAxiosPublic();
-// console.log("useCheckArchiveStatus",post_id, email);
 
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["checkArchiveStatus", post_id, email],
@@ -17,7 +16,7 @@ const useCheckArchiveStatus = (post_id, email) => {
 
       return response.data;
     },
-    enabled: !!post_id && !!email, // Enable only if post_id and email are present
+    enabled: !!post_id && !!email,
     refetchOnWindowFocus: false,
   });
 

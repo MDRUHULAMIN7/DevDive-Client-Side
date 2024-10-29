@@ -1,9 +1,9 @@
+import UseAllReports from "../../Hooks/Nur/UseAllReports";
+
 const SeeReports = () => {
-  return (
-    <div>
-      this is report page
-    </div>
-  );
+  const { data } = UseAllReports();
+
+  return <div>this is report page. Total reports {data?.length}</div>;
 };
 
 export default SeeReports;
