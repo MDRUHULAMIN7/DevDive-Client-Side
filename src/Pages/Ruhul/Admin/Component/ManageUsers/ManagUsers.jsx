@@ -5,7 +5,7 @@ import useAxiosPublic from "../../../../../Hooks/useAxiosPublic";
 import { Link } from "react-router-dom";
 
 const ManageUsers = () => {
-  const [showModal, setShowModal] = useState(null);
+  const [, setShowModal] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(5);
@@ -145,7 +145,7 @@ const ManageUsers = () => {
             <tr className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
               <th className="p-2 sm:p-4">Photo</th>
               <th className="p-2 sm:p-4">Name</th>
-              <th className="p-2 sm:p-4">User Type</th>
+          
               <th className="p-2 sm:p-4">Role</th>
               <th className="p-2 sm:p-4">Change Role</th>
             </tr>
@@ -167,10 +167,7 @@ const ManageUsers = () => {
                   </Link>
                   
                   <td className="p-2 sm:p-4">{user.name}</td>
-                  <td className="p-2 sm:p-4">
-                  <p className={` ${user.userType === 'premium'? "bg-blue-500 ": "bg-green-500 "} w-fit p-2 rounded-lg`}>
-                  {user.userType}</p>
-                    </td>
+                
                   <td className=""> <p className={` ${user.role === 'admin'? "bg-blue-500 ": "bg-green-500 "} w-fit p-2 rounded-lg`}>
                   {user.role}  </p></td>
                   <td className="p-2 sm:p-4">
