@@ -30,7 +30,7 @@ const BlogCard = () => {
                                 src={data.image}
                                 alt="NIKE AIR"
                             />
-                            <p className="p-3 lg:font-semibold mt-4 mb-4 text-lg sm:text-xl md:text-2xl text-gray-700 dark:text-white justify-start">{data.headline}</p>
+                            <p className="p-3 lg:font-semibold mt-4 mb-4 text-lg sm:text-lg md:text-xl text-gray-700 dark:text-white justify-start">{data.headline}</p>
 
                             <div className="flex flex-col lg:flex-row justify-between p-4 items-start lg:items-center">
 
