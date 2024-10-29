@@ -39,7 +39,15 @@ const PreviewBlog = () => {
         </div>
       );
     }
+
+    if(blogs.length === 0   ){
+      return (
+        <div className="text-center mt-10 text-3xl md:text-4xl text-gray-900 dark:text-gray-100">No blogs found.</div>
+      )
+    }
   return (
+
+
     <div className="h-full text-gray-900 dark:text-gray-100">
 
 <h2 className="text-2xl font-bold mb-4">All Blogs</h2>
@@ -168,7 +176,7 @@ const PreviewBlog = () => {
           </motion.div>
         </motion.div>
       )}
-    </div>
+    </div>  
   );
 };
 

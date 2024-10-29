@@ -29,7 +29,7 @@ const AdminSetting = () => {
         <title>DevDive | AdminSetting</title>
       </Helmet>
       <div
-        className={`fixed top-0 left-0 h-full bg-white  border-r dark:bg-gray-900 w-64 p-5 shadow-md transform ${
+        className={`fixed top-0 left-0 h-full bg-white  border-r dark:bg-gray-900 w-64 md:p-5 p-1 shadow-md transform ${
           isActive ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 transition-transform duration-300 ease-in-out z-40`}>
         <div className="flex flex-col justify-between h-full">
@@ -148,7 +148,7 @@ const AdminSetting = () => {
       </div>
 
       {/* Mobile Navbar */}
-      <div className="lg:hidden fixed top-0 left-0 w-full flex justify-between items-center bg-gray-100 dark:bg-gray-900 p-4 shadow-md z-30">
+      <div className="lg:hidden fixed top-0 left-0 w-full flex justify-between items-center bg-gray-100 dark:bg-gray-900 p-1 md:p-4 shadow-md z-30">
         <Link to="/" className="flex items-center ">
           <img
             src="https://res.cloudinary.com/dpomtzref/image/upload/v1729491491/1000005962_n0vgih.png"
@@ -166,7 +166,7 @@ const AdminSetting = () => {
       <div
         className={`flex-1 min-h-screen transition-all duration-300 ${
           isActive ? "opacity-100" : "opacity-100"
-        } md:ml-64 p-5`}>
+        } md:ml-64 md:p-5`}>
         <Outlet />
       </div>
 

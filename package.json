@@ -13,6 +13,7 @@
     "@codemirror/lang-css": "^6.3.0",
     "@codemirror/lang-html": "^6.4.9",
     "@codemirror/lang-javascript": "^6.2.2",
+    "@emailjs/browser": "^4.4.1",
     "@headlessui/react": "^2.1.10",
     "@heroicons/react": "^2.1.5",
     "@material-tailwind/html": "^2.3.2",

@@ -2,19 +2,20 @@ import { useEffect, useState } from "react";
 import { FaThumbsUp } from "react-icons/fa";
 import './LikeButton.css'; 
 
-const LikeButton = ({ handleLike,  data, isLoading ,likeInfo}) => {
+const LikeButton = ({ handleLike,  data, isLoading ,likeInfo,  likeRefetch}) => {
   const [animate, setAnimate] = useState(false);
 // console.log("response from use ruhul like",likeInfo);
 
 const [isRuhulliked,setisRuhulliked] = useState(likeInfo?.isLiked);
 useEffect(()=>{
+  likeRefetch()
   setisRuhulliked(likeInfo?.isLiked)  // updating the state with the fetched data  if any
  // console.log("isRuhulliked",isRuhulliked)  // checking the state  if any
-},[likeInfo?.isLiked])
+},[likeInfo?.isLiked,  likeRefetch])
 // console.log("isRuhulliked",isRuhulliked)  // checking the state  if any
   const handleClick = () => {
     if (!isLoading) {
-
+      likeRefetch()
       setAnimate(true);
       setisRuhulliked(likeInfo?.isLiked)
       handleLike(data._id);

@@ -7,6 +7,7 @@ import Chatbot from '../../Components/Ruhul/Cahtbot/Chatbot';
 import { useState, useEffect } from 'react';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import SkeletonLoader from '../../Components/Ruhul/Card-Ruhul/SkeletonLoader';
+import Bot2 from '../../Components/Ruhul/Cahtbot/Bot2';
 
 const Home = () => {
     const axiosPublic = useAxiosPublic();
@@ -78,6 +79,7 @@ const Home = () => {
                 </div>
 
                 <Chatbot />
+                <Bot2></Bot2>
             </div>
         </div>
     );
