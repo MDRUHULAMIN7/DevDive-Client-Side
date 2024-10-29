@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import { FaTimes } from "react-icons/fa"; // Close icon
+import { FaTimes } from "react-icons/fa"; 
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const ManageMentors = () => {
     const [mentor, setMentor] = useState([]);
     const axiosPublic = useAxiosPublic();
     const [fetchNewData, setFetchNewData] = useState(false);
-    const [selectedUser, setSelectedUser] = useState(null); // For modal data
+    const [selectedUser, setSelectedUser] = useState(null); 
     const [isModalOpen, setIsModalOpen] = useState(false); // Modal control
 
     useEffect(() => {
@@ -16,21 +16,22 @@ const ManageMentors = () => {
                 const { data } = await axiosPublic.get("/get-apply-mentor");
                 setMentor(data);
             } catch (error) {
-                Swal.fire("Error", "Failed to fetch mentor data", "error",error);
+                Swal.fire("Error", "Failed to fetch mentor data", "error", error);
             }
         };
         fetchMentor();
-    }, [fetchNewData,axiosPublic]);
+    }, [fetchNewData, axiosPublic]);
 
-    const handleMakeMentor = (useremail) => {
+    const handleToggleMentorStatus = (useremail, currentStatus) => {
+        const actionText = currentStatus === "mentor" ? "revert to pending" : "approve as mentor";
         Swal.fire({
             title: "Are you sure?",
-            text: "Do you want to approve this user?",
+            text: `Do you want to ${actionText} this user?`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, approve!",
+            confirmButtonText: "Yes, proceed!",
         }).then((result) => {
             if (result.isConfirmed) {
                 axiosPublic
@@ -38,13 +39,13 @@ const ManageMentors = () => {
                     .then((response) => {
                         if (response.data.message) {
                             setFetchNewData(!fetchNewData);
-                            Swal.fire("Success!", "The user has been approved.", "success");
+                            Swal.fire("Success!", response.data.message, "success");
                         } else {
-                            Swal.fire("Error", "There was a problem approving the user.", "error");
+                            Swal.fire("Error", "There was a problem updating the user status.", "error");
                         }
                     })
                     .catch(() => {
-                        Swal.fire("Error", "There was a problem approving the user.", "error");
+                        Swal.fire("Error", "There was a problem updating the user status.", "error");
                     });
             }
         });
@@ -70,46 +71,35 @@ const ManageMentors = () => {
                 <table className="min-w-full bg-white dark:bg-gray-800 rounded-lg shadow-md">
                     <thead>
                         <tr className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
-                            <th className="p-4 text-sm sm:text-base">Name</th>
-                            <th className="p-4 text-sm sm:text-base">Status</th>
-                            <th className="p-4 text-sm sm:text-base hidden lg:flex">Phone</th>
-                            <th className="p-4 text-sm sm:text-base">See Details</th>
-                            <th className="p-4 text-sm sm:text-base">Action</th>
+                            <th className="p-4 text-sm sm:text-base text-left">Name</th>
+                            <th className="p-4 text-sm sm:text-base text-left">Status</th>
+                            <th className="p-4 text-sm sm:text-base hidden lg:table-cell text-left">Phone</th>
+                            <th className="p-4 text-sm sm:text-base text-left">See Details</th>
+                            <th className="p-4 text-sm sm:text-base text-left">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {mentor.map((user, index) => (
                             <tr key={index} className="border-b dark:border-gray-600">
-                                <td className="p-4">
-                                    <div className="font-medium text-gray-900 dark:text-gray-100">
-                                        {user?.name}
-                                    </div>
-                                </td>
-                                <td className="p-4">
-                                    <div className="text-gray-700 dark:text-gray-300">
-                                        {user?.status}
-                                    </div>
-                                </td>
-                                <td className="p-4 hidden lg:flex">
-                                    <div className="text-gray-700 dark:text-gray-300">
-                                        {user?.phone}
-                                    </div>
-                                </td>
-                              
+                                <td className="p-4 text-gray-900 dark:text-gray-100 font-medium">{user?.name}</td>
+                                <td className="p-4 text-gray-700 dark:text-gray-300">{user?.status}</td>
+                                <td className="p-4 hidden lg:table-cell text-gray-700 dark:text-gray-300">{user?.phone}</td>
                                 <td className="p-4">
                                     <button
                                         onClick={() => openModal(user)}
-                                        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-lg transition transform hover:scale-105 sm:px-4"
+                                        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition transform hover:scale-105"
                                     >
                                         See Details
                                     </button>
                                 </td>
                                 <td className="p-4">
                                     <button
-                                        onClick={() => handleMakeMentor(user.useremail)}
-                                        className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-3 rounded-lg transition transform hover:scale-105 sm:px-4"
+                                        onClick={() => handleToggleMentorStatus(user.useremail, user.status)}
+                                        className={`${
+                                            user.status === "mentor" ? "bg-red-500 hover:bg-red-600" : "bg-green-500 hover:bg-green-600"
+                                        } text-white font-bold py-2 px-4 rounded-lg transition transform hover:scale-105`}
                                     >
-                                        Approve
+                                        {user.status === "mentor" ? "Deny" : "Approve"}
                                     </button>
                                 </td>
                             </tr>
