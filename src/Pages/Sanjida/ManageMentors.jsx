@@ -1,13 +1,16 @@
+
+
+
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import { FaTimes } from "react-icons/fa"; 
+import { FaTimes } from "react-icons/fa"; // Close icon
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const ManageMentors = () => {
     const [mentor, setMentor] = useState([]);
     const axiosPublic = useAxiosPublic();
     const [fetchNewData, setFetchNewData] = useState(false);
-    const [selectedUser, setSelectedUser] = useState(null); 
+    const [selectedUser, setSelectedUser] = useState(null); // For modal data
     const [isModalOpen, setIsModalOpen] = useState(false); // Modal control
 
     useEffect(() => {
