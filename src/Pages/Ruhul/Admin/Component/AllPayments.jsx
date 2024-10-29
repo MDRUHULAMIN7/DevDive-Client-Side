@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import UseAuth from "../../../../Hooks/UseAuth";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
+import { Helmet } from "react-helmet";
 
 const AllPayments = () => {
   const [alldata, setAllData] = useState([]);
@@ -70,6 +71,9 @@ const AllPayments = () => {
 
   return (
     <section className="p-4 mt-14 lg:mt-3">
+       <Helmet>
+        <title>DevDive | All Payments</title>
+      </Helmet>
       <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">
         All Payments ({filteredData.length})
       </h1>

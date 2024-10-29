@@ -5,7 +5,7 @@ import useAxiosPublic from "../../../../../Hooks/useAxiosPublic";
 import { Link } from "react-router-dom";
 
 const ManageUsers = () => {
-  const [showModal, setShowModal] = useState(null);
+  const [, setShowModal] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(5);

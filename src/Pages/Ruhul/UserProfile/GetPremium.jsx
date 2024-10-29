@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { useState } from "react";
 import PaymentModal from "./PaymentModal";
+import { Helmet } from "react-helmet";
 
 const GetPremium = () => {
 
@@ -23,6 +24,10 @@ const GetPremium = () => {
   };
   return (
     <section className="bg-gradient-to-br from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 py-16">
+
+      <Helmet>
+        <title>DevDive | Get Premium</title>
+      </Helmet>
   <style>{`
   @keyframes glow {
     0% {
