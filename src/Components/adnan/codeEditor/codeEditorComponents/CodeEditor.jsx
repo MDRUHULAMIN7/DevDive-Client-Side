@@ -54,7 +54,7 @@ const CodeEditor = () => {
       <div className="w-full ">
       <LanguageSelector language={language} onSelect={onSelect} className="mb-10"/>
       <Editor
-        height="75vh"
+        height="65vh"
         theme={theme} // Dynamically set the theme based on dark or light mode
         language={language}
         defaultValue={CODE_SNIPPETS[language]}
