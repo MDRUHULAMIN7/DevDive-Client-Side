@@ -62,7 +62,7 @@ const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
             <Logo></Logo>
           </div>
 
-          <div className="relative w-[550px] lg:block hidden">
+          <div className="relative w-[550px] lg:block hidden xl:mx-0 mx-5">
             <span className="absolute inset-y-0 left-0 flex justify-between items-center pl-3">
               <svg
                 className="w-5 h-5 text-gray-500"
@@ -159,10 +159,11 @@ const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
                   {notification}
                 </button> */}
                 <NotificationBtn></NotificationBtn>
+                <Link className="dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 sm:px-3 px-2 py-2 sm:rounded-2xl rounded-full duration-200"  to={`/chat/${user?.email}`}><IoChatboxEllipsesOutline className="text-xl" /></Link>
                 <Link
                   to="/create-post/text-post"
                   className="flex items-center gap-1 dark:hover:bg-gray-700 dark:hover:bg-opacity-30 hover:bg-gray-100 sm:px-3 px-2 py-2 sm:rounded-2xl rounded-full duration-200 mr-3">
-                  {add} <span className="sm:block text-sm hidden">Create</span>
+                  {add} <span className="sm:block text-sm hidden text-nowrap">Add Post</span>
                 </Link>
 
                 <button
@@ -172,7 +173,7 @@ const Navbar = ({ setClickPp, clickPp, focusInput, setFocusInput }) => {
 
                   className="relative">
                   <img
-                    className="object-cover w-10 h-10 rounded-full"
+                    className="object-cover min-w-10 h-10 rounded-full"
                     src={user?.photoURL || User}
                     alt="user"
                   />
