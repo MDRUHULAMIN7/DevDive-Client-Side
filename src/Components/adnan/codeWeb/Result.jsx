@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 
-const Result = ({srcCode}) => {
+const Result = ({ srcCode }) => {
   const [theme, setTheme] = useState("dark");
 
   // Detect theme from the HTML class
@@ -31,9 +31,18 @@ const Result = ({srcCode}) => {
   }, []);
   return (
     <div className="">
-      <div className={`${theme === "dark" ? "bg-[#282c34]" : "bg-white"} p-4 rounded-lg shadow`}>
-      {/* <div className="bg-[#282c34] p-4 shadow mt-4 rounded-lg"> */}
-        <h2 className={`text-lg font-semibold mb-2 ${theme === "dark" ? "text-white" : "text-black"}`}>Result</h2>
+      <div
+        className={`${
+          theme === "dark" ? "bg-[#282c34]" : "bg-white"
+        } p-4 rounded-lg shadow`}
+      >
+        <h2
+          className={`text-lg font-semibold mb-2 ${
+            theme === "dark" ? "text-white" : "text-black"
+          }`}
+        >
+          Result
+        </h2>
         <iframe
           className="w-full h-60 border border-gray-700 rounded-md"
           srcDoc={srcCode}
@@ -41,10 +50,9 @@ const Result = ({srcCode}) => {
           sandbox="allow-scripts"
           width="100%"
           height="100%"
-        >
-        </iframe>
+        ></iframe>
       </div>
-      </div>
+    </div>
   );
 };
 // bg-[#282c34]

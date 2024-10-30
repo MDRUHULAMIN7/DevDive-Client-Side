@@ -46,7 +46,7 @@ const Output = ({ editorRef, language }) => {
       </button>
 
       <div
-      className={`h-[65vh] p-2 border-2 rounded-md ${isError ? 'text-red-600' : 'text-black dark:text-white'}`}
+      className={`h-[60vh] p-2 border-2 rounded-md ${isError ? 'text-red-600' : 'text-black dark:text-white'}`}
       >
       {output
           ? output.map((line, i) => <h2 key={i}>{line}</h2>)
