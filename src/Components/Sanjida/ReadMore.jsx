@@ -25,19 +25,19 @@ useEffect(()=>{
                   <img className="w-full object-cover rounded-xl lg:h-96 h-64" src={blogData?.image} alt="" />
                 </div>
                 <div className="p-4 lg:mt-16 mt-12">
-                  <h1 className="text-2xl lg:text-4xl font-bold text-gray-800 dark:text-white">
+                  <h1 className="text-xl lg:text-lg font-semibold text-gray-800 dark:text-white">
                     {blogData?.headline}
                   </h1>
                   <div className="lg:flex gap-4 items-center mt-16">
                     <span className="font-bold text-2xl text-red-600 hover:text-gray-500">ANNOUNCEMENTS</span>
-                    <h1 className="font-medium text-lg lg:text-xl mb-4 text-gray-800 dark:text-white hover:text-gray-500">
+                    <h1 className="font-normal text-lg lg:text-base mb-4 text-gray-800 dark:text-white hover:text-gray-500">
                       {blogData?.dateTime}
                     </h1>
                   </div>
           
                 
           
-                  <p className="text-base lg:text-xl mt-3" dangerouslySetInnerHTML={{ __html: blogData?.description?.replace(/\n/g, "<br />") }}></p>
+                  <p className="text-base lg:text-lg mt-3" dangerouslySetInnerHTML={{ __html: blogData?.description?.replace(/\n/g, "<br />") }}></p>
           
                   
                 </div>

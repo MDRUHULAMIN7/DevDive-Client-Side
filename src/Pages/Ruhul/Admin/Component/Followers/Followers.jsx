@@ -65,7 +65,7 @@ const Followers = () => {
                             {/* Followers List */}
                             <ol className="list-decimal md:ml-5 space-y-3">
                                 {user.followers && user.followers.map((follower, idx) => (
-                                    <li key={idx} className="flex items-center space-x-4">
+                                    <li key={idx} className="flex items-center md:space-x-4 space-x-1">
                                         <img
                                             src={follower.photo}
                                             alt={follower.name}

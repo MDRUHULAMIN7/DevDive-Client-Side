@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion"; // Import Framer Motion
 
 const PreviewBlog = () => {
-  const [blogs] = UseBlogs();
+  const [blogs,isLoading] = UseBlogs();
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,8 +32,22 @@ const PreviewBlog = () => {
   const currentItems =
     blogs &&
     blogs?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+    if (isLoading) {
+      return (
+        <div className="flex justify-center items-center h-screen">
+          <div className="w-16 h-16 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      );
+    }
 
+    if(blogs.length === 0   ){
+      return (
+        <div className="text-center mt-10 text-3xl md:text-4xl text-gray-900 dark:text-gray-100">No blogs found.</div>
+      )
+    }
   return (
+
+
     <div className="h-full text-gray-900 dark:text-gray-100">
 
 <h2 className="text-2xl font-bold mb-4">All Blogs</h2>
@@ -86,7 +100,7 @@ const PreviewBlog = () => {
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
-          className="px-4 py-2 bg-blue-600 text-gray-900 dark:text-white rounded-md disabled:bg-gray-800"
+          className="px-4 py-2 bg-blue-600 disabled:text-white text-gray-900 dark:text-white rounded-md disabled:bg-gray-800"
         >
           Previous
         </button>
@@ -98,7 +112,7 @@ const PreviewBlog = () => {
             setCurrentPage((prev) => Math.min(prev + 1, totalPages))
           }
           disabled={currentPage === totalPages}
-          className="px-4 py-2  bg-blue-600 text-white rounded-md disabled:bg-gray-800"
+          className="px-4 py-2  bg-blue-600 text-white disabled:text-white rounded-md disabled:bg-gray-800"
         >
           Next
         </button>
@@ -162,7 +176,7 @@ const PreviewBlog = () => {
           </motion.div>
         </motion.div>
       )}
-    </div>
+    </div>  
   );
 };
 

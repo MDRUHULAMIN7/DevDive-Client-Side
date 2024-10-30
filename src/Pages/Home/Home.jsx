@@ -8,6 +8,8 @@ import { useState, useEffect } from 'react';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import SkeletonLoader from '../../Components/Ruhul/Card-Ruhul/SkeletonLoader';
 
+
+
 const Home = () => {
     const axiosPublic = useAxiosPublic();
     const [posts, setPosts] = useState([]);
@@ -78,6 +80,7 @@ const Home = () => {
                 </div>
 
                 <Chatbot />
+          
             </div>
         </div>
     );

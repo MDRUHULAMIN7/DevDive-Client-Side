@@ -35,6 +35,8 @@ const CardRuhul = () => {
   const [hasMore, setHasMore] = useState(true);
   // const [isLoading, setIsLoading] = useState(false);
   // const [reLoad, setReLoad] = useState(false);
+  const [data, isLoading, error] = useMyLikedPosts(user?.email);
+  console.log("Data from useMyLikedPosts:", data);
 
   const toggleDropdown = (id) => {
     setOpenDropdownId((prevId) => (prevId === id ? null : id));
@@ -42,7 +44,6 @@ const CardRuhul = () => {
 
   const fetchPosts = async () => {
     try {
-      // setIsLoading(true);
       const res = await axiosPublic.get(`/random-posts?page=${page}&limit=5`);
       const fetchedPosts = res.data;
       setPosts((prevPosts) => {
@@ -58,8 +59,6 @@ const CardRuhul = () => {
       }
     } catch (error) {
       console.error("Error fetching posts:", error);
-    } finally {
-      // setIsLoading(false);
     }
   };
 
@@ -67,28 +66,42 @@ const CardRuhul = () => {
     fetchPosts();
   }, []);
 
-  // console.log("User email before hook call:", user?.email);
-  const [data] = useMyLikedPosts(user?.email);
-  // console.log("Liked posts from hook:", data);
-
   useEffect(() => {
     let filteredPosts = posts;
+
     if (sortOption === "my-liked-posts") {
+      console.log("Sorting by liked posts");
+
+      if (data?.message === "No liked posts found.") {
+        console.log(data.message);
+        if (newPosts.length !== 0) setNewPosts([]); // Update only if not already empty
+        return;
+      }
+
       filteredPosts = data;
     } else if (sortOption === "my-commented-posts") {
       const commentedPostIds = comments
         .filter((comment) => comment?.userName === user?.displayName)
         .map((comment) => comment.contentId);
+
       filteredPosts = posts.filter((post) =>
         commentedPostIds.includes(post._id)
       );
     }
-    setNewPosts(filteredPosts);
-  }, [sortOption, posts, likes, comments, user,data]);
+
+    // Only update state if the filtered posts are different from the current state
+    if (JSON.stringify(filteredPosts) !== JSON.stringify(newPosts)) {
+      setNewPosts(filteredPosts);
+    }
+  }, [sortOption, posts, likes, comments, user, data, newPosts]);
+
 
   const handleChange = (event) => {
     setSortOption(event.target.value);
   };
+
+  if (isLoading) return <p>Loading liked posts...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <section>
@@ -113,6 +126,9 @@ const CardRuhul = () => {
         hasMore={hasMore} // Check if more posts are available
         loader={<SkeletonLoader value={"PostCard"} />} // Loading skeleton
       >
+        {newPosts.length === 0 && sortOption === "my-liked-posts" && (
+          <p className="flex text-2xl items-center justify-center">You Haven&apos;t liked any posts yet.</p>
+        )}
         {newPosts?.length > 0 &&
           newPosts?.map((data) => (
             <div

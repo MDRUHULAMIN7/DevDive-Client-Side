@@ -11,6 +11,7 @@ import { Helmet } from "react-helmet";
 
 import UseAuth from "../../../Hooks/UseAuth";
 import Switcher1 from "../../../Components/Fardus/Switcher1/Switcher1";
+import Logo from "../../../Components/Fardus/Logo/Logo";
 
 const UserProfile = () => {
   const { email } = useParams();
@@ -51,14 +52,9 @@ const UserProfile = () => {
         <div className="flex flex-col justify-between h-full">
           {/* Logo and Navigation */}
           <div>
-            <Link to="/" className="flex items-center mb-8">
-              <img
-                src="https://res.cloudinary.com/dpomtzref/image/upload/v1729491491/1000005962_n0vgih.png"
-                alt="logo"
-                className="h-8"
-              />
-              <h1 className="text-3xl text-gray-800 dark:text-gray-100">evDive</h1>
-            </Link>
+      <div className="mb-5">
+      <Logo></Logo>
+      </div>
 
             <nav className="space-y-5">
               <NavLink

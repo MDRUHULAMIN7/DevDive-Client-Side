@@ -4,7 +4,7 @@ import useAxiosPublic from "../useAxiosPublic";
 const useMyLikedPosts = (userEmail) => {
   const axiosPublic = useAxiosPublic();
 
-  // console.log("userEmail in hook:", userEmail); 
+  console.log("userEmail in hook:", userEmail);
 
   const {
     data = [],
@@ -19,12 +19,12 @@ const useMyLikedPosts = (userEmail) => {
       }
 
       const response = await axiosPublic.get(`/getMyLikedPosts/${userEmail}`);
-      console.log("Response from /getMyLikedPosts:", response.data); // Debug log
+      console.log("Response from /getMyLikedPosts:", response.data);
 
       return response.data;
     },
-    enabled: !!userEmail, // Run only if email is present
-    refetchOnWindowFocus: false, // Prevent unnecessary refetch
+    enabled: !!userEmail,
+    refetchOnWindowFocus: false,
   });
 
   return [data, isLoading, error, refetch];
