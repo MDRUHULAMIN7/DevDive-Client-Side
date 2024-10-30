@@ -7,7 +7,7 @@ import Footer from '../../../../Components/Ruhul/Footer';
 
 const AboutSection = () => {
   return (
-    <section className="relative text-gray-900  dark:text-gray-200 py-20 px-2 md:px-6 bg-gray-100 dark:bg-gray-900 ">
+    <section className="relative text-gray-900  dark:text-gray-200 py-10 px-2 md:px-6 bg-gray-100 dark:bg-gray-900 ">
       {/* Background Shapes */}
 
       <Helmet> <title>DevDive | About</title> </Helmet>

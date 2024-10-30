@@ -119,13 +119,13 @@ function AllPosts() {
         <section className='text-gray-800 dark:text-gray-100'>
             <div className="container mx-auto md:p-4 p-1">
                 <h2 className="text-2xl font-bold mb-4">Post List</h2>
-                <div className="overflow-x-auto rounded-lg">
+                <div className=" rounded-lg">
                     <table className="min-w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-md">
                         <thead>
                             <tr className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
                                 <th className="py-3 px-4 text-left">No.</th>
                                 <th className="py-3 px-4 text-left">Title</th>
-                                <th className="py-3 px-4 text-left">Reports</th>
+                       
                                 <th className="py-3 px-4 text-left">Details</th>
                                 <th className="py-3 px-4 text-left">Delete</th>
                             </tr>
@@ -137,10 +137,14 @@ function AllPosts() {
                                         key={post.id} 
                                         className="border-b py-5 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600"
                                     >
-                                        <td className="py-3 px-4">{indexOfFirstPost + index + 1}</td>
-                                        <td className="py-3 px-4">{post.title}</td>
-                                    
-                                        <td className="py-3 px-4  space-x-2">
+                                        <td className="py-3  px-4">{indexOfFirstPost + index + 1}</td>
+                                      {  <td className="py-3  px-4 md:hidden ">{post.title.slice(0,20)}...</td>
+                           
+                                    }
+                                      {  <td className="py-3 px-4 hidden md:flex">{post.title}</td>
+                           
+                                    }
+                                        <td className="py-3  px-4  space-x-2">
                                             <button 
                                                 onClick={() => openModal(post)} 
                                                 className="bg-blue-500 text-white px-2 py-1 rounded">
@@ -148,15 +152,8 @@ function AllPosts() {
                                             </button>
                                             
                                         </td>
-                                        <td className="py-3 px-4  space-x-2">
-                                            <button 
-                                                onClick={() => openModal(post)}
-                                                className="bg-blue-500 text-white px-2 py-1 rounded">
-                                                View
-                                            </button>
-                                            
-                                        </td>
-                                        <td className="py-3 px-4  space-x-2">
+                                  
+                                        <td className="py-3 px-4  md:space-x-2">
                                            
                                             <button  onClick={()=>handleDelete(post._id)} className="dark:text-red-500 px-2 py-1 rounded-full">
                                                 <FaTrash />
@@ -189,6 +186,8 @@ function AllPosts() {
 
                 {isModalOpen && <AllPostModal user={users.users.mainuser}  data={selectedPost} onClose={closeModal}></AllPostModal>} 
             </div>
+
+            
         </section>
     );
 }
