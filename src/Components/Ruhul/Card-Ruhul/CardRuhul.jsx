@@ -8,7 +8,7 @@ import { Pagination } from "swiper/modules";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import UseAuth from "../../../Hooks/UseAuth";
-import UseLikes from "../../../Hooks/UseLikes";
+// import UseLikes from "../../../Hooks/UseLikes";
 // import UseDisLikes from "../../../Hooks/UseDisLike";
 import UseAllComments from "../../../Hooks/adnan/UseAllComments";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
@@ -27,7 +27,7 @@ const CardRuhul = () => {
   const [posts, setPosts] = useState([]);
   const [newPosts, setNewPosts] = useState([]);
   const [openDropdownId, setOpenDropdownId] = useState(null);
-  const [likes] = UseLikes();
+  // const [likes] = UseLikes();
   // const [disLikes] = UseDisLikes();
   const [comments] = UseAllComments();
   const [sortOption, setSortOption] = useState("");
@@ -35,7 +35,7 @@ const CardRuhul = () => {
   const [hasMore, setHasMore] = useState(true);
   // const [isLoading, setIsLoading] = useState(false);
   // const [reLoad, setReLoad] = useState(false);
-  const [data, isLoading, error] = useMyLikedPosts(user?.email);
+  const [data, isLoading, error, refetch] = useMyLikedPosts(user?.email);
   console.log("Data from useMyLikedPosts:", data);
 
   const toggleDropdown = (id) => {
@@ -67,6 +67,12 @@ const CardRuhul = () => {
   }, []);
 
   useEffect(() => {
+    if (sortOption === "my-liked-posts") {
+      refetch();
+    }
+  }, [sortOption, refetch]);
+
+  useEffect(() => {
     let filteredPosts = posts;
 
     if (sortOption === "my-liked-posts") {
@@ -93,7 +99,7 @@ const CardRuhul = () => {
     if (JSON.stringify(filteredPosts) !== JSON.stringify(newPosts)) {
       setNewPosts(filteredPosts);
     }
-  }, [sortOption, posts, likes, comments, user, data, newPosts]);
+  }, [sortOption, posts, comments, user, data, newPosts]);
 
 
   const handleChange = (event) => {
@@ -127,7 +133,7 @@ const CardRuhul = () => {
         loader={<SkeletonLoader value={"PostCard"} />} // Loading skeleton
       >
         {newPosts.length === 0 && sortOption === "my-liked-posts" && (
-          <p className="flex text-2xl items-center justify-center">You Haven&apos;t liked any posts yet.</p>
+          <p className="flex text-2xl items-center justify-center h-1/2">You Haven&apos;t liked any posts yet.</p>
         )}
         {newPosts?.length > 0 &&
           newPosts?.map((data) => (
