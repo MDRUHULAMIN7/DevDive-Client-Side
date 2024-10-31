@@ -1,6 +1,6 @@
 import PostComponent from "../../../Components/Ruhul/Card-Ruhul/PostComponent";
 
-import { FaCommentAlt, FaShare } from "react-icons/fa";
+import { FaCommentAlt } from "react-icons/fa";
 import {  useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "swiper/css";
@@ -14,6 +14,7 @@ import PostActions from "../../../Components/Ruhul/Card-Ruhul/PostActions";
 import UserModal from "./UserModal";
 import { Helmet } from "react-helmet";
 import UseUserPost from "../../../Hooks/UseUserPost";
+import ShareButton from "../../../Components/Ruhul/Card-Ruhul/ShareButton";
 
 
 const UserPosts = () => {
@@ -65,13 +66,13 @@ const UserPosts = () => {
                   <PostComponent data={data} />
                 </div>
               </div>
-              <UserModal
+            { user.email === data?.userEmail &&  <UserModal
                 data={data}
                 refetch={refetch}
                 id={data._id}
                 isOpen={openDropdownId === data._id}
                 toggleDropdown={toggleDropdown}
-              />
+              />}
             </div>
 
             <h2 className="text-lg md:text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">
@@ -135,10 +136,7 @@ const UserPosts = () => {
                   <FaCommentAlt className="h-5 w-5" />
                   <span className="text-md">{data?.comments || 0}</span>
                 </Link>
-                <button className="flex items-center space-x-1 hover:text-gray-800">
-                  <FaShare className="h-5 w-5" />
-                  <span>Share</span>
-                </button>
+                <ShareButton data={data} ></ShareButton>
               </div>
             </div>
           </div>

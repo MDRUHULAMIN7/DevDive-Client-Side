@@ -24,6 +24,7 @@ const AllPayments = () => {
         const response = await axiosPublic.get(`/get-all-payments`);
 
         if (response.data) {
+          console.log(response.data)
           setAllData(response.data);
           setFilteredData(response.data);
         }

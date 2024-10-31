@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
+import { Helmet } from "react-helmet";
 
 const Bot2 = () => {
   const [chatHistory, setChatHistory] = useState([]);
@@ -69,7 +70,9 @@ const Bot2 = () => {
   return (
     <div className="bg-gradient-to-r h-[calc(100vh-56px)] from-blue-50 to-blue-100 dark:from-gray-800 dark:to-gray-900">
       <div className="h-full max-w-4xl mx-auto flex flex-col p-3">
-       
+       <Helmet>
+        <title>DevDive | DevAI</title>
+       </Helmet>
         <header className="text-center py-4">
           <a
             href="https://github.com/Vishesh-Pandey/chat-ai"

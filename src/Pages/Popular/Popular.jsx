@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet';
 import { useState, useEffect } from "react";
 import {
   FaCommentAlt,
-  FaShare,
+ 
 } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -20,6 +20,7 @@ import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import RecentPostCard from '../../Components/Fardus/RecentPostCard/RecentPostCard';
 import Chatbot from '../../Components/Ruhul/Cahtbot/Chatbot';
+import ShareButton from '../../Components/Ruhul/Card-Ruhul/ShareButton';
 
 const Popular = () => {
     const { user } = UseAuth();
@@ -195,10 +196,7 @@ const Popular = () => {
                                         <FaCommentAlt className="h-5 w-5" />
                                         <span className="text-md">{data?.comments || 0}</span>
                                     </Link>
-                                    <button className="flex items-center space-x-1 hover:text-gray-800">
-                                        <FaShare className="h-5 w-5" />
-                                        <span>Share</span>
-                                    </button>
+                                   <ShareButton data={data}></ShareButton>
                                 </div>
                             </div>
                         </div>

@@ -100,7 +100,7 @@ const CardRuhul = () => {
     setSortOption(event.target.value);
   };
 
-  if (isLoading) return <p>Loading liked posts...</p>;
+  if (isLoading) return <p> <SkeletonLoader value={'PostCard'} ></SkeletonLoader> </p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (
