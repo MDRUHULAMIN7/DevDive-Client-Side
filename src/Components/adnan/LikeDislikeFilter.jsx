@@ -2,16 +2,16 @@
 import React, { useEffect, useState } from "react";
 import UsePosts from "../../Hooks/UsePosts";
 import UseAuth from "../../Hooks/UseAuth";
-import UseLikes from "../../Hooks/UseLikes";
+// import UseLikes from "../../Hooks/UseLikes";
 import UseDisLikes from "../../Hooks/UseDisLike";
 import UseAllComments from "../../Hooks/adnan/UseAllComments";
 
 export default function LikeDislikeFilter  ({ setPosts }) {
-  const { user } = UseAuth(); 
+  const { user } = UseAuth();
   const [posts, refetch] = UsePosts();
-  const [likes] = UseLikes();
-  const [disLikes] = UseDisLikes(); 
-  const [comments] = UseAllComments(); 
+  // const [likes] = UseLikes();
+  const [disLikes] = UseDisLikes();
+  const [comments] = UseAllComments();
   const [sortOption, setSortOption] = useState("");
 
 
@@ -20,18 +20,18 @@ export default function LikeDislikeFilter  ({ setPosts }) {
     let filteredPosts = posts;
 
     if (sortOption === "my-liked-posts") {
-      const likedPostIds = likes
-        .filter(like => like?.email === user?.email)
-        .map(like => like.postId); 
+      // const likedPostIds = likes
+      //   .filter(like => like?.email === user?.email)
+      //   .map(like => like.postId);
 
 
-      filteredPosts = posts.filter(post => likedPostIds.includes(post._id));
-      console.log(filteredPosts);
-    } 
+      // filteredPosts = posts.filter(post => likedPostIds.includes(post._id));
+      // console.log(filteredPosts);
+    }
 
      else if (sortOption === "my-commented-posts") {
       const CommentedPostIds = comments
-        .filter(comment => comment?.userName === user?.displayName) 
+        .filter(comment => comment?.userName === user?.displayName)
         .map(comment => comment.contentId);
 
       filteredPosts = posts.filter(post => CommentedPostIds.includes(post._id));
