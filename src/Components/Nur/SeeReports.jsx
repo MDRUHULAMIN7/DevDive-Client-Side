@@ -79,14 +79,6 @@ const SeeReports = () => {
           <table className="min-w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-md">
             <thead>
               <tr className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
-<<<<<<< HEAD
-                <th className="py-3 px-4 text-left">No.</th>
-              
-                <th className="py-3 px-4 text-left">Report By</th>
-                <th className="py-3 px-4 text-left">Post Title</th>
-                <th className="py-3 px-4 text-left">Reason</th>
-                <th className="py-3 px-4 text-left">Delete</th>
-=======
                 <th className="py-3 px-1 md:px-4 text-left">No.</th>
                 <th className="py-3 px-1 md:px-4 text-left hidden lg:block">
                   Report By
@@ -94,7 +86,6 @@ const SeeReports = () => {
                 <th className="py-3 px-1 md:px-4 text-left">Post Title</th>
                 <th className="py-3 px-1 md:px-4 text-left">Reason</th>
                 <th className="py-3 px-1 md:px-4 text-left">Delete</th>
->>>>>>> a9fb678bef1cbe64939add123983284b0f019dab
               </tr>
             </thead>
             <tbody>
@@ -103,12 +94,7 @@ const SeeReports = () => {
                   <tr
                     key={index}
                     className="border-b py-5 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600">
-<<<<<<< HEAD
-                    <td className="py-3 px-4">{index + 1}</td>
-                  
-=======
                     <td className="py-3 px-1 md:px-4">{index + 1}</td>
->>>>>>> a9fb678bef1cbe64939add123983284b0f019dab
                     <Link
                       to={`/users/${singlePostData.reportBy.email}/profile`}
                       className="cursor-pointer px-1 md:px-4 items-center hidden lg:flex">
@@ -128,17 +114,10 @@ const SeeReports = () => {
                     </Link>
                     <td
                       onClick={() => openModal(singlePostData)}
-<<<<<<< HEAD
-                      className="py-3 px-4 hover:cursor-pointer">
-                      {singlePostData.title}
-                    </td>
-                    <td className="py-3 px-4 hover:cursor-pointer">
-=======
                       className="py-3 px-1 md:px-4 hover:cursor-pointer">
                       {singlePostData.title}
                     </td>
                     <td className="py-3 px-1 md:px-4 hover:cursor-pointer">
->>>>>>> a9fb678bef1cbe64939add123983284b0f019dab
                       {singlePostData.reportBy.reportReason}
                     </td>
                     <td className="py-3 px-1 md:px-4  space-x-2">
