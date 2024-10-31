@@ -20,55 +20,54 @@ const SeeReports = () => {
     setIsModalOpen(false);
   };
 
-      const handleDelete = async (id) => {
-        Swal.fire({
-          title:
-            "<span class='text-blue-400 text-xl md:text-2xl'>Are you sure to delete this report?</span>",
-          html: "<span class='text-gray-600 dark:text-white text-base'>You won't be able to revert this!</span>",
-          icon: "warning",
-          background: "bg-white dark:bg-gray-800",
-          showCancelButton: true,
-          confirmButtonText: "Yes, delete it!",
-          cancelButtonText: "No, keep it!",
-          buttonsStyling: false,
-          customClass: {
-            confirmButton:
-              "inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out",
-            cancelButton:
-              "inline-block bg-red-500 text-white font-bold py-2 px-4 rounded-lg ml-2 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300 transition duration-300 ease-in-out",
-            popup: "rounded-lg p-6 dark:bg-gray-800 bg-white",
-          },
-        }).then(async (result) => {
-          if (result.isConfirmed) {
-            if (id) {
-              await axiosPublic
-                .delete(`/adminDeleteReport/${id}`)
-                .then((res) => {
-                  if (res.data.deletedCount > 0) {
-                    refetch();
-                    Swal.fire({
-                      title:
-                        "<span class='text-blue-400 text-2xl'>Deleted!</span>",
-                      html: "<span class='text-gray-600 dark:white text-base'>Your Post  has been deleted.</span>",
-                      icon: "success",
-                      background: "bg-white dark:bg-gray-800",
-                      confirmButtonText: "OK",
-                      buttonsStyling: false,
-                      customClass: {
-                        confirmButton:
-                          "inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out",
-                      },
-                    });
-                  }
-                })
-                .catch((err) => {
-                  refetch();
-                  toast.error(err);
+  const handleDelete = async (id) => {
+    Swal.fire({
+      title:
+        "<span class='text-blue-400 text-xl md:text-2xl'>Are you sure to delete this report?</span>",
+      html: "<span class='text-gray-600 dark:text-white text-base'>You won't be able to revert this!</span>",
+      icon: "warning",
+      background: "bg-white dark:bg-gray-800",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, keep it!",
+      buttonsStyling: false,
+      customClass: {
+        confirmButton:
+          "inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out",
+        cancelButton:
+          "inline-block bg-red-500 text-white font-bold py-2 px-4 rounded-lg ml-2 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300 transition duration-300 ease-in-out",
+        popup: "rounded-lg p-6 dark:bg-gray-800 bg-white",
+      },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        if (id) {
+          await axiosPublic
+            .delete(`/adminDeleteReport/${id}`)
+            .then((res) => {
+              if (res.data.deletedCount > 0) {
+                refetch();
+                Swal.fire({
+                  title: "<span class='text-blue-400 text-2xl'>Deleted!</span>",
+                  html: "<span class='text-gray-600 dark:white text-base'>Your Post  has been deleted.</span>",
+                  icon: "success",
+                  background: "bg-white dark:bg-gray-800",
+                  confirmButtonText: "OK",
+                  buttonsStyling: false,
+                  customClass: {
+                    confirmButton:
+                      "inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out",
+                  },
                 });
-            }
-          }
-        });
-      };
+              }
+            })
+            .catch((err) => {
+              refetch();
+              toast.error(err);
+            });
+        }
+      }
+    });
+  };
 
   console.log(data);
 
@@ -80,12 +79,22 @@ const SeeReports = () => {
           <table className="min-w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-md">
             <thead>
               <tr className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+<<<<<<< HEAD
                 <th className="py-3 px-4 text-left">No.</th>
               
                 <th className="py-3 px-4 text-left">Report By</th>
                 <th className="py-3 px-4 text-left">Post Title</th>
                 <th className="py-3 px-4 text-left">Reason</th>
                 <th className="py-3 px-4 text-left">Delete</th>
+=======
+                <th className="py-3 px-1 md:px-4 text-left">No.</th>
+                <th className="py-3 px-1 md:px-4 text-left hidden lg:block">
+                  Report By
+                </th>
+                <th className="py-3 px-1 md:px-4 text-left">Post Title</th>
+                <th className="py-3 px-1 md:px-4 text-left">Reason</th>
+                <th className="py-3 px-1 md:px-4 text-left">Delete</th>
+>>>>>>> a9fb678bef1cbe64939add123983284b0f019dab
               </tr>
             </thead>
             <tbody>
@@ -94,34 +103,45 @@ const SeeReports = () => {
                   <tr
                     key={index}
                     className="border-b py-5 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600">
+<<<<<<< HEAD
                     <td className="py-3 px-4">{index + 1}</td>
                   
+=======
+                    <td className="py-3 px-1 md:px-4">{index + 1}</td>
+>>>>>>> a9fb678bef1cbe64939add123983284b0f019dab
                     <Link
                       to={`/users/${singlePostData.reportBy.email}/profile`}
-                      className="cursor-pointer px-4 flex items-center">
+                      className="cursor-pointer px-1 md:px-4 items-center hidden lg:flex">
                       <img
                         src={singlePostData?.reportBy?.photoURL}
                         alt={singlePostData?.reportBy?.name || "User"}
                         className="w-10 h-10 rounded-full object-cover border"
                       />
                       <div className="flex flex-col">
-                        <span className="pt-3 px-4 text-left">
+                        <span className="pt-3 px-1 md:px-4 text-left">
                           {singlePostData.reportBy.name}
                         </span>
-                        <span className="pb-3 px-4 text-left">
+                        <span className="pb-3 px-1 md:px-4 text-left">
                           ({singlePostData.reportBy.email})
                         </span>
                       </div>
                     </Link>
                     <td
                       onClick={() => openModal(singlePostData)}
+<<<<<<< HEAD
                       className="py-3 px-4 hover:cursor-pointer">
                       {singlePostData.title}
                     </td>
                     <td className="py-3 px-4 hover:cursor-pointer">
+=======
+                      className="py-3 px-1 md:px-4 hover:cursor-pointer">
+                      {singlePostData.title}
+                    </td>
+                    <td className="py-3 px-1 md:px-4 hover:cursor-pointer">
+>>>>>>> a9fb678bef1cbe64939add123983284b0f019dab
                       {singlePostData.reportBy.reportReason}
                     </td>
-                    <td className="py-3 px-4  space-x-2">
+                    <td className="py-3 px-1 md:px-4  space-x-2">
                       <button
                         onClick={() => handleDelete(singlePostData._id)}
                         className="text-red-500 px-2 py-1 rounded-full">
