@@ -80,7 +80,7 @@ const SeeReports = () => {
             <thead>
               <tr className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
                 <th className="py-3 px-1 md:px-4 text-left">No.</th>
-                <th className="py-3 px-1 md:px-4 text-left hidden md:block">
+                <th className="py-3 px-1 md:px-4 text-left hidden lg:block">
                   Report By
                 </th>
                 <th className="py-3 px-1 md:px-4 text-left">Post Title</th>
@@ -97,7 +97,7 @@ const SeeReports = () => {
                     <td className="py-3 px-1 md:px-4">{index + 1}</td>
                     <Link
                       to={`/users/${singlePostData.reportBy.email}/profile`}
-                      className="cursor-pointer px-1 md:px-4 items-center hidden md:flex">
+                      className="cursor-pointer px-1 md:px-4 items-center hidden lg:flex">
                       <img
                         src={singlePostData?.reportBy?.photoURL}
                         alt={singlePostData?.reportBy?.name || "User"}
