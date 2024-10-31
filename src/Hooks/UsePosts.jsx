@@ -21,7 +21,6 @@ const UsePosts = () => {
   });
 
 
-console.log(posts);
 
 
   return [posts, isLoading, refetch];

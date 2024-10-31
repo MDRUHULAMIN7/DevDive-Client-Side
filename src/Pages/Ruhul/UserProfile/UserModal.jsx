@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { BiEdit } from "react-icons/bi";
+
 import { MdDelete } from "react-icons/md";
 
 import Swal from "sweetalert2";
@@ -64,7 +64,7 @@ const UserModal=({refetch,data,toggleDropdown,isOpen})=>{
       }
     return (
         <div className="relative">
-         <div className=" flex items-center gap-2">
+         <div className="text-gray-900 dark:text-gray-100 flex items-center gap-2">
             <BsThreeDots
               onClick={()=>toggleDropdown(data._id) }
               className="cursor-pointer"
@@ -73,14 +73,14 @@ const UserModal=({refetch,data,toggleDropdown,isOpen})=>{
           </div>
       {    
 isOpen &&
-        <div className="absolute right-0 mt-4 w-32 bg-white dark:bg-gray-800 rounded-xl shadow-lg z-10">
+        <div className="absolute right-0 mt-4 w-32 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-xl shadow-lg z-10">
         <ul className="flex-col py-2 justify-center">
 
-          <button to={''}  className="px-4 py-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-900   cursor-pointer flex justify-start items-center gap-1">
+          {/* <button to={''}  className="px-4 py-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-900   cursor-pointer flex justify-start items-center gap-1">
             <BiEdit /> Edit
-          </button>
-          <button onClick={()=>handleDelete(data._id)} className="px-4 rounded-xl py-2 justify-center  hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer flex items-center gap-1">
-            <MdDelete /> Delete
+          </button> */}
+          <button onClick={()=>handleDelete(data._id)} className="px-4 rounded-xl py-2 justify-center text-gray-900 dark:text-gray-100  hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer flex items-center gap-1">
+            <MdDelete   /> Delete
           </button>
 
         </ul>

@@ -9,7 +9,7 @@ const UseRuhulLikes = (userId,postId) => {
 
   const { data: likeInfo = [0], isLoading, refetch:likeRefetch } = useQuery({
     queryKey: ["likesInfo",postId],  
-    enabled: !!postId,  
+    enabled: !!postId || !!userId,  
     queryFn: async () => {
       const res = await axiosPublic.get(`/is-liked/${userId}/${postId}`);
       // console.log("response from use ruhul like",res.data);

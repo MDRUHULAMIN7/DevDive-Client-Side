@@ -8,6 +8,8 @@ import { useState, useEffect } from 'react';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import SkeletonLoader from '../../Components/Ruhul/Card-Ruhul/SkeletonLoader';
 
+
+
 const Home = () => {
     const axiosPublic = useAxiosPublic();
     const [posts, setPosts] = useState([]);
@@ -18,7 +20,6 @@ const Home = () => {
 
     // Fetch posts from API in batches
     const fetchPosts = async () => {
-        console.log("Fetching posts..."); // Debug log
         try {
             const res = await axiosPublic.get(`/main-posts?page=${page}&limit=5`);
             const newPosts = res.data;
@@ -52,8 +53,8 @@ const Home = () => {
             </Helmet>
             <Slider />
 
-            <div className="flex justify-between mx-auto mt-5">
-                <div className="lg:w-[68%] max-w-full space-y-5">
+            <div className="flex justify-between lg:mx-auto mt-5 ">
+                <div className="lg:w-[68%] w-full space-y-5">
                     <CardRuhul />
                 </div>
 
@@ -79,6 +80,7 @@ const Home = () => {
                 </div>
 
                 <Chatbot />
+          
             </div>
         </div>
     );

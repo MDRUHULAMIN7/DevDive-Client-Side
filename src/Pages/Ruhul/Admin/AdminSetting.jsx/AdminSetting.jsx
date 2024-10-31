@@ -2,20 +2,25 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 
 import { AiOutlineBars } from "react-icons/ai";
 
-import { FaUsers } from "react-icons/fa";
-import { MdOutlineDarkMode, MdOutlinePostAdd } from "react-icons/md";
+import { FaChalkboardTeacher, FaRegFlag, FaUsers } from "react-icons/fa";
+import {  MdOutlineDarkMode, MdOutlinePayments, MdOutlinePostAdd } from "react-icons/md";
 import { Helmet } from "react-helmet";
 import { useState } from "react";
 import { RiUserFollowLine } from "react-icons/ri";
 import { TfiWrite } from "react-icons/tfi";
-import Switcher1 from "../../../../Components/Fardus/Switcher1/Switcher1";
 
+
+import Switcher1 from "../../../../Components/Fardus/Switcher1/Switcher1";
+import Logo from "../../../../Components/Fardus/Logo/Logo";
 const AdminSetting = () => {
   const [isActive, setActive] = useState(false);
-  // Sidebar Responsive Handler
+
   const handleToggle = () => {
     setActive(!isActive);
   };
+
+
+
   return (
     <section className="min-h-screen flex bg-gray-100 dark:bg-gray-900">
       {/* Sidebar */}
@@ -24,22 +29,14 @@ const AdminSetting = () => {
         <title>DevDive | AdminSetting</title>
       </Helmet>
       <div
-        className={`fixed top-0 left-0 h-full bg-white  border-r dark:bg-gray-900 w-64 p-5 shadow-md transform ${
+        className={`fixed top-0 left-0 h-full bg-white  border-r dark:bg-gray-900 w-64 md:p-5 p-1 shadow-md transform ${
           isActive ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 transition-transform duration-300 ease-in-out z-40`}>
         <div className="flex flex-col justify-between h-full">
-          {/* Logo and Navigation */}
           <div>
-            <Link to="/" className="flex items-center  mb-8">
-              <img
-                src="https://res.cloudinary.com/dpomtzref/image/upload/v1729491491/1000005962_n0vgih.png"
-                alt="logo"
-                className="h-8"
-              />
-              <h1 className="text-3xl text-gray-800 dark:text-gray-100">
-                evDive
-              </h1>
-            </Link>
+            <div className="mb-5">
+              <Logo></Logo>
+            </div>
 
             <nav className="space-y-5">
               {/* ManageUSers */}
@@ -57,6 +54,19 @@ const AdminSetting = () => {
                 }>
                 <FaUsers className="text-lg" />
                 <span className="mx-3 font-medium text-xs">ManageUsers</span>
+              </NavLink>
+              <NavLink
+                to={`/admin/settings/manage-mentors`}
+                onClick={handleToggle}
+                className={({ isActive }) =>
+                  `text-gray-800 dark:text-gray-100 flex items-center px-4 py-2 rounded-md hover:bg-pm-color hover:text-white ${
+                    isActive ? "bg-pm-color text-white" : ""
+                  }`
+                }>
+                <FaChalkboardTeacher className="text-lg" />
+                <span className="mx-3 font-medium text-xs">
+                  Approved Mentors
+                </span>
               </NavLink>
 
               {/* AllPosts */}
@@ -100,6 +110,17 @@ const AdminSetting = () => {
               {/* All blog*/}
 
               <NavLink
+                to={`/admin/settings/allpayments`}
+                onClick={handleToggle}
+                className={({ isActive }) =>
+                  `text-gray-800 dark:text-gray-100 flex items-center px-4 py-2 rounded-md hover:bg-pm-color hover:text-white ${
+                    isActive ? "bg-pm-color text-white" : ""
+                  }`
+                }>
+                <MdOutlinePayments className="text-md" />
+                <span className="mx-3 font-medium text-xs">All Payments</span>
+              </NavLink>
+              <NavLink
                 to={`/admin/settings/allBlogs`}
                 onClick={handleToggle}
                 className={({ isActive }) =>
@@ -110,24 +131,33 @@ const AdminSetting = () => {
                 <TfiWrite className="text-md" />
                 <span className="mx-3 font-medium text-xs">All Blogs</span>
               </NavLink>
+              <NavLink
+                to={`/admin/settings/reports`}
+                onClick={handleToggle}
+                className={({ isActive }) =>
+                  `text-gray-800 dark:text-gray-100 flex items-center px-4 py-2 rounded-md hover:bg-pm-color hover:text-white ${
+                    isActive ? "bg-pm-color text-white" : ""
+                  }`
+                }>
+                <FaRegFlag className="text-md" />
+                <span className="mx-3 font-medium text-xs">See Reports</span>
+              </NavLink>
             </nav>
             <hr className="my-8" />
+          </div>
 
-            <div className="flex items-end h-full ">
-              <div className="flex justify-between w-full lg:px-1 px-2 py-3    items-center gap-1 sm:text-sm text-xs dark:text-white">
-                <span className="flex items-center gap-1 text-gray-900 dark:text-gray-100">
-                  <MdOutlineDarkMode className="text-2xl" />
-                </span>
-                <span>Dark Mode</span>
-                <Switcher1></Switcher1>
-              </div>
+          <div className="flex items-center justify-between px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded-md  transition-all duration-300">
+            <div className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
+              <MdOutlineDarkMode className="text-xl" />
+              <span className="text-sm font-medium">Dark Mode</span>
             </div>
+            <Switcher1 />
           </div>
         </div>
       </div>
 
       {/* Mobile Navbar */}
-      <div className="lg:hidden fixed top-0 left-0 w-full flex justify-between items-center bg-gray-100 dark:bg-gray-900 p-4 shadow-md z-30">
+      <div className="lg:hidden fixed top-0 left-0 w-full flex justify-between items-center bg-gray-100 dark:bg-gray-900 p-1 md:p-4 shadow-md z-30">
         <Link to="/" className="flex items-center ">
           <img
             src="https://res.cloudinary.com/dpomtzref/image/upload/v1729491491/1000005962_n0vgih.png"
@@ -145,7 +175,7 @@ const AdminSetting = () => {
       <div
         className={`flex-1 min-h-screen transition-all duration-300 ${
           isActive ? "opacity-100" : "opacity-100"
-        } md:ml-64 p-5`}>
+        } md:ml-64 md:p-5`}>
         <Outlet />
       </div>
 
