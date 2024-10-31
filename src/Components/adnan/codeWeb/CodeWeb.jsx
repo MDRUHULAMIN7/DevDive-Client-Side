@@ -61,7 +61,7 @@ const CodeWeb = () => {
               className="text-xl border-gray-700 border"
               value={css_edit}
               height="342px"
-              theme="dark"
+              theme="none"
               extensions={[css(true)]}
               onChange={onChangeCss}
             />

@@ -170,12 +170,11 @@ console.log(id);
           />
         }
           {/* new */}
-          {
-              data.poll &&  <div className="text-gray-700 dark:text-gray-300 ">
-
-              <PollData data={data}></PollData>
-              </div>
-            }
+          {data?.poll?.length > 0 && (
+                <div className="text-gray-700 dark:text-gray-300">
+                  <PollData pollPost={data}></PollData>
+                </div>
+              )}
           
 
           <div className="flex my-5 flex-wrap gap-5 items-center text-gray-500 dark:text-gray-400 text-sm">

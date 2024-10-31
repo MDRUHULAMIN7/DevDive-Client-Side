@@ -81,8 +81,9 @@ const SeeReports = () => {
             <thead>
               <tr className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
                 <th className="py-3 px-4 text-left">No.</th>
-                <th className="py-3 px-4 text-left">Post Title</th>
+              
                 <th className="py-3 px-4 text-left">Report By</th>
+                <th className="py-3 px-4 text-left">Post Title</th>
                 <th className="py-3 px-4 text-left">Reason</th>
                 <th className="py-3 px-4 text-left">Delete</th>
               </tr>
@@ -94,11 +95,7 @@ const SeeReports = () => {
                     key={index}
                     className="border-b py-5 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600">
                     <td className="py-3 px-4">{index + 1}</td>
-                    <td
-                      onClick={() => openModal(singlePostData)}
-                      className="py-3 px-4 hover:cursor-pointer">
-                      {singlePostData.title}
-                    </td>
+                  
                     <Link
                       to={`/users/${singlePostData.reportBy.email}/profile`}
                       className="cursor-pointer px-4 flex items-center">
@@ -116,6 +113,11 @@ const SeeReports = () => {
                         </span>
                       </div>
                     </Link>
+                    <td
+                      onClick={() => openModal(singlePostData)}
+                      className="py-3 px-4 hover:cursor-pointer">
+                      {singlePostData.title}
+                    </td>
                     <td className="py-3 px-4 hover:cursor-pointer">
                       {singlePostData.reportBy.reportReason}
                     </td>

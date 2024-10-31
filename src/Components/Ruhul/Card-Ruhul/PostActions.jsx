@@ -8,6 +8,8 @@ import { fetchUsers } from "../../../Features/Users/UsersSlices";
 import UseRuhulLikes from "../../../Hooks/UseRuhulLikes";
 import UseRuhuldisLikes from "../../../Hooks/UseRuhuldislike";
 import { useEffect, useState } from "react";
+import UseTrue from "../../../Hooks/UseTrue";
+
 
 export default function PostActions({ data, user }) {
 //  console.log(data, user);
@@ -24,19 +26,12 @@ export default function PostActions({ data, user }) {
   }, [dispatch, user?.email]);
   const userId = users?.users.mainuser?._id
   const postId = data._id
-
   const [likeInfo,isLoading,likeRefetch]=UseRuhulLikes(userId,postId)
   const [ dislikesInfo,,dislikeRefetch]=UseRuhuldisLikes(userId,postId)
   
 const [likeInfo2,setLikeInfo2]=useState(likeInfo)
 
-
-  if(userId) {
-    console.log(likeInfo,'likesInfo')
-    console.log(dislikesInfo,'dislikesInfo')
-    console.log(likeInfo2,'likesInfo2')
-  }
-
+const [ TrueInfo,,likeTrueRefetch] = UseTrue(data?._id)
 
   const handleLike = async (postId) => {
     console.log(postId);
@@ -47,6 +42,7 @@ const [likeInfo2,setLikeInfo2]=useState(likeInfo)
     .then((res)=>{
       console.log(res);
       likeRefetch()
+      likeTrueRefetch()
       dislikeRefetch()
 
     })
@@ -65,6 +61,7 @@ const [likeInfo2,setLikeInfo2]=useState(likeInfo)
     axiosPublic.post(`/dislike-ruhul/${userId}`,{postId})
     .then((res)=>{
       likeRefetch()
+      likeTrueRefetch()
       dislikeRefetch()
       console.log(res.data);
 
@@ -83,19 +80,24 @@ const [likeInfo2,setLikeInfo2]=useState(likeInfo)
   },[     likeRefetch,
     dislikeRefetch,likeInfo])
 
+
+
   return (
     <div className="flex space-x-4">
       <LikeButton
          likeRefetch={  likeRefetch}
         likeInfo={likeInfo2}
-        data={data}
+        data={ TrueInfo}
+        userId={userId}
         isLoading={isLoading}
         handleLike={() => handleLike(data._id)}
       />
       <DisLikeButton
 
-        data={data}
+        
         dislikesInfo={dislikesInfo}
+        data={ TrueInfo}
+        userId={userId}
         isLoading={isLoading}
         handleDislike={() => handleDislike( data._id)}
       />
