@@ -7,7 +7,8 @@ import { Helmet } from "react-helmet";
 import Swal from "sweetalert2";
 import { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
-
+import { MdOutlinePayment } from "react-icons/md";
+import { CgCalendarDates } from "react-icons/cg";
 const PaymentHistory = () => {
   const { email } = useParams();
   const [payments, paymentRefetch] = usePayments(email);
@@ -81,99 +82,113 @@ const PaymentHistory = () => {
         </button>
       </div>
       <p className="text-sm text-gray-700 dark:text-gray-300">Date: {formatDate(payment.date)}</p>
-      <p className="text-sm text-gray-700 dark:text-gray-300">Transaction ID: {payment.tran_id}</p>
-      <p className="text-sm text-gray-700 dark:text-gray-300 flex  items-center">Amount: {payment.amount} <FaBangladeshiTakaSign /></p>
+      <p className="text-sm text-gray-700 dark:text-gray-300">  Transaction ID: {payment.tran_id}</p>
+      <p className="text-sm text-gray-700 dark:text-gray-300 flex  items-center">Amount: {payment.amount}</p>
     </div>
   );
 
   return (
     <section className="max-w-6xl mx-auto md:p-4 mt-20 md:mt-5">
-      <Helmet>
-        <title>DevDive | PaymentHistory</title>
-      </Helmet>
-      <h1 className="text-2xl text-gray-900 dark:text-white my-4">Payment History</h1>
-
-      <label className="relative block w-full md:w-1/2 lg:w-1/3 mb-4">
-  <span className="absolute inset-y-0 left-3 flex items-center text-gray-500 dark:text-gray-400">
-    <FaSearch />
-  </span>
-  <input
-    type="text"
-    placeholder="Search by Transaction ID, Date, or Amount"
-    value={searchQuery}
-    onChange={(e) => setSearchQuery(e.target.value)}
-    className="w-full pl-10 p-2 border bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-700 rounded-lg"
-  />
-</label>
-      {filteredPayments?.length === 0 ? (
-        <div className="text-2xl text-center text-gray-900 dark:text-white mt-10">
-          No matching payment history found.
+    <Helmet>
+      <title>DevDive | PaymentHistory</title>
+    </Helmet>
+    <h1 className="text-3xl font-semibold text-gray-800 dark:text-white my-6">
+      Payment History
+    </h1>
+  
+    <label className="relative block w-full md:w-1/2 lg:w-1/3 mb-6">
+      <span className="absolute inset-y-0 left-3 flex items-center text-gray-500 dark:text-gray-400">
+        <FaSearch />
+      </span>
+      <input
+        type="text"
+        placeholder="Search by Transaction ID, Date, or Amount"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="w-full pl-10 p-3 border bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-100 border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
+      />
+    </label>
+  
+    {filteredPayments?.length === 0 ? (
+      <div className="text-2xl text-center text-gray-700 dark:text-gray-200 mt-10">
+        No matching payment history found.
+      </div>
+    ) : (
+      <>
+        {/* Mobile View */}
+        <div className="md:hidden">
+          {currentPayments?.map((payment, index) => (
+            <PaymentCard key={payment._id} payment={payment} index={index + startIndex} />
+          ))}
         </div>
-      ) : (
-        <>
-          
-          <div className="md:hidden">
-            {currentPayments?.map((payment, index) => (
-              <PaymentCard key={payment._id} payment={payment} index={index + startIndex} />
-            ))}
-          </div>
-
-          <div className="hidden md:block overflow-x-auto">
-            <table className="min-w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-md">
-              <thead>
-                <tr className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
-                  <th className="py-3 px-4 text-left">No.</th>
-                  <th className="py-3 px-4 text-left">Date</th>
-                  <th className="py-3 px-4 text-left">Transaction ID</th>
-                  <th className="py-3 px-4 text-left">Amount</th>
-                  <th className="py-3 px-4 text-left">Delete</th>
+  
+        {/* Desktop Table View */}
+        <div className="hidden md:block overflow-x-auto">
+          <table className="min-w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg">
+            <thead>
+              <tr className="bg-pm-color  text-gray-900 dark:text-gray-100">
+                <th className="py-3 px-5 text-left">No.</th>
+                <th className="py-3 px-5  text-left"> <div className="flex items-center">
+                <CgCalendarDates className="text-base" /> Date</div></th>
+                <th className="py-3 px-5 text-left flex items-center gap-x-1">
+                  <MdOutlinePayment className="text-lg" /> Transaction ID
+                </th>
+                <th className="py-3 px-5 text-left  ">
+              <div className=" gap-x-1 flex items-center">
+              <p><FaBangladeshiTakaSign className="" /></p>  <p> Amount</p>
+              </div>
+                </th>
+                <th className="py-3  px-5 text-left">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentPayments?.map((payment, index) => (
+                <tr
+                  key={payment._id}
+                  className="border-b border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
+                >
+                  <td className="py-3 px-5">{index + 1 + startIndex}</td>
+                  <td className="py-3 px-5">{formatDate(payment.date)}</td>
+                  <td title={payment.tran_id} className="py-3 px-5">
+                    {payment.tran_id}
+                  </td>
+                  <td className="py-3 px-5 gap-1">
+                    {payment.amount} 
+                  </td>
+                  <td className="py-3 px-5">
+                    <button onClick={() => handleDelete(payment._id)}>
+                      <FaTrash className="text-red-500 hover:text-red-600 transition-all" />
+                    </button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {currentPayments?.map((payment, index) => (
-                  <tr
-                    key={payment._id}
-                    className="border-b py-5 border-gray-300 text-gray-900 dark:text-white dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600"
-                  >
-                    <td className="py-3 px-4">{index + 1 + startIndex}</td>
-                    <td className="py-3 px-4">{formatDate(payment.date)}</td>
-                    <td title={payment.tran_id} className="py-3 px-4 space-x-2">
-                      {payment.tran_id}
-                    </td>
-                    <td className="py-3 px-4 space-x-1 flex  items-center">{payment.amount} <FaBangladeshiTakaSign /></td>
-                    <td className="py-3 px-4 space-x-2">
-                      <button onClick={() => handleDelete(payment._id)}>
-                        <FaTrash className="text-red-500" />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+              ))}
+            </tbody>
+          </table>
+        </div>
+  
+        {/* Pagination */}
+        {filteredPayments?.length > 10 && (
+          <div className="flex justify-center mt-8 space-x-4">
+            <button
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all disabled:opacity-50"
+            >
+              Previous
+            </button>
+            <button
+              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all disabled:opacity-50"
+            >
+              Next
+            </button>
           </div>
-
-          {/* pagination */}
-          {filteredPayments?.length > 10 && (
-            <div className="flex justify-center mt-6 space-x-2">
-              <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-                className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
-              >
-                Previous
-              </button>
-              <button
-                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                disabled={currentPage === totalPages}
-                className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
-              >
-                Next
-              </button>
-            </div>
-          )}
-        </>
-      )}
-    </section>
+        )}
+      </>
+    )}
+  </section>
+  
   );
 };
 
