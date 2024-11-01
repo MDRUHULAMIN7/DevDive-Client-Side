@@ -100,19 +100,24 @@ const ChatArea = ({ selectedUser}) => {
       </div>
 
       {/* Input Section */}
-      <form className="flex items-center gap-x-2 ml-8 lg:ml-0" onSubmit={handleMessage}>
-        <input
-          name="message"
-          className="flex-grow px-3 py-2 rounded-xl bg-gray-200 dark:bg-gray-800 border border-gray-500"
-          type="text"
-          placeholder="Type your message"
-        />
-        <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition"
-          type="submit">
-          Send
-        </button>
-      </form>
+      <form
+  className="flex items-center gap-x-2 ml-8 lg:ml-0"
+  onSubmit={handleMessage}
+>
+  <input
+    name="message"
+    className="flex-grow px-3 py-2 rounded-xl placeholder:text-gray-800 dark:placeholder:text-gray-300 bg-gray-200 dark:bg-gray-800 border border-gray-300 dark:border-gray-600  dark:focus:outline-none focus:outline-none dark:focus:ring-1 focus:ring-1 dark:focus:ring-blue-500 focus:ring-blue-900 transition-all"
+    type="text"
+    placeholder="Type your message"
+  />
+  <button
+    className="px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition"
+    type="submit"
+  >
+    Send
+  </button>
+</form>
+
     </section>
   );
 };
