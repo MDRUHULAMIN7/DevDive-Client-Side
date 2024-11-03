@@ -102,6 +102,13 @@ const Followers = () => {
             </div>
         );
     }
+    if (followersData.length === 0) {
+        return (
+            <div className="text-center">
+                <p>No Followers</p>
+            </div>
+        );
+    }
 
     return (
         <section className="p-6">

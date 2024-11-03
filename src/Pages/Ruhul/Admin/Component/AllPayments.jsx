@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { axiosPublic } from "../../../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 import UseAuth from "../../../../Hooks/UseAuth";
-import { FaBangladeshiTakaSign } from "react-icons/fa6";
+import { FaBangladeshiTakaSign, FaTrash } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import { Helmet } from "react-helmet";
+import Swal from "sweetalert2";
 
 const AllPayments = () => {
   const [alldata, setAllData] = useState([]);
@@ -17,14 +18,14 @@ const AllPayments = () => {
   const itemsPerPage = 10;
 
 
+  const [fetchTrigger, setFetchTrigger] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
         const response = await axiosPublic.get(`/get-all-payments`);
-
         if (response.data) {
-          console.log(response.data)
           setAllData(response.data);
           setFilteredData(response.data);
         }
@@ -34,12 +35,41 @@ const AllPayments = () => {
         setLoading(false);
       }
     };
-
+  
     if (user?.email) {
       fetchData();
     }
-  }, [user.email]);
-
+  }, [user.email, fetchTrigger]);  // Add fetchTrigger as dependency
+  
+  const handleDelete = (id) => {
+    if (!id) return;
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosPublic.delete(`/payments-history-delete/${id}`)
+          .then((response) => {
+            if (response.data.deletedCount > 0) {
+              toast.success('Payment history deleted successfully');
+              setFetchTrigger(prev => !prev); // Toggle fetchTrigger to refetch data
+            }
+          })
+          .catch((error) => {
+            toast.error(`Error deleting payment history: ${error.message}`);
+          });
+      } else {
+        toast.info('Action cancelled');
+      }
+    });
+  };
+  
   // Handle Search
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
@@ -106,13 +136,14 @@ const AllPayments = () => {
             <div className="overflow-x-auto">
               <table className="min-w-full bg-white dark:bg-gray-800">
                 <thead>
-                  <tr className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                  <tr className="bg-pm-color  text-gray-900 dark:text-gray-100">
                     <th className="p-4 text-left">No.</th>
                     <th className="p-4 text-left">Name</th>
                     <th className="p-4 text-left">Date</th>
                     <th className="p-4 text-left">Amount</th>
                     <th className="p-4 text-left">Phone</th>
                     <th className="p-4 text-left">Transaction ID</th>
+                    <th className="p-4 text-left">Delete</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -143,6 +174,11 @@ const AllPayments = () => {
                       <td className="p-4 font-semibold text-gray-900 dark:text-gray-100">
                         {user?.tran_id}
                       </td>
+                      <td className="py-3 px-5  pl-8">
+                    <button onClick={() => handleDelete(user._id)}>
+                      <FaTrash className="text-red-500 hover:text-red-600 text-lg flex justify-end transition-all" />
+                    </button>
+                  </td>
                     </tr>
                   ))}
                 </tbody>
@@ -154,9 +190,13 @@ const AllPayments = () => {
           <div className="block lg:hidden mt-4">
             {currentData.map((user, index) => (
               <div key={index} className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 mb-4">
-                <h2 className="font-bold text-gray-900 dark:text-gray-100">
+               <div className="flex justify-between pr-2 ">
+               <h2 className="font-bold text-gray-900 dark:text-gray-100">
                   Payment {index + 1 + (currentPage - 1) * itemsPerPage}
-                </h2>
+                </h2>   <button onClick={() => handleDelete(user._id)}>
+                      <FaTrash className="text-red-500 hover:text-red-600 text-lg flex justify-end transition-all" />
+                    </button>
+               </div>
                 <p className="text-gray-700 dark:text-gray-300">
                   <strong>Name:</strong> {user?.name}
                 </p>
@@ -177,6 +217,7 @@ const AllPayments = () => {
                 <p className="text-gray-700 dark:text-gray-300">
                   <strong>Transaction ID:</strong> {user?.tran_id}
                 </p>
+               
               </div>
             ))}
           </div>

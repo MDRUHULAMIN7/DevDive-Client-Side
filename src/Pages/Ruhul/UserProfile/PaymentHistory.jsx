@@ -18,7 +18,7 @@ const PaymentHistory = () => {
   const [filteredPayments, setFilteredPayments] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-
+console.log(payments)
 
   useEffect(() => {
     const query = searchQuery.toLowerCase();
@@ -155,9 +155,9 @@ const PaymentHistory = () => {
                   <td className="py-3 px-5 gap-1">
                     {payment.amount} 
                   </td>
-                  <td className="py-3 px-5">
+                  <td className="py-3 px-5  pl-8">
                     <button onClick={() => handleDelete(payment._id)}>
-                      <FaTrash className="text-red-500 hover:text-red-600 transition-all" />
+                      <FaTrash className="text-red-500 hover:text-red-600 text-lg flex justify-end transition-all" />
                     </button>
                   </td>
                 </tr>

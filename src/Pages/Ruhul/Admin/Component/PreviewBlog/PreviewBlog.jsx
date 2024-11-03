@@ -54,7 +54,7 @@ const PreviewBlog = () => {
       <div className="overflow-x-auto">
         <table className="min-w-full table-auto text-left">
           <thead>
-            <tr className="">
+            <tr className="bg-pm-color">
               <th className="p-4">Banner</th>
               <th className="p-4">Headline</th>
               <th className="p-4 hidden md:flex">Post Date</th>
@@ -96,7 +96,7 @@ const PreviewBlog = () => {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center space-x-3 items-center mt-4 mx-4">
+      { !blogs.length > 5 && (  <div className="flex justify-center space-x-3 items-center mt-4 mx-4">
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
@@ -116,7 +116,7 @@ const PreviewBlog = () => {
         >
           Next
         </button>
-      </div>
+      </div>)}
 
       {/* Enhanced Modal */}
       {isOpen && (

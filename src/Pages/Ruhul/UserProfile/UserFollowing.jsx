@@ -2,6 +2,13 @@ import { Link } from "react-router-dom";
 
 
 const UserFollowing = ({followingdata}) => {
+
+    if(followingdata.length == 0) {
+   
+       return(<p className="text-gray-900 text-2xl dark:text-gray-100 ">
+            No following  User
+        </p>)
+    }
     console.log(followingdata);
     return (
         <section className="text-gray-800 dark:text-gray-100">
