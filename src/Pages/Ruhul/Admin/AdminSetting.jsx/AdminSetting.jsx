@@ -12,6 +12,7 @@ import { TfiWrite } from "react-icons/tfi";
 
 import Switcher1 from "../../../../Components/Fardus/Switcher1/Switcher1";
 import Logo from "../../../../Components/Fardus/Logo/Logo";
+import { FaUserShield } from "react-icons/fa6";
 const AdminSetting = () => {
   const [isActive, setActive] = useState(false);
 
@@ -54,6 +55,17 @@ const AdminSetting = () => {
                 }>
                 <FaUsers className="text-lg" />
                 <span className="mx-3 font-medium text-xs">ManageUsers</span>
+              </NavLink>
+              <NavLink
+                to={`/admin/settings/premium-users`}
+                onClick={handleToggle}
+                className={({ isActive }) =>
+                  `text-gray-800 dark:text-gray-100 flex items-center px-4 py-2 rounded-md hover:bg-pm-color hover:text-white ${
+                    isActive ? "bg-pm-color text-white" : ""
+                  }`
+                }>
+                <FaUserShield className="text-lg" />
+                <span className="mx-3 font-medium text-xs">PremiumUsers</span>
               </NavLink>
               <NavLink
                 to={`/admin/settings/manage-mentors`}

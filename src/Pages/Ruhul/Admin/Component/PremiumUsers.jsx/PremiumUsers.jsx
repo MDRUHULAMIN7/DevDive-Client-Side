@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import useAxiosPublic from "../../../../../Hooks/useAxiosPublic";
 import { Link } from "react-router-dom";
 
-const ManageUsers = () => {
+const PremiumUsers = () => {
   const [, setShowModal] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,8 +19,7 @@ const ManageUsers = () => {
       users.filter(
         (user) =>
           user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          user.userType.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          user.role.toLowerCase().includes(searchTerm.toLowerCase())
+          user.userType.toLowerCase().includes(searchTerm.toLowerCase())
       );
     setFilteredUsers(filtered || []);
     setCurrentPage(1); // Reset to the first page on search
@@ -29,13 +28,11 @@ const ManageUsers = () => {
   const handleMouseEnter = (index) => setShowModal(index);
   const handleMouseLeave = () => setShowModal(null);
 
-  const handleUserAction = (user, actionType) => {
-    const isRoleChange = actionType === "roleChange";
-    const actionMessage = isRoleChange
-      ? `Change role for <strong>${user.name}</strong>?`
-      : `Do you really want to ${
-          user.role === "blocked" ? "unblock" : "block"
-        } <strong>${user.name}</strong>?`;
+  const handleUserAction = (user) => {
+    const isPremium = user.userType === "premium";
+    const actionMessage = isPremium
+      ? `Change <strong>${user.name}</strong> to "normal"?`
+      : `Change <strong>${user.name}</strong> to "premium"?`;
 
     Swal.fire({
       title: `<h2 class="text-2xl text-[#2c3e57] dark:text-white font-serif font-semibold">Are you sure?</h2>`,
@@ -45,9 +42,7 @@ const ManageUsers = () => {
       imageHeight: 100,
       imageAlt: `${user.name}`,
       showCancelButton: true,
-      confirmButtonText: isRoleChange
-        ? "Yes, change role!"
-        : `${user.role === "blocked" ? "Unblock" : "Block"} User`,
+      confirmButtonText: isPremium ? "Yes, make normal" : "Yes, make premium",
       cancelButtonText: "Cancel",
       buttonsStyling: false,
       customClass: {
@@ -63,36 +58,19 @@ const ManageUsers = () => {
         return;
       }
 
-      const newRole = isRoleChange
-        ? user.role === "admin"
-          ? "member"
-          : "admin"
-        : user.role === "blocked"
-        ? "member"
-        : "blocked";
-      const newRoleData = { data: newRole };
+      const newUserType = isPremium ? "normal" : "premium";
+      const newUserTypeData = { data: newUserType };
 
       axiosPublic
-        .put(`/update-user-role/${user.email}`, newRoleData)
+        .put(`/update-user-type/${user.email}`, newUserTypeData)
         .then((res) => {
-          refetch()
+          refetch();
           if (res.status === 200) {
-            refetch();
             Swal.fire({
               title: `<h2 class="text-xl font-semibold text-[#2c3e57] dark:text-white">${
-                isRoleChange
-                  ? "Role Changed!"
-                  : user.role === "blocked"
-                  ? "Unblocked!"
-                  : "Blocked!"
+                isPremium ? "Changed to Normal!" : "Changed to Premium!"
               }</h2>`,
-              html: `<p class="text-gray-600 dark:text-gray-300">${
-                isRoleChange
-                  ? `The role for <strong>${user.name}</strong> has been successfully changed to <strong>${newRole}</strong>.`
-                  : `User <strong>${user.name}</strong> has been successfully ${
-                      user.role === "blocked" ? "unblocked" : "blocked"
-                    }.`
-              }</p>`,
+              html: `<p class="text-gray-600 dark:text-gray-300">User <strong>${user.name}</strong> has been successfully changed to <strong>${newUserType}</strong>.</p>`,
               icon: "success",
               customClass: {
                 popup: "swal2-show bg-white dark:bg-gray-800 rounded-lg shadow-lg p-2",
@@ -126,84 +104,102 @@ const ManageUsers = () => {
 
   return (
     <section className="p-2 sm:p-2 mt-12 md:mt-4 bg-transparent text-gray-900 dark:text-gray-100">
-      <h1 className="text-2xl font-bold text-[#2c3e57] dark:text-gray-100 my-4 ">Manage Users ({users?.length})</h1>
+      <h1 className="text-2xl font-bold text-[#2c3e57] dark:text-gray-100 my-4">
+        Manage Premium Users ({users?.length})
+      </h1>
 
-      <div className="mb-6 flex ">
+      <div className="mb-6 flex">
         <input
           type="text"
           placeholder="Search users..."
-          className="w-full md:w-1/2 lg:w-1/3 p-2 border border-gray-300 dark:border-gray-500 rounded-lg shadow-sm bg-gray-100 dark:bg-gray-800  dark:text-white text-gray-900 placeholder-gray-500"
+          className="w-full md:w-1/2 lg:w-1/3 p-2 border border-gray-300 dark:border-gray-500 rounded-lg shadow-sm bg-gray-100 dark:bg-gray-800 dark:text-white text-gray-900 placeholder-gray-500"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full table-auto text-left bg-white dark:bg-gray-800 rounded-lg shadow-md">
-          <thead>
-            <tr className="bg-pm-color text-gray-900 dark:text-white">
-              <th className="p-2">Photo</th>
-              <th className="p-2">Name</th>
-              <th className="p-2">Role</th>
-              <th className="p-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentUsers &&
-              currentUsers.map((user, index) => (
-                <tr key={index} className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+      {currentUsers.length === 0 ? (
+        <div className="text-center py-8 text-2xl text-gray-500 dark:text-gray-400">
+          No users found for <strong>{searchTerm}</strong>.
+        </div>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full table-auto text-left bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <thead>
+              <tr className="bg-pm-color text-gray-900 dark:text-white">
+                <th className="p-2">Photo</th>
+                <th className="p-2">Name</th>
+                <th className="p-2">User Type</th>
+                <th className="p-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentUsers.map((user, index) => (
+                <tr
+                  key={index}
+                  className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
                   <Link to={`/users/${user?.email}/profile`}>
-                  <td className="p-2">
-                    <img
-                      src={user?.photoUrl}
-                      alt={user?.name}
-                      className="w-12 h-12 rounded-full border dark:border-gray-500 cursor-pointer"
-                      onMouseEnter={() => handleMouseEnter(index)}
-                      onMouseLeave={handleMouseLeave}
-                    />
-                  </td>
+                    <td className="p-2">
+                      <img
+                        src={user?.photoUrl}
+                        alt={user?.name}
+                        className="w-12 h-12 rounded-full border dark:border-gray-500 cursor-pointer"
+                        onMouseEnter={() => handleMouseEnter(index)}
+                        onMouseLeave={handleMouseLeave}
+                      />
+                    </td>
                   </Link>
-                  
+
                   <td className="p-2">{user.name}</td>
-                
+
                   <td className="p-2">
-                    <p className={`px-3 py-1 w-fit rounded-lg font-semibold ${
-                      user.role === 'admin' ? "bg-pm-color text-white" : "bg-green-500 text-white"
-                    }`}>
-                      {user.role}
+                    <p
+                      className={`px-3 py-1 w-fit rounded-lg font-semibold ${
+                        user.userType === "premium"
+                          ? "bg-pm-color text-white"
+                          : "bg-green-500 text-white"
+                      }`}
+                    >
+                      {user.userType}
                     </p>
                   </td>
                   <td className="p-2">
                     <button
                       className="bg-pm-color text-white px-4 py-1 rounded-lg hover:bg-blue-600 transition transform hover:scale-105 shadow"
-                      onClick={() => handleUserAction(user, "roleChange")}
+                      onClick={() => handleUserAction(user)}
                     >
-                      Change Role
+                      {user.userType === "premium"
+                        ? "Make Normal"
+                        : "Make Premium"}
                     </button>
                   </td>
                 </tr>
               ))}
-          </tbody>
-        </table>
-      </div>
+            </tbody>
+          </table>
+        </div>
+      )}
 
-      <div className="mt-6 flex justify-center">
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index}
-            className={`px-3 py-2 mx-1 ${
-              index + 1 === currentPage
-                ? "bg-pm-color text-white font-bold"
-                : "bg-gray-300 text-gray-700"
-            } rounded-lg shadow hover:bg-pm-color hover:text-white transition`}
-            onClick={() => setCurrentPage(index + 1)}
-          >
-            {index + 1}
-          </button>
-        ))}
-      </div>
+      {currentUsers.length > 0 && (
+        <div className="mt-6 flex justify-center">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index}
+              className={`px-3 py-2 mx-1 ${
+                index + 1 === currentPage
+                  ? "bg-pm-color text-white font-bold"
+                  : "bg-gray-300 text-gray-700"
+              } rounded-lg shadow hover:bg-pm-color hover:text-white transition`}
+              onClick={() => setCurrentPage(index + 1)}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
+      )}
     </section>
   );
 };
 
-export default ManageUsers;
+export default PremiumUsers;

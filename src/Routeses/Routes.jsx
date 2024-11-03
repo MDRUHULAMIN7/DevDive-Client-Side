@@ -33,6 +33,7 @@ import UserP from "../Pages/Ruhul/UserProfile/UserP";
 import UserPosts from "../Pages/Ruhul/UserProfile/UserPosts";
 import PaymentHistory from "../Pages/Ruhul/UserProfile/PaymentHistory";
 import ManagUsers from "../Pages/Ruhul/Admin/Component/ManageUsers/ManagUsers";
+import PremiumUsers from "../Pages/Ruhul/Admin/Component/PremiumUsers.jsx/PremiumUsers";
 import AllPosts from "../Pages/Ruhul/Admin/Component/AllPosts";
 import Followers from "../Pages/Ruhul/Admin/Component/Followers/Followers";
 import PostBlog from "../Pages/Ruhul/Admin/Component/PostBlog/PostBlog";
@@ -234,6 +235,16 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <AdminRoute>
               <ManagUsers></ManagUsers>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/admin/settings/premium-users",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <PremiumUsers></PremiumUsers>
             </AdminRoute>
           </PrivateRoute>
         ),
