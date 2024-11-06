@@ -53,6 +53,7 @@ Welcome to **DevDive**! This project is a developer-centric platform designed to
 
 ### Nifat Hossain
 - Implemented **Follower Notifications** for increased user engagement.
+- **Post Details Page** and **Comment Section** of Posts
 
 ### Firoz Nur
 - Designed a **Responsive Footer**, managed admin **Reports**, and optimized data performance.
