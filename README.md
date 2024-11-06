@@ -1,6 +1,3 @@
-Here’s a comprehensive GitHub repository documentation template for your project, DevDive. This structure presents a professional overview, simplifies the setup process, and clearly highlights each key feature and team contribution, making it accessible for recruiters and other developers. 
-
----
 
 # DevDive - Developer Community Platform
 
