@@ -65,6 +65,9 @@
     "swiper": "^11.1.14",
     "zego-express-engine-webrtc": "^3.6.0"
   },
+  "overrides": {
+  "protobufjs": "^7.2.4"
+},
   "devDependencies": {
     "@eslint/js": "^9.9.0",
     "@types/react": "^18.3.3",
